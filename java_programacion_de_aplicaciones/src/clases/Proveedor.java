@@ -7,7 +7,7 @@ public class Proveedor{
 	
 		private String nomCompania;
 		private String link;
-		private List <Producto> productos = new ArrayList<>();
+		private List <Producto> Productos = new ArrayList<>();
 		
 		public Proveedor(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String nomCompania, String link){
 			super(nickName, nombre, apellido, email, fecha, foto);
@@ -16,7 +16,7 @@ public class Proveedor{
 		}
 		
 		public void agregarProducto(Producto producto){
-			this.productos.add(producto);
+			this.Productos.add(producto);
 		}
 		
 		public void setlink(String link){
@@ -33,5 +33,13 @@ public class Proveedor{
 		
 		public String getnomCompania(){
 			return this.nomCompania;
+		}
+	
+		public void setProductos(List <Producto> Productos){
+			this.Productos = Productos; 
+		}
+		
+		public List <Producto> getProductos(){
+			return this.Productos;
 		}
 }
