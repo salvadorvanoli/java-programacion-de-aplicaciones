@@ -3,7 +3,7 @@ package clases;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Proveedor{
+public class Proveedor extends Usuario{
 	
 		private String nomCompania;
 		private String link;
