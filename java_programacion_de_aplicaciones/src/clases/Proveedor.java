@@ -9,10 +9,11 @@ public class Proveedor extends Usuario{
 		private String link;
 		private List <Producto> Productos = new ArrayList<>();
 		
-		public Proveedor(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String nomCompania, String link){
+		public Proveedor(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String nomCompania, String link, List <Producto> Productos){
 			super(nickName, nombre, apellido, email, fecha, foto);
 			this.link = link;
 			this.nomCompania = nomCompania;
+			this.Productos = Productos;
 		}
 		
 		public void agregarProducto(Producto producto){
