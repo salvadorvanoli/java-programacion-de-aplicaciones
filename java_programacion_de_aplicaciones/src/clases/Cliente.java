@@ -14,9 +14,7 @@ public class Cliente extends Usuario{
 		}
 		
 		public DTCliente getDTCliente() {
-			DTCliente c;
-			c.setEmall(c.getEmail());
-			c.setNickname(c.getNickname());
+			DTCliente c = new DTCliente(this.getNickname(), this.getEmail());
 			return c;
 		}
 		
