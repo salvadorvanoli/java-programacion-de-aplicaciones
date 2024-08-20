@@ -173,7 +173,7 @@ public class Principal extends JFrame {
 		ordenDeCompraInternalFrame.getContentPane().setLayout(null);
 		
 		JTextPane tituloCancelarOrdenDeCompra = new JTextPane();
-		tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccine \"Eliminar\"");
+		tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccione \"Eliminar\"");
 		tituloCancelarOrdenDeCompra.setBounds(27, 11, 534, 20);
 		ordenDeCompraInternalFrame.getContentPane().add(tituloCancelarOrdenDeCompra);
 		
