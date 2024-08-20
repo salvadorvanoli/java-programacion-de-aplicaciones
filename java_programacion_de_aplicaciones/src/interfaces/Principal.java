@@ -223,9 +223,14 @@ public class Principal extends JFrame {
 		lblNewLabel_2.setBounds(38, 319, 144, 20);
 		RegistrarCliente.getContentPane().add(lblNewLabel_2);
 		
+		JButton btnNewButton = new JButton("Registrar");
+		btnNewButton.setBackground(new Color(250, 214, 235));
+		btnNewButton.setBounds(255, 335, 89, 23);
+		RegistrarCliente.getContentPane().add(btnNewButton);
+		
 		JInternalFrame RegistrarProveedor = new JInternalFrame("Registrar Usuario");
 		RegistrarProveedor.getContentPane().setBackground(new Color(253, 238, 247));
-		RegistrarProveedor.setBounds(307, 29, 385, 486);
+		RegistrarProveedor.setBounds(222, 11, 385, 486);
 		contentPane.add(RegistrarProveedor);
 		RegistrarProveedor.getContentPane().setLayout(null);
 		
@@ -336,6 +341,11 @@ public class Principal extends JFrame {
 		JButton lblNewLabel_2_1 = new JButton("Asignar una imagen");
 		lblNewLabel_2_1.setBounds(38, 398, 144, 20);
 		RegistrarProveedor.getContentPane().add(lblNewLabel_2_1);
+		
+		JButton btnNewButton_1 = new JButton("Registrar");
+		btnNewButton_1.setBackground(new Color(250, 214, 235));
+		btnNewButton_1.setBounds(256, 422, 89, 23);
+		RegistrarProveedor.getContentPane().add(btnNewButton_1);
 		RegistrarProveedor.setVisible(true);
 		RegistrarCliente.setVisible(true);
 	}
