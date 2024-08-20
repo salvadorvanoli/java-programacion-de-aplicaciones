@@ -11,11 +11,25 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JInternalFrame;
+import javax.swing.JCheckBox;
+import javax.swing.Box;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Choice;
+import javax.swing.JList;
+import java.awt.List;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField inputNombreCategoriaAltaDeCategoria;
+	private JTextPane tituloAltaDeCategoria;
 
 	/**
 	 * Launch the application.
@@ -103,6 +117,96 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JInternalFrame altaCategoriaInternalFrame = new JInternalFrame("AltaDeCategoría");
+		altaCategoriaInternalFrame.setBounds(10, 0, 600, 290);
+		contentPane.add(altaCategoriaInternalFrame);
+		altaCategoriaInternalFrame.getContentPane().setLayout(null);
+		
+		JCheckBox contieneProductosCheckbox = new JCheckBox("Contiene productos");
+		contieneProductosCheckbox.setBounds(44, 94, 119, 23);
+		altaCategoriaInternalFrame.getContentPane().add(contieneProductosCheckbox);
+		
+		tituloAltaDeCategoria = new JTextPane();
+		tituloAltaDeCategoria.setText("Bienvenido a la interfaz de creación de una categoría, rellene el formulario e ingrese \"Aceptar\" para continuar.");
+		tituloAltaDeCategoria.setBounds(24, 11, 535, 20);
+		altaCategoriaInternalFrame.getContentPane().add(tituloAltaDeCategoria);
+		
+		inputNombreCategoriaAltaDeCategoria = new JTextField();
+		inputNombreCategoriaAltaDeCategoria.setBounds(44, 67, 147, 20);
+		altaCategoriaInternalFrame.getContentPane().add(inputNombreCategoriaAltaDeCategoria);
+		inputNombreCategoriaAltaDeCategoria.setColumns(10);
+		
+		JLabel labelNombreCategoriaAltaDeCategoria = new JLabel("Nombre de la categoría *");
+		labelNombreCategoriaAltaDeCategoria.setBounds(44, 42, 128, 14);
+		altaCategoriaInternalFrame.getContentPane().add(labelNombreCategoriaAltaDeCategoria);
+		
+		JButton cancelarAltaDeCategoria = new JButton("Cancelar");
+		cancelarAltaDeCategoria.setBounds(387, 226, 89, 23);
+		altaCategoriaInternalFrame.getContentPane().add(cancelarAltaDeCategoria);
+		
+		JButton aceptarAltaDeCategoria = new JButton("Aceptar");
+		aceptarAltaDeCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		aceptarAltaDeCategoria.setBounds(486, 226, 89, 23);
+		altaCategoriaInternalFrame.getContentPane().add(aceptarAltaDeCategoria);
+		
+		Choice selectCategoriaPadreAltaDeCategoria = new Choice();
+		selectCategoriaPadreAltaDeCategoria.setBounds(44, 158, 147, 20);
+		altaCategoriaInternalFrame.getContentPane().add(selectCategoriaPadreAltaDeCategoria);
+		
+		JLabel labelSelectDeCategoriaAltaDeCategoria = new JLabel("Seleccione una categoría a la que pertenezca");
+		labelSelectDeCategoriaAltaDeCategoria.setBounds(45, 132, 244, 14);
+		altaCategoriaInternalFrame.getContentPane().add(labelSelectDeCategoriaAltaDeCategoria);
+		
+		JTextPane obligatorioAltaDeCategoria = new JTextPane();
+		obligatorioAltaDeCategoria.setText("Los elementos marcados con * son obligatorios");
+		obligatorioAltaDeCategoria.setBounds(24, 194, 231, 20);
+		altaCategoriaInternalFrame.getContentPane().add(obligatorioAltaDeCategoria);
+		
+		JInternalFrame ordenDeCompraInternalFrame = new JInternalFrame("CancelarOrdenDeCompra");
+		ordenDeCompraInternalFrame.setBounds(10, 301, 600, 264);
+		contentPane.add(ordenDeCompraInternalFrame);
+		ordenDeCompraInternalFrame.getContentPane().setLayout(null);
+		
+		JTextPane tituloCancelarOrdenDeCompra = new JTextPane();
+		tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccine \"Eliminar\"");
+		tituloCancelarOrdenDeCompra.setBounds(27, 11, 534, 20);
+		ordenDeCompraInternalFrame.getContentPane().add(tituloCancelarOrdenDeCompra);
+		
+		JLabel labelSelectOrdenCancelarOrdenDeCompra = new JLabel("Seleccione la orden de compra *");
+		labelSelectOrdenCancelarOrdenDeCompra.setBounds(44, 53, 162, 14);
+		ordenDeCompraInternalFrame.getContentPane().add(labelSelectOrdenCancelarOrdenDeCompra);
+		
+		Choice selectOrdenCancelarOrdenDeCompra = new Choice();
+		selectOrdenCancelarOrdenDeCompra.setBounds(44, 73, 153, 20);
+		ordenDeCompraInternalFrame.getContentPane().add(selectOrdenCancelarOrdenDeCompra);
+		
+		JButton cancelarCancelarOrdenDeCompra = new JButton("Cancelar");
+		cancelarCancelarOrdenDeCompra.setBounds(390, 200, 89, 23);
+		ordenDeCompraInternalFrame.getContentPane().add(cancelarCancelarOrdenDeCompra);
+		
+		JButton aceptarCancelarOrdenDeCompra = new JButton("Aceptar");
+		aceptarCancelarOrdenDeCompra.setBounds(489, 200, 89, 23);
+		ordenDeCompraInternalFrame.getContentPane().add(aceptarCancelarOrdenDeCompra);
+		
+		JButton eliminarOrdenCancelarOrdenDeCompra = new JButton("Eliminar");
+		eliminarOrdenCancelarOrdenDeCompra.setBounds(213, 70, 89, 23);
+		ordenDeCompraInternalFrame.getContentPane().add(eliminarOrdenCancelarOrdenDeCompra);
+		
+		JTextPane obligatorioCancelarOrdenDeCompra = new JTextPane();
+		obligatorioCancelarOrdenDeCompra.setText("Los elementos marcados con * son obligatorios");
+		obligatorioCancelarOrdenDeCompra.setBounds(27, 130, 231, 20);
+		ordenDeCompraInternalFrame.getContentPane().add(obligatorioCancelarOrdenDeCompra);
+		
+		JEditorPane textAreaInfoOrdenDeCompra = new JEditorPane();
+		textAreaInfoOrdenDeCompra.setText("Acá irá el texto con la info de la orden de compra");
+		textAreaInfoOrdenDeCompra.setBounds(315, 42, 246, 139);
+		ordenDeCompraInternalFrame.getContentPane().add(textAreaInfoOrdenDeCompra);
+		ordenDeCompraInternalFrame.setVisible(true);
+		altaCategoriaInternalFrame.setVisible(true);
 	}
-
 }
