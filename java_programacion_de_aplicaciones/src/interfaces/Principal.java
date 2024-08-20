@@ -23,6 +23,7 @@ import javax.swing.JList;
 import java.awt.List;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import java.awt.TextArea;
 
 public class Principal extends JFrame {
 
@@ -202,9 +203,9 @@ public class Principal extends JFrame {
 		obligatorioCancelarOrdenDeCompra.setBounds(27, 130, 231, 20);
 		ordenDeCompraInternalFrame.getContentPane().add(obligatorioCancelarOrdenDeCompra);
 		
-		JEditorPane textAreaInfoOrdenDeCompra = new JEditorPane();
-		textAreaInfoOrdenDeCompra.setText("Acá irá el texto con la info de la orden de compra");
-		textAreaInfoOrdenDeCompra.setBounds(315, 42, 246, 139);
+		TextArea textAreaInfoOrdenDeCompra = new TextArea();
+		textAreaInfoOrdenDeCompra.setText("Aquí irá el texto con la info de la orden de compra");
+		textAreaInfoOrdenDeCompra.setBounds(325, 53, 249, 120);
 		ordenDeCompraInternalFrame.getContentPane().add(textAreaInfoOrdenDeCompra);
 		ordenDeCompraInternalFrame.setVisible(true);
 		altaCategoriaInternalFrame.setVisible(true);
