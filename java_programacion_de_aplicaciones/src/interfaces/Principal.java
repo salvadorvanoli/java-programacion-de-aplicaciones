@@ -131,7 +131,7 @@ public class Principal extends JFrame {
 		JInternalFrame RegistrarCliente = new JInternalFrame("Registrar Usuario");
 		RegistrarCliente.setBackground(new Color(253, 238, 247));
 		RegistrarCliente.setClosable(true);
-		RegistrarCliente.setBounds(-329, 31, 385, 399);
+		RegistrarCliente.setBounds(-274, 49, 385, 399);
 		contentPane.add(RegistrarCliente);
 		RegistrarCliente.getContentPane().setLayout(null);
 		
@@ -351,6 +351,7 @@ public class Principal extends JFrame {
 		RegistrarProveedor.getContentPane().add(btnNewButton_1);
 		
 		JInternalFrame VerInfoProducto = new JInternalFrame("Ver Información de Producto");
+		VerInfoProducto.setClosable(true);
 		VerInfoProducto.setBounds(148, 49, 329, 469);
 		contentPane.add(VerInfoProducto);
 		VerInfoProducto.getContentPane().setLayout(null);
