@@ -16,6 +16,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 
 public class Principal extends JFrame {
 
@@ -129,7 +131,7 @@ public class Principal extends JFrame {
 		JInternalFrame RegistrarCliente = new JInternalFrame("Registrar Usuario");
 		RegistrarCliente.setBackground(new Color(253, 238, 247));
 		RegistrarCliente.setClosable(true);
-		RegistrarCliente.setBounds(0, 0, 385, 399);
+		RegistrarCliente.setBounds(-329, 31, 385, 399);
 		contentPane.add(RegistrarCliente);
 		RegistrarCliente.getContentPane().setLayout(null);
 		
@@ -231,7 +233,7 @@ public class Principal extends JFrame {
 		JInternalFrame RegistrarProveedor = new JInternalFrame("Registrar Usuario");
 		RegistrarProveedor.setClosable(true);
 		RegistrarProveedor.getContentPane().setBackground(new Color(253, 238, 247));
-		RegistrarProveedor.setBounds(222, 11, 385, 486);
+		RegistrarProveedor.setBounds(-319, 11, 385, 486);
 		contentPane.add(RegistrarProveedor);
 		RegistrarProveedor.getContentPane().setLayout(null);
 		
@@ -347,6 +349,37 @@ public class Principal extends JFrame {
 		btnNewButton_1.setBackground(new Color(250, 214, 235));
 		btnNewButton_1.setBounds(256, 422, 89, 23);
 		RegistrarProveedor.getContentPane().add(btnNewButton_1);
+		
+		JInternalFrame VerInfoProducto = new JInternalFrame("Ver Información de Producto");
+		VerInfoProducto.setBounds(148, 49, 329, 469);
+		contentPane.add(VerInfoProducto);
+		VerInfoProducto.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Seleccione una categoría del sistema");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_3.setBounds(0, 22, 313, 14);
+		VerInfoProducto.getContentPane().add(lblNewLabel_3);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(30, 47, 255, 22);
+		VerInfoProducto.getContentPane().add(comboBox);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("Seleccione un producto");
+		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_3_1.setBounds(0, 98, 313, 14);
+		VerInfoProducto.getContentPane().add(lblNewLabel_3_1);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(30, 123, 255, 22);
+		VerInfoProducto.getContentPane().add(comboBox_1);
+		
+		JTextArea txtrAquSeMostrarn = new JTextArea();
+		txtrAquSeMostrarn.setText("Aquí se mostrarán los datos \r\ndel producto");
+		txtrAquSeMostrarn.setBounds(30, 193, 255, 221);
+		VerInfoProducto.getContentPane().add(txtrAquSeMostrarn);
+		VerInfoProducto.setVisible(true);
 		RegistrarProveedor.setVisible(true);
 		RegistrarCliente.setVisible(true);
 	}
