@@ -29,14 +29,16 @@ import javax.swing.JTable;
 import java.awt.GridLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField CampoNombre;
+	private JTextField CampoEspecificacion;
+	private JTextField CampoPrecio;
 
 	/**
 	 * Launch the application.
@@ -139,114 +141,142 @@ public class Principal extends JFrame {
 		contentPane.add(RegistrarProducto);
 		RegistrarProducto.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Descripción");
-		lblNewLabel.setBounds(10, 55, 54, 14);
-		RegistrarProducto.getContentPane().add(lblNewLabel);
+		JLabel TextoDescripcion = new JLabel("Descripción");
+		TextoDescripcion.setBounds(10, 55, 54, 14);
+		RegistrarProducto.getContentPane().add(TextoDescripcion);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 25, 86, 20);
-		RegistrarProducto.getContentPane().add(textField);
-		textField.setColumns(10);
+		CampoNombre = new JTextField();
+		CampoNombre.setBounds(10, 25, 86, 20);
+		RegistrarProducto.getContentPane().add(CampoNombre);
+		CampoNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(110, 25, 86, 20);
-		RegistrarProducto.getContentPane().add(textField_1);
+		CampoEspecificacion = new JTextField();
+		CampoEspecificacion.setColumns(10);
+		CampoEspecificacion.setBounds(110, 25, 86, 20);
+		RegistrarProducto.getContentPane().add(CampoEspecificacion);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setBounds(10, 11, 46, 14);
-		RegistrarProducto.getContentPane().add(lblNewLabel_1);
+		JLabel TextoNombre = new JLabel("Nombre");
+		TextoNombre.setBounds(10, 11, 46, 14);
+		RegistrarProducto.getContentPane().add(TextoNombre);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 69, 186, 43);
-		RegistrarProducto.getContentPane().add(textArea);
+		JTextArea CampoDescripcion = new JTextArea();
+		CampoDescripcion.setBounds(10, 69, 186, 43);
+		RegistrarProducto.getContentPane().add(CampoDescripcion);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Especificación");
-		lblNewLabel_1_1.setBounds(110, 11, 71, 14);
-		RegistrarProducto.getContentPane().add(lblNewLabel_1_1);
+		JLabel TextoEspecificacion = new JLabel("Especificación");
+		TextoEspecificacion.setBounds(110, 11, 71, 14);
+		RegistrarProducto.getContentPane().add(TextoEspecificacion);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Precio");
-		lblNewLabel_1_2.setBounds(10, 125, 29, 14);
-		RegistrarProducto.getContentPane().add(lblNewLabel_1_2);
+		JLabel TextoPrecio = new JLabel("Precio");
+		TextoPrecio.setBounds(10, 125, 29, 14);
+		RegistrarProducto.getContentPane().add(TextoPrecio);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(10, 139, 86, 20);
-		RegistrarProducto.getContentPane().add(textField_2);
+		CampoPrecio = new JTextField();
+		CampoPrecio.setColumns(10);
+		CampoPrecio.setBounds(10, 139, 86, 20);
+		RegistrarProducto.getContentPane().add(CampoPrecio);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Imagen");
-		lblNewLabel_1_2_1.setBounds(110, 125, 46, 14);
-		RegistrarProducto.getContentPane().add(lblNewLabel_1_2_1);
+		JLabel TextoImagen = new JLabel("Imagen");
+		TextoImagen.setBounds(110, 125, 46, 14);
+		RegistrarProducto.getContentPane().add(TextoImagen);
 		
-		JButton btnNewButton = new JButton("Seleccionar");
-		btnNewButton.setBounds(110, 138, 89, 23);
-		RegistrarProducto.getContentPane().add(btnNewButton);
+		JButton BotonSeleccionImagen = new JButton("Seleccionar...");
+		BotonSeleccionImagen.setBounds(110, 138, 89, 23);
+		RegistrarProducto.getContentPane().add(BotonSeleccionImagen);
 		
-		JButton btnNewButton_1 = new JButton("Registrar");
-		btnNewButton_1.setBounds(52, 170, 104, 23);
-		RegistrarProducto.getContentPane().add(btnNewButton_1);
+		JButton BotonRegistrar = new JButton("Registrar");
+		BotonRegistrar.setBounds(52, 170, 104, 23);
+		RegistrarProducto.getContentPane().add(BotonRegistrar);
 		
 		JInternalFrame VerInfoProveedor = new JInternalFrame("Ver información de Proveedor");
 		VerInfoProveedor.setClosable(true);
 		VerInfoProveedor.setResizable(true);
 		VerInfoProveedor.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		VerInfoProveedor.setBounds(325, 24, 256, 285);
+		VerInfoProveedor.setBounds(325, 24, 256, 220);
 		contentPane.add(VerInfoProveedor);
 		VerInfoProveedor.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Nick");
-		lblNewLabel_1_1_1.setBounds(0, 1, 120, 42);
-		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VerInfoProveedor.getContentPane().add(lblNewLabel_1_1_1);
+		JLabel Nick = new JLabel("Nick");
+		Nick.setBounds(0, 1, 120, 28);
+		Nick.setHorizontalAlignment(SwingConstants.CENTER);
+		Nick.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		VerInfoProveedor.getContentPane().add(Nick);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(120, 1, 120, 42);
-		VerInfoProveedor.getContentPane().add(label);
+		JLabel Foto = new JLabel("Foto");
+		Foto.setHorizontalAlignment(SwingConstants.CENTER);
+		Foto.setBounds(120, 1, 120, 109);
+		VerInfoProveedor.getContentPane().add(Foto);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("Nombre");
-		lblNewLabel_1_3.setBounds(0, 43, 120, 42);
-		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VerInfoProveedor.getContentPane().add(lblNewLabel_1_3);
+		JLabel Nombre = new JLabel("Nombre");
+		Nombre.setSize(new Dimension(19, 14));
+		Nombre.setMinimumSize(new Dimension(19, 14));
+		Nombre.setMaximumSize(new Dimension(19, 14));
+		Nombre.setBounds(0, 28, 120, 28);
+		Nombre.setHorizontalAlignment(SwingConstants.CENTER);
+		Nombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		VerInfoProveedor.getContentPane().add(Nombre);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setBounds(120, 43, 120, 42);
-		VerInfoProveedor.getContentPane().add(label_1);
+		JLabel Apellido = new JLabel("Apellido");
+		Apellido.setBounds(0, 55, 120, 28);
+		Apellido.setHorizontalAlignment(SwingConstants.CENTER);
+		Apellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		VerInfoProveedor.getContentPane().add(Apellido);
 		
-		JLabel lblNewLabel_1_2_2 = new JLabel("Precio");
-		lblNewLabel_1_2_2.setBounds(0, 85, 120, 42);
-		lblNewLabel_1_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VerInfoProveedor.getContentPane().add(lblNewLabel_1_2_2);
+		JLabel FechaNacimiento = new JLabel("Fecha de Nacimiento");
+		FechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
+		FechaNacimiento.setBounds(0, 109, 120, 28);
+		VerInfoProveedor.getContentPane().add(FechaNacimiento);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setBounds(120, 85, 120, 42);
-		VerInfoProveedor.getContentPane().add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_1_2_1_1 = new JLabel("Imagen");
-		lblNewLabel_1_2_1_1.setBounds(0, 127, 120, 42);
-		lblNewLabel_1_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VerInfoProveedor.getContentPane().add(lblNewLabel_1_2_1_1);
+		JLabel Email = new JLabel("Email");
+		Email.setBounds(0, 136, 240, 28);
+		Email.setHorizontalAlignment(SwingConstants.CENTER);
+		Email.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		VerInfoProveedor.getContentPane().add(Email);
 		
 		JLabel label_2 = new JLabel("");
 		label_2.setBounds(120, 127, 120, 42);
 		VerInfoProveedor.getContentPane().add(label_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(0, 169, 120, 42);
-		VerInfoProveedor.getContentPane().add(lblNewLabel_3);
+		JLabel NombreCompania = new JLabel("Nombre Compania");
+		NombreCompania.setHorizontalAlignment(SwingConstants.CENTER);
+		NombreCompania.setBounds(0, 82, 120, 28);
+		VerInfoProveedor.getContentPane().add(NombreCompania);
 		
-		JLabel lblNewLabel_2 = new JLabel("Descripción");
-		lblNewLabel_2.setBounds(120, 169, 120, 42);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VerInfoProveedor.getContentPane().add(lblNewLabel_2);
+		JLabel Link = new JLabel("Link");
+		Link.setHorizontalAlignment(SwingConstants.CENTER);
+		Link.setBounds(0, 163, 240, 28);
+		VerInfoProveedor.getContentPane().add(Link);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(0, 211, 120, 42);
-		VerInfoProveedor.getContentPane().add(lblNewLabel_4);
+		JInternalFrame ListarProveedores = new JInternalFrame("ListarProveedores");
+		ListarProveedores.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		ListarProveedores.setBounds(47, 267, 163, 150);
+		contentPane.add(ListarProveedores);
+		ListarProveedores.getContentPane().setLayout(null);
+		
+		JLabel Nick_1 = new JLabel("Nick");
+		Nick_1.setHorizontalAlignment(SwingConstants.CENTER);
+		Nick_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		Nick_1.setBounds(10, 0, 127, 28);
+		ListarProveedores.getContentPane().add(Nick_1);
+		
+		JLabel Email_2 = new JLabel("Email");
+		Email_2.setHorizontalAlignment(SwingConstants.CENTER);
+		Email_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		Email_2.setBounds(10, 29, 127, 28);
+		ListarProveedores.getContentPane().add(Email_2);
+		
+		JButton BotonAnterior = new JButton("<--");
+		BotonAnterior.setBounds(0, 68, 71, 23);
+		ListarProveedores.getContentPane().add(BotonAnterior);
+		
+		JButton btnSiguiente = new JButton("-->");
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSiguiente.setBounds(76, 68, 71, 23);
+		ListarProveedores.getContentPane().add(btnSiguiente);
+		ListarProveedores.setVisible(true);
 		VerInfoProveedor.setVisible(true);
 		RegistrarProducto.setVisible(true);
 	}
