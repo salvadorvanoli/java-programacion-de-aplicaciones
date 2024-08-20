@@ -25,6 +25,10 @@ import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import java.awt.GridLayout;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Principal extends JFrame {
 
@@ -127,7 +131,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JInternalFrame RegistrarProducto = new JInternalFrame("Registrar Producto");
-		RegistrarProducto.setBounds(207, 28, 235, 205);
+		RegistrarProducto.setBounds(47, 24, 235, 232);
 		RegistrarProducto.setPreferredSize(new Dimension(250, 300));
 		RegistrarProducto.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		RegistrarProducto.setClosable(true);
@@ -167,7 +171,7 @@ public class Principal extends JFrame {
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(10, 139, 71, 20);
+		textField_2.setBounds(10, 139, 86, 20);
 		RegistrarProducto.getContentPane().add(textField_2);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Imagen");
@@ -175,8 +179,75 @@ public class Principal extends JFrame {
 		RegistrarProducto.getContentPane().add(lblNewLabel_1_2_1);
 		
 		JButton btnNewButton = new JButton("Seleccionar");
-		btnNewButton.setBounds(107, 138, 89, 23);
+		btnNewButton.setBounds(110, 138, 89, 23);
 		RegistrarProducto.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Registrar");
+		btnNewButton_1.setBounds(52, 170, 104, 23);
+		RegistrarProducto.getContentPane().add(btnNewButton_1);
+		
+		JInternalFrame VerInfoProveedor = new JInternalFrame("Ver información de Proveedor");
+		VerInfoProveedor.setClosable(true);
+		VerInfoProveedor.setResizable(true);
+		VerInfoProveedor.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		VerInfoProveedor.setBounds(325, 24, 256, 285);
+		contentPane.add(VerInfoProveedor);
+		VerInfoProveedor.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Nick");
+		lblNewLabel_1_1_1.setBounds(0, 1, 120, 42);
+		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		VerInfoProveedor.getContentPane().add(lblNewLabel_1_1_1);
+		
+		JLabel label = new JLabel("");
+		label.setBounds(120, 1, 120, 42);
+		VerInfoProveedor.getContentPane().add(label);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("Nombre");
+		lblNewLabel_1_3.setBounds(0, 43, 120, 42);
+		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		VerInfoProveedor.getContentPane().add(lblNewLabel_1_3);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setBounds(120, 43, 120, 42);
+		VerInfoProveedor.getContentPane().add(label_1);
+		
+		JLabel lblNewLabel_1_2_2 = new JLabel("Precio");
+		lblNewLabel_1_2_2.setBounds(0, 85, 120, 42);
+		lblNewLabel_1_2_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		VerInfoProveedor.getContentPane().add(lblNewLabel_1_2_2);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setBounds(120, 85, 120, 42);
+		VerInfoProveedor.getContentPane().add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("Imagen");
+		lblNewLabel_1_2_1_1.setBounds(0, 127, 120, 42);
+		lblNewLabel_1_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		VerInfoProveedor.getContentPane().add(lblNewLabel_1_2_1_1);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setBounds(120, 127, 120, 42);
+		VerInfoProveedor.getContentPane().add(label_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(0, 169, 120, 42);
+		VerInfoProveedor.getContentPane().add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("Descripción");
+		lblNewLabel_2.setBounds(120, 169, 120, 42);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		VerInfoProveedor.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setBounds(0, 211, 120, 42);
+		VerInfoProveedor.getContentPane().add(lblNewLabel_4);
+		VerInfoProveedor.setVisible(true);
 		RegistrarProducto.setVisible(true);
 	}
 }
