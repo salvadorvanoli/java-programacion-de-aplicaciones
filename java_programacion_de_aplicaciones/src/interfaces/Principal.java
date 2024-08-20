@@ -31,6 +31,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JSeparator;
 
 public class Principal extends JFrame {
 
@@ -188,15 +190,16 @@ public class Principal extends JFrame {
 		BotonRegistrar.setBounds(52, 170, 104, 23);
 		RegistrarProducto.getContentPane().add(BotonRegistrar);
 		
-		JInternalFrame VerInfoProveedor = new JInternalFrame("Ver información de Proveedor");
+		JInternalFrame VerInfoProveedor = new JInternalFrame("Información del Proveedor");
 		VerInfoProveedor.setClosable(true);
 		VerInfoProveedor.setResizable(true);
 		VerInfoProveedor.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		VerInfoProveedor.setBounds(325, 24, 256, 220);
+		VerInfoProveedor.setBounds(325, 215, 256, 220);
 		contentPane.add(VerInfoProveedor);
 		VerInfoProveedor.getContentPane().setLayout(null);
 		
 		JLabel Nick = new JLabel("Nick");
+		Nick.setBackground(new Color(0, 0, 0));
 		Nick.setBounds(0, 1, 120, 28);
 		Nick.setHorizontalAlignment(SwingConstants.CENTER);
 		Nick.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -247,35 +250,35 @@ public class Principal extends JFrame {
 		Link.setBounds(0, 163, 240, 28);
 		VerInfoProveedor.getContentPane().add(Link);
 		
-		JInternalFrame ListarProveedores = new JInternalFrame("ListarProveedores");
+		JInternalFrame ListarProveedores = new JInternalFrame("Elija un Proveedor");
 		ListarProveedores.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		ListarProveedores.setBounds(47, 267, 163, 150);
+		ListarProveedores.setBounds(325, 24, 163, 180);
 		contentPane.add(ListarProveedores);
 		ListarProveedores.getContentPane().setLayout(null);
 		
 		JLabel Nick_1 = new JLabel("Nick");
 		Nick_1.setHorizontalAlignment(SwingConstants.CENTER);
 		Nick_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Nick_1.setBounds(10, 0, 127, 28);
+		Nick_1.setBounds(10, 54, 127, 28);
 		ListarProveedores.getContentPane().add(Nick_1);
 		
 		JLabel Email_2 = new JLabel("Email");
 		Email_2.setHorizontalAlignment(SwingConstants.CENTER);
 		Email_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Email_2.setBounds(10, 29, 127, 28);
+		Email_2.setBounds(10, 81, 127, 28);
 		ListarProveedores.getContentPane().add(Email_2);
 		
-		JButton BotonAnterior = new JButton("<--");
-		BotonAnterior.setBounds(0, 68, 71, 23);
-		ListarProveedores.getContentPane().add(BotonAnterior);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(26, 34, 91, 14);
+		ListarProveedores.getContentPane().add(comboBox);
 		
-		JButton btnSiguiente = new JButton("-->");
-		btnSiguiente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnSiguiente.setBounds(76, 68, 71, 23);
-		ListarProveedores.getContentPane().add(btnSiguiente);
+		JLabel lblNewLabel = new JLabel("Elija un proveedor");
+		lblNewLabel.setBounds(26, 11, 91, 14);
+		ListarProveedores.getContentPane().add(lblNewLabel);
+		
+		JButton BotonConfirmar = new JButton("Confirmar");
+		BotonConfirmar.setBounds(26, 116, 91, 23);
+		ListarProveedores.getContentPane().add(BotonConfirmar);
 		ListarProveedores.setVisible(true);
 		VerInfoProveedor.setVisible(true);
 		RegistrarProducto.setVisible(true);
