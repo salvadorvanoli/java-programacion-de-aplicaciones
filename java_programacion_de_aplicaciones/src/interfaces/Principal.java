@@ -229,6 +229,7 @@ public class Principal extends JFrame {
 		RegistrarCliente.getContentPane().add(btnNewButton);
 		
 		JInternalFrame RegistrarProveedor = new JInternalFrame("Registrar Usuario");
+		RegistrarProveedor.setClosable(true);
 		RegistrarProveedor.getContentPane().setBackground(new Color(253, 238, 247));
 		RegistrarProveedor.setBounds(222, 11, 385, 486);
 		contentPane.add(RegistrarProveedor);
