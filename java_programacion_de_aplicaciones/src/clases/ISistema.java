@@ -1,14 +1,14 @@
 package clases;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.CategoriaNoExisteException;
 import excepciones.CategoriaRepetidaException;
 import excepciones.OrdenDeCompraNoExisteException;
-import excepciones.UsuarioNoExisteException;
+// import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.ProductoNoExisteException;
-import excepciones.ProductoRepetidoException;
+// import excepciones.ProductoRepetidoException;
 
 public abstract class ISistema{
 	
@@ -44,13 +44,15 @@ public abstract class ISistema{
 
 	public abstract DTOrdenDeCompraDetallada darAltaOrden();
 
-	public abstract void cancelarOrdenDeCompra(int numero);
+	public abstract void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 
 	public abstract boolean agregarProducto(String nombreProducto, int cantidad);
 
 	public abstract List<DTCliente> listarClientes();
 
 	public abstract boolean elegirCliente(String email);
+	
+	public abstract DTClienteDetallado verInformacionCliente();
 
 	public abstract void quitarProductoDeCategorias();
 }

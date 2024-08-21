@@ -233,7 +233,7 @@ public class Sistema extends ISistema {
 	}
 
 	@Override
-	public void cancelarOrdenDeCompra(int numero) {
+	public void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException {
 		for (OrdenDeCompra ord : this.ordenes) {
 			if (ord.getNumero() == numero) {
 				this.ordenes.remove(ord);
@@ -242,7 +242,7 @@ public class Sistema extends ISistema {
 				return;
 			}
 		}
-		throw new IllegalArgumentException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
+		throw new OrdenDeCompraNoExisteException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
 	}
 
 	@Override
@@ -299,6 +299,15 @@ public class Sistema extends ISistema {
 			}
 		}
 		throw new IllegalArgumentException("Error: El usuario de email " + '"' + email + '"' + " no existe.");
+	}
+	
+	@Override
+	public DTClienteDetallado verInformacionCliente() {
+		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Cliente)) {
+			throw new NullPointerException("Error: No se ha elegido un cliente previamente.");
+		}
+		Cliente cli = (Cliente) this.usuarioActual;
+		return cli.getDTClienteDetallado();
 	}
 
 	@Override
