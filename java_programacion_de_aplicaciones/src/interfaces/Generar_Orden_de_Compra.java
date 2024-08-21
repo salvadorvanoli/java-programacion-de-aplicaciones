@@ -46,46 +46,6 @@ public class Generar_Orden_de_Compra extends JInternalFrame {
 		setBounds(100, 100, 445, 300);
 		getContentPane().setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(32, 113, 124, 70);
-		getContentPane().add(scrollPane);
-		
-		JTree tree = new JTree();
-		scrollPane.setViewportView(tree);
-		tree.setName("");
-		tree.setToggleClickCount(1);
-		tree.setToolTipText("Selecciona el producto dentro de las categorías");
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Categoría") {
-				{
-					DefaultMutableTreeNode node_1;
-					DefaultMutableTreeNode node_2;
-					node_1 = new DefaultMutableTreeNode("Electrónicos");
-						node_2 = new DefaultMutableTreeNode("Celulares");
-							node_2.add(new DefaultMutableTreeNode("a"));
-							node_2.add(new DefaultMutableTreeNode("b"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("Laptops");
-							node_2.add(new DefaultMutableTreeNode("a"));
-							node_2.add(new DefaultMutableTreeNode("b"));
-						node_1.add(node_2);
-					getContentPane().add(node_1);
-					node_1 = new DefaultMutableTreeNode("Farmacia");
-						node_2 = new DefaultMutableTreeNode("(empty)");
-							node_2.add(new DefaultMutableTreeNode(""));
-						node_1.add(node_2);
-					getContentPane().add(node_1);
-					node_1 = new DefaultMutableTreeNode("Ropa");
-						node_1.add(new DefaultMutableTreeNode(""));
-					getContentPane().add(node_1);
-					node_1 = new DefaultMutableTreeNode("Nada");
-						node_1.add(new DefaultMutableTreeNode("a"));
-					getContentPane().add(node_1);
-				}
-			}
-		));
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setEditable(true);
 		comboBox.setBounds(32, 46, 114, 22);
@@ -144,6 +104,14 @@ public class Generar_Orden_de_Compra extends JInternalFrame {
 		});
 		btnNewButton_3.setBounds(315, 236, 89, 23);
 		getContentPane().add(btnNewButton_3);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(32, 119, 114, 64);
+		getContentPane().add(scrollPane);
+		
+		JTree tree = new JTree();
+		scrollPane.setViewportView(tree);
 
 	}
 }
