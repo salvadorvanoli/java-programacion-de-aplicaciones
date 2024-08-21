@@ -38,9 +38,6 @@ public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField CampoNombre;
-	private JTextField CampoEspecificacion;
-	private JTextField CampoPrecio;
 
 	/**
 	 * Launch the application.
@@ -128,67 +125,10 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Orden de Compra");
 		mnNewMenu_5.add(mntmNewMenuItem_11);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 153, 204));
+		contentPane.setBackground(new Color(255, 192, 203));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JInternalFrame RegistrarProducto = new JInternalFrame("Registrar Producto");
-		RegistrarProducto.setBounds(47, 24, 235, 232);
-		RegistrarProducto.setPreferredSize(new Dimension(250, 300));
-		RegistrarProducto.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		RegistrarProducto.setClosable(true);
-		RegistrarProducto.setResizable(true);
-		contentPane.add(RegistrarProducto);
-		RegistrarProducto.getContentPane().setLayout(null);
-		
-		JLabel TextoDescripcion = new JLabel("Descripción");
-		TextoDescripcion.setBounds(10, 55, 54, 14);
-		RegistrarProducto.getContentPane().add(TextoDescripcion);
-		
-		CampoNombre = new JTextField();
-		CampoNombre.setBounds(10, 25, 86, 20);
-		RegistrarProducto.getContentPane().add(CampoNombre);
-		CampoNombre.setColumns(10);
-		
-		CampoEspecificacion = new JTextField();
-		CampoEspecificacion.setColumns(10);
-		CampoEspecificacion.setBounds(110, 25, 86, 20);
-		RegistrarProducto.getContentPane().add(CampoEspecificacion);
-		
-		JLabel TextoNombre = new JLabel("Nombre");
-		TextoNombre.setBounds(10, 11, 46, 14);
-		RegistrarProducto.getContentPane().add(TextoNombre);
-		
-		JTextArea CampoDescripcion = new JTextArea();
-		CampoDescripcion.setBounds(10, 69, 186, 43);
-		RegistrarProducto.getContentPane().add(CampoDescripcion);
-		
-		JLabel TextoEspecificacion = new JLabel("Especificación");
-		TextoEspecificacion.setBounds(110, 11, 71, 14);
-		RegistrarProducto.getContentPane().add(TextoEspecificacion);
-		
-		JLabel TextoPrecio = new JLabel("Precio");
-		TextoPrecio.setBounds(10, 125, 29, 14);
-		RegistrarProducto.getContentPane().add(TextoPrecio);
-		
-		CampoPrecio = new JTextField();
-		CampoPrecio.setColumns(10);
-		CampoPrecio.setBounds(10, 139, 86, 20);
-		RegistrarProducto.getContentPane().add(CampoPrecio);
-		
-		JLabel TextoImagen = new JLabel("Imagen");
-		TextoImagen.setBounds(110, 125, 46, 14);
-		RegistrarProducto.getContentPane().add(TextoImagen);
-		
-		JButton BotonSeleccionImagen = new JButton("Seleccionar...");
-		BotonSeleccionImagen.setBounds(110, 138, 89, 23);
-		RegistrarProducto.getContentPane().add(BotonSeleccionImagen);
-		
-		JButton BotonRegistrar = new JButton("Registrar");
-		BotonRegistrar.setBounds(52, 170, 104, 23);
-		RegistrarProducto.getContentPane().add(BotonRegistrar);
-		RegistrarProducto.setVisible(true);
 	}
 }
