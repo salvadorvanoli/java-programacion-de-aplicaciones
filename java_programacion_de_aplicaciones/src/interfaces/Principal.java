@@ -189,67 +189,6 @@ public class Principal extends JFrame {
 		JButton BotonRegistrar = new JButton("Registrar");
 		BotonRegistrar.setBounds(52, 170, 104, 23);
 		RegistrarProducto.getContentPane().add(BotonRegistrar);
-		
-		JInternalFrame VerInfoProveedor = new JInternalFrame("Información del Proveedor");
-		VerInfoProveedor.setClosable(true);
-		VerInfoProveedor.setResizable(true);
-		VerInfoProveedor.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		VerInfoProveedor.setBounds(325, 215, 256, 220);
-		contentPane.add(VerInfoProveedor);
-		VerInfoProveedor.getContentPane().setLayout(null);
-		
-		JLabel Nick = new JLabel("Nick");
-		Nick.setBackground(new Color(0, 0, 0));
-		Nick.setBounds(0, 1, 120, 28);
-		Nick.setHorizontalAlignment(SwingConstants.CENTER);
-		Nick.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		VerInfoProveedor.getContentPane().add(Nick);
-		
-		JLabel Foto = new JLabel("Foto");
-		Foto.setHorizontalAlignment(SwingConstants.CENTER);
-		Foto.setBounds(120, 1, 120, 109);
-		VerInfoProveedor.getContentPane().add(Foto);
-		
-		JLabel Nombre = new JLabel("Nombre");
-		Nombre.setSize(new Dimension(19, 14));
-		Nombre.setMinimumSize(new Dimension(19, 14));
-		Nombre.setMaximumSize(new Dimension(19, 14));
-		Nombre.setBounds(0, 28, 120, 28);
-		Nombre.setHorizontalAlignment(SwingConstants.CENTER);
-		Nombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		VerInfoProveedor.getContentPane().add(Nombre);
-		
-		JLabel Apellido = new JLabel("Apellido");
-		Apellido.setBounds(0, 55, 120, 28);
-		Apellido.setHorizontalAlignment(SwingConstants.CENTER);
-		Apellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		VerInfoProveedor.getContentPane().add(Apellido);
-		
-		JLabel FechaNacimiento = new JLabel("Fecha de Nacimiento");
-		FechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
-		FechaNacimiento.setBounds(0, 109, 120, 28);
-		VerInfoProveedor.getContentPane().add(FechaNacimiento);
-		
-		JLabel Email = new JLabel("Email");
-		Email.setBounds(0, 136, 240, 28);
-		Email.setHorizontalAlignment(SwingConstants.CENTER);
-		Email.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		VerInfoProveedor.getContentPane().add(Email);
-		
-		JLabel label_2 = new JLabel("");
-		label_2.setBounds(120, 127, 120, 42);
-		VerInfoProveedor.getContentPane().add(label_2);
-		
-		JLabel NombreCompania = new JLabel("Nombre Compania");
-		NombreCompania.setHorizontalAlignment(SwingConstants.CENTER);
-		NombreCompania.setBounds(0, 82, 120, 28);
-		VerInfoProveedor.getContentPane().add(NombreCompania);
-		
-		JLabel Link = new JLabel("Link");
-		Link.setHorizontalAlignment(SwingConstants.CENTER);
-		Link.setBounds(0, 163, 240, 28);
-		VerInfoProveedor.getContentPane().add(Link);
-		VerInfoProveedor.setVisible(true);
 		RegistrarProducto.setVisible(true);
 	}
 }
