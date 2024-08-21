@@ -249,37 +249,6 @@ public class Principal extends JFrame {
 		Link.setHorizontalAlignment(SwingConstants.CENTER);
 		Link.setBounds(0, 163, 240, 28);
 		VerInfoProveedor.getContentPane().add(Link);
-		
-		JInternalFrame ListarProveedores = new JInternalFrame("Elija un Proveedor");
-		ListarProveedores.setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
-		ListarProveedores.setBounds(325, 24, 163, 180);
-		contentPane.add(ListarProveedores);
-		ListarProveedores.getContentPane().setLayout(null);
-		
-		JLabel Nick_1 = new JLabel("Nick");
-		Nick_1.setHorizontalAlignment(SwingConstants.CENTER);
-		Nick_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Nick_1.setBounds(10, 54, 127, 28);
-		ListarProveedores.getContentPane().add(Nick_1);
-		
-		JLabel Email_2 = new JLabel("Email");
-		Email_2.setHorizontalAlignment(SwingConstants.CENTER);
-		Email_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Email_2.setBounds(10, 81, 127, 28);
-		ListarProveedores.getContentPane().add(Email_2);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(26, 34, 91, 14);
-		ListarProveedores.getContentPane().add(comboBox);
-		
-		JLabel lblNewLabel = new JLabel("Elija un proveedor");
-		lblNewLabel.setBounds(26, 11, 91, 14);
-		ListarProveedores.getContentPane().add(lblNewLabel);
-		
-		JButton BotonConfirmar = new JButton("Confirmar");
-		BotonConfirmar.setBounds(26, 116, 91, 23);
-		ListarProveedores.getContentPane().add(BotonConfirmar);
-		ListarProveedores.setVisible(true);
 		VerInfoProveedor.setVisible(true);
 		RegistrarProducto.setVisible(true);
 	}
