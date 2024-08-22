@@ -9,6 +9,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class RegistrarProveedor extends JInternalFrame {
 
@@ -43,6 +44,8 @@ public class RegistrarProveedor extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public RegistrarProveedor() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setTitle("Flamin-Go");
 		setClosable(true);
 		setBounds(100, 100, 385, 491);
 		getContentPane().setLayout(null);

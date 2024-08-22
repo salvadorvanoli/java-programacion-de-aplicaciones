@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.TextArea;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
 
@@ -35,6 +36,8 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CancelarOrdenDeCompra() {
+		setTitle("Flamin-Go");
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setBounds(100, 100, 590, 315);
 		getContentPane().setLayout(null);
 		

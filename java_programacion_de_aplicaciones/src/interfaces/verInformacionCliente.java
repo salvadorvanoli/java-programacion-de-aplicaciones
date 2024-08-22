@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class verInformacionCliente extends JInternalFrame {
 
@@ -31,6 +32,7 @@ public class verInformacionCliente extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public verInformacionCliente() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setClosable(true);
 		setTitle("Ver Información de un Cliente");
 		setBounds(100, 100, 461, 537);

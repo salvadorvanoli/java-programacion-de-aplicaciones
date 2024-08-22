@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class modificarDatosProducto extends JInternalFrame {
 
@@ -35,6 +36,7 @@ public class modificarDatosProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public modificarDatosProducto() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Modificar los datos de un Producto");
 		setClosable(true);
 		setBounds(100, 100, 574, 402);

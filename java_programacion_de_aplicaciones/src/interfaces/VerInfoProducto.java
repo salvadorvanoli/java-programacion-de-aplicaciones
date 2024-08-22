@@ -8,6 +8,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class VerInfoProducto extends JInternalFrame {
 
@@ -33,6 +34,8 @@ public class VerInfoProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VerInfoProducto() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setTitle("Flamin-Go");
 		setClosable(true);
 		setBounds(100, 100, 331, 505);
 		getContentPane().setLayout(null);
