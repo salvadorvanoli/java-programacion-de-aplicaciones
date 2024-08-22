@@ -9,6 +9,7 @@ import excepciones.OrdenDeCompraNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.ProductoNoExisteException;
 // import excepciones.ProductoRepetidoException;
+import excepciones.UsuarioNoExisteException;
 
 public abstract class ISistema{
 	
@@ -46,11 +47,11 @@ public abstract class ISistema{
 
 	public abstract void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 
-	public abstract boolean agregarProducto(String nombreProducto, int cantidad);
+	public abstract boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException;
 
 	public abstract List<DTCliente> listarClientes();
 
-	public abstract boolean elegirCliente(String email);
+	public abstract boolean elegirCliente(String nickname) throws UsuarioNoExisteException;
 	
 	public abstract DTClienteDetallado verInformacionCliente();
 

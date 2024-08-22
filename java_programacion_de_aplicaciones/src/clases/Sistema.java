@@ -1,6 +1,10 @@
 package clases;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // Importamos las excepciones necesarias
 
@@ -18,10 +22,10 @@ public class Sistema extends ISistema {
 	private List<Usuario> usuarios;
 	private Usuario usuarioActual;
 	
-	private List<OrdenDeCompra> ordenes;
+	private HashMap<Integer, OrdenDeCompra> ordenes;
 	private OrdenDeCompra ordenActual;
 	
-	private List<Categoria> categorias;
+	private HashMap<String, Categoria> categorias;
 	private Categoria categoriaActual;
 	
 	private Producto productoActual;
@@ -30,8 +34,8 @@ public class Sistema extends ISistema {
 	
 	public Sistema() {
 		this.usuarios = new ArrayList<>();
-		this.ordenes = new ArrayList<>();
-		this.categorias = new ArrayList<>();
+		this.ordenes = new HashMap<Integer, OrdenDeCompra>();
+		this.categorias = new HashMap<String, Categoria>();
 		this.usuarioActual = null;
 		this.ordenActual = null;
 		this.categoriaActual = null;
@@ -87,7 +91,7 @@ public class Sistema extends ISistema {
 	@Override
 	public List<DTCategoria> listarCategorias(){
 		List<DTCategoria> lista = new ArrayList<>();
-		for (Categoria cat : this.categorias) {
+		for (Categoria cat : this.categorias.values()) {
 			DTCategoria dt = cat.getDTCategoria();
 			lista.add(dt);
 		}
@@ -109,13 +113,12 @@ public class Sistema extends ISistema {
 
 	@Override
 	public boolean elegirCategoria(String nombreCat) throws CategoriaNoExisteException { // No creo que sea necesario que sean bool (todos los elegir)
-		for (Categoria cat : this.categorias) {
-			if (cat.getNombre() == nombreCat) {
-				this.categoriaActual = cat;
-				return true;
-			}
-		}
-		throw new CategoriaNoExisteException("Error: La categoría de nombre " + '"' + nombreCat + '"' + " no existe.");
+		Categoria cat = this.categorias.get(nombreCat);
+        if (cat == null){
+            throw new CategoriaNoExisteException("Error: La categoría de nombre " + '"' + nombreCat + '"' + " no existe.");
+        }
+        this.categoriaActual = cat;
+        return true;
 	}
 
 	@Override
@@ -123,11 +126,7 @@ public class Sistema extends ISistema {
 		if (this.categoriaActual == null) {
 			throw new NullPointerException("Error: No se ha elegido una categoría previamente.");
 		}
-		List<DTProducto> lista = new ArrayList<>();
-		for (Producto prod : this.categoriaActual.getProductos()) {
-			DTProducto dt = prod.getDTProducto();
-			lista.add(dt);
-		}
+		List<DTProducto> lista = this.categoriaActual.listarProductos()
 		return lista;
 	}
 	
@@ -174,19 +173,17 @@ public class Sistema extends ISistema {
 	
 	@Override
 	public void altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
-		for (Categoria cat : this.categorias) {
-			if (cat.getNombre() == nombre) {
-				throw new CategoriaRepetidaException("Error: Ya existe una categoría con el nombre " + '"' + nombre + '"' + '.');
-			}
-		}
+        if (this.categorias.containsKey(nombre)) {
+            throw new CategoriaRepetidaException("Error: Ya existe una categoría con el nombre " + '"' + nombre + '"' + '.');
+        }
 		Categoria cat = new Categoria(nombre, tieneProductos, padre);
-		this.categorias.add(cat);
+		this.categorias.put(nombre, cat);
 	}
 
 	@Override
 	public List<DTOrdenDeCompra> listarOrdenesDeCompra(){
 		List<DTOrdenDeCompra> lista = new ArrayList<>();
-		for (OrdenDeCompra ord : this.ordenes) {
+		for (OrdenDeCompra ord : this.ordenes.values()) {
 			DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
 			lista.add(dt);
 		}
@@ -208,13 +205,12 @@ public class Sistema extends ISistema {
 
 	@Override
 	public boolean elegirOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException {
-		for (OrdenDeCompra ord : this.ordenes) {
-			if (ord.getNumero() == numero) {
-				this.ordenActual = ord;
-				return true; // No es necesario que sea bool
-			}
-		}
-		throw new OrdenDeCompraNoExisteException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
+        OrdenDeCompra ord = this.ordenes.get(numero);
+        if (ord == null) {
+            throw new OrdenDeCompraNoExisteException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
+        }
+        this.ordenActual = ord;
+        return true; // No es necesario que sea bool
 	}
 	
 	@Override
@@ -234,30 +230,28 @@ public class Sistema extends ISistema {
 
 	@Override
 	public void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException {
-		for (OrdenDeCompra ord : this.ordenes) {
-			if (ord.getNumero() == numero) {
-				this.ordenes.remove(ord);
-				ord.desvincularCliente();
-				ord.setCantidad(null);
-				return;
-			}
-		}
-		throw new OrdenDeCompraNoExisteException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
+		OrdenDeCompra ord = this.ordenes.get(numero);
+        if (ord == null){
+            throw new OrdenDeCompraNoExisteException("Error: La orden de compra número " + '"' + numero + '"' + " no existe.");
+        }
+        this.ordenes.remove(numero);
+        ord.desvincularCliente();
+        ord.setCantidad(null);
+        return;
 	}
 
 	@Override
-	public boolean agregarProducto(String nombreProducto, int cantidad) {
-		
+	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
 		if (this.categoriaActual == null) {
 			throw new NullPointerException("Error: No se ha elegido una categoría previamente.");
 		}
 		Producto prod = this.categoriaActual.seleccionarProducto(nombreProducto);
 		if (prod == null) {
-			throw new ProductoNoExisteException("Error: El producto de nombre " + '"' + nombreProd + '"' + " no existe.");
+			throw new ProductoNoExisteException("Error: El producto de nombre " + '"' + nombreProducto + '"' + " no existe.");
 		}
 		Cantidad cant = new Cantidad(prod, cantidad);
 		this.listaOrden.add(cant);
-		
+		return true;
 	}
 
 	@Override
@@ -288,17 +282,18 @@ public class Sistema extends ISistema {
 	*/
 
 	@Override
-	public boolean elegirCliente(String email) {
+	public boolean elegirCliente(String nickname) throws UsuarioNoExisteException {
 		for (Usuario user : this.usuarios) {
-			if (user.getEmail() == email) {
+			if (user.getNickname() == nickname) {
 				if (user instanceof Cliente) {
+					Cliente cli = (Cliente) user;
 					this.usuarioActual = user;
 					return true; // No es necesario que sea booleano
 				}
-				throw new IllegalArgumentException("Error: El usuario de email " + '"' + email + '"' + " existe, pero no es un cliente.");
+				throw new UsuarioNoExisteException("Error: El usuario de nickname " + '"' + nickname + '"' + " existe, pero no es un cliente.");
 			}
 		}
-		throw new IllegalArgumentException("Error: El usuario de email " + '"' + email + '"' + " no existe.");
+		throw new UsuarioNoExisteException("Error: El usuario de nickname " + '"' + nickname + '"' + " no existe.");
 	}
 	
 	@Override
@@ -315,7 +310,7 @@ public class Sistema extends ISistema {
 		if (this.productoActual == null) {
 			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
 		}
-		for(Categoria cat : this.categorias) {
+		for(Categoria cat : this.categorias.values()) {
 			cat.getProductos().remove(this.productoActual);
 		}
 	}
@@ -339,10 +334,26 @@ public class Sistema extends ISistema {
 	}
 	
 	public void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) {
+		if (this.productoActual == null) {
+			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
+		}
 		if (precio <= 0) {
 			throw new IllegalArgumentException("Error: El precio elegido no puede ser menor o igual a 0.");
 		}
-		// FALTA SEGUIR
+		for (Categoria cat : this.categorias.values()) {
+			for (Producto prod : cat.getProductos()) {
+				if (prod.getNombreProducto() == nombreProd) {
+					if (prod.getNumReferencia() == numReferencia) {
+						throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + nombreProd + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
+					}
+				}
+			}
+		}
+		this.productoActual.setNombreProducto(nombreProd);
+		this.productoActual.setNumReferencia(numReferencia);
+		this.productoActual.setDescripcion(descripcion);
+		this.productoActual.setPrecio(precio);
+		this.productoActual.setEspecificacion(especificacion);
 	}
 	
 }
