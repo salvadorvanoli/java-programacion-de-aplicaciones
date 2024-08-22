@@ -19,11 +19,6 @@ public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField nuevoNombreProducto;
-	private JTextField nuevoNumReferenciaProducto;
-	private JTextArea nuevaDescripcionProducto;
-	private JTextField nuevoPrecioProducto;
-	private JTextArea nuevaEspecificacionProducto;
 
 	/**
 	 * Launch the application.
@@ -112,114 +107,5 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JInternalFrame verInformacionCliente = new JInternalFrame("Ver Información de un Cliente");
-		verInformacionCliente.setClosable(true);
-		verInformacionCliente.setBounds(236, 512, 385, 541);
-		contentPane.add(verInformacionCliente);
-		verInformacionCliente.getContentPane().setLayout(null);
-		
-		JComboBox seleccionCliente = new JComboBox();
-		seleccionCliente.setBounds(10, 60, 352, 22);
-		verInformacionCliente.getContentPane().add(seleccionCliente);
-		
-		JLabel labelClientesSistema = new JLabel("Selecciona uno de los clientes del sistema especificados debajo *");
-		labelClientesSistema.setBounds(10, 21, 309, 28);
-		verInformacionCliente.getContentPane().add(labelClientesSistema);
-		
-		JTextArea txtMostrarInfoCliente = new JTextArea();
-		txtMostrarInfoCliente.setText("Aquí se mostrará la información del\r\ncliente elegido.");
-		txtMostrarInfoCliente.setBounds(10, 93, 352, 152);
-		verInformacionCliente.getContentPane().add(txtMostrarInfoCliente);
-		
-		JComboBox seleccionOrdenDeCompra = new JComboBox();
-		seleccionOrdenDeCompra.setBounds(10, 315, 349, 22);
-		verInformacionCliente.getContentPane().add(seleccionOrdenDeCompra);
-		
-		JLabel labelOrdenesDeCompra1 = new JLabel("Selecciona una de las ordenes de compra del cliente");
-		labelOrdenesDeCompra1.setBounds(10, 264, 349, 28);
-		verInformacionCliente.getContentPane().add(labelOrdenesDeCompra1);
-		
-		JTextArea txtMostrarInfoOrdenDeCompra = new JTextArea();
-		txtMostrarInfoOrdenDeCompra.setText("Aquí se mostrará la información de la\r\norden de compra elegida.");
-		txtMostrarInfoOrdenDeCompra.setBounds(10, 348, 349, 152);
-		verInformacionCliente.getContentPane().add(txtMostrarInfoOrdenDeCompra);
-		
-		JLabel labelOrdenesDeCompra2 = new JLabel("especificado para inspeccionarla");
-		labelOrdenesDeCompra2.setBounds(10, 283, 197, 22);
-		verInformacionCliente.getContentPane().add(labelOrdenesDeCompra2);
-		
-		JInternalFrame modificarDatosProducto = new JInternalFrame("Modificar datos de un Producto");
-		modificarDatosProducto.setClosable(true);
-		modificarDatosProducto.setBounds(10, 21, 611, 469);
-		contentPane.add(modificarDatosProducto);
-		modificarDatosProducto.getContentPane().setLayout(null);
-		
-		JLabel labelSeleccionCategoria = new JLabel("Selecciona una de las categorías listadas debajo *");
-		labelSeleccionCategoria.setBounds(10, 11, 309, 28);
-		modificarDatosProducto.getContentPane().add(labelSeleccionCategoria);
-		
-		JComboBox seleccionCategoria = new JComboBox();
-		seleccionCategoria.setBounds(10, 39, 352, 22);
-		modificarDatosProducto.getContentPane().add(seleccionCategoria);
-		
-		JLabel labelSeleccionProducto = new JLabel("Selecciona uno de los productos listados debajo *");
-		labelSeleccionProducto.setBounds(10, 81, 309, 28);
-		modificarDatosProducto.getContentPane().add(labelSeleccionProducto);
-		
-		JComboBox seleccionProducto = new JComboBox();
-		seleccionProducto.setBounds(10, 109, 352, 22);
-		modificarDatosProducto.getContentPane().add(seleccionProducto);
-		
-		JLabel labelDatosAModificar = new JLabel("A continuación, modifica los datos a tu elección");
-		labelDatosAModificar.setBounds(10, 151, 309, 28);
-		modificarDatosProducto.getContentPane().add(labelDatosAModificar);
-		
-		JLabel labelNuevoNombreProducto = new JLabel("Nombre:");
-		labelNuevoNombreProducto.setBounds(10, 209, 100, 28);
-		modificarDatosProducto.getContentPane().add(labelNuevoNombreProducto);
-		
-		nuevoNombreProducto = new JTextField();
-		nuevoNombreProducto.setBounds(120, 213, 117, 20);
-		modificarDatosProducto.getContentPane().add(nuevoNombreProducto);
-		nuevoNombreProducto.setColumns(10);
-		
-		JLabel labelNuevoNumReferenciaProducto = new JLabel("Num. Referencia:");
-		labelNuevoNumReferenciaProducto.setBounds(10, 248, 100, 28);
-		modificarDatosProducto.getContentPane().add(labelNuevoNumReferenciaProducto);
-		
-		nuevoNumReferenciaProducto = new JTextField();
-		nuevoNumReferenciaProducto.setColumns(10);
-		nuevoNumReferenciaProducto.setBounds(120, 252, 117, 20);
-		modificarDatosProducto.getContentPane().add(nuevoNumReferenciaProducto);
-		
-		JLabel labelNuevaDescripcionProducto = new JLabel("Descripción:");
-		labelNuevaDescripcionProducto.setBounds(301, 209, 100, 28);
-		modificarDatosProducto.getContentPane().add(labelNuevaDescripcionProducto);
-		
-		nuevaDescripcionProducto = new JTextArea();
-		nuevaDescripcionProducto.setColumns(10);
-		nuevaDescripcionProducto.setBounds(388, 211, 165, 62);
-		modificarDatosProducto.getContentPane().add(nuevaDescripcionProducto);
-		
-		JLabel labelNuevoPrecioProducto = new JLabel("Precio:");
-		labelNuevoPrecioProducto.setBounds(10, 287, 100, 28);
-		modificarDatosProducto.getContentPane().add(labelNuevoPrecioProducto);
-		
-		nuevoPrecioProducto = new JTextField();
-		nuevoPrecioProducto.setColumns(10);
-		nuevoPrecioProducto.setBounds(120, 291, 117, 20);
-		modificarDatosProducto.getContentPane().add(nuevoPrecioProducto);
-		
-		JLabel labelNuevaEspecificacionProducto = new JLabel("Especificación:");
-		labelNuevaEspecificacionProducto.setBounds(301, 287, 100, 28);
-		modificarDatosProducto.getContentPane().add(labelNuevaEspecificacionProducto);
-		
-		nuevaEspecificacionProducto = new JTextArea();
-		nuevaEspecificacionProducto.setColumns(10);
-		nuevaEspecificacionProducto.setBounds(388, 289, 166, 63);
-		modificarDatosProducto.getContentPane().add(nuevaEspecificacionProducto);
-		modificarDatosProducto.setVisible(true);
-		verInformacionCliente.setVisible(true);
 	}
 }
