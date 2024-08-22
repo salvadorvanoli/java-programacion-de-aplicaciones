@@ -5,12 +5,15 @@ import java.util.List;
 public class Categoria {
     private String nombreCat;
     private List<Producto> productos;
-    private List<Categoria> categorias;
+    private Categoria padre;
+    private boolean tieneProductos;
 
     // Constructor
-    public Categoria(String nombreCat) {
+    public Categoria(String nombreCat, boolean tieneProductos, Categoria padre) {
         this.nombreCat = nombreCat;
         this.productos = new ArrayList<>();
+        this.tieneProductos = tieneProductos;
+        this.padre = padre;
     }
 
     // Getter para nombreCat
