@@ -62,8 +62,9 @@ public class InfoProveedorDetallado extends JInternalFrame {
 		getContentPane().add(Info2);
 		
 		JLabel lblNewLabel = new JLabel("Informacion Del Proveedor\r\n");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(22, 11, 192, 14);
+		lblNewLabel.setBounds(0, 11, 240, 14);
 		getContentPane().add(lblNewLabel);
 
 	}
