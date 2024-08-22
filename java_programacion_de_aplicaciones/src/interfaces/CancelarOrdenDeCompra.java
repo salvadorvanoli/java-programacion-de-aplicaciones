@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.TextArea;
+import java.awt.Font;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
 
@@ -33,43 +34,48 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CancelarOrdenDeCompra() {
-		setBounds(100, 100, 590, 268);
+		setBounds(100, 100, 590, 315);
 		getContentPane().setLayout(null);
 		
 		JTextPane tituloCancelarOrdenDeCompra = new JTextPane();
 		tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccione \"Eliminar\"");
-		tituloCancelarOrdenDeCompra.setBounds(10, 11, 534, 20);
+		tituloCancelarOrdenDeCompra.setBounds(10, 62, 534, 20);
 		getContentPane().add(tituloCancelarOrdenDeCompra);
 		
 		JLabel labelSelectOrdenCancelarOrdenDeCompra = new JLabel("Seleccione la orden de compra *");
-		labelSelectOrdenCancelarOrdenDeCompra.setBounds(27, 53, 162, 14);
+		labelSelectOrdenCancelarOrdenDeCompra.setBounds(27, 104, 162, 14);
 		getContentPane().add(labelSelectOrdenCancelarOrdenDeCompra);
 		
 		Choice selectOrdenCancelarOrdenDeCompra = new Choice();
-		selectOrdenCancelarOrdenDeCompra.setBounds(27, 73, 153, 20);
+		selectOrdenCancelarOrdenDeCompra.setBounds(27, 124, 153, 20);
 		getContentPane().add(selectOrdenCancelarOrdenDeCompra);
 		
 		JButton eliminarOrdenCancelarOrdenDeCompra = new JButton("Eliminar");
-		eliminarOrdenCancelarOrdenDeCompra.setBounds(196, 70, 89, 23);
+		eliminarOrdenCancelarOrdenDeCompra.setBounds(196, 121, 89, 23);
 		getContentPane().add(eliminarOrdenCancelarOrdenDeCompra);
 		
 		TextArea textAreaInfoOrdenDeCompra = new TextArea();
 		textAreaInfoOrdenDeCompra.setText("Aquí irá el texto con la info de la orden de compra");
-		textAreaInfoOrdenDeCompra.setBounds(308, 53, 249, 120);
+		textAreaInfoOrdenDeCompra.setBounds(308, 104, 249, 120);
 		getContentPane().add(textAreaInfoOrdenDeCompra);
 		
 		JTextPane obligatorioCancelarOrdenDeCompra = new JTextPane();
 		obligatorioCancelarOrdenDeCompra.setText("Los elementos marcados con * son obligatorios");
-		obligatorioCancelarOrdenDeCompra.setBounds(10, 130, 231, 20);
+		obligatorioCancelarOrdenDeCompra.setBounds(10, 181, 231, 20);
 		getContentPane().add(obligatorioCancelarOrdenDeCompra);
 		
 		JButton cancelarCancelarOrdenDeCompra = new JButton("Cancelar");
-		cancelarCancelarOrdenDeCompra.setBounds(373, 200, 89, 23);
+		cancelarCancelarOrdenDeCompra.setBounds(373, 251, 89, 23);
 		getContentPane().add(cancelarCancelarOrdenDeCompra);
 		
 		JButton aceptarCancelarOrdenDeCompra = new JButton("Aceptar");
-		aceptarCancelarOrdenDeCompra.setBounds(472, 200, 89, 23);
+		aceptarCancelarOrdenDeCompra.setBounds(472, 251, 89, 23);
 		getContentPane().add(aceptarCancelarOrdenDeCompra);
+		
+		JLabel tituloPrincipalEliminarOrdenDeCompra = new JLabel("Eliminar Orden de Compra");
+		tituloPrincipalEliminarOrdenDeCompra.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tituloPrincipalEliminarOrdenDeCompra.setBounds(183, 23, 211, 23);
+		getContentPane().add(tituloPrincipalEliminarOrdenDeCompra);
 
 	}
 
