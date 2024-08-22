@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class AltaDeCategoria extends JInternalFrame {
 
@@ -79,6 +80,7 @@ public class AltaDeCategoria extends JInternalFrame {
 		getContentPane().add(aceptarAltaDeCategoria);
 		
 		JLabel tituloPrincipalAltaDeCategoria = new JLabel("Alta de Categoría");
+		tituloPrincipalAltaDeCategoria.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloPrincipalAltaDeCategoria.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tituloPrincipalAltaDeCategoria.setBounds(221, 21, 128, 34);
 		getContentPane().add(tituloPrincipalAltaDeCategoria);

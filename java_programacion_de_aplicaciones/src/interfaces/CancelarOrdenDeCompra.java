@@ -9,6 +9,7 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.TextArea;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
 
@@ -73,8 +74,9 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 		getContentPane().add(aceptarCancelarOrdenDeCompra);
 		
 		JLabel tituloPrincipalEliminarOrdenDeCompra = new JLabel("Eliminar Orden de Compra");
+		tituloPrincipalEliminarOrdenDeCompra.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloPrincipalEliminarOrdenDeCompra.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tituloPrincipalEliminarOrdenDeCompra.setBounds(183, 23, 211, 23);
+		tituloPrincipalEliminarOrdenDeCompra.setBounds(183, 23, 199, 23);
 		getContentPane().add(tituloPrincipalEliminarOrdenDeCompra);
 
 	}
