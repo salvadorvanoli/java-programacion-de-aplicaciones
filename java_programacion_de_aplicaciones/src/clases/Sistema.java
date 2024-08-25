@@ -53,7 +53,7 @@ public class Sistema extends ISistema {
 				throw new UsuarioRepetidoException("Error: Ya existe un cliente registrado con el nickname"  + '"' + nickname + '"' + '.');
 			}
 		}
-		Cliente nuevo = new Cliente(nickname, email, nombre, apellido, fechaNac, imagen, null, null); // ESTO HAY QUE CAMBIARLO
+		Cliente nuevo = new Cliente(nickname, nombre, apellido, email, fechaNac, imagen); // ESTO HAY QUE CAMBIARLO
 		this.usuarios.add(nuevo);
 		return true;
 	}
@@ -68,7 +68,7 @@ public class Sistema extends ISistema {
 				throw new UsuarioRepetidoException("Error: Ya existe un proveedor registrado con el nickname " + '"' + nickname + '"' + '.');
 			}
 		}
-		Proveedor nuevo = new Proveedor(nickname, email, nombre, apellido, fechaNac, nomCompania, linkWeb, imagen);
+		Proveedor nuevo = new Proveedor(nickname, nombre, apellido, email, fechaNac, imagen, nomCompania, linkWeb);
 		this.usuarios.add(nuevo);
 		return true;
 	}
