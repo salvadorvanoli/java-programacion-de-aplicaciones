@@ -49,4 +49,9 @@ public class Proveedor extends Usuario{
 			return c;
 		}
 		
+		public DTProveedorDetallado getDTProveedorDetallado(){
+			DTProveedorDetallado c = new DTProveedorDetallado(this.getNickname(), this.getEmail(), this.getNombre(),this.getApellido(), this.getFechaNac(), this.getFoto(), this.getnomCompania(), this.getlink());
+			return c;
+		}
+		
 }

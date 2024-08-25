@@ -37,4 +37,9 @@ public class Cliente extends Usuario{
 		public List <Comentario> getComentarios( ){
 			return this.Comentarios;
 		}
+		
+		public DTClienteDetallado getDTClienteDetallado(){
+			DTClienteDetallado c = new DTClienteDetallado(this.getNickname(), this.getEmail(), this.getNombre(), this.getApellido(), this.getFechaNac(), this.getFoto());
+			return c;
+		}
 }
