@@ -9,6 +9,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Ver_Info_Orden_de_Compra extends JInternalFrame {
 
@@ -34,6 +35,7 @@ public class Ver_Info_Orden_de_Compra extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public Ver_Info_Orden_de_Compra() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Ver información de orden de compra");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);

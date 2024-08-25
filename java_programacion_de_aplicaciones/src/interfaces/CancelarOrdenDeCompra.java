@@ -9,6 +9,8 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.TextArea;
 import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
 
@@ -34,6 +36,8 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public CancelarOrdenDeCompra() {
+		setTitle("Flamin-Go");
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setBounds(100, 100, 590, 315);
 		getContentPane().setLayout(null);
 		
@@ -73,8 +77,9 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 		getContentPane().add(aceptarCancelarOrdenDeCompra);
 		
 		JLabel tituloPrincipalEliminarOrdenDeCompra = new JLabel("Eliminar Orden de Compra");
+		tituloPrincipalEliminarOrdenDeCompra.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloPrincipalEliminarOrdenDeCompra.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tituloPrincipalEliminarOrdenDeCompra.setBounds(183, 23, 211, 23);
+		tituloPrincipalEliminarOrdenDeCompra.setBounds(183, 23, 199, 23);
 		getContentPane().add(tituloPrincipalEliminarOrdenDeCompra);
 
 	}

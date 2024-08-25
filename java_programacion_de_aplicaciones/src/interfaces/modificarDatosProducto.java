@@ -7,8 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class modificarDatosProducto extends JInternalFrame {
 
@@ -37,32 +36,30 @@ public class modificarDatosProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public modificarDatosProducto() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Modificar los datos de un Producto");
 		setClosable(true);
 		setBounds(100, 100, 574, 402);
 		getContentPane().setLayout(null);
 		
 		JLabel labelSeleccionCategoria = new JLabel("Selecciona una de las categorías listadas debajo *");
-		labelSeleccionCategoria.setHorizontalAlignment(SwingConstants.CENTER);
-		labelSeleccionCategoria.setBounds(10, 48, 538, 28);
+		labelSeleccionCategoria.setBounds(10, 11, 309, 28);
 		getContentPane().add(labelSeleccionCategoria);
 		
 		JComboBox seleccionCategoria = new JComboBox();
-		seleccionCategoria.setBounds(10, 76, 538, 22);
+		seleccionCategoria.setBounds(10, 39, 352, 22);
 		getContentPane().add(seleccionCategoria);
 		
 		JLabel labelSeleccionProducto = new JLabel("Selecciona uno de los productos listados debajo *");
-		labelSeleccionProducto.setHorizontalAlignment(SwingConstants.CENTER);
-		labelSeleccionProducto.setBounds(10, 109, 538, 28);
+		labelSeleccionProducto.setBounds(10, 81, 309, 28);
 		getContentPane().add(labelSeleccionProducto);
 		
 		JComboBox seleccionProducto = new JComboBox();
-		seleccionProducto.setBounds(10, 137, 538, 22);
+		seleccionProducto.setBounds(10, 109, 352, 22);
 		getContentPane().add(seleccionProducto);
 		
 		JLabel labelDatosAModificar = new JLabel("A continuación, modifica los datos a tu elección");
-		labelDatosAModificar.setHorizontalAlignment(SwingConstants.CENTER);
-		labelDatosAModificar.setBounds(10, 170, 543, 28);
+		labelDatosAModificar.setBounds(10, 151, 309, 28);
 		getContentPane().add(labelDatosAModificar);
 		
 		JLabel labelNuevoNombreProducto = new JLabel("Nombre:");
@@ -109,12 +106,6 @@ public class modificarDatosProducto extends JInternalFrame {
 		nuevaEspecificacionProducto.setColumns(10);
 		nuevaEspecificacionProducto.setBounds(388, 289, 166, 63);
 		getContentPane().add(nuevaEspecificacionProducto);
-		
-		JLabel lblModificarDatosDe = new JLabel("Modificar Datos de un Producto");
-		lblModificarDatosDe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModificarDatosDe.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblModificarDatosDe.setBounds(10, 11, 538, 29);
-		getContentPane().add(lblModificarDatosDe);
 
 	}
 

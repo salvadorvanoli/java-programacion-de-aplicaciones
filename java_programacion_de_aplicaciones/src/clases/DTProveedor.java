@@ -25,5 +25,4 @@ public class DTProveedor {
 		this.email = email;
 	}
 	
-	
 }

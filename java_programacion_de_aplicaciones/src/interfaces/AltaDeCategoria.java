@@ -10,6 +10,8 @@ import javax.swing.JCheckBox;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class AltaDeCategoria extends JInternalFrame {
 
@@ -36,6 +38,8 @@ public class AltaDeCategoria extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public AltaDeCategoria() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setTitle("Flamin-Go");
 		setBounds(100, 100, 590, 351);
 		getContentPane().setLayout(null);
 		
@@ -79,6 +83,7 @@ public class AltaDeCategoria extends JInternalFrame {
 		getContentPane().add(aceptarAltaDeCategoria);
 		
 		JLabel tituloPrincipalAltaDeCategoria = new JLabel("Alta de Categoría");
+		tituloPrincipalAltaDeCategoria.setHorizontalAlignment(SwingConstants.CENTER);
 		tituloPrincipalAltaDeCategoria.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		tituloPrincipalAltaDeCategoria.setBounds(221, 21, 128, 34);
 		getContentPane().add(tituloPrincipalAltaDeCategoria);

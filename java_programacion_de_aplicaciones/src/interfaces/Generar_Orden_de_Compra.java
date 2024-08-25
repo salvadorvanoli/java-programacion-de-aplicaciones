@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Generar_Orden_de_Compra extends JInternalFrame {
 
@@ -42,6 +43,7 @@ public class Generar_Orden_de_Compra extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public Generar_Orden_de_Compra() {
+		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Generar orden de compra");
 		setBounds(100, 100, 445, 300);
 		getContentPane().setLayout(null);
