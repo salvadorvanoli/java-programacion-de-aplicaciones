@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 
-public class modificarDatosProducto extends JInternalFrame {
+public class ModificarDatosProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
@@ -23,7 +23,7 @@ public class modificarDatosProducto extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					modificarDatosProducto frame = new modificarDatosProducto();
+					ModificarDatosProducto frame = new ModificarDatosProducto();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class modificarDatosProducto extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public modificarDatosProducto() {
+	public ModificarDatosProducto() {
 		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Modificar los datos de un Producto");
 		setClosable(true);

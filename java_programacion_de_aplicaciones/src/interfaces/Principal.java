@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 public class Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 
 	/**

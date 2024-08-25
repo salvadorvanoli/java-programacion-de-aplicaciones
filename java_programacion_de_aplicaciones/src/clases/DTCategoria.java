@@ -1,11 +1,12 @@
 package clases;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DTCategoria {
 	
 	private String nombreCat;
-	private List<Categoria> hijas;
+	private HashMap<String, Categoria> hijas;
 	
 	public String getNombreCat() {
 		return nombreCat;
@@ -13,17 +14,17 @@ public class DTCategoria {
 	public void setNombreCat(String nombreCat) {
 		this.nombreCat = nombreCat;
 	}
-	public List<Categoria> getHijas() {
+	public HashMap<String, Categoria> getHijas() {
 		return hijas;
 	}
-	public void setHijas(List<Categoria> hijas) {
+	public void setHijas(HashMap<String, Categoria> hijas) {
 		this.hijas = hijas;
 	}
 	
-	public DTCategoria(String nombreCat, List<Categoria> hijas) {
+	public DTCategoria(String nombreCat, HashMap<String, Categoria> hijos) {
 		super();
 		this.nombreCat = nombreCat;
-		this.hijas = hijas;
+		this.hijas = hijos;
 	}
 	
 }

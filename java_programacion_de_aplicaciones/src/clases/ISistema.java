@@ -8,6 +8,7 @@ import excepciones.OrdenDeCompraNoExisteException;
 // import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.ProductoNoExisteException;
+import excepciones.ProductoRepetidoException;
 // import excepciones.ProductoRepetidoException;
 import excepciones.UsuarioNoExisteException;
 
@@ -19,13 +20,13 @@ public abstract class ISistema{
 	
 	// Le puse abstract a todo pero no se si esta bien
 	
-	public abstract boolean AltaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException;
+	public abstract boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException;
 	
-	public abstract boolean AltaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException;
+	public abstract boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException;
 
-	public abstract boolean RegistrarProducto(String titulo, String numReferencia, String descrip, String especificaciones, int precio, Proveedor proveedor);
+	public abstract boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, Proveedor proveedor) throws ProductoRepetidoException;
 	
-	public abstract DTProductoDetallado verInformaciónProducto(int numReferencia);
+	public abstract DTProductoDetallado verInformacionProducto(int numReferencia);
 
 	public abstract List<DTCategoria> listarCategorias();
 
@@ -42,6 +43,8 @@ public abstract class ISistema{
 	public abstract boolean elegirOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 	
 	public abstract DTOrdenDeCompraDetallada verInformacionOrdenDeCompra(int numero);
+	
+	public abstract int generarCodigoOrden();
 
 	public abstract DTOrdenDeCompraDetallada darAltaOrden();
 
@@ -56,4 +59,16 @@ public abstract class ISistema{
 	public abstract DTClienteDetallado verInformacionCliente();
 
 	public abstract void quitarProductoDeCategorias();
+	
+	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
+	
+	public abstract void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion);
+	
+	public abstract void modificarImagenesProducto(List<String> imagenes);
+	
+	public abstract List<DTProveedor> listarProveedores();
+	
+	public abstract void elegirProveedor(String nickname) throws UsuarioNoExisteException;
+	
+	public abstract DTProveedorDetallado verInformacionProveedor();
 }
