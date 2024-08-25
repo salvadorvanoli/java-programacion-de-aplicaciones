@@ -127,9 +127,4 @@ public class Producto {
         this.precio = precio;
         this.especificacion = especificacion;
     }
-
-    // Método para modificar las imágenes del producto
-    public void modificarImagenes(List<String> nuevasImagenes) {
-        this.imagenes = nuevasImagenes;
-    }
 }
