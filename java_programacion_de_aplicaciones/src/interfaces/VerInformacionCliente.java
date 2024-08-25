@@ -8,18 +8,19 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 
-public class verInformacionCliente extends JInternalFrame {
+public class VerInformacionCliente extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					verInformacionCliente frame = new verInformacionCliente();
+					VerInformacionCliente frame = new VerInformacionCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,11 +28,12 @@ public class verInformacionCliente extends JInternalFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public verInformacionCliente() {
+	public VerInformacionCliente() {
 		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setClosable(true);
 		setTitle("Ver Información de un Cliente");

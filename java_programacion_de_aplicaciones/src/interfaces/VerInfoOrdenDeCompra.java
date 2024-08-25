@@ -1,3 +1,4 @@
+package interfaces;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -11,18 +12,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-public class Ver_Info_Orden_de_Compra extends JInternalFrame {
+public class VerInfoOrdenDeCompra extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ver_Info_Orden_de_Compra frame = new Ver_Info_Orden_de_Compra();
+					VerInfoOrdenDeCompra frame = new VerInfoOrdenDeCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,11 +32,12 @@ public class Ver_Info_Orden_de_Compra extends JInternalFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Ver_Info_Orden_de_Compra() {
+	public VerInfoOrdenDeCompra() {
 		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Ver información de orden de compra");
 		setBounds(100, 100, 450, 300);

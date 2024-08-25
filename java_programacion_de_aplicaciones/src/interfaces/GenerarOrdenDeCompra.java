@@ -1,3 +1,4 @@
+package interfaces;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -18,7 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-public class Generar_Orden_de_Compra extends JInternalFrame {
+public class GenerarOrdenDeCompra extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
@@ -26,11 +27,12 @@ public class Generar_Orden_de_Compra extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Generar_Orden_de_Compra frame = new Generar_Orden_de_Compra();
+					GenerarOrdenDeCompra frame = new GenerarOrdenDeCompra();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,11 +40,12 @@ public class Generar_Orden_de_Compra extends JInternalFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Generar_Orden_de_Compra() {
+	public GenerarOrdenDeCompra() {
 		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
 		setTitle("Generar orden de compra");
 		setBounds(100, 100, 445, 300);
