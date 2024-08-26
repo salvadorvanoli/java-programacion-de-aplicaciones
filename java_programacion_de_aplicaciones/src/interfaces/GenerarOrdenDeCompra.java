@@ -47,7 +47,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	 */
 	public GenerarOrdenDeCompra() {
 		setFrameIcon(new ImageIcon(GenerarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
-		setTitle("Generar orden de compra");
+		setTitle("Flamin-Go");
 		setBounds(100, 100, 445, 300);
 		getContentPane().setLayout(null);
 		

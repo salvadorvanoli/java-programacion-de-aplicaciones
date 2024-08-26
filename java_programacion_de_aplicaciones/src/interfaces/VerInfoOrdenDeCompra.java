@@ -39,7 +39,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 	 */
 	public VerInfoOrdenDeCompra() {
 		setFrameIcon(new ImageIcon(VerInfoOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
-		setTitle("Ver información de orden de compra");
+		setTitle("Flamin-Go");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		
