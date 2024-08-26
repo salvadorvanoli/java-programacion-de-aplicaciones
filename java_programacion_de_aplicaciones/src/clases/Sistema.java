@@ -80,7 +80,7 @@ public class Sistema extends ISistema {
 			for (Producto prod : cat.getProductos()) {
 				if (prod.getNombreProducto() == titulo) {
 					if (prod.getNumReferencia() == numReferencia) {
-						throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + nombreProd + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
+						throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + titulo + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
 					}
 				}
 			}
@@ -357,7 +357,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override
-	public void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) {
+	public void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) throws ProductoRepetidoException {
 		if (this.productoActual == null) {
 			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
 		}

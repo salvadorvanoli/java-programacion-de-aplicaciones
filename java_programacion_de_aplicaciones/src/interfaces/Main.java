@@ -1,6 +1,8 @@
 package interfaces;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*
 import javax.swing.JFrame;
@@ -183,6 +185,16 @@ public class Main {
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Categoría");
 		mnNewMenu_2.add(mntmNewMenuItem_5);
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(altaCategoriaInternalFrame);
+                altaCategoriaInternalFrame.setVisible(true);
+                altaCategoriaInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Orden de compra");
 		mnNewMenu_2.add(mntmNewMenuItem_12);

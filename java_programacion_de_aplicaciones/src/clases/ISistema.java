@@ -62,7 +62,7 @@ public abstract class ISistema{
 	
 	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
 	
-	public abstract void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion);
+	public abstract void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) throws ProductoRepetidoException;
 	
 	public abstract void modificarImagenesProducto(List<String> imagenes);
 	
