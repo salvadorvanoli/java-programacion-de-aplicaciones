@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 // Importamos la capa de lógica
 import clases.SistemaFactory;
 import clases.ISistema;
+import java.awt.Toolkit;
 
 public class Main {
 	
@@ -150,6 +151,8 @@ public class Main {
 	
 	private void initialize() {
 		menuPrincipal = new JFrame();
+		menuPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/Images/Flamin-Go.png")));
+		menuPrincipal.setTitle("Flamin-Go");
 		
 		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuPrincipal.setBounds(100, 100, 647, 695);

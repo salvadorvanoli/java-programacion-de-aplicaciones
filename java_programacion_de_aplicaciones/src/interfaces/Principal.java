@@ -14,6 +14,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import java.awt.Toolkit;
 
 public class Principal extends JFrame {
 
@@ -41,6 +42,8 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setTitle("Flamin-Go");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/Images/Flamin-Go.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 647, 695);
 		

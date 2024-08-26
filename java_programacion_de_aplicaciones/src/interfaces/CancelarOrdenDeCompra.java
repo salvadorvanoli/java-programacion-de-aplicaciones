@@ -39,7 +39,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 	 */
 	public CancelarOrdenDeCompra() {
 		setTitle("Flamin-Go");
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(CancelarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setBounds(100, 100, 590, 315);
 		getContentPane().setLayout(null);
 		

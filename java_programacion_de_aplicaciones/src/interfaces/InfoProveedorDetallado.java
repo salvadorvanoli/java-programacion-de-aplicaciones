@@ -39,8 +39,8 @@ public class InfoProveedorDetallado extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public InfoProveedorDetallado() {
-		setBackground(new Color(255, 192, 203));
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setBackground(Color.WHITE);
+		setFrameIcon(new ImageIcon(InfoProveedorDetallado.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(new Rectangle(0, 0, 256, 220));
 		setBounds(100, 100, 256, 243);
@@ -52,13 +52,13 @@ public class InfoProveedorDetallado extends JInternalFrame {
 		getContentPane().add(Foto);
 		
 		Info1 = new JTextArea();
-		Info1.setBackground(new Color(255, 192, 203));
+		Info1.setBackground(Color.WHITE);
 		Info1.setText("Datos1");
 		Info1.setBounds(0, 25, 120, 109);
 		getContentPane().add(Info1);
 		
 		JTextArea Info2 = new JTextArea();
-		Info2.setBackground(new Color(255, 192, 203));
+		Info2.setBackground(Color.WHITE);
 		Info2.setText("Datos2\r\n");
 		Info2.setBounds(0, 131, 240, 82);
 		getContentPane().add(Info2);

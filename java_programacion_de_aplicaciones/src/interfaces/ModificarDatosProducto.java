@@ -36,7 +36,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ModificarDatosProducto() {
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Modificar los datos de un Producto");
 		setClosable(true);
 		setBounds(100, 100, 574, 402);

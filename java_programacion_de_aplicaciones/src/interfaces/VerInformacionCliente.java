@@ -34,7 +34,7 @@ public class VerInformacionCliente extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VerInformacionCliente() {
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Ver Información de un Cliente");
 		setBounds(100, 100, 461, 537);

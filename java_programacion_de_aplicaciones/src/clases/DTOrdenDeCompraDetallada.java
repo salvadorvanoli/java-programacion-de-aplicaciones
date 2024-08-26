@@ -7,6 +7,7 @@ public class DTOrdenDeCompraDetallada extends DTOrdenDeCompra{
 
 	public DTOrdenDeCompraDetallada(int numero, DTFecha fecha, List<DTCantidadProducto> lista) {
 		super(numero, fecha, lista);
+		this.productosCantidad = new ArrayList<>();
 	}
 
 	public List<DTCantidadProducto> getProductosCantidad() {

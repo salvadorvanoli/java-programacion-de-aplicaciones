@@ -36,7 +36,7 @@ public class VerInfoProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public VerInfoProducto() {
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
 		setBounds(100, 100, 331, 505);
