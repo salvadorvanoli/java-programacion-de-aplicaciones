@@ -38,7 +38,7 @@ public class ListarProveedores extends JInternalFrame {
 	 */
 	public ListarProveedores() {
 		setTitle("Flamin-Go");
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(ListarProveedores.class.getResource("/Images/Flamin-Go.png")));
 		getContentPane().setBackground(new Color(255, 192, 203));
 		setBounds(100, 100, 186, 160);
 		getContentPane().setLayout(null);

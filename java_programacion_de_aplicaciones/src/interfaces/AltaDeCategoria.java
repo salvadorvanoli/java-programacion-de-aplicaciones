@@ -40,7 +40,7 @@ public class AltaDeCategoria extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public AltaDeCategoria() {
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título (1).png"));
+		setFrameIcon(new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 590, 351);
 		getContentPane().setLayout(null);

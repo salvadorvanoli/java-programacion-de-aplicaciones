@@ -42,7 +42,7 @@ public class RegistrarProducto extends JInternalFrame {
 	 */
 	public RegistrarProducto() {
 		setBackground(new Color(255, 192, 203));
-		setFrameIcon(new ImageIcon("C:\\Users\\felip\\Downloads\\Diseño sin título.png"));
+		setFrameIcon(new ImageIcon(RegistrarProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go\r\n");
 		setBounds(100, 100, 222, 255);
 		getContentPane().setLayout(null);
