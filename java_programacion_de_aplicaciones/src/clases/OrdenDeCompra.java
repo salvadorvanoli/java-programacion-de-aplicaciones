@@ -42,7 +42,7 @@ public class OrdenDeCompra {
 	}
 	
 	public void desvincularCliente () {
-		this.Cliente.desvincularOrdenDeCompra(this.getNumero());
+		this.cliente.desvincularOrdenDeCompra(this.getNumero());
 	}
 	
 	public void agregarProducto(Producto producto, int cantidad) {

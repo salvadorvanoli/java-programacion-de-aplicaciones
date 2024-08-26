@@ -34,8 +34,13 @@ public class DTClienteDetallado extends DTCliente {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	public DTClienteDetallado() {
-		super();
+	
+	public DTClienteDetallado(String nickName, String email, String nombre, String apellido, DTFecha fechaNac, String foto){
+		super(nickName, email);
+		this.setNombre(nombre);
+		this.setApellido(apellido);
+		this.setFechaNac(fechaNac);
+		this.setFoto(foto);
 	}
 	
 	

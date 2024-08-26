@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario{
-		private List <OrdenDeCompra> OrdenesDeCompras = new ArrayList<>();
-		private List <Comentario> Comentarios = new ArrayList<>();
+		private List <OrdenDeCompra> OrdenesDeCompras;
+		private List <Comentario> Comentarios;
 		
-		public Cliente(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, List <OrdenDeCompra> OrdenesDeCompras, List <Comentario> Comentarios){
+		public Cliente(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto){
 			super(nickName, nombre, apellido, email, fecha, foto);
-			this.OrdenesDeCompras = OrdenesDeCompras;
-			this.Comentarios = Comentarios;
+			this.OrdenesDeCompras = new ArrayList<>();
+			this.Comentarios = new ArrayList<>();
 		}
 		
 		public DTCliente getDTCliente() {
@@ -36,5 +36,10 @@ public class Cliente extends Usuario{
 		
 		public List <Comentario> getComentarios( ){
 			return this.Comentarios;
+		}
+		
+		public DTClienteDetallado getDTClienteDetallado(){
+			DTClienteDetallado c = new DTClienteDetallado(this.getNickname(), this.getEmail(), this.getNombre(), this.getApellido(), this.getFechaNac(), this.getFoto());
+			return c;
 		}
 }

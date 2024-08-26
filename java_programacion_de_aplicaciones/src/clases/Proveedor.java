@@ -7,13 +7,13 @@ public class Proveedor extends Usuario{
 	
 		private String nomCompania;
 		private String link;
-		private List <Producto> Productos = new ArrayList<>();
+		private List <Producto> Productos;
 		
-		public Proveedor(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String nomCompania, String link, List <Producto> Productos){
+		public Proveedor(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String nomCompania, String link){
 			super(nickName, nombre, apellido, email, fecha, foto);
 			this.link = link;
 			this.nomCompania = nomCompania;
-			this.Productos = Productos;
+			this.Productos  = new ArrayList<>();
 		}
 		
 		public void agregarProducto(Producto producto){
@@ -28,6 +28,10 @@ public class Proveedor extends Usuario{
 			this.nomCompania = nomCompania;
 		}
 		
+		public void setProductos(List <Producto> Productos){
+			this.Productos = Productos; 
+		}
+		
 		public String getlink(){
 			return this.link;
 		}
@@ -36,11 +40,18 @@ public class Proveedor extends Usuario{
 			return this.nomCompania;
 		}
 	
-		public void setProductos(List <Producto> Productos){
-			this.Productos = Productos; 
-		}
-		
 		public List <Producto> getProductos(){
 			return this.Productos;
 		}
+		
+		public DTProveedor getDTProveedor(){
+			DTProveedor c = new DTProveedor(this.getNickname(), this.getEmail());
+			return c;
+		}
+		
+		public DTProveedorDetallado getDTProveedorDetallado(){
+			DTProveedorDetallado c = new DTProveedorDetallado(this.getNickname(), this.getEmail(), this.getNombre(),this.getApellido(), this.getFechaNac(), this.getFoto(), this.getnomCompania(), this.getlink());
+			return c;
+		}
+		
 }
