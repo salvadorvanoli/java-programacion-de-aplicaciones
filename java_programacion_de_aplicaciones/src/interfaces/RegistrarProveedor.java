@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistrarProveedor extends JInternalFrame {
 
@@ -20,9 +21,6 @@ public class RegistrarProveedor extends JInternalFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
 
 	/**
 	 * Launch the application.
@@ -116,46 +114,6 @@ public class RegistrarProveedor extends JInternalFrame {
 		lblNewLabel_1_2_1_2.setBounds(38, 312, 102, 14);
 		getContentPane().add(lblNewLabel_1_2_1_2);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(38, 337, 37, 20);
-		getContentPane().add(textField_6);
-		
-		JLabel lblNewLabel_1_1_1_2_2 = new JLabel("Día");
-		lblNewLabel_1_1_1_2_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_2.setBounds(38, 360, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2_2);
-		
-		JLabel lblNewLabel_1_1_1_1_2 = new JLabel("/");
-		lblNewLabel_1_1_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1_2.setBounds(85, 339, 5, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1_2);
-		
-		JLabel lblNewLabel_1_1_1_2_1_2 = new JLabel("Mes");
-		lblNewLabel_1_1_1_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_1_2.setBounds(100, 360, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2_1_2);
-		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(100, 337, 37, 20);
-		getContentPane().add(textField_7);
-		
-		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("/");
-		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1_1_1.setBounds(147, 339, 5, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_2_1_1_1 = new JLabel("Año");
-		lblNewLabel_1_1_1_2_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_1_1_1.setBounds(162, 360, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2_1_1_1);
-		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(162, 337, 37, 20);
-		getContentPane().add(textField_8);
-		
 		JButton lblNewLabel_2_1 = new JButton("Asignar una imagen");
 		lblNewLabel_2_1.setBounds(38, 398, 144, 20);
 		getContentPane().add(lblNewLabel_2_1);
@@ -164,7 +122,10 @@ public class RegistrarProveedor extends JInternalFrame {
 		btnNewButton_1.setBackground(new Color(250, 214, 235));
 		btnNewButton_1.setBounds(256, 422, 89, 23);
 		getContentPane().add(btnNewButton_1);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(38, 337, 144, 20);
+		getContentPane().add(dateChooser);
 
 	}
-
 }
