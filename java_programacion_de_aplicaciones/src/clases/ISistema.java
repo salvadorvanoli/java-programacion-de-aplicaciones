@@ -17,13 +17,21 @@ public abstract class ISistema{
 	
 	public ISistema() {};
 	
-	// Agregue los getters de sistema (no sabía si era necesario)
+	// También agrego los getters
 	
 	public abstract List<Usuario> getUsuarios();
 	
 	public abstract HashMap<Integer, OrdenDeCompra> getOrdenes();
 	
 	public abstract HashMap<String, Categoria> getCategorias();
+	
+	public abstract Usuario getUsuarioActual();
+	
+	public abstract OrdenDeCompra getOrdenDeCompraActual();
+	
+	public abstract Categoria getCategoriaActual();
+	
+	public abstract Producto getProductoActual();
 	
 	// Falta destructor (busqué y creo que no tiene)
 	

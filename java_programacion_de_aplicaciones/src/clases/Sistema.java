@@ -47,34 +47,42 @@ public class Sistema extends ISistema {
 		this.listaOrden = new ArrayList<>();
 	}
 	
+	@Override
 	public List<Usuario> getUsuarios(){
 		return this.usuarios;
 	}
 	
+	@Override
 	public HashMap<Integer, OrdenDeCompra> getOrdenes(){
 		return this.ordenes;
 	}
 	
+	@Override
 	public HashMap<String, Categoria> getCategorias(){
 		return this.categorias;
 	}
 	
+	@Override
 	public Usuario getUsuarioActual() {
 		return this.usuarioActual;
 	}
 	
+	@Override
 	public OrdenDeCompra getOrdenDeCompraActual() {
 		return this.ordenActual;
 	}
 	
+	@Override
 	public Categoria getCategoriaActual() {
 		return this.categoriaActual;
 	}
 	
+	@Override
 	public Producto getProductoActual() {
 		return this.productoActual;
 	}
 	
+	@Override
 	public DTFecha getFechaActual() {
 		// Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
