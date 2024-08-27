@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.ISistema;
+
 public class RegistrarProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -39,8 +41,10 @@ public class RegistrarProducto extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public RegistrarProducto() {
+	public RegistrarProducto(ISistema sistema) {
+		setClosable(true);
 		setBackground(new Color(255, 192, 203));
 		setFrameIcon(new ImageIcon(RegistrarProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go\r\n");

@@ -11,6 +11,9 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import clases.ISistema;
+
 import javax.swing.ImageIcon;
 
 public class AltaDeCategoria extends JInternalFrame {
@@ -38,8 +41,10 @@ public class AltaDeCategoria extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public AltaDeCategoria() {
+	public AltaDeCategoria(ISistema sistema) {
+		setClosable(true);
 		setFrameIcon(new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 590, 351);

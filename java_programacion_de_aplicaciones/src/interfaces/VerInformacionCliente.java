@@ -6,6 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+
+import clases.ISistema;
+
 import javax.swing.ImageIcon;
 
 public class VerInformacionCliente extends JInternalFrame {
@@ -32,8 +35,9 @@ public class VerInformacionCliente extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public VerInformacionCliente() {
+	public VerInformacionCliente(ISistema sistema) {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");

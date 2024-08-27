@@ -8,6 +8,9 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import clases.ISistema;
+
 import java.awt.Font;
 import java.awt.Dimension;
 import javax.swing.JTextArea;
@@ -37,8 +40,10 @@ public class InfoProveedorDetallado extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public InfoProveedorDetallado() {
+	public InfoProveedorDetallado(ISistema sistema) {
+		setClosable(true);
 		setBackground(Color.WHITE);
 		setFrameIcon(new ImageIcon(InfoProveedorDetallado.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");

@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
+import clases.ISistema;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,8 +39,10 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public VerInfoOrdenDeCompra() {
+	public VerInfoOrdenDeCompra(ISistema sistema) {
+		setClosable(true);
 		setFrameIcon(new ImageIcon(VerInfoOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 450, 300);

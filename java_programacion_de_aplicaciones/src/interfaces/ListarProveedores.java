@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import clases.ISistema;
+
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -35,8 +38,10 @@ public class ListarProveedores extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public ListarProveedores() {
+	public ListarProveedores(ISistema sistema) {
+		setClosable(true);
 		setTitle("Flamin-Go");
 		setFrameIcon(new ImageIcon(ListarProveedores.class.getResource("/Images/Flamin-Go.png")));
 		getContentPane().setBackground(new Color(255, 192, 203));

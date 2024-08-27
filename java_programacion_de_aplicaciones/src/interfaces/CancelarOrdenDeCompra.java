@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import java.awt.TextArea;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import clases.ISistema;
+
 import javax.swing.ImageIcon;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
@@ -36,8 +39,10 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public CancelarOrdenDeCompra() {
+	public CancelarOrdenDeCompra(ISistema sistema) {
+		setClosable(true);
 		setTitle("Flamin-Go");
 		setFrameIcon(new ImageIcon(CancelarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setBounds(100, 100, 590, 315);

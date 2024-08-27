@@ -6,6 +6,9 @@ import javax.swing.JList;
 import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
+
+import clases.ISistema;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -44,8 +47,10 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public GenerarOrdenDeCompra() {
+	public GenerarOrdenDeCompra(ISistema sistema) {
+		setClosable(true);
 		setFrameIcon(new ImageIcon(GenerarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 445, 300);
@@ -61,8 +66,9 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		tree.setName("");
 		tree.setToggleClickCount(1);
 		tree.setToolTipText("Selecciona el producto dentro de las categorías");
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Categoría") {
+		/*tree.setModel(new DefaultTreeModel(
+			
+			 * new DefaultMutableTreeNode("Categoría") {
 				{
 					DefaultMutableTreeNode node_1;
 					DefaultMutableTreeNode node_2;
@@ -89,7 +95,8 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 					getContentPane().add(node_1);
 				}
 			}
-		));
+			
+		));*/
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setEditable(true);

@@ -6,6 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import clases.ISistema;
+
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 
@@ -34,8 +37,9 @@ public class ModificarDatosProducto extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema 
 	 */
-	public ModificarDatosProducto() {
+	public ModificarDatosProducto(ISistema sistema) {
 		setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);

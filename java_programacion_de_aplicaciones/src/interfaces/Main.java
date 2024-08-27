@@ -72,83 +72,43 @@ public class Main {
 		
 		// Creamos cada uno de los InternalFrame (uno por caso de uso) y lo seteamos en invisible.
 		
-		altaCategoriaInternalFrame = new AltaDeCategoria();
+		altaCategoriaInternalFrame = new AltaDeCategoria(sistema);
 		altaCategoriaInternalFrame.setVisible(false);
 		
-	    cancelarOrdenInternalFrame = new CancelarOrdenDeCompra();
+	    cancelarOrdenInternalFrame = new CancelarOrdenDeCompra(sistema);
 	    cancelarOrdenInternalFrame.setVisible(false);
 	    
-	    generarOrdenInternalFrame = new GenerarOrdenDeCompra();
+	    generarOrdenInternalFrame = new GenerarOrdenDeCompra(sistema);
 	    generarOrdenInternalFrame.setVisible(false);
 	    
-	    infoProveedorInternalFrame = new InfoProveedorDetallado();
+	    infoProveedorInternalFrame = new InfoProveedorDetallado(sistema);
 	    infoProveedorInternalFrame.setVisible(false);
 	    
-	    listarProveedoresInternalFrame = new ListarProveedores();
+	    listarProveedoresInternalFrame = new ListarProveedores(sistema);
 	    listarProveedoresInternalFrame.setVisible(false);
 	    
-	    modificarProductoInternalFrame = new ModificarDatosProducto();
+	    modificarProductoInternalFrame = new ModificarDatosProducto(sistema);
 	    modificarProductoInternalFrame.setVisible(false);
 	    
-	    registrarClienteInternalFrame = new RegistrarCliente();
+	    registrarClienteInternalFrame = new RegistrarCliente(sistema);
 	    registrarClienteInternalFrame.setVisible(false);
 	    
-	    registrarProductoInternalFrame = new RegistrarProducto();
+	    registrarProductoInternalFrame = new RegistrarProducto(sistema);
 	    registrarProductoInternalFrame.setVisible(false);
 	    
-	    registrarProveedorInternalFrame = new RegistrarProveedor();
+	    registrarProveedorInternalFrame = new RegistrarProveedor(sistema);
 	    registrarProveedorInternalFrame.setVisible(false);
 	    
-	    infoOrdenInternalFrame = new VerInfoOrdenDeCompra();
+	    infoOrdenInternalFrame = new VerInfoOrdenDeCompra(sistema);
 	    infoOrdenInternalFrame.setVisible(false);
 	    
-	    infoProductoInternalFrame = new VerInfoProducto();
+	    infoProductoInternalFrame = new VerInfoProducto(sistema);
 	    infoProductoInternalFrame.setVisible(false);
 	    
-	    infoClienteInternalFrame = new VerInformacionCliente();
+	    infoClienteInternalFrame = new VerInformacionCliente(sistema);
 	    infoClienteInternalFrame.setVisible(false);
 	    
-	    // ESTO LO AGREGUE YO
-	    /*
-	    JPanel contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-		menuPrincipal.setContentPane(contentPane);
-		*/
-		// HASTA ACA
-	    
-	    menuPrincipal.getContentPane().setLayout(null);
-	    
-	    /*
-	    menuPrincipal.getContentPane().add(altaCategoriaInternalFrame);
-	    menuPrincipal.getContentPane().add(cancelarOrdenInternalFrame);
-	    menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
-	    menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
-	    menuPrincipal.getContentPane().add(listarProveedoresInternalFrame);
-	    menuPrincipal.getContentPane().add(modificarProductoInternalFrame);
-	    menuPrincipal.getContentPane().add(registrarClienteInternalFrame);
-	    menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
-	    menuPrincipal.getContentPane().add(registrarProveedorInternalFrame);
-	    menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
-	    menuPrincipal.getContentPane().add(infoProductoInternalFrame);
-	    menuPrincipal.getContentPane().add(infoClienteInternalFrame);
-	    */
-	    
-	    /*
-		altaCategoriaInternalFrame.setVisible(false);
-	    cancelarOrdenInternalFrame.setVisible(false);
-	    generarOrdenInternalFrame.setVisible(false);
-	    infoProveedorInternalFrame.setVisible(false);
-	    listarProveedoresInternalFrame.setVisible(false);
-	    modificarProductoInternalFrame.setVisible(false);
-	    registrarClienteInternalFrame.setVisible(false);
-	    registrarProductoInternalFrame.setVisible(false);
-	    registrarProveedorInternalFrame.setVisible(false);
-	    infoOrdenInternalFrame.setVisible(false);
-	    infoProductoInternalFrame.setVisible(false);
-	    infoClienteInternalFrame.setVisible(false);
-	    */
-	    
+	    menuPrincipal.getContentPane().setLayout(null);   
 	}
 	
 	private void initialize() {
@@ -162,33 +122,75 @@ public class Main {
 		JMenuBar menuBar = new JMenuBar();
 		menuPrincipal.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Sesión");
-		menuBar.add(mnNewMenu);
+		JMenu SesionMainMenu = new JMenu("Sesión");
+		menuBar.add(SesionMainMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Cliente");
-		mnNewMenu.add(mntmNewMenuItem);
+		JMenuItem SesionCliente = new JMenuItem("Cliente");
+		SesionMainMenu.add(SesionCliente);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Proveedor");
-		mnNewMenu.add(mntmNewMenuItem_1);
+		JMenuItem SesionProveedor = new JMenuItem("Proveedor");
+		SesionMainMenu.add(SesionProveedor);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Administrador");
-		mnNewMenu.add(mntmNewMenuItem_2);
+		JMenuItem SesionAdministrador = new JMenuItem("Administrador");
+		SesionMainMenu.add(SesionAdministrador);
 		
-		JMenu mnNewMenu_1 = new JMenu("Casos de usos");
-		menuBar.add(mnNewMenu_1);
+		JMenu CasosDeUsoMainMenu = new JMenu("Casos de usos");
+		menuBar.add(CasosDeUsoMainMenu);
 		
-		JMenu mnNewMenu_2 = new JMenu("Registros");
-		mnNewMenu_1.add(mnNewMenu_2);
+		JMenu CasosDeUsoRegistros = new JMenu("Registros");
+		CasosDeUsoMainMenu.add(CasosDeUsoRegistros);
 		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Usuario");
-		mnNewMenu_2.add(mntmNewMenuItem_3);
+		// REGISTRAR CLIENTE
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Producto");
-		mnNewMenu_2.add(mntmNewMenuItem_4);
+		JMenuItem CasosDeUsoRegistrosCliente = new JMenuItem("Cliente");
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosCliente);
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosCliente);
+		CasosDeUsoRegistrosCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(registrarClienteInternalFrame);
+                registrarClienteInternalFrame.setVisible(true);
+                registrarClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Categoría");
-		mnNewMenu_2.add(mntmNewMenuItem_5);
-		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+		// REGISTRAR PROVEEDOR
+		
+		JMenuItem CasosDeUsoRegistrosProveedor = new JMenuItem("Proveedor");
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosProveedor);
+		CasosDeUsoRegistrosProveedor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(registrarProveedorInternalFrame);
+                registrarProveedorInternalFrame.setVisible(true);
+                registrarProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
+		
+		// REGISTRAR PRODUCTO
+		
+		JMenuItem CasosDeUsoRegistrosProducto = new JMenuItem("Producto");
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosProducto);
+		CasosDeUsoRegistrosProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
+                registrarProductoInternalFrame.setVisible(true);
+                registrarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
+		
+		// REGISTRAR CATEGORIA
+		
+		JMenuItem CasosDeUsoRegistrosCategoria = new JMenuItem("Categoría");
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosCategoria);
+		CasosDeUsoRegistrosCategoria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuPrincipal.getContentPane().add(altaCategoriaInternalFrame);
@@ -199,43 +201,119 @@ public class Main {
             }
         });
 		
-		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Orden de compra");
-		mnNewMenu_2.add(mntmNewMenuItem_12);
+		// REGISTRAR ORDEN DE COMPRA
 		
-		JMenu mnNewMenu_3 = new JMenu("Consultas");
-		mnNewMenu_1.add(mnNewMenu_3);
+		JMenuItem CasosDeUsoRegistrosOrdenDeCompra = new JMenuItem("Orden de compra");
+		CasosDeUsoRegistros.add(CasosDeUsoRegistrosOrdenDeCompra);
+		CasosDeUsoRegistrosOrdenDeCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
+                generarOrdenInternalFrame.setVisible(true);
+                generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Información cliente");
-		mnNewMenu_3.add(mntmNewMenuItem_6);
+		JMenu CasosDeUsoConsultas = new JMenu("Consultas");
+		CasosDeUsoMainMenu.add(CasosDeUsoConsultas);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Información proveedor");
-		mnNewMenu_3.add(mntmNewMenuItem_7);
+		// INFORMACIÓN CLIENTE
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Información producto");
-		mnNewMenu_3.add(mntmNewMenuItem_8);
+		JMenuItem CasosDeUsoConsultasInformacionCliente = new JMenuItem("Información cliente");
+		CasosDeUsoConsultas.add(CasosDeUsoConsultasInformacionCliente);
+		CasosDeUsoConsultasInformacionCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(infoClienteInternalFrame);
+                infoClienteInternalFrame.setVisible(true);
+                infoClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Información Orden de Compra");
-		mnNewMenu_3.add(mntmNewMenuItem_9);
+		// INFORMACIÓN PROVEEDOR
 		
-		JMenu mnNewMenu_4 = new JMenu("Modificaciones");
-		mnNewMenu_1.add(mnNewMenu_4);
+		JMenuItem CasosDeUsoConsultasInformacionProveedor = new JMenuItem("Información proveedor");
+		CasosDeUsoConsultas.add(CasosDeUsoConsultasInformacionProveedor);
+		CasosDeUsoConsultasInformacionProveedor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
+                infoProveedorInternalFrame.setVisible(true);
+                infoProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
-		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Producto");
-		mnNewMenu_4.add(mntmNewMenuItem_10);
+		// INFORMACIÓN PRODUCTO
 		
-		JMenu mnNewMenu_5 = new JMenu("Supresiones");
-		mnNewMenu_1.add(mnNewMenu_5);
+		JMenuItem CasosDeUsoConsultasInformacionProducto = new JMenuItem("Información producto");
+		CasosDeUsoConsultas.add(CasosDeUsoConsultasInformacionProducto);
+		CasosDeUsoConsultasInformacionProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(infoProductoInternalFrame);
+                infoProductoInternalFrame.setVisible(true);
+                infoProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 		
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Orden de Compra");
-		mnNewMenu_5.add(mntmNewMenuItem_11);
+		// INFORMACIÓN ORDEN DE COMPRA
 		
-		/*
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		*/
+		JMenuItem CasosDeUsoConsultasInformacionOrdenDeCompra = new JMenuItem("Información Orden de Compra");
+		CasosDeUsoConsultas.add(CasosDeUsoConsultasInformacionOrdenDeCompra);
+		CasosDeUsoConsultasInformacionOrdenDeCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
+                infoOrdenInternalFrame.setVisible(true);
+                infoOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
+		
+		JMenu CasosDeUsoModificaciones = new JMenu("Modificaciones");
+		CasosDeUsoMainMenu.add(CasosDeUsoModificaciones);
+		
+		// MODIFICAR PRODUCTO
+		
+		JMenuItem CasosDeUsoModificacionesProducto = new JMenuItem("Producto");
+		CasosDeUsoModificaciones.add(CasosDeUsoModificacionesProducto);
+		CasosDeUsoModificacionesProducto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(modificarProductoInternalFrame);
+                modificarProductoInternalFrame.setVisible(true);
+                modificarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
+		
+		JMenu CasosDeUsoSupresiones = new JMenu("Supresiones");
+		CasosDeUsoMainMenu.add(CasosDeUsoSupresiones);
+		
+		// ELIMINAR ORDEN DE COMPRA
+		
+		JMenuItem CasosDeUsoSupresionesOrdenDeCompra = new JMenuItem("Orden de Compra");
+		CasosDeUsoSupresiones.add(CasosDeUsoSupresionesOrdenDeCompra);
+		CasosDeUsoSupresionesOrdenDeCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuPrincipal.getContentPane().add(cancelarOrdenInternalFrame);
+                cancelarOrdenInternalFrame.setVisible(true);
+                cancelarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+            }
+        });
 	}
 
 }
