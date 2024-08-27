@@ -1,4 +1,5 @@
 package clases;
+import java.util.HashMap;
 // import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,14 @@ import excepciones.UsuarioNoExisteException;
 public abstract class ISistema{
 	
 	public ISistema() {};
+	
+	// Agregue los getters de sistema (no sabía si era necesario)
+	
+	public abstract List<Usuario> getUsuarios();
+	
+	public abstract HashMap<Integer, OrdenDeCompra> getOrdenes();
+	
+	public abstract HashMap<String, Categoria> getCategorias();
 	
 	// Falta destructor (busqué y creo que no tiene)
 	

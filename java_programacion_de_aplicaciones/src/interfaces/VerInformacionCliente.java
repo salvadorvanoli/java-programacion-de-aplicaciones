@@ -59,12 +59,11 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(labelClientesSistema);
 		
 		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
-		seleccionCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				seleccionCliente.get
-			}
-		});
 		seleccionCliente.setBounds(41, 50, 352, 22);
+		List<DTCliente> lista = this.getClientes();
+		for (DTCliente cli : lista) {
+			seleccionCliente.addItem(cli);
+		}
 		getContentPane().add(seleccionCliente);
 		
 		JTextArea txtMostrarInfoCliente = new JTextArea();
@@ -92,10 +91,18 @@ public class VerInformacionCliente extends JInternalFrame {
 	}
 	
 	public List<DTCliente> getClientes(){
-		if (sistema == null) {
+		if (this.sistema == null) {
 			// tiro el error
+			throw new NullPointerException ("Error: El sistema no existe.");
 		}
-		List<Cliente> = this.sistema
+		if (this.sistema.getUsuarios().isEmpty()) {
+			throw new IllegalStateException ("Error: El sistema no tiene usuarios.");
+		}
+		List<DTCliente> lista = this.sistema.listarClientes();
+		if (lista.isEmpty()) {
+			throw new IllegalStateException ("Error: El sistema no tiene clientes.");
+		}
+		return lista;
 	}
 	
 }

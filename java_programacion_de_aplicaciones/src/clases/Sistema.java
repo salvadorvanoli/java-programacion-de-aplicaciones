@@ -47,6 +47,34 @@ public class Sistema extends ISistema {
 		this.listaOrden = new ArrayList<>();
 	}
 	
+	public List<Usuario> getUsuarios(){
+		return this.usuarios;
+	}
+	
+	public HashMap<Integer, OrdenDeCompra> getOrdenes(){
+		return this.ordenes;
+	}
+	
+	public HashMap<String, Categoria> getCategorias(){
+		return this.categorias;
+	}
+	
+	public Usuario getUsuarioActual() {
+		return this.usuarioActual;
+	}
+	
+	public OrdenDeCompra getOrdenDeCompraActual() {
+		return this.ordenActual;
+	}
+	
+	public Categoria getCategoriaActual() {
+		return this.categoriaActual;
+	}
+	
+	public Producto getProductoActual() {
+		return this.productoActual;
+	}
+	
 	public DTFecha getFechaActual() {
 		// Obtener la fecha actual
         LocalDate fechaActual = LocalDate.now();
