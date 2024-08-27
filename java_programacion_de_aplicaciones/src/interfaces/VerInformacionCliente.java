@@ -7,11 +7,18 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
+import clases.DTCliente;
 import clases.ISistema;
 
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import java.util.List;
 
 public class VerInformacionCliente extends JInternalFrame {
+	
+	private ISistema sistema;
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +45,9 @@ public class VerInformacionCliente extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInformacionCliente(ISistema sistema) {
+		
+		this.sistema = sistema;
+		
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");
@@ -48,7 +58,12 @@ public class VerInformacionCliente extends JInternalFrame {
 		labelClientesSistema.setBounds(41, 11, 309, 28);
 		getContentPane().add(labelClientesSistema);
 		
-		JComboBox seleccionCliente = new JComboBox();
+		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
+		seleccionCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionCliente.get
+			}
+		});
 		seleccionCliente.setBounds(41, 50, 352, 22);
 		getContentPane().add(seleccionCliente);
 		
@@ -75,4 +90,12 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(txtMostrarInfoOrdenDeCompra);
 
 	}
+	
+	public List<DTCliente> getClientes(){
+		if (sistema == null) {
+			// tiro el error
+		}
+		List<Cliente> = this.sistema
+	}
+	
 }

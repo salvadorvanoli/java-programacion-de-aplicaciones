@@ -20,6 +20,8 @@ public abstract class ISistema{
 	
 	// Le puse abstract a todo pero no se si esta bien
 	
+	public abstract DTFecha getFechaActual();
+	
 	public abstract boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException;
 	
 	public abstract boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException;
@@ -46,7 +48,7 @@ public abstract class ISistema{
 	
 	public abstract int generarCodigoOrden();
 
-	public abstract DTOrdenDeCompraDetallada darAltaOrden();
+	public abstract DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException;
 
 	public abstract void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 
