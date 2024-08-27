@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.time.LocalDate;
+
 // Importamos las excepciones necesarias
 
 import excepciones.UsuarioNoExisteException;
@@ -16,6 +18,7 @@ import excepciones.ProductoNoExisteException;
 import excepciones.ProductoRepetidoException;
 import excepciones.OrdenDeCompraNoExisteException;
 import excepciones.OrdenDeCompraRepetidaException;
+
 
 public class Sistema extends ISistema {
 	
@@ -30,7 +33,8 @@ public class Sistema extends ISistema {
 	
 	private Producto productoActual;
 	
-	private List<Cantidad> listaOrden; // ESTO ES RE ILEGAL
+	// private List<Cantidad> listaOrden; // ESTO ES RE ILEGAL
+	private List<Producto> listaOrden;
 	
 	public Sistema() {
 		this.usuarios = new ArrayList<>();
@@ -41,6 +45,54 @@ public class Sistema extends ISistema {
 		this.categoriaActual = null;
 		this.productoActual = null;
 		this.listaOrden = new ArrayList<>();
+	}
+	
+	@Override
+	public List<Usuario> getUsuarios(){
+		return this.usuarios;
+	}
+	
+	@Override
+	public HashMap<Integer, OrdenDeCompra> getOrdenes(){
+		return this.ordenes;
+	}
+	
+	@Override
+	public HashMap<String, Categoria> getCategorias(){
+		return this.categorias;
+	}
+	
+	@Override
+	public Usuario getUsuarioActual() {
+		return this.usuarioActual;
+	}
+	
+	@Override
+	public OrdenDeCompra getOrdenDeCompraActual() {
+		return this.ordenActual;
+	}
+	
+	@Override
+	public Categoria getCategoriaActual() {
+		return this.categoriaActual;
+	}
+	
+	@Override
+	public Producto getProductoActual() {
+		return this.productoActual;
+	}
+	
+	@Override
+	public DTFecha getFechaActual() {
+		// Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Extraer el día, mes y año
+        int dia = fechaActual.getDayOfMonth();
+        int mes = fechaActual.getMonthValue();
+        int anio = fechaActual.getYear();
+        
+        return new DTFecha(dia, mes, anio);
 	}
 	
 	@Override // NO ES NECESARIO QUE SEA BOOL
@@ -224,6 +276,10 @@ public class Sistema extends ISistema {
         return true; // No es necesario que sea bool
 	}
 	
+	
+	// FUNCION VER INFORMACION ORDEN DE COMPRA
+	
+	
 	@Override
 	public DTOrdenDeCompraDetallada verInformacionOrdenDeCompra(int numero) {
 		if (this.ordenActual == null) {
@@ -231,6 +287,10 @@ public class Sistema extends ISistema {
 		}
 		return this.ordenActual.getDTOrdenDetallada();
 	}
+	
+	
+	// FUNCION GENERAR CODIGO ORDEN
+	
 	
 	@Override
 	public int generarCodigoOrden() {
@@ -245,11 +305,59 @@ public class Sistema extends ISistema {
 		}
 		return numero;
 	}
+	
+	
+	// FUNCION DAR ALTA ORDEN DE COMPRA
+	
 
 	@Override
-	public DTOrdenDeCompraDetallada darAltaOrden() {
-		int numero = this.generarCodigoOrden(); // SEGUIR CON ESTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	public DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException {
+		if (this.usuarioActual == null) {
+			throw new NullPointerException("Error: No se ha elegido un cliente previamente.");
+		}
+		if (this.usuarioActual instanceof Proveedor) {
+			throw new UsuarioNoExisteException("Error: El usuario de nickname " + '"' + this.usuarioActual.getNickname() + '"' + " existe, pero no es un cliente.");
+		}
+		if (this.listaOrden.isEmpty()) {
+			throw new IllegalStateException("Error: No se han elegido productos previamente.");
+		}
+		int numero = this.generarCodigoOrden();
+		DTFecha fecha = this.getFechaActual();
+		Cliente cli = (Cliente) this.usuarioActual;
+		OrdenDeCompra ord = new OrdenDeCompra(numero, fecha, cli);
+		this.ordenes.put(numero, ord);
+		for (Producto prod : this.listaOrden) {
+			ord.agregarProducto(prod, numero); // No se de donde sacar el producto
+		}
+		this.listaOrden.clear();
+		return ord.getDTOrdenDetallada();
 	}
+	
+	/* ALTERNATIVA A LA FUNCION DAR ALTA ORDEN
+	@Override
+	public DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException {
+		if (this.usuarioActual == null) {
+			throw new NullPointerException("Error: No se ha elegido un cliente previamente.");
+		}
+		if (this.usuarioActual instanceof Proveedor) {
+			throw new UsuarioNoExisteException("Error: El usuario de nickname " + '"' + this.usuarioActual.getNickname() + '"' + " existe, pero no es un cliente.");
+		}
+		if (this.listaOrden.isEmpty()) {
+			throw new IllegalStateException("Error: No se han elegido productos previamente.");
+		}
+		int numero = this.generarCodigoOrden();
+		DTFecha fecha = this.getFechaActual();
+		Cliente cli = (Cliente) this.usuarioActual;
+		OrdenDeCompra ord = new OrdenDeCompra(numero, fecha, cli, this.listaOrden);
+		this.ordenes.put(numero, ord);
+		this.listaOrden.clear();
+		return ord.getDTOrdenDetallada();
+	}
+	*/
+	
+	
+	// FUNCION CANCELAR ORDEN DE COMPRA
+	
 
 	@Override
 	public void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException {
@@ -262,7 +370,26 @@ public class Sistema extends ISistema {
         ord.setCantidad(null);
         return;
 	}
-
+	
+	
+	// FUNCION AGREGAR PRODUCTO
+	
+	
+	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
+		if (this.categoriaActual == null) {
+			throw new NullPointerException("Error: No se ha elegido una categoría previamente.");
+		}
+		Producto prod = this.categoriaActual.seleccionarProducto(nombreProducto);
+		if (prod == null) {
+			throw new ProductoNoExisteException("Error: El producto de nombre " + '"' + nombreProducto + '"' + " no existe.");
+		}
+		
+		this.listaOrden.add(prod);
+		return true;
+	}
+	
+	
+	/* OTRA OPCION, CAPAZ UN POCO MAS EFECTIVA
 	@Override
 	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
 		if (this.categoriaActual == null) {
@@ -276,6 +403,7 @@ public class Sistema extends ISistema {
 		this.listaOrden.add(cant);
 		return true;
 	}
+	*/
 
 	@Override
 	public List<DTCliente> listarClientes(){
@@ -376,7 +504,6 @@ public class Sistema extends ISistema {
 		this.productoActual.setNombreProducto(nombreProd);
 		this.productoActual.setNumReferencia(numReferencia);
 		this.productoActual.setDescripcion(descripcion);
-		this.productoActual.setPrecio(precio);
 		this.productoActual.setEspecificacion(especificacion);
 	}
 	

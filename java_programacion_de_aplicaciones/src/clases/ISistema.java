@@ -1,4 +1,5 @@
 package clases;
+import java.util.HashMap;
 // import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,27 @@ public abstract class ISistema{
 	
 	public ISistema() {};
 	
+	// También agrego los getters
+	
+	public abstract List<Usuario> getUsuarios();
+	
+	public abstract HashMap<Integer, OrdenDeCompra> getOrdenes();
+	
+	public abstract HashMap<String, Categoria> getCategorias();
+	
+	public abstract Usuario getUsuarioActual();
+	
+	public abstract OrdenDeCompra getOrdenDeCompraActual();
+	
+	public abstract Categoria getCategoriaActual();
+	
+	public abstract Producto getProductoActual();
+	
 	// Falta destructor (busqué y creo que no tiene)
 	
 	// Le puse abstract a todo pero no se si esta bien
+	
+	public abstract DTFecha getFechaActual();
 	
 	public abstract boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException;
 	
@@ -46,7 +65,7 @@ public abstract class ISistema{
 	
 	public abstract int generarCodigoOrden();
 
-	public abstract DTOrdenDeCompraDetallada darAltaOrden();
+	public abstract DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException;
 
 	public abstract void cancelarOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 
