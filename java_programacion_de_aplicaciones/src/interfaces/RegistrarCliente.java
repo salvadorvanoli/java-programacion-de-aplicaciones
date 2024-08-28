@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import clases.ISistema;
+import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,6 +18,8 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class RegistrarCliente extends JInternalFrame {
@@ -104,19 +109,70 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonImg.setBounds(38, 319, 144, 20);
 		getContentPane().add(ButtonImg);
 		
+		
+		
+		JDateChooser DateFecha = new JDateChooser();
+		DateFecha.setBounds(38, 258, 144, 20);
+		getContentPane().add(DateFecha);
+
+		
+		private void limpiarFormulario() {
+			textNick.setText("");
+			textNom.setText("");
+			textApe.setText("");
+			textMail.setText("");
+			DateFecha.setDate(null);
+			//FALTA CONTEMPLAR IMAGEN
+		}
+		
+		
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nickname = textNicknameCliente.getText();
+			public void actionPerformed(ActionEvent arg0) {
+				String nickname = textNick.getText();
+				String correo = textMail.getText();
+				String nombre = textNom.getText();
+				String apellido = textApe.getText();
+				Date fechaN = DateFecha.getDate();
+				String imagen; //AGREGAR IMAGEN	
+				
+				//como es lo de la fecha
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String fechastring = dateFormat.format(fechaN);
+				try {
+					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaN, imagen);
+					
+					JOptionPane.showMessageDialog(this, "El Cliente se ha creado.", "Registrar Cliente",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				catch(UsuarioRepetidoException e){
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
+				}
+				limpiarFormulario();
+				setVisible(false);
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
 		ButtonReg.setBounds(255, 335, 89, 23);
 		getContentPane().add(ButtonReg);
 		
-		JDateChooser DateFecha = new JDateChooser();
-		DateFecha.setBounds(38, 258, 144, 20);
-		getContentPane().add(DateFecha);
-
+	private boolean chequearFormulario() {
+			String nickname = textNick.getText();
+			String correo = textMail.getText();
+			String nombre = textNom.getText();
+			String apellido = textApe.getText();
+			Date fechaN = DateFecha.getDate();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String fechastring = dateFormat.format(fechaN);
+			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechastring.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			return true;
+	}
+			
+	
+	
 	}
 }
