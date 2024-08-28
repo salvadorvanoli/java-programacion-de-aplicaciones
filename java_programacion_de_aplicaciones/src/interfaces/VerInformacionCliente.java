@@ -20,6 +20,8 @@ import java.awt.event.ActionEvent;
 
 import java.util.List;
 import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class VerInformacionCliente extends JInternalFrame {
 	
@@ -65,11 +67,12 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 461, 349);
+		setBounds(100, 100, 461, 386);
 		getContentPane().setLayout(null);
 		
 		JLabel labelClientesSistema = new JLabel("Selecciona uno de los clientes del sistema especificados debajo *");
-		labelClientesSistema.setBounds(41, 11, 309, 28);
+		labelClientesSistema.setHorizontalAlignment(SwingConstants.CENTER);
+		labelClientesSistema.setBounds(10, 48, 425, 28);
 		getContentPane().add(labelClientesSistema);
 		
 		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
@@ -90,14 +93,14 @@ public class VerInformacionCliente extends JInternalFrame {
                 }
 			}
 		});
-		seleccionCliente.setBounds(41, 50, 352, 22);
+		seleccionCliente.setBounds(43, 87, 352, 22);
 		getContentPane().add(seleccionCliente);
 		
 		this.seleccionCliente = seleccionCliente;
 		
 		JTextArea txtMostrarInfoCliente = new JTextArea();
 		txtMostrarInfoCliente.setText("Aquí se mostrará la información del\r\ncliente elegido.");
-		txtMostrarInfoCliente.setBounds(41, 83, 352, 152);
+		txtMostrarInfoCliente.setBounds(43, 120, 352, 152);
 		getContentPane().add(txtMostrarInfoCliente);
 		
 		this.txtMostrarInfoCliente = txtMostrarInfoCliente;
@@ -114,10 +117,16 @@ public class VerInformacionCliente extends JInternalFrame {
 				menu.getMenuPrincipal().repaint();
 			}
 		});
-		btnVerInfoOrdenes.setBounds(133, 264, 177, 23);
+		btnVerInfoOrdenes.setBounds(135, 301, 177, 23);
 		getContentPane().add(btnVerInfoOrdenes);
 		
 		this.btnVerInfoOrdenes = btnVerInfoOrdenes;
+		
+		JLabel lblVerInfoCliente = new JLabel("Ver información de un Cliente");
+		lblVerInfoCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVerInfoCliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblVerInfoCliente.setBounds(10, 11, 425, 29);
+		getContentPane().add(lblVerInfoCliente);
 
 	}
 	
