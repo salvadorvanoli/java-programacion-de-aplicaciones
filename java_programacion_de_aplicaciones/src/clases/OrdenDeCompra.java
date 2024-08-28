@@ -57,8 +57,23 @@ public class OrdenDeCompra {
 		this.numero = numero;
 		this.fecha = fecha;
 		this.cliente = cliente;
+		this.cantidad = new ArrayList<>();
 	}
 	
+	public String toString(){
+		String fechaFormateada = String.format("%02d/%02d/%04d", this.fecha.getDia(), this.fecha.getMes(), this.fecha.getAnio());
+	    String retorno = "Orden de Compra " + this.numero + System.lineSeparator()
+	                + "Fecha: " + fechaFormateada + System.lineSeparator()
+	                + "Precio total: " + this.getPrecioTotal() + System.lineSeparator()
+	                + "Nombre cliente: " + this.cliente.getNickname() + System.lineSeparator()
+	                + System.lineSeparator() +  "-------------------- PRODUCTOS --------------------" + System.lineSeparator() + System.lineSeparator();
+	    Integer i = 1;
+	    for (Cantidad prod : this.cantidad){
+	        retorno += "Producto número " + i.toString() + ": "  + System.lineSeparator() + prod.toString() + System.lineSeparator();
+	        i++;
+	    }
+	    return retorno;
+	}
 	
 	
 	public DTOrdenDeCompra getDTOrden() {

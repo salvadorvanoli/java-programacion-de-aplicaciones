@@ -43,35 +43,36 @@ public class InfoProveedorDetallado extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public InfoProveedorDetallado(ISistema sistema) {
+		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);
 		setBackground(Color.WHITE);
 		setFrameIcon(new ImageIcon(InfoProveedorDetallado.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setBounds(new Rectangle(0, 0, 256, 220));
-		setBounds(100, 100, 256, 243);
+		setBounds(100, 100, 441, 299);
 		getContentPane().setLayout(null);
 		
 		JLabel Foto = new JLabel("Foto");
 		Foto.setHorizontalAlignment(SwingConstants.CENTER);
-		Foto.setBounds(120, 25, 120, 109);
+		Foto.setBounds(295, 25, 120, 109);
 		getContentPane().add(Foto);
 		
 		Info1 = new JTextArea();
-		Info1.setBackground(Color.WHITE);
+		Info1.setBackground(new Color(240, 240, 240));
 		Info1.setText("Datos1");
-		Info1.setBounds(0, 25, 120, 109);
+		Info1.setBounds(0, 25, 285, 109);
 		getContentPane().add(Info1);
 		
 		JTextArea Info2 = new JTextArea();
-		Info2.setBackground(Color.WHITE);
+		Info2.setBackground(new Color(240, 240, 240));
 		Info2.setText("Datos2\r\n");
-		Info2.setBounds(0, 131, 240, 82);
+		Info2.setBounds(0, 131, 425, 127);
 		getContentPane().add(Info2);
 		
 		JLabel lblNewLabel = new JLabel("Informacion Del Proveedor\r\n");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(0, 11, 240, 14);
+		lblNewLabel.setBounds(0, 11, 425, 14);
 		getContentPane().add(lblNewLabel);
 
 	}

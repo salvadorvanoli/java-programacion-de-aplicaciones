@@ -45,6 +45,59 @@ public class Sistema extends ISistema {
 		this.categoriaActual = null;
 		this.productoActual = null;
 		this.listaOrden = new ArrayList<>();
+		
+		DTFecha fecha1 = new DTFecha(2, 4, 2024);
+        DTFecha fecha2 = new DTFecha(6, 8, 2024);
+        
+        Cliente cl1 = new Cliente("a", "a", "a", "a", fecha1, "a");
+        Cliente cl2 = new Cliente("b", "b", "b", "b", fecha2, "b");
+        
+        // Crear listas de imágenes y categorías
+        List<String> imagenes = new ArrayList<>();
+        imagenes.add("imagen1.jpg");
+        imagenes.add("imagen2.jpg");
+        
+        // Crear una instancia de Producto con todos los campos llenos
+        Producto producto = new Producto(
+            "aa",          // nombreProducto
+            "ae",     // descripcion
+            "ai",   // especificacion
+            12345,                           // numReferencia
+            99.99f,                          // precio
+            imagenes,                        // lista de imágenes
+            null,                      // lista de categorías
+            null                        // proveedor
+        );
+        
+        Producto producto2 = new Producto(
+                "ba",          // nombreProducto
+                "be",     // descripcion
+                "bi",   // especificacion
+                1234567,                           // numReferencia
+                99.99f,                          // precio
+                imagenes,                        // lista de imágenes
+                null,                      // lista de categorías
+                null                        // proveedor
+            );
+        
+        // Crear dos órdenes de compra
+        OrdenDeCompra orden1 = new OrdenDeCompra(1, fecha1, cl1);
+        orden1.setPrecioTotal(100.50f);
+        OrdenDeCompra orden2 = new OrdenDeCompra(2, fecha2, cl2);
+        orden2.setPrecioTotal(200.75f);
+        
+        orden1.agregarProducto(producto, 5);
+        orden1.agregarProducto(producto2, 64);
+        
+		ordenes.put(1, orden1);
+		ordenes.put(2, orden2);
+		
+		this.usuarios.add(cl1);
+		this.usuarios.add(cl2);
+        
+        
+        
+        
 	}
 	
 	@Override

@@ -19,6 +19,10 @@ public class Producto {
         this.especificacion = especificacion;
         this.numReferencia = numReferencia;
         this.precio = precio;
+        
+        this.imagenes = new ArrayList<>();
+        this.categorias = new ArrayList<>();
+        
         this.imagenes = imagenes;
         this.categorias = categorias;
         this.proveedor = proveedor;

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistrarCliente extends JInternalFrame {
 
@@ -21,9 +22,6 @@ public class RegistrarCliente extends JInternalFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -100,46 +98,6 @@ public class RegistrarCliente extends JInternalFrame {
 		lblNewLabel_1_2_1.setBounds(38, 233, 102, 14);
 		getContentPane().add(lblNewLabel_1_2_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(38, 258, 37, 20);
-		getContentPane().add(textField_4);
-		
-		JLabel lblNewLabel_1_1_1_2 = new JLabel("Día");
-		lblNewLabel_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2.setBounds(38, 281, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2);
-		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("/");
-		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1.setBounds(85, 260, 5, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_2_1 = new JLabel("Mes");
-		lblNewLabel_1_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_1.setBounds(100, 281, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2_1);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(100, 258, 37, 20);
-		getContentPane().add(textField_5);
-		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("/");
-		lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1_1.setBounds(147, 260, 5, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_2_1_1 = new JLabel("Año");
-		lblNewLabel_1_1_1_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_1_1.setBounds(162, 281, 37, 14);
-		getContentPane().add(lblNewLabel_1_1_1_2_1_1);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(162, 258, 37, 20);
-		getContentPane().add(textField_6);
-		
 		JButton lblNewLabel_2 = new JButton("Asignar una imagen");
 		lblNewLabel_2.setBounds(38, 319, 144, 20);
 		getContentPane().add(lblNewLabel_2);
@@ -148,6 +106,10 @@ public class RegistrarCliente extends JInternalFrame {
 		btnNewButton.setBackground(new Color(250, 214, 235));
 		btnNewButton.setBounds(255, 335, 89, 23);
 		getContentPane().add(btnNewButton);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(38, 258, 144, 20);
+		getContentPane().add(dateChooser);
 
 	}
 }
