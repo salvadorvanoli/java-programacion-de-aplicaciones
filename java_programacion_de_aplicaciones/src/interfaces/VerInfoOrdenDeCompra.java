@@ -1,6 +1,17 @@
 package interfaces;
 import java.awt.EventQueue;
-
+import java.util.ArrayList;
+import clases.DTOrdenDeCompra;
+import clases.Cantidad;
+import java.util.List;
+import javax.swing.JInternalFrame;
+import javax.swing.SwingUtilities;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import clases.Producto;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,6 +25,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class VerInfoOrdenDeCompra extends JInternalFrame {
 
@@ -49,38 +62,145 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setToolTipText("Puede ingresar el código");
 		comboBox.setEditable(true);
-		comboBox.setBounds(24, 39, 99, 22);
+		comboBox.setBounds(24, 39, 149, 22);
 		getContentPane().add(comboBox);
-		
-		JLabel lblNewLabel = new JLabel("Seleccionar orden de compra:");
-		lblNewLabel.setBounds(24, 14, 149, 14);
-		getContentPane().add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(24, 119, 189, 98);
 		getContentPane().add(scrollPane);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		JTextArea ordenDetalles = new JTextArea();
+		scrollPane.setViewportView(ordenDetalles);
+		
+		
+		
+		///////////// CASO DE PRUEBA -> COMENTARLO Y DES-COMENTAR LO DE ABAJO PARA QUE FUNCIONE NORMAL//////////
+        Producto producto1 = new Producto("Producto A", "q", "w", 1, 3, null, null, null);
+        Producto producto2 = new Producto("Producto B", "q", "w", 1, 3, null, null, null);
+        Producto producto3 = new Producto("Producto C", "q", "w", 1, 3, null, null, null);
+        Producto producto4 = new Producto("Producto D", "q", "w", 1, 3, null, null, null);
+        Producto producto5 = new Producto("Producto E", "q", "w", 1, 3, null, null, null);
+        Producto producto6 = new Producto("Producto F", "q", "w", 1, 3, null, null, null);
+
+        // Crear cantidades para la primera orden
+        Cantidad cantidad1_1 = new Cantidad(producto1, 10);
+        Cantidad cantidad1_2 = new Cantidad(producto2, 5);
+        Cantidad cantidad1_3 = new Cantidad(producto3, 2);
+
+        // Crear cantidades para la segunda orden
+        Cantidad cantidad2_1 = new Cantidad(producto4, 7);
+        Cantidad cantidad2_2 = new Cantidad(producto5, 3);
+        Cantidad cantidad2_3 = new Cantidad(producto6, 1);
+
+        // Crear cantidades para la tercera orden
+        Cantidad cantidad3_1 = new Cantidad(producto1, 8);
+        Cantidad cantidad3_2 = new Cantidad(producto4, 6);
+        Cantidad cantidad3_3 = new Cantidad(producto6, 4);
+
+        // Crear listas de cantidades para cada orden
+        List<Cantidad> cantidadesOrden1 = new ArrayList<>();
+        cantidadesOrden1.add(cantidad1_1);
+        cantidadesOrden1.add(cantidad1_2);
+        cantidadesOrden1.add(cantidad1_3);
+
+        List<Cantidad> cantidadesOrden2 = new ArrayList<>();
+        cantidadesOrden2.add(cantidad2_1);
+        cantidadesOrden2.add(cantidad2_2);
+        cantidadesOrden2.add(cantidad2_3);
+
+        List<Cantidad> cantidadesOrden3 = new ArrayList<>();
+        cantidadesOrden3.add(cantidad3_1);
+        cantidadesOrden3.add(cantidad3_2);
+        cantidadesOrden3.add(cantidad3_3);
+
+        // Crear instancias de DTOrdenDeCompra
+        DTOrdenDeCompra orden1 = new DTOrdenDeCompra(1, null, cantidadesOrden1);
+        DTOrdenDeCompra orden2 = new DTOrdenDeCompra(2, null, cantidadesOrden2);
+        DTOrdenDeCompra orden3 = new DTOrdenDeCompra(3, null, cantidadesOrden3);
+
+        // Crear una lista de órdenes de compra
+        List<DTOrdenDeCompra> listaOrdenes = new ArrayList<>();
+        listaOrdenes.add(orden1);
+        listaOrdenes.add(orden2);
+        listaOrdenes.add(orden3);
+        
+        //Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
+ 		for (DTOrdenDeCompra ordenDetalles1 : listaOrdenes) {
+ 		    comboBox.addItem(ordenDetalles1); 
+ 		} 
+ 		
+ 		
+ 		/////////////Esto es sin caso de prueba, normal///////////
+      /*List<DTOrdenDeCompra> ordenes = sistema.listarOrdenesDeCompra();
+
+		 Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
+		for (DTOrdenDeCompra ordenDetalles1 : ordenes) {
+		    comboBox.addItem(ordenDetalles1); 
+		} */
+        
+     
+        
+		comboBox.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        // Obtenego la orden seleccionada
+		        DTOrdenDeCompra ordenSeleccionada = (DTOrdenDeCompra) comboBox.getSelectedItem();
+		        
+		        if (ordenSeleccionada != null) {
+		            //Construir el texto con los detalles de la orden
+		            StringBuilder detalles = new StringBuilder();
+
+		            // Iterar sobre la lista Cantidad y agregar cada detalle al StringBuilder
+		            for (Cantidad cantidad : ordenSeleccionada.getCantidades()) {
+		                detalles.append("Producto: ")
+		                        .append(cantidad.getProducto().getNombreProducto())  
+		                        .append(", Cantidad: ")
+		                        .append(cantidad.getCantidad())
+		                        .append("\n");
+		            }
+
+		            // Mostrar los detalles en el JTextArea
+		            ordenDetalles.setText(detalles.toString());
+		        }
+		    }
+		});
+
+		
+		JLabel lblNewLabel = new JLabel("Seleccionar orden de compra:");
+		lblNewLabel.setBounds(24, 14, 149, 14);
+		getContentPane().add(lblNewLabel);
+		
+		
 		
 		JLabel lblNewLabel_1 = new JLabel("Orden de compra:");
 		lblNewLabel_1.setBounds(24, 95, 120, 14);
 		getContentPane().add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Consultar otra orden");
-		btnNewButton.setBounds(168, 236, 149, 23);
-		getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Aceptar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton borrar = new JButton("Consultar otra orden");
+		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				 ordenDetalles.setText("");
+				 comboBox.setSelectedIndex(-1); 
 			}
 		});
-		btnNewButton_1.setBounds(327, 236, 89, 23);
-		getContentPane().add(btnNewButton_1);
+		borrar.setBounds(168, 236, 149, 23);
+		getContentPane().add(borrar);
+		
+		JButton cerrar = new JButton("Aceptar");
+		cerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JInternalFrame internalFrame = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, (Component) e.getSource());
+				    
+			if (internalFrame != null) {
+			 // Cerrar el JInternalFrame
+				 internalFrame.dispose();
+			}
+			}
+		});
+		cerrar.setBounds(327, 236, 89, 23);
+		getContentPane().add(cerrar);
 
 	}
 
