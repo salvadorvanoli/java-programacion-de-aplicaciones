@@ -77,11 +77,16 @@ public class OrdenDeCompra {
 	
 	
 	public DTOrdenDeCompra getDTOrden() {
-		return new DTOrdenDeCompra(this.numero, this.fecha);
+		return new DTOrdenDeCompra(this.numero, this.fecha, this.cantidad);
 	}
 	
 	public DTOrdenDeCompraDetallada getDTOrdenDetallada() {
-		return new DTOrdenDeCompraDetallada(this.numero, this.fecha, this.cantidad);
+		List<DTCantidadProducto> lista = new ArrayList<>();
+		for(Cantidad cant : this.cantidad) {
+			DTCantidadProducto nuevo = cant.getDTCantidadProducto();
+			lista.add(nuevo);
+		}
+		return new DTOrdenDeCompraDetallada(this.numero, this.fecha, lista);
 	}
 	
 
