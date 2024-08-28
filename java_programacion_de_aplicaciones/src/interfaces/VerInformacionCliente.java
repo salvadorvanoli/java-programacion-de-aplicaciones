@@ -27,6 +27,7 @@ public class VerInformacionCliente extends JInternalFrame {
 	private JComboBox<DTCliente> seleccionCliente;
 	private JTextArea txtMostrarInfoCliente;
 	private JButton btnVerInfoOrdenes;
+	private Main menu;
 	
 	public JButton getBtnVerInfoOrdenes() {
 		return this.btnVerInfoOrdenes;
@@ -56,9 +57,10 @@ public class VerInformacionCliente extends JInternalFrame {
 	 * Create the frame.
 	 * @param sistema 
 	 */
-	public VerInformacionCliente(ISistema sistema) {
+	public VerInformacionCliente(ISistema sistema, Main menu) {
 		
 		this.sistema = sistema;
+		this.menu = menu;
 		
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
@@ -75,11 +77,9 @@ public class VerInformacionCliente extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				DTCliente seleccionado = (DTCliente) seleccionCliente.getSelectedItem();
                 if (seleccionado != null) {
-                	String textoSeleccion = seleccionado.toString();
-                    String nickname = textoSeleccion.split(" - ")[0].split(": ")[1];
-                    nickname = nickname.strip();
+                    String nickname = seleccionado.getNickname();
                     try {
-                        sistema.elegirCliente((String) nickname);
+                        sistema.elegirCliente(nickname);
                         String informacionDetalladaCliente = sistema.verInformacionCliente().toString();
                         txtMostrarInfoCliente.setText(informacionDetalladaCliente);
                     } catch (UsuarioNoExisteException e1) {
@@ -103,6 +103,17 @@ public class VerInformacionCliente extends JInternalFrame {
 		this.txtMostrarInfoCliente = txtMostrarInfoCliente;
 		
 		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
+		btnVerInfoOrdenes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// infoClienteInternalFrame.toBack();
+				menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
+				menu.getInfoOrdenInternalFrame().setVisible(true);
+				menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
+				menu.getMenuPrincipal().revalidate();
+				menu.getMenuPrincipal().repaint();
+			}
+		});
 		btnVerInfoOrdenes.setBounds(133, 264, 177, 23);
 		getContentPane().add(btnVerInfoOrdenes);
 		

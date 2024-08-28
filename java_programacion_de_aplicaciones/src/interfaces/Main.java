@@ -49,6 +49,60 @@ public class Main {
     private VerInfoOrdenDeCompra infoOrdenInternalFrame;
     private VerInfoProducto infoProductoInternalFrame;
     private VerInformacionCliente infoClienteInternalFrame;
+    
+    // Agregamos getters de todo lo que posee el Main (con la idea de manejar otros casos de uso desde fuera)
+    
+    public JFrame getMenuPrincipal() {
+    	return this.menuPrincipal;
+    }
+    
+    public AltaDeCategoria getAltaCategoriaInternalFrame() {
+    	return this.altaCategoriaInternalFrame;
+    }
+    
+    public CancelarOrdenDeCompra getCancelarOrdenInternalFrame(){
+    	return this.cancelarOrdenInternalFrame;
+    }
+    
+    public GenerarOrdenDeCompra getGenerarOrdenInternalFrame() {
+    	return this.generarOrdenInternalFrame;
+    }
+    
+    public InfoProveedorDetallado getInfoProveedorInternalFrame() {
+    	return this.infoProveedorInternalFrame;
+    }
+    
+    public ListarProveedores getListarProveedoresInternalFrame(){
+    	return this.listarProveedoresInternalFrame;
+    }
+    
+    public ModificarDatosProducto getModificarProductoInternalFrame() {
+    	return this.modificarProductoInternalFrame;
+    }
+    
+    public RegistrarCliente getRegistrarClienteInternalFrame() {
+    	return this.registrarClienteInternalFrame;
+    }
+    
+    public RegistrarProducto getRegistrarProductoInternalFrame() {
+    	return this.registrarProductoInternalFrame;
+    }
+    
+    public RegistrarProveedor getRegistrarProveedorInternalFrame() {
+    	return this.registrarProveedorInternalFrame;
+    }
+    
+    public VerInfoOrdenDeCompra getInfoOrdenInternalFrame() {
+    	return this.infoOrdenInternalFrame;
+    }
+    
+    public VerInfoProducto getInfoProductoInternalFrame() {
+    	return this.infoProductoInternalFrame;
+    }
+    
+    public VerInformacionCliente getInfoClienteInternalFrame() {
+    	return this.infoClienteInternalFrame;
+    }
 
 	/**
 	 * Launch the application.
@@ -74,10 +128,6 @@ public class Main {
 		
 		SistemaFactory fabrica = SistemaFactory.getInstancia();
 		sistema = fabrica.getISistema();
-		
-		// Codigo agregado por miiiiiiiiiiiiiiiiii
-		
-		this.sistema.getUsuarios().add(new Cliente("ProtoWarro", "Valentin", "Veintemilla", "a@gmail", null, null));
 		
 		// Creamos cada uno de los InternalFrame (uno por caso de uso) y lo seteamos en invisible.
 		
@@ -114,11 +164,12 @@ public class Main {
 	    infoProductoInternalFrame = new VerInfoProducto(sistema);
 	    infoProductoInternalFrame.setVisible(false);
 	    
-	    infoClienteInternalFrame = new VerInformacionCliente(sistema);
+	    infoClienteInternalFrame = new VerInformacionCliente(sistema, this);
 	    infoClienteInternalFrame.setVisible(false);
 	    
 	    // AGREGUÉ UN ADDEVENTLISTENER EN EL MAIN (PERO ES SOBRE OTRO CASO DE USO).
 	    
+	    /*
 	    infoClienteInternalFrame.getBtnVerInfoOrdenes().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// infoClienteInternalFrame.toBack();
@@ -130,6 +181,7 @@ public class Main {
                 menuPrincipal.repaint();
 			}
 		});
+		*/
 	    
 	    menuPrincipal.getContentPane().setLayout(null);   
 	}
