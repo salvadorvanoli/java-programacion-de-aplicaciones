@@ -95,9 +95,15 @@ public class Sistema extends ISistema {
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
         
-        
-        
-        
+        try {
+        	Categoria cat = new Categoria("A", true, null);
+			altaCategoria("A", true, null);
+			altaCategoria("B", true, cat);
+			altaCategoria("C", true, null);
+		} catch (CategoriaRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
