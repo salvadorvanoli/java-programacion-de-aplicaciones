@@ -10,6 +10,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTree;
 import javax.swing.JButton;
 
+// Importamos clases de "clases"
+
+import clases.ISistema;
+
 public class ModificarCategoriasProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +21,7 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -29,11 +34,12 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public ModificarCategoriasProducto() {
+	public ModificarCategoriasProducto(ISistema sistema) {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");

@@ -52,12 +52,34 @@ public class OrdenDeCompra {
 		lista.add(nueva);
 		this.setCantidad(lista);
 	}
+	
+	/* Versión anterior
 	public OrdenDeCompra(int numero, DTFecha fecha, Cliente cliente) {
 		super();
 		this.numero = numero;
 		this.fecha = fecha;
 		this.cliente = cliente;
 		this.cantidad = new ArrayList<>();
+	}
+	*/
+	
+	public OrdenDeCompra(int numero, DTFecha fecha, Cliente cliente, List<Cantidad> cantidades) {
+		super();
+		this.numero = numero;
+		this.fecha = fecha;
+		this.cliente = cliente;
+		if (cantidades != null) {
+			this.cantidad = cantidades;
+			float sumPrecio = 0;
+			for (Cantidad can : cantidades) {
+				float subtotal = can.getCantidad() * can.getProducto().getPrecio();
+				sumPrecio += subtotal;
+			}
+			this.precioTotal = sumPrecio;
+		} else {
+			this.cantidad = new ArrayList<>();
+			this.precioTotal = 0;
+		}
 	}
 	
 	public String toString(){

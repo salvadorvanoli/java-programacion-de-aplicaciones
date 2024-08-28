@@ -33,8 +33,8 @@ public class Sistema extends ISistema {
 	
 	private Producto productoActual;
 	
-	// private List<Cantidad> listaOrden; // ESTO ES RE ILEGAL
-	private List<Producto> listaOrden;
+	private List<Cantidad> listaOrden; // ESTO ES RE ILEGAL
+	// private List<Producto> listaOrden;
 	
 	public Sistema() {
 		this.usuarios = new ArrayList<>();
@@ -81,9 +81,9 @@ public class Sistema extends ISistema {
             );
         
         // Crear dos órdenes de compra
-        OrdenDeCompra orden1 = new OrdenDeCompra(1, fecha1, cl1);
+        OrdenDeCompra orden1 = new OrdenDeCompra(1, fecha1, cl1, null);
         orden1.setPrecioTotal(100.50f);
-        OrdenDeCompra orden2 = new OrdenDeCompra(2, fecha2, cl2);
+        OrdenDeCompra orden2 = new OrdenDeCompra(2, fecha2, cl2, null);
         orden2.setPrecioTotal(200.75f);
         
         orden1.agregarProducto(producto, 5);
@@ -203,7 +203,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override // Lo podría leer directamente
-	public DTProductoDetallado verInformacionProducto(int numReferencia) {
+	public DTProductoDetallado verInformacionProducto() {
 		if (this.productoActual == null) {
 			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
 		}
@@ -376,7 +376,7 @@ public class Sistema extends ISistema {
 	
 	// FUNCION DAR ALTA ORDEN DE COMPRA
 	
-
+	/*
 	@Override
 	public DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException {
 		if (this.usuarioActual == null) {
@@ -399,8 +399,9 @@ public class Sistema extends ISistema {
 		this.listaOrden.clear();
 		return ord.getDTOrdenDetallada();
 	}
+	*/
 	
-	/* ALTERNATIVA A LA FUNCION DAR ALTA ORDEN
+	/* ALTERNATIVA A LA FUNCION DAR ALTA ORDEN */
 	@Override
 	public DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException {
 		if (this.usuarioActual == null) {
@@ -420,7 +421,7 @@ public class Sistema extends ISistema {
 		this.listaOrden.clear();
 		return ord.getDTOrdenDetallada();
 	}
-	*/
+	
 	
 	
 	// FUNCION CANCELAR ORDEN DE COMPRA
@@ -441,7 +442,7 @@ public class Sistema extends ISistema {
 	
 	// FUNCION AGREGAR PRODUCTO
 	
-	
+	/* Versión anterior, con fallas
 	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
 		if (this.categoriaActual == null) {
 			throw new NullPointerException("Error: No se ha elegido una categoría previamente.");
@@ -454,11 +455,14 @@ public class Sistema extends ISistema {
 		this.listaOrden.add(prod);
 		return true;
 	}
+	*/
 	
 	
-	/* OTRA OPCION, CAPAZ UN POCO MAS EFECTIVA
 	@Override
 	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
+		if (cantidad < 1) {
+			throw new IllegalArgumentException("Error: La cantidad de un producto no puede ser menor a 1.");
+		}
 		if (this.categoriaActual == null) {
 			throw new NullPointerException("Error: No se ha elegido una categoría previamente.");
 		}
@@ -470,7 +474,7 @@ public class Sistema extends ISistema {
 		this.listaOrden.add(cant);
 		return true;
 	}
-	*/
+	
 
 	@Override
 	public List<DTCliente> listarClientes(){

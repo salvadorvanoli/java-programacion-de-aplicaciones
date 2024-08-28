@@ -45,7 +45,7 @@ public abstract class ISistema{
 
 	public abstract boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, Proveedor proveedor) throws ProductoRepetidoException;
 	
-	public abstract DTProductoDetallado verInformacionProducto(int numReferencia);
+	public abstract DTProductoDetallado verInformacionProducto();
 
 	public abstract List<DTCategoria> listarCategorias();
 

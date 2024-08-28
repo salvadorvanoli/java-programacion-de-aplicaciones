@@ -50,6 +50,10 @@ public class Main {
     private VerInfoProducto infoProductoInternalFrame;
     private VerInformacionCliente infoClienteInternalFrame;
     
+    // Dos pestañas más (sirven para manejar el caso de uso ModificarDatosProducto
+    private ModificarCategoriasProducto modificarCategoriasProductoInternalFrame;
+    private ModificarImagenesProducto modificarImagenesProductoInternalFrame;
+    
     // Agregamos getters de todo lo que posee el Main (con la idea de manejar otros casos de uso desde fuera)
     
     public JFrame getMenuPrincipal() {
@@ -103,6 +107,14 @@ public class Main {
     public VerInformacionCliente getInfoClienteInternalFrame() {
     	return this.infoClienteInternalFrame;
     }
+    
+    public ModificarCategoriasProducto getModificarCategoriasProductoInternalFrame() {
+    	return this.modificarCategoriasProductoInternalFrame;
+    }
+    
+    public ModificarImagenesProducto getModificarImagenesProductoInternalFrame() {
+    	return this.modificarImagenesProductoInternalFrame;
+    }
 
 	/**
 	 * Launch the application.
@@ -146,7 +158,7 @@ public class Main {
 	    listarProveedoresInternalFrame = new ListarProveedores(sistema);
 	    listarProveedoresInternalFrame.setVisible(false);
 	    
-	    modificarProductoInternalFrame = new ModificarDatosProducto(sistema);
+	    modificarProductoInternalFrame = new ModificarDatosProducto(sistema, this);
 	    modificarProductoInternalFrame.setVisible(false);
 	    
 	    registrarClienteInternalFrame = new RegistrarCliente(sistema);
@@ -166,6 +178,12 @@ public class Main {
 	    
 	    infoClienteInternalFrame = new VerInformacionCliente(sistema, this);
 	    infoClienteInternalFrame.setVisible(false);
+	    
+	    modificarCategoriasProductoInternalFrame = new ModificarCategoriasProducto(sistema);
+	    modificarCategoriasProductoInternalFrame.setVisible(false);
+	    
+	    modificarImagenesProductoInternalFrame = new ModificarImagenesProducto(sistema);
+	    modificarImagenesProductoInternalFrame.setVisible(false);
 	    
 	    // AGREGUÉ UN ADDEVENTLISTENER EN EL MAIN (PERO ES SOBRE OTRO CASO DE USO).
 	    
