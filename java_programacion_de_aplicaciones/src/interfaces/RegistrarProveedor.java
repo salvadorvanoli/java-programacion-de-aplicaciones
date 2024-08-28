@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
@@ -14,6 +16,9 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
 public class RegistrarProveedor extends JInternalFrame {
 
@@ -24,6 +29,7 @@ public class RegistrarProveedor extends JInternalFrame {
 	private JTextField textApe;
 	private JTextField textCompan;
 	private JTextField textLink;
+	private JDateChooser DateFecha;
 
 	/**
 	 * Launch the application.
@@ -123,13 +129,35 @@ public class RegistrarProveedor extends JInternalFrame {
 		getContentPane().add(ButtonImg);
 		
 		JButton ButtonReg = new JButton("Registrar");
+		ButtonReg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
 		ButtonReg.setBounds(256, 422, 89, 23);
 		getContentPane().add(ButtonReg);
 		
-		JDateChooser DateFecha = new JDateChooser();
+		DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 337, 144, 20);
 		getContentPane().add(DateFecha);
 
 	}
+	
+	private boolean chequearFormulario() {
+		String nickname = textNick.getText();
+		String correo = textMail.getText();
+		String nombre = textNom.getText();
+		String apellido = textApe.getText();
+		Date fechaN = DateFecha.getDate();
+		String comp = textCompan.getText();
+		String link = textLink.getText();
+		
+		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechaN == null || comp.isEmpty() || link.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+}
 }

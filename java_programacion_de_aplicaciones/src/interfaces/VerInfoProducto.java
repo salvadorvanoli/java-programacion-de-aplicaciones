@@ -18,6 +18,7 @@ import clases.DTProductoDetallado;
 import clases.ISistema;
 import clases.Producto;
 import excepciones.CategoriaNoExisteException;
+import excepciones.ProductoNoExisteException;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
@@ -83,8 +84,21 @@ public class VerInfoProducto extends JInternalFrame {
 		comboBoxProd = new JComboBox<>();
 		comboBoxProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String nombreProducto = (String) comboBoxProd.getSelectedItem();
+				DTProductoDetallado hola;
+				
+					boolean act = false;
+					try {
+						act = sistema.elegirProducto(nombreProducto);
+					} catch (ProductoNoExisteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				if (act) {
 				String ProductoDetallado = sistema.getProductoActual().toString();
                 TextDatosProd.setText(ProductoDetallado);
+				}
+				
                 //////////////ACA////////////////
 			}
 		});

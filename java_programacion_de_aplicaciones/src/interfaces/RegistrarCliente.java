@@ -132,7 +132,7 @@ public class RegistrarCliente extends JInternalFrame {
                 }
             }
         });
-		JDateChooser DateFecha = new JDateChooser();
+		DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
 		
