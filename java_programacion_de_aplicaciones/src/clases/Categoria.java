@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Categoria {
     private String nombreCat;
     private List<Producto> productos;
@@ -114,4 +119,11 @@ public class Categoria {
         }
         return null; // Devuelve null si no se encuentra el producto
     }
+
+
+@Override
+public String toString() {
+    return nombreCat; 
+}
+
 }

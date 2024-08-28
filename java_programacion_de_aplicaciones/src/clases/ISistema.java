@@ -90,4 +90,6 @@ public abstract class ISistema{
 	public abstract void elegirProveedor(String nickname) throws UsuarioNoExisteException;
 	
 	public abstract DTProveedorDetallado verInformacionProveedor();
+	
+	public abstract void agregarOrden(List<Cantidad> lista);
 }

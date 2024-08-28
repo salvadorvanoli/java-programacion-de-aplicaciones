@@ -48,4 +48,9 @@ public class Cantidad {
 		+ "Codigo del producto: " + this.producto.getNumReferencia() + System.lineSeparator()
         + "Cantidad del producto = " + this.cantidad + ";" + System.lineSeparator();
 	}
+	
+	public String toString2() {
+		return this.producto.getNombreProducto() + System.lineSeparator()
+        + "   X" + this.cantidad + "" + System.lineSeparator();
+	}
 }

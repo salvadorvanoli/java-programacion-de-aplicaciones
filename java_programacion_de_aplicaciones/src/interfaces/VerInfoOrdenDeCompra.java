@@ -27,6 +27,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import java.awt.Font;
 
 public class VerInfoOrdenDeCompra extends JInternalFrame {
 
@@ -63,7 +64,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setEditable(true);
-		comboBox.setBounds(24, 39, 149, 22);
+		comboBox.setBounds(24, 62, 149, 22);
 		getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -77,7 +78,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		
 		
 		///////////// CASO DE PRUEBA -> COMENTARLO Y DES-COMENTAR LO DE ABAJO PARA QUE FUNCIONE NORMAL//////////
-        Producto producto1 = new Producto("Producto A", "q", "w", 1, 3, null, null, null);
+       /* Producto producto1 = new Producto("Producto A", "q", "w", 1, 3, null, null, null);
         Producto producto2 = new Producto("Producto B", "q", "w", 1, 3, null, null, null);
         Producto producto3 = new Producto("Producto C", "q", "w", 1, 3, null, null, null);
         Producto producto4 = new Producto("Producto D", "q", "w", 1, 3, null, null, null);
@@ -129,16 +130,16 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
         //Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
  		for (DTOrdenDeCompra ordenDetalles1 : listaOrdenes) {
  		    comboBox.addItem(ordenDetalles1); 
- 		} 
+ 		} */
  		
  		
  		/////////////Esto es sin caso de prueba, normal///////////
-      /*List<DTOrdenDeCompra> ordenes = sistema.listarOrdenesDeCompra();
+      List<DTOrdenDeCompra> ordenes = sistema.listarOrdenesDeCompra();
 
-		 Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
+		 //Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
 		for (DTOrdenDeCompra ordenDetalles1 : ordenes) {
 		    comboBox.addItem(ordenDetalles1); 
-		} */
+		} 
         
      
         
@@ -169,7 +170,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 
 		
 		JLabel lblNewLabel = new JLabel("Seleccionar orden de compra:");
-		lblNewLabel.setBounds(24, 14, 149, 14);
+		lblNewLabel.setBounds(24, 45, 149, 14);
 		getContentPane().add(lblNewLabel);
 		
 		
@@ -185,22 +186,13 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 				 comboBox.setSelectedIndex(-1); 
 			}
 		});
-		borrar.setBounds(168, 236, 149, 23);
+		borrar.setBounds(253, 236, 149, 23);
 		getContentPane().add(borrar);
 		
-		JButton cerrar = new JButton("Aceptar");
-		cerrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			JInternalFrame internalFrame = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, (Component) e.getSource());
-				    
-			if (internalFrame != null) {
-			 // Cerrar el JInternalFrame
-				 internalFrame.dispose();
-			}
-			}
-		});
-		cerrar.setBounds(327, 236, 89, 23);
-		getContentPane().add(cerrar);
+		JLabel lblNewLabel_2 = new JLabel("Ver informacion de orden de compra");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(50, 11, 308, 23);
+		getContentPane().add(lblNewLabel_2);
 
 	}
 
