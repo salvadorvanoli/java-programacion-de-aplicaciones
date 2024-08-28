@@ -39,6 +39,10 @@ public class Cantidad {
 		this.cantidad = cantidad;
 	}
 	
+	public DTCantidadProducto getDTCantidadProducto() {
+		return new DTCantidadProducto(this, this.producto.getDTProducto(), this.getSubtotal());
+	}
+	
 	public String toString() {
 		return "Nombre del producto: " + this.producto.getNombreProducto() + System.lineSeparator()
 		+ "Codigo del producto: " + this.producto.getNumReferencia() + System.lineSeparator()

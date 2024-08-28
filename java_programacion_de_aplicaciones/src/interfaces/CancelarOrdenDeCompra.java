@@ -44,12 +44,13 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
         getContentPane().setLayout(null);
         
         JTextPane tituloCancelarOrdenDeCompra = new JTextPane();
+        tituloCancelarOrdenDeCompra.setEditable(false);
         tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccione \"Eliminar\"");
         tituloCancelarOrdenDeCompra.setBounds(10, 62, 534, 20);
         getContentPane().add(tituloCancelarOrdenDeCompra);
         
         JLabel labelSelectOrdenCancelarOrdenDeCompra = new JLabel("Seleccione la orden de compra *");
-        labelSelectOrdenCancelarOrdenDeCompra.setBounds(27, 104, 162, 14);
+        labelSelectOrdenCancelarOrdenDeCompra.setBounds(27, 104, 224, 14);
         getContentPane().add(labelSelectOrdenCancelarOrdenDeCompra);
         
         selectOrdenCancelarOrdenDeCompra = new JComboBox<>();
