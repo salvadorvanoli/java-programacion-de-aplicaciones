@@ -40,4 +40,8 @@ public class DTFecha {
 		this.anio = anio;
 	}
 	
+	public String toString() {
+		return String.valueOf(this.dia) + '/' + String.valueOf(this.mes) + '/' + String.valueOf(this.anio);
+	}
+	
 }

@@ -43,5 +43,14 @@ public class DTClienteDetallado extends DTCliente {
 		this.setFoto(foto);
 	}
 	
+	public String toString() {
+	    return "Nickname " + this.getNickname() + System.lineSeparator()
+	    	+ "Email: " + this.getEmail() + System.lineSeparator()
+	    	+ "Nombre: " + this.nombre + System.lineSeparator()
+	    	+ "Apellido: " + this.apellido + System.lineSeparator()
+	    	+ "Fecha de nacimiento: " + this.fechaNac + System.lineSeparator()
+	        + "Foto: " + this.foto;
+	}
+	
 	
 }

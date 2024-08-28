@@ -5,21 +5,32 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import clases.DTCliente;
+
 import clases.ISistema;
+import excepciones.OrdenDeCompraNoExisteException;
+import excepciones.UsuarioNoExisteException;
 
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.util.List;
+import javax.swing.JButton;
 
 public class VerInformacionCliente extends JInternalFrame {
 	
 	private ISistema sistema;
 	private JComboBox<DTCliente> seleccionCliente;
+	private JTextArea txtMostrarInfoCliente;
+	private JButton btnVerInfoOrdenes;
+	
+	public JButton getBtnVerInfoOrdenes() {
+		return this.btnVerInfoOrdenes;
+	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +63,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 461, 537);
+		setBounds(100, 100, 461, 349);
 		getContentPane().setLayout(null);
 		
 		JLabel labelClientesSistema = new JLabel("Selecciona uno de los clientes del sistema especificados debajo *");
@@ -60,30 +71,42 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(labelClientesSistema);
 		
 		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
+		seleccionCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DTCliente seleccionado = (DTCliente) seleccionCliente.getSelectedItem();
+                if (seleccionado != null) {
+                	String textoSeleccion = seleccionado.toString();
+                    String nickname = textoSeleccion.split(" - ")[0].split(": ")[1];
+                    nickname = nickname.strip();
+                    try {
+                        sistema.elegirCliente((String) nickname);
+                        String informacionDetalladaCliente = sistema.verInformacionCliente().toString();
+                        txtMostrarInfoCliente.setText(informacionDetalladaCliente);
+                    } catch (UsuarioNoExisteException e1) {
+                        // CREAR UNA VENTANA DE ERROR
+                    }
+                } else {
+                    // CREAR UNA VENTANA DE ERROR
+                }
+			}
+		});
 		seleccionCliente.setBounds(41, 50, 352, 22);
 		getContentPane().add(seleccionCliente);
+		
+		this.seleccionCliente = seleccionCliente;
 		
 		JTextArea txtMostrarInfoCliente = new JTextArea();
 		txtMostrarInfoCliente.setText("Aquí se mostrará la información del\r\ncliente elegido.");
 		txtMostrarInfoCliente.setBounds(41, 83, 352, 152);
 		getContentPane().add(txtMostrarInfoCliente);
 		
-		JLabel labelOrdenesDeCompra1 = new JLabel("Selecciona una de las ordenes de compra del cliente");
-		labelOrdenesDeCompra1.setBounds(41, 254, 349, 28);
-		getContentPane().add(labelOrdenesDeCompra1);
+		this.txtMostrarInfoCliente = txtMostrarInfoCliente;
 		
-		JLabel labelOrdenesDeCompra2 = new JLabel("especificado para inspeccionarla");
-		labelOrdenesDeCompra2.setBounds(41, 273, 197, 22);
-		getContentPane().add(labelOrdenesDeCompra2);
+		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
+		btnVerInfoOrdenes.setBounds(133, 264, 177, 23);
+		getContentPane().add(btnVerInfoOrdenes);
 		
-		JComboBox seleccionOrdenDeCompra = new JComboBox();
-		seleccionOrdenDeCompra.setBounds(41, 305, 349, 22);
-		getContentPane().add(seleccionOrdenDeCompra);
-		
-		JTextArea txtMostrarInfoOrdenDeCompra = new JTextArea();
-		txtMostrarInfoOrdenDeCompra.setText("Aquí se mostrará la información de la\r\norden de compra elegida.");
-		txtMostrarInfoOrdenDeCompra.setBounds(41, 338, 349, 152);
-		getContentPane().add(txtMostrarInfoOrdenDeCompra);
+		this.btnVerInfoOrdenes = btnVerInfoOrdenes;
 
 	}
 	
@@ -102,6 +125,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		}
 		
 		if (lista.isEmpty()) {
+			this.btnVerInfoOrdenes.setEnabled(false);
 			throw new IllegalStateException ("Error: El sistema no tiene clientes.");
 		}
 		
@@ -118,10 +142,11 @@ public class VerInformacionCliente extends JInternalFrame {
 			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
 		}
 		
+		this.seleccionCliente.removeAllItems();
+		
 		for (DTCliente cli : lista) {
-			seleccionCliente.addItem(cli);
+			this.seleccionCliente.addItem(cli);
 		}
 		
 	}
-	
 }

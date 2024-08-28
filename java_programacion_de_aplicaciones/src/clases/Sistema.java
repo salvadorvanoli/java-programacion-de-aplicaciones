@@ -151,10 +151,10 @@ public class Sistema extends ISistema {
 	@Override // NO ES NECESARIO QUE SEA BOOL
 	public boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException {
 		for (Usuario user : this.usuarios) {
-			if (user.getEmail() == email) {
+			if (user.getEmail().equalsIgnoreCase(email)) {
 				throw new UsuarioRepetidoException("Error: Ya existe un cliente registrado con el email " + '"' + email + '"' + '.');
 			}
-			if (user.getNickname() == nickname) {
+			if (user.getNickname().equalsIgnoreCase(nickname)) {
 				throw new UsuarioRepetidoException("Error: Ya existe un cliente registrado con el nickname"  + '"' + nickname + '"' + '.');
 			}
 		}
@@ -166,10 +166,10 @@ public class Sistema extends ISistema {
 	@Override // NO ES NECESARIO QUE SEA BOOL
 	public boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException {
 		for (Usuario user : this.usuarios) {
-			if (user.getEmail() == email) {
+			if (user.getEmail().equalsIgnoreCase(email)) {
 				throw new UsuarioRepetidoException("Error: Ya existe un proveedor registrado con el email " + '"' + email + '"' + '.');
 			}
-			if (user.getNickname() == nickname) {
+			if (user.getNickname().equalsIgnoreCase(nickname)) {
 				throw new UsuarioRepetidoException("Error: Ya existe un proveedor registrado con el nickname " + '"' + nickname + '"' + '.');
 			}
 		}
@@ -183,7 +183,7 @@ public class Sistema extends ISistema {
 	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, Proveedor proveedor) throws ProductoRepetidoException {
 		for (Categoria cat : this.categorias.values()) {
 			for (Producto prod : cat.getProductos()) {
-				if (prod.getNombreProducto() == titulo) {
+				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
 					if (prod.getNumReferencia() == numReferencia) {
 						throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + titulo + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
 					}
@@ -299,9 +299,17 @@ public class Sistema extends ISistema {
 	@Override
 	public List<DTOrdenDeCompra> listarOrdenesDeCompra(){
 		List<DTOrdenDeCompra> lista = new ArrayList<>();
-		for (OrdenDeCompra ord : this.ordenes.values()) {
-			DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
-			lista.add(dt);
+		if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
+			Cliente cli = (Cliente) this.usuarioActual;
+			for (OrdenDeCompra ord : cli.getOrdenesDeCompras()) {
+				DTOrdenDeCompra dt = ord.getDTOrden();
+				lista.add(dt);
+			}
+		} else {
+			for (OrdenDeCompra ord : this.ordenes.values()) {
+				DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
+				lista.add(dt);
+			}
 		}
 		return lista;
 	}
@@ -491,7 +499,7 @@ public class Sistema extends ISistema {
 	@Override
 	public boolean elegirCliente(String nickname) throws UsuarioNoExisteException {
 		for (Usuario user : this.usuarios) {
-			if (user.getNickname() == nickname) {
+			if (user.getNickname().equalsIgnoreCase(nickname)) {
 				if (user instanceof Cliente) {
 					Cliente cli = (Cliente) user;
 					this.usuarioActual = cli;
@@ -550,7 +558,7 @@ public class Sistema extends ISistema {
 		}
 		for (Categoria cat : this.categorias.values()) {
 			for (Producto prod : cat.getProductos()) {
-				if (prod.getNombreProducto() == nombreProd) {
+				if (prod.getNombreProducto().equalsIgnoreCase(nombreProd)) {
 					if (prod.getNumReferencia() == numReferencia) {
 						throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + nombreProd + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
 					}
@@ -586,7 +594,7 @@ public class Sistema extends ISistema {
 	
 	public void elegirProveedor(String nickname) throws UsuarioNoExisteException {
 		for (Usuario user : this.usuarios) {
-			if (user.getNickname() == nickname) {
+			if (user.getNickname().equalsIgnoreCase(nickname)) {
 				if (user instanceof Proveedor) {
 					Proveedor pr = (Proveedor) user;
 					this.usuarioActual = pr;

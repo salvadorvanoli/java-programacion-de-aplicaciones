@@ -25,11 +25,13 @@ import javax.swing.JTextArea;
 
 // Importamos la capa de lógica
 import clases.SistemaFactory;
+import excepciones.UsuarioNoExisteException;
 import clases.DTFecha;
 import clases.ISistema;
 import java.awt.Toolkit;
 
 import clases.Cliente;
+import clases.DTCliente;
 
 public class Main {
 	
@@ -114,6 +116,20 @@ public class Main {
 	    
 	    infoClienteInternalFrame = new VerInformacionCliente(sistema);
 	    infoClienteInternalFrame.setVisible(false);
+	    
+	    // AGREGUÉ UN ADDEVENTLISTENER EN EL MAIN (PERO ES SOBRE OTRO CASO DE USO).
+	    
+	    infoClienteInternalFrame.getBtnVerInfoOrdenes().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// infoClienteInternalFrame.toBack();
+				menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
+				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
+                infoOrdenInternalFrame.setVisible(true);
+                infoOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+                menuPrincipal.revalidate();
+                menuPrincipal.repaint();
+			}
+		});
 	    
 	    menuPrincipal.getContentPane().setLayout(null);   
 	}
@@ -233,11 +249,17 @@ public class Main {
 		CasosDeUsoConsultasInformacionCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(infoClienteInternalFrame);
-                infoClienteInternalFrame.setVisible(true);
-                infoClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	try {
+	            	infoClienteInternalFrame.cargarClientes();
+	                menuPrincipal.getContentPane().add(infoClienteInternalFrame);
+	                infoClienteInternalFrame.setVisible(true);
+	                infoClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	} catch (Exception exc) {
+            		System.out.println(exc.getMessage()); // ACA TENEMOS QUE AGREGAR QUE SE MUESTRE UN POPUP
+            		infoClienteInternalFrame.setVisible(false);
+            	}
             }
         });
 		
