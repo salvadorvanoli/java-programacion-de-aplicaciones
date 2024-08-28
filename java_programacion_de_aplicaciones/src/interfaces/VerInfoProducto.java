@@ -13,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.event.TreeSelectionEvent;
 
 public class VerInfoProducto extends JInternalFrame {
 
@@ -69,6 +72,26 @@ public class VerInfoProducto extends JInternalFrame {
 		getContentPane().add(TextDatosProd);
 		
 		JTree treeCat = new JTree();
+		treeCat.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                // Obtener el nodo seleccionado
+                TreePath path = treeCat.getSelectionPath();
+                if (path != null) {
+                    Object selectedNode = path.getLastPathComponent();
+                    if (selectedNode instanceof Categoria) {
+                        Categoria categoriaSeleccionada = (Categoria) selectedNode;
+                        System.out.println("Categoría seleccionada: " + categoriaSeleccionada.getNombreCat());
+
+                        // Actualizar el JComboBox con los productos
+                        comboBoxProd.removeAllItems();
+                        for (String producto : categoriaSeleccionada.getProductos()) {
+                            comboBoxProd.addItem(producto);
+                        }
+                    }
+                }
+            }
+        });
 		treeCat.setBounds(51, 46, 131, 78);
 		getContentPane().add(treeCat);
 
