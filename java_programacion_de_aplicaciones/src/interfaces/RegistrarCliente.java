@@ -23,6 +23,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -134,16 +135,6 @@ public class RegistrarCliente extends JInternalFrame {
 		JDateChooser DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
-
-		
-		/*private void limpiarFormulario() {
-			textNick.setText("");
-			textNom.setText("");
-			textApe.setText("");
-			textMail.setText("");
-			DateFecha.setDate(null);
-			//FALTA CONTEMPLAR IMAGEN
-		}*/
 		
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
@@ -154,13 +145,18 @@ public class RegistrarCliente extends JInternalFrame {
 				String nombre = textNom.getText();
 				String apellido = textApe.getText();
 				Date fechaN = DateFecha.getDate();	
-				DTFecha fechaPrueb = null; //QUITAR ESTO DESPUES
+				Calendar calendar = Calendar.getInstance();
+		        calendar.setTime(fechaN);
+		        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+		        int mes = calendar.get(Calendar.MONTH) + 1;
+		        int anio = calendar.get(Calendar.YEAR);
+		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				
 				chequearFormulario();
-				//como es lo de la fecha
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				String fechastring = dateFormat.format(fechaN);
+				
+				
 				try {
-					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaPrueb, rutaImagen);
+					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen);
 					
 					JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -185,7 +181,7 @@ public class RegistrarCliente extends JInternalFrame {
 		textApe.setText("");
 		textMail.setText("");
 		DateFecha.setDate(null);
-		//Falta la imagen
+		rutaImagen = "";
 	}
 		
 	private boolean chequearFormulario() {
@@ -194,9 +190,7 @@ public class RegistrarCliente extends JInternalFrame {
 			String nombre = textNom.getText();
 			String apellido = textApe.getText();
 			Date fechaN = DateFecha.getDate();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			String fechastring = dateFormat.format(fechaN);
-			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechastring.isEmpty()) {
+			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechaN == null) {
 				JOptionPane.showMessageDialog(RegistrarCliente.this, "No puede haber campos vacíos", "Registrar ",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
