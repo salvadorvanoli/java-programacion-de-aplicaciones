@@ -186,7 +186,10 @@ public class Sistema extends ISistema {
 	
 	// ESTA FUNCION HAY QUE RE CHEQUEARLA
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, Proveedor proveedor) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
+		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
+			throw new NullPointerException("Error: No se ha elegido un proveedor previamente.");
+		}
 		for (Categoria cat : this.categorias.values()) {
 			for (Producto prod : cat.getProductos()) {
 				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
@@ -196,6 +199,7 @@ public class Sistema extends ISistema {
 				}
 			}
 		}
+		Proveedor proveedor = (Proveedor) this.usuarioActual;
 		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, null, null, proveedor); // Esto esta re mal
 		proveedor.agregarProducto(prod);
 		this.productoActual = prod;
