@@ -12,6 +12,7 @@ import clases.ISistema;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+import javax.swing.JTree;
 
 public class VerInfoProducto extends JInternalFrame {
 
@@ -46,31 +47,30 @@ public class VerInfoProducto extends JInternalFrame {
 		setBounds(100, 100, 331, 505);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Seleccione una categoría del sistema");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_3.setBounds(0, 22, 313, 14);
-		getContentPane().add(lblNewLabel_3);
+		JLabel LabelSelectCat = new JLabel("Seleccione una categoría del sistema");
+		LabelSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
+		LabelSelectCat.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		LabelSelectCat.setBounds(0, 22, 313, 14);
+		getContentPane().add(LabelSelectCat);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(30, 47, 255, 22);
-		getContentPane().add(comboBox);
+		JLabel LabelProd = new JLabel("Seleccione un producto");
+		LabelProd.setHorizontalAlignment(SwingConstants.CENTER);
+		LabelProd.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		LabelProd.setBounds(0, 135, 313, 14);
+		getContentPane().add(LabelProd);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("Seleccione un producto");
-		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_3_1.setBounds(0, 98, 313, 14);
-		getContentPane().add(lblNewLabel_3_1);
+		JComboBox comboBoxProd = new JComboBox();
+		comboBoxProd.setBounds(30, 160, 255, 22);
+		getContentPane().add(comboBoxProd);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(30, 123, 255, 22);
-		getContentPane().add(comboBox_1);
+		JTextArea TextDatosProd = new JTextArea();
+		TextDatosProd.setText("Aquí se mostrarán los datos \r\ndel producto");
+		TextDatosProd.setBounds(30, 193, 255, 256);
+		getContentPane().add(TextDatosProd);
 		
-		JTextArea txtrAquSeMostrarn = new JTextArea();
-		txtrAquSeMostrarn.setText("Aquí se mostrarán los datos \r\ndel producto");
-		txtrAquSeMostrarn.setBounds(30, 193, 255, 256);
-		getContentPane().add(txtrAquSeMostrarn);
+		JTree treeCat = new JTree();
+		treeCat.setBounds(51, 46, 131, 78);
+		getContentPane().add(treeCat);
 
 	}
-
 }
