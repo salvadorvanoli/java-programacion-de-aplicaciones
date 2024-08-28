@@ -155,7 +155,7 @@ public class RegistrarCliente extends JInternalFrame {
 				String apellido = textApe.getText();
 				Date fechaN = DateFecha.getDate();	
 				DTFecha fechaPrueb = null; //QUITAR ESTO DESPUES
-				
+				chequearFormulario();
 				//como es lo de la fecha
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				String fechastring = dateFormat.format(fechaN);
