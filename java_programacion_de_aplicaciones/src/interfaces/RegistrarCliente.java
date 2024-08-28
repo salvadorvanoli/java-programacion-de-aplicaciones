@@ -15,10 +15,13 @@ import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -31,6 +34,7 @@ public class RegistrarCliente extends JInternalFrame {
 	private JTextField textNom;
 	private JTextField textApe;
 	private JDateChooser DateFecha;
+	private String rutaImagen = "";
 
 	/**
 	 * Launch the application.
@@ -111,6 +115,22 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonImg.setBounds(38, 319, 144, 20);
 		getContentPane().add(ButtonImg);
 		
+		ButtonImg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Seleccione una imagen");
+                // Filtrar por imágenes
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+                
+                int userSelection = fileChooser.showOpenDialog(RegistrarCliente.this);
+                
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToUpload = fileChooser.getSelectedFile();
+                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
+                    JOptionPane.showMessageDialog(RegistrarCliente.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 		JDateChooser DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
@@ -133,15 +153,14 @@ public class RegistrarCliente extends JInternalFrame {
 				String correo = textMail.getText();
 				String nombre = textNom.getText();
 				String apellido = textApe.getText();
-				Date fechaN = DateFecha.getDate();
-				String imagen = null; //AGREGAR IMAGEN	
+				Date fechaN = DateFecha.getDate();	
 				DTFecha fechaPrueb = null; //QUITAR ESTO DESPUES
 				
 				//como es lo de la fecha
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				String fechastring = dateFormat.format(fechaN);
 				try {
-					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaPrueb, imagen);
+					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaPrueb, rutaImagen);
 					
 					JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 							JOptionPane.INFORMATION_MESSAGE);
