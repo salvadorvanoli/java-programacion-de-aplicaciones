@@ -7,14 +7,17 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.Categoria;
 import clases.ISistema;
+import clases.Producto;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
+//import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.event.TreeSelectionEvent;
 
 public class VerInfoProducto extends JInternalFrame {
@@ -85,7 +88,7 @@ public class VerInfoProducto extends JInternalFrame {
 
                         // Actualizar el JComboBox con los productos
                         comboBoxProd.removeAllItems();
-                        for (String producto : categoriaSeleccionada.getProductos()) {
+                        for (Producto producto : categoriaSeleccionada.getProductos()) {
                             comboBoxProd.addItem(producto);
                         }
                     }

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.DTFecha;
 import clases.ISistema;
 import excepciones.UsuarioRepetidoException;
 
@@ -29,6 +30,7 @@ public class RegistrarCliente extends JInternalFrame {
 	private JTextField textMail;
 	private JTextField textNom;
 	private JTextField textApe;
+	private JDateChooser DateFecha;
 
 	/**
 	 * Launch the application.
@@ -109,44 +111,43 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonImg.setBounds(38, 319, 144, 20);
 		getContentPane().add(ButtonImg);
 		
-		
-		
 		JDateChooser DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
 
 		
-		private void limpiarFormulario() {
+		/*private void limpiarFormulario() {
 			textNick.setText("");
 			textNom.setText("");
 			textApe.setText("");
 			textMail.setText("");
 			DateFecha.setDate(null);
 			//FALTA CONTEMPLAR IMAGEN
-		}
-		
+		}*/
 		
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String nickname = textNick.getText();
 				String correo = textMail.getText();
 				String nombre = textNom.getText();
 				String apellido = textApe.getText();
 				Date fechaN = DateFecha.getDate();
-				String imagen; //AGREGAR IMAGEN	
+				String imagen = null; //AGREGAR IMAGEN	
+				DTFecha fechaPrueb = null; //QUITAR ESTO DESPUES
 				
 				//como es lo de la fecha
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				String fechastring = dateFormat.format(fechaN);
 				try {
-					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaN, imagen);
+					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, fechaPrueb, imagen);
 					
-					JOptionPane.showMessageDialog(this, "El Cliente se ha creado.", "Registrar Cliente",
+					JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
 				catch(UsuarioRepetidoException e){
-					JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
 				}
 				limpiarFormulario();
 				setVisible(false);
@@ -155,6 +156,18 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonReg.setBackground(new Color(250, 214, 235));
 		ButtonReg.setBounds(255, 335, 89, 23);
 		getContentPane().add(ButtonReg);
+	}
+	
+	//metodos
+	
+	private void limpiarFormulario() {
+		textNick.setText("");
+		textNom.setText("");
+		textApe.setText("");
+		textMail.setText("");
+		DateFecha.setDate(null);
+		//Falta la imagen
+	}
 		
 	private boolean chequearFormulario() {
 			String nickname = textNick.getText();
@@ -165,7 +178,7 @@ public class RegistrarCliente extends JInternalFrame {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			String fechastring = dateFormat.format(fechaN);
 			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechastring.isEmpty()) {
-				JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
+				JOptionPane.showMessageDialog(RegistrarCliente.this, "No puede haber campos vacíos", "Registrar ",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -174,5 +187,5 @@ public class RegistrarCliente extends JInternalFrame {
 			
 	
 	
-	}
 }
+
