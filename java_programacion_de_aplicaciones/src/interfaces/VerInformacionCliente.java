@@ -19,6 +19,7 @@ import java.util.List;
 public class VerInformacionCliente extends JInternalFrame {
 	
 	private ISistema sistema;
+	private JComboBox<DTCliente> seleccionCliente;
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,10 +61,6 @@ public class VerInformacionCliente extends JInternalFrame {
 		
 		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
 		seleccionCliente.setBounds(41, 50, 352, 22);
-		List<DTCliente> lista = this.getClientes();
-		for (DTCliente cli : lista) {
-			seleccionCliente.addItem(cli);
-		}
 		getContentPane().add(seleccionCliente);
 		
 		JTextArea txtMostrarInfoCliente = new JTextArea();
@@ -91,18 +88,40 @@ public class VerInformacionCliente extends JInternalFrame {
 	}
 	
 	public List<DTCliente> getClientes(){
+		
 		if (this.sistema == null) {
 			// tiro el error
 			throw new NullPointerException ("Error: El sistema no existe.");
 		}
-		if (this.sistema.getUsuarios().isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene usuarios.");
+		List<DTCliente> lista = null;
+		
+		try {
+			lista = this.sistema.listarClientes();
+		} catch (IllegalArgumentException e) {
+			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
 		}
-		List<DTCliente> lista = this.sistema.listarClientes();
+		
 		if (lista.isEmpty()) {
 			throw new IllegalStateException ("Error: El sistema no tiene clientes.");
 		}
+		
 		return lista;
+		
+	}
+
+	public void cargarClientes() {
+		List<DTCliente> lista = null;
+		
+		try {
+			lista = this.getClientes();
+		} catch (IllegalArgumentException e) {
+			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
+		}
+		
+		for (DTCliente cli : lista) {
+			seleccionCliente.addItem(cli);
+		}
+		
 	}
 	
 }

@@ -25,8 +25,11 @@ import javax.swing.JTextArea;
 
 // Importamos la capa de lógica
 import clases.SistemaFactory;
+import clases.DTFecha;
 import clases.ISistema;
 import java.awt.Toolkit;
+
+import clases.Cliente;
 
 public class Main {
 	
@@ -69,6 +72,10 @@ public class Main {
 		
 		SistemaFactory fabrica = SistemaFactory.getInstancia();
 		sistema = fabrica.getISistema();
+		
+		// Codigo agregado por miiiiiiiiiiiiiiiiii
+		
+		this.sistema.getUsuarios().add(new Cliente("ProtoWarro", "Valentin", "Veintemilla", "a@gmail", null, null));
 		
 		// Creamos cada uno de los InternalFrame (uno por caso de uso) y lo seteamos en invisible.
 		

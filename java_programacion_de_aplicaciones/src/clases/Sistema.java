@@ -407,6 +407,9 @@ public class Sistema extends ISistema {
 
 	@Override
 	public List<DTCliente> listarClientes(){
+		if (this.usuarios.isEmpty()) {
+			throw new IllegalArgumentException("Error: El sistema no tiene usuarios.");
+		}
 		List<DTCliente> lista = new ArrayList<>();
 		for (Usuario user : this.usuarios) {
 			if (user instanceof Cliente) {
