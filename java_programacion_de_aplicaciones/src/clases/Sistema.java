@@ -56,8 +56,11 @@ public class Sistema extends ISistema {
         List<String> imagenes = new ArrayList<>();
         imagenes.add("imagen1.jpg");
         imagenes.add("imagen2.jpg");
+         
         
-        // Crear una instancia de Producto con todos los campos llenos
+       List<Categoria> categorias1 = new ArrayList<>();
+       
+       // Crear una instancia de Producto con todos los campos llenos
         Producto producto = new Producto(
             "aa",          // nombreProducto
             "ae",     // descripcion
@@ -65,9 +68,35 @@ public class Sistema extends ISistema {
             12345,                           // numReferencia
             99.99f,                          // precio
             imagenes,                        // lista de imágenes
-            null,                      // lista de categorías
+            categorias1,                      // lista de categorías
             null                        // proveedor
         );
+        try {
+        	Categoria cat = new Categoria("A", true, null);
+			altaCategoria("A", true, null);
+			altaCategoria("B", true, cat);
+			altaCategoria("C", true, null);
+			
+			List<Categoria> categorias11 = new ArrayList<>();
+	        cat.agregarProducto(producto);
+	        Producto producto3 = new Producto(
+	                "ca",          // nombreProducto
+	                "ce",     // descripcion
+	                "ci",   // especificacion
+	                12345678,                           // numReferencia
+	                99.99f,                          // precio
+	                imagenes,                        // lista de imágenes
+	                categorias11,                      // lista de categorías
+	                null                        // proveedor
+	            );
+	     this.categorias.put("A", cat);
+		} catch (CategoriaRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
+       
         
         Producto producto2 = new Producto(
                 "ba",          // nombreProducto
@@ -76,9 +105,14 @@ public class Sistema extends ISistema {
                 1234567,                           // numReferencia
                 99.99f,                          // precio
                 imagenes,                        // lista de imágenes
-                null,                      // lista de categorías
+                categorias1,                      // lista de categorías
                 null                        // proveedor
             );
+        
+        List<Producto> prod1 = new ArrayList<>();
+        prod1.add(producto2);
+        prod1.add(producto);
+        
         
         // Crear dos órdenes de compra
         OrdenDeCompra orden1 = new OrdenDeCompra(1, fecha1, cl1);
@@ -95,15 +129,7 @@ public class Sistema extends ISistema {
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
         
-        try {
-        	Categoria cat = new Categoria("A", true, null);
-			altaCategoria("A", true, null);
-			altaCategoria("B", true, cat);
-			altaCategoria("C", true, null);
-		} catch (CategoriaRepetidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        
 	}
 	
 	@Override
@@ -203,7 +229,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override // Lo podría leer directamente
-	public DTProductoDetallado verInformacionProducto(int numReferencia) {
+	public DTProductoDetallado verInformacionProducto() {
 		if (this.productoActual == null) {
 			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
 		}

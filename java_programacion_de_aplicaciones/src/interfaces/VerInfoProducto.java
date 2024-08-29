@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 //import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
@@ -63,6 +64,7 @@ public class VerInfoProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInfoProducto(ISistema sistema) {
+		this.sistema = sistema;
 		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
@@ -87,17 +89,16 @@ public class VerInfoProducto extends JInternalFrame {
 				String nombreProducto = (String) comboBoxProd.getSelectedItem();
 				DTProductoDetallado hola;
 				
-					boolean act = false;
+
 					try {
-						act = sistema.elegirProducto(nombreProducto);
+						sistema.elegirProducto(nombreProducto);
+						String ProductoDetallado = sistema.verInformacionProducto().toString();
+						TextDatosProd.setText(ProductoDetallado);
 					} catch (ProductoNoExisteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				if (act) {
-				String ProductoDetallado = sistema.getProductoActual().toString();
-                TextDatosProd.setText(ProductoDetallado);
-				}
+		
 				
                 //////////////ACA////////////////
 			}
@@ -110,12 +111,14 @@ public class VerInfoProducto extends JInternalFrame {
 		TextDatosProd.setText("Aquí se mostrarán los datos \r\ndel producto");
 		TextDatosProd.setBounds(30, 193, 255, 256);
 		getContentPane().add(TextDatosProd);
+		this.TextDatosProd = TextDatosProd;
 		
 		
 		treeCat = new JTree();
 		cargarDatos();
 		treeCat.setBounds(51, 46, 143, 78);
 		getContentPane().add(treeCat);
+		//this.treeCat = treeCat;
 		
 		JButton ButtonConfCat = new JButton("Confirmar\r\n");
 		ButtonConfCat.addActionListener(new ActionListener() {
@@ -204,6 +207,7 @@ public class VerInfoProducto extends JInternalFrame {
 	        	String nombre = producto.getNombre();
 	        	//int codigo = producto.getNumReferencia();
 	            comboBoxProd.addItem(nombre);
+
 	        }
 	    }
 	}

@@ -63,7 +63,7 @@ public class RegistrarCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(RegistrarCliente.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 385, 405);
+		setBounds(100, 100, 385, 436);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelRegCli = new JLabel("Registrar Cliente");
@@ -113,7 +113,7 @@ public class RegistrarCliente extends JInternalFrame {
 		getContentPane().add(LabelFecha);
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
-		ButtonImg.setBounds(38, 319, 144, 20);
+		ButtonImg.setBounds(38, 308, 144, 20);
 		getContentPane().add(ButtonImg);
 		
 		ButtonImg.addActionListener(new ActionListener() {
@@ -135,6 +135,7 @@ public class RegistrarCliente extends JInternalFrame {
 		DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
+		//this.DateFecha = DateFecha;
 		
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
@@ -169,8 +170,18 @@ public class RegistrarCliente extends JInternalFrame {
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
-		ButtonReg.setBounds(255, 335, 89, 23);
+		ButtonReg.setBounds(255, 354, 89, 23);
 		getContentPane().add(ButtonReg);
+		
+		JButton ButtonCancel = new JButton("Cancelar");
+		ButtonCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		ButtonCancel.setBounds(26, 354, 89, 23);
+		getContentPane().add(ButtonCancel);
 	}
 	
 	//metodos

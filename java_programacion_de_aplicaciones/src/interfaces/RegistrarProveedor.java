@@ -62,7 +62,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		setFrameIcon(new ImageIcon(RegistrarProveedor.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 385, 491);
+		setBounds(100, 100, 385, 522);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelRegProv = new JLabel("Registrar Proveedor");
@@ -130,7 +130,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		getContentPane().add(LabelFecha);
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
-		ButtonImg.setBounds(38, 398, 144, 20);
+		ButtonImg.setBounds(38, 386, 144, 20);
 		getContentPane().add(ButtonImg);
 		
 		JButton ButtonReg = new JButton("Registrar");
@@ -168,12 +168,22 @@ public class RegistrarProveedor extends JInternalFrame {
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
-		ButtonReg.setBounds(256, 422, 89, 23);
+		ButtonReg.setBounds(256, 433, 89, 23);
 		getContentPane().add(ButtonReg);
 		
 		DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 337, 144, 20);
 		getContentPane().add(DateFecha);
+		
+		JButton ButtonCancel = new JButton("Cancelar");
+		ButtonCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		ButtonCancel.setBounds(38, 433, 89, 23);
+		getContentPane().add(ButtonCancel);
 
 	}
 	
