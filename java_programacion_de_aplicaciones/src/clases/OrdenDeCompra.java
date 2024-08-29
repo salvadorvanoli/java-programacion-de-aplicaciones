@@ -68,7 +68,7 @@ public class OrdenDeCompra {
 		this.numero = numero;
 		this.fecha = fecha;
 		this.cliente = cliente;
-		if (cantidades != null && !(cantidades.isEmpty())) {
+		if (cantidades != null) {
 			this.cantidad = cantidades;
 			float sumPrecio = 0;
 			for (Cantidad can : cantidades) {
@@ -99,7 +99,7 @@ public class OrdenDeCompra {
 	
 	
 	public DTOrdenDeCompra getDTOrden() {
-		return new DTOrdenDeCompra(this.numero, this.cliente, this.precioTotal, this.fecha, this.cantidad);
+		return new DTOrdenDeCompra(this.numero, this.fecha, this.cantidad);
 	}
 	
 	public DTOrdenDeCompraDetallada getDTOrdenDetallada() {
@@ -108,7 +108,7 @@ public class OrdenDeCompra {
 			DTCantidadProducto nuevo = cant.getDTCantidadProducto();
 			lista.add(nuevo);
 		}
-		return new DTOrdenDeCompraDetallada(this.numero, this.cliente, this.precioTotal, this.fecha, this.cantidad, lista);
+		return new DTOrdenDeCompraDetallada(this.numero, this.fecha, lista);
 	}
 	
 

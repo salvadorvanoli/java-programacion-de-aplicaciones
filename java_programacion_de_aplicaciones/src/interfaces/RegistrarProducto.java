@@ -15,18 +15,14 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-import clases.Categoria;
 import clases.DTProveedor;
 import clases.ISistema;
-import clases.Proveedor;
 import excepciones.ProductoRepetidoException;
 import excepciones.UsuarioNoExisteException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
+
 
 public class RegistrarProducto extends JInternalFrame {
 
@@ -69,7 +65,7 @@ public class RegistrarProducto extends JInternalFrame {
 		String especificacion = campoEspecificacion.getText();
 		String precioString = campoPrecio.getText();
 		DTProveedor eleccionProv = null;
-		eleccionProv = boxProveedor; //inchequeable
+		eleccionProv = (DTProveedor) boxProveedor.getSelectedItem(); 
 		
 		if(nombre.isEmpty() || descrip.isEmpty() || especificacion.isEmpty() || precioString.isEmpty() || eleccionProv == null){
 			JOptionPane.showInputDialog(this, "No puede haber campos vacios", "Registrar Producto", JOptionPane.ERROR_MESSAGE);
@@ -85,7 +81,7 @@ public class RegistrarProducto extends JInternalFrame {
 		setBackground(new Color(255, 192, 203));
 		setFrameIcon(new ImageIcon(RegistrarProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go\r\n");
-		setBounds(100, 100, 294, 250);
+		setBounds(100, 100, 294, 290);
 		getContentPane().setLayout(null);
 		
 		JTextField campoNombre = new JTextField();
@@ -152,7 +148,7 @@ public class RegistrarProducto extends JInternalFrame {
 		});
 		
 		boxProveedor.setEditable(true);
-		boxProveedor.setBounds(41, 36, 166, 14);
+		boxProveedor.setBounds(49, 201, 179, 14);
 		getContentPane().add(boxProveedor);
 	
 		JButton BotonRegistrar = new JButton("Registrar");
@@ -164,9 +160,6 @@ public class RegistrarProducto extends JInternalFrame {
 				String especificacion = campoEspecificacion.getText();
 				int numReferencia =0/*aca iria un generador de num*/ ;
 				int precio = Integer.parseInt(campoPrecio.getText());
-				//List<String> imagenes;
-				//List<Categoria> categorias;
-				Proveedor proveedor;/* falta proveedor actual*/
 				try {
 					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio);
 				} catch (ProductoRepetidoException e1) {
@@ -176,8 +169,12 @@ public class RegistrarProducto extends JInternalFrame {
 			}
 		});
 		
-		BotonRegistrar.setBounds(84, 184, 104, 23);
+		BotonRegistrar.setBounds(84, 226, 104, 23);
 		getContentPane().add(BotonRegistrar);
+		
+		JLabel textoProveedor = new JLabel("Seleccione un proveedor:");
+		textoProveedor.setBounds(52, 188, 125, 14);
+		getContentPane().add(textoProveedor);
 		
 		
 	}

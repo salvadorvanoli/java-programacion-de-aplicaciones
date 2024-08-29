@@ -36,26 +36,19 @@ import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import clases.Cantidad;
 import clases.Producto;
-import excepciones.CategoriaNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import clases.Cliente;
 import clases.DTCliente;
 import java.awt.Component;
 import javax.swing.SwingUtilities;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.JInternalFrame;
 import java.awt.Font;
 
 public class GenerarOrdenDeCompra extends JInternalFrame {
-	public List<Cantidad> listaCantidades;
+	public List<Cantidad> listaCantidades = new ArrayList<>();
 
 	private static final long serialVersionUID = 1L;
-
-	// private static final Categoria  = null;
-	private ISistema sistema;
 	private JTextField cantidadPoner;
-	private JComboBox<DTCliente> seleccionarCliente;
 
 	/**
 	 * Launch the application.
@@ -86,9 +79,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		setBounds(100, 100, 445, 300);
 		getContentPane().setLayout(null);
 		
-		this.sistema = sistema;
-		this.listaCantidades = new ArrayList<>();
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(27, 127, 159, 70);
@@ -96,7 +86,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		JTree seleccionarProducto = new JTree();
 		// Crear categorías
-		Categoria categoriaElectronicos = new Categoria("Electronicos", true, null);
+		Categoria categoriaElectronicos = new Categoria("Electrónicos", true, null);
 		Categoria categoriaFarmacia = new Categoria("Farmacia", true, null);
 
 		// Crear productos para Electrónicos
@@ -106,8 +96,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		// Crear productos para Farmacia
 		Producto jarabe = new Producto("Jarabe", "Descripción de Jarabe", "Especificación de Jarabe", 3, 10.0f, null, null, null);
 		Producto vitaminas = new Producto("Vitaminas", "Descripción de Vitaminas", "Especificación de Vitaminas", 4, 20.0f, null, null, null);
-		
-		
+
 		// Crear nodo raíz
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
 
@@ -120,8 +109,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		DefaultMutableTreeNode nodoCelular = new DefaultMutableTreeNode(celular);
 		DefaultMutableTreeNode nodoJarabe = new DefaultMutableTreeNode(jarabe);
 		DefaultMutableTreeNode nodoVitaminas = new DefaultMutableTreeNode(vitaminas);
-		
-		
+
 		// Agregar productos a las categorías correspondientes
 		nodoElectronicos.add(nodoLaptop);
 		nodoElectronicos.add(nodoCelular);
@@ -145,58 +133,16 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		
 		
-		
-		
-		
-		
-		
-		/* SE ME OCURRIO USAR ESTO PARA CARGAR EL ARBOL */
-		/*
-		
-		JTree seleccionarProducto = new JTree();
-		
-		// Crear nodo raíz
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-		
-		for (Categoria cat : sistema.getCategorias().values()) {
-			this.cargarJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
-		}
-		
-		
-		// Crear el modelo del árbol con el nodo raíz
-		DefaultTreeModel treeModel = new DefaultTreeModel(root);
-
-		// Asignar el modelo al JTree
-		seleccionarProducto.setModel(treeModel);
-
-		scrollPane.setViewportView(seleccionarProducto);
-		seleccionarProducto.setName("");
-		seleccionarProducto.setToggleClickCount(1);
-		
-		*/
-		
-		
-		
-		
-		
-		
-		JComboBox<DTCliente> seleccionarCliente = new JComboBox<DTCliente>();
-		seleccionarCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// ACA SE TIENE QUE SELECCIONAR EL USUARIO EN EL SISTEMA
-			}
-		});
+		JComboBox seleccionarCliente = new JComboBox();
 		seleccionarCliente.setBounds(27, 69, 124, 22);
 		getContentPane().add(seleccionarCliente);
 
-		this.seleccionarCliente = seleccionarCliente;
-		
 		List<DTCliente> clientes = sistema.listarClientes(); // Lista de clientes
 
 		// Lleno el JComboBox con los clientes.
 		for (DTCliente cliente : clientes) {
 		    // Agregar el nickname del cliente al JComboBox
-		    seleccionarCliente.addItem(cliente);
+		    seleccionarCliente.addItem(cliente.getNickname());
 		}
 
 
@@ -235,8 +181,8 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
 		            //Obtenengo los valores seleccionados
-		            DTCliente cliente = (DTCliente) seleccionarCliente.getSelectedItem();
-		            sistema.elegirCliente(cliente.getNickname());
+		            String cliente = (String) seleccionarCliente.getSelectedItem();
+		            sistema.elegirCliente(cliente);
 		            
 		            // Obtener el nodo
 		            DefaultMutableTreeNode nodoSeleccionado = (DefaultMutableTreeNode) seleccionarProducto.getLastSelectedPathComponent();
@@ -278,8 +224,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		            
 		            // Agregar una representación de la cantidad a la JList
 		            model.addElement(nuevaCantidad.toString2());
-		            
-		            System.out.println("LLEGUE HASTA ACAAAA");
 		            
 		            // Limpiar los campos
 		            cantidadPoner.setText("");
@@ -412,64 +356,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 
 	}
-	
-	public List<DTCliente> getClientes(){
-		
-		if (this.sistema == null) {
-			// tiro el error
-			throw new NullPointerException ("Error: El sistema no existe."); // FALTA POPUP
-		}
-		List<DTCliente> lista = null;
-		
-		try {
-			lista = this.sistema.listarClientes();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		if (lista.isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene clientes."); // FALTA POPUP
-		}
-		
-		return lista;
-		
-	}
-
-	public void cargarClientes() {
-		List<DTCliente> lista = null;
-		
-		try {
-			lista = this.getClientes();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		this.seleccionarCliente.removeAllItems();
-		
-		for (DTCliente cli : lista) {
-			this.seleccionarCliente.addItem(cli);
-		}
-		
-	}
-	
-	// Esta funcion la agregué para ir creando recursivamente el JTree
-	
-	public void cargarJTree(Categoria cat, DefaultMutableTreeNode nodo) {
-		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
-		if (!(cat.getProductos().isEmpty())) {
-			for (Producto prod : cat.getProductos()) {
-				DefaultMutableTreeNode nodoProd = new DefaultMutableTreeNode(prod);
-				newNodo.add(nodoProd);
-			}
-		}
-		if (!(cat.getHijos().values().isEmpty())) {
-			for (Categoria hijo : cat.getHijos().values()) {
-				cargarJTree(hijo, newNodo);
-			}
-		}
-		nodo.add(newNodo);
-	}
-
 	
 	
 }

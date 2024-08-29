@@ -2,10 +2,7 @@ package interfaces;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 import clases.DTOrdenDeCompra;
-import clases.DTOrdenDeCompraDetallada;
 import clases.Cantidad;
-import clases.DTCliente;
-
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.SwingUtilities;
@@ -15,8 +12,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import clases.Producto;
-import excepciones.OrdenDeCompraNoExisteException;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -37,8 +32,6 @@ import java.awt.Font;
 public class VerInfoOrdenDeCompra extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private ISistema sistema;
-	private JComboBox<DTOrdenDeCompra> ordenes;
 
 	/**
 	 * Launch the application.
@@ -69,14 +62,10 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 		
-		this.sistema = sistema;
-		
-		JComboBox<DTOrdenDeCompra> comboBox = new JComboBox<DTOrdenDeCompra>();
+		JComboBox comboBox = new JComboBox();
 		comboBox.setEditable(true);
 		comboBox.setBounds(24, 62, 149, 22);
 		getContentPane().add(comboBox);
-		
-		ordenes = comboBox;
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -142,7 +131,17 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
  		for (DTOrdenDeCompra ordenDetalles1 : listaOrdenes) {
  		    comboBox.addItem(ordenDetalles1); 
  		} */
- 
+ 		
+ 		
+ 		/////////////Esto es sin caso de prueba, normal///////////
+      List<DTOrdenDeCompra> ordenes = sistema.listarOrdenesDeCompra();
+
+		 //Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
+		for (DTOrdenDeCompra ordenDetalles1 : ordenes) {
+		    comboBox.addItem(ordenDetalles1); 
+		} 
+        
+     
         
 		comboBox.addActionListener(new ActionListener() {
 		    @Override
@@ -151,13 +150,20 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		        DTOrdenDeCompra ordenSeleccionada = (DTOrdenDeCompra) comboBox.getSelectedItem();
 		        
 		        if (ordenSeleccionada != null) {
-		            try {
-		            	sistema.elegirOrdenDeCompra(ordenSeleccionada.getNumero());
-		            	DTOrdenDeCompraDetallada detalles = sistema.verInformacionOrdenDeCompra();
-		            	ordenDetalles.setText(detalles.toString());
-		            } catch (OrdenDeCompraNoExisteException exc) {
-		            	// FALTA POPUP
+		            //Construir el texto con los detalles de la orden
+		            StringBuilder detalles = new StringBuilder();
+
+		            // Iterar sobre la lista Cantidad y agregar cada detalle al StringBuilder
+		            for (Cantidad cantidad : ordenSeleccionada.getCantidades()) {
+		                detalles.append("Producto: ")
+		                        .append(cantidad.getProducto().getNombreProducto())  
+		                        .append(", Cantidad: ")
+		                        .append(cantidad.getCantidad())
+		                        .append("\n");
 		            }
+
+		            // Mostrar los detalles en el JTextArea
+		            ordenDetalles.setText(detalles.toString());
 		        }
 		    }
 		});
@@ -188,45 +194,6 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		lblNewLabel_2.setBounds(50, 11, 308, 23);
 		getContentPane().add(lblNewLabel_2);
 
-	}
-	
-public List<DTOrdenDeCompra> getOrdenesDeCompra(){
-		
-		if (this.sistema == null) {
-			// tiro el error
-			throw new NullPointerException ("Error: El sistema no existe."); // FALTA POPUP
-		}
-		List<DTOrdenDeCompra> lista = null;
-		
-		try {
-			lista = this.sistema.listarOrdenesDeCompra();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		if (lista.isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene ordenes de compra."); // FALTA POPUP
-		}
-		
-		return lista;
-		
-	}
-
-	public void cargarOrdenesDeCompra() {
-		List<DTOrdenDeCompra> lista = null;
-		
-		try {
-			lista = this.getOrdenesDeCompra();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		this.ordenes.removeAllItems();
-		
-		for (DTOrdenDeCompra item : lista) {
-			this.ordenes.addItem(item);
-		}
-		
 	}
 
 }

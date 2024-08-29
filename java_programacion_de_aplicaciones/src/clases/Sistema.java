@@ -103,9 +103,6 @@ public class Sistema extends ISistema {
         orden1.agregarProducto(producto, 5);
         orden1.agregarProducto(producto2, 64);
         
-        orden2.agregarProducto(producto3, 7);
-        orden2.agregarProducto(producto, 69);
-        
 		ordenes.put(1, orden1);
 		ordenes.put(2, orden2);
 		
@@ -372,34 +369,29 @@ public class Sistema extends ISistema {
 	*/
 	
 	@Override
-	public Categoria altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
+	public void altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
         if (this.categorias.containsKey(nombre)) {
             throw new CategoriaRepetidaException("Error: Ya existe una categoría con el nombre " + '"' + nombre + '"' + '.');
         }
 		Categoria cat = new Categoria(nombre, tieneProductos, padre);
-		if (padre == null) {
-			this.categorias.put(nombre, cat);
-		} else {
-			padre.agregarHijo(nombre, cat);
-		}
-		return cat;
+		this.categorias.put(nombre, cat);
 	}
 
 	@Override
 	public List<DTOrdenDeCompra> listarOrdenesDeCompra(){
 		List<DTOrdenDeCompra> lista = new ArrayList<>();
-		/*if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
+		if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
 			Cliente cli = (Cliente) this.usuarioActual;
 			for (OrdenDeCompra ord : cli.getOrdenesDeCompras()) {
 				DTOrdenDeCompra dt = ord.getDTOrden();
 				lista.add(dt);
 			}
-		} else {*/
+		} else {
 			for (OrdenDeCompra ord : this.ordenes.values()) {
 				DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
 				lista.add(dt);
 			}
-		//}
+		}
 		return lista;
 	}
 	
@@ -431,7 +423,7 @@ public class Sistema extends ISistema {
 	
 	
 	@Override
-	public DTOrdenDeCompraDetallada verInformacionOrdenDeCompra() {
+	public DTOrdenDeCompraDetallada verInformacionOrdenDeCompra(int numero) {
 		if (this.ordenActual == null) {
 			throw new NullPointerException("Error: No se ha elegido una orden de compra previamente.");
 		}
@@ -446,17 +438,12 @@ public class Sistema extends ISistema {
 		if (this.usuarioActual instanceof Cliente) {
 	        Cliente clienteActual = (Cliente) this.usuarioActual;
 	        
-	        int codigoOrden = this.generarCodigoOrden();
-	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, cantidad);
-	        
-	        System.out.println(nueva.toString());
-	        
-	        this.ordenes.put(codigoOrden, nueva);
+	        OrdenDeCompra nueva = new OrdenDeCompra(this.generarCodigoOrden(), this.getFechaActual(), clienteActual, cantidad);
+	        this.ordenes.put(this.generarCodigoOrden(), nueva);
 	        
 	        List<OrdenDeCompra> ordenes = clienteActual.getOrdenesDeCompras();
 	        ordenes.add(nueva);
 	        clienteActual.setOrdenesDeCompras(ordenes);
-	        
 	    } else {
 	        throw new IllegalArgumentException("El usuario actual no es un cliente.");
 	    }
@@ -469,8 +456,8 @@ public class Sistema extends ISistema {
 		}
 		int numero = 0;
 		for (int key : this.ordenes.keySet()) {
-			if (key >= numero) {
-				numero = key+1;
+			if (key > numero) {
+				numero = key;
 			}
 		}
 		return numero;
