@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.DTFecha;
 import clases.ISistema;
+import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -17,6 +19,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -30,6 +33,8 @@ public class RegistrarProveedor extends JInternalFrame {
 	private JTextField textCompan;
 	private JTextField textLink;
 	private JDateChooser DateFecha;
+	private String rutaImagen = "";
+
 
 	/**
 	 * Launch the application.
@@ -132,6 +137,34 @@ public class RegistrarProveedor extends JInternalFrame {
 		ButtonReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String nickname = textNick.getText();
+				String correo = textMail.getText();
+				String nombre = textNom.getText();
+				String apellido = textApe.getText();
+				Date fechaN = DateFecha.getDate();	
+				String comp = textCompan.getText();
+				String link = textLink.getText();
+				Calendar calendar = Calendar.getInstance();
+		        calendar.setTime(fechaN);
+		        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+		        int mes = calendar.get(Calendar.MONTH) + 1;
+		        int anio = calendar.get(Calendar.YEAR);
+		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				
+				chequearFormulario();
+				
+				
+				try {
+					sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
+					
+					JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				catch(UsuarioRepetidoException e1){
+					JOptionPane.showMessageDialog(RegistrarProveedor.this, e1.getMessage(), "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
+				}
+				limpiarFormulario();
+				setVisible(false);
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
@@ -144,6 +177,16 @@ public class RegistrarProveedor extends JInternalFrame {
 
 	}
 	
+	private void limpiarFormulario() {
+		textNick.setText("");
+		textNom.setText("");
+		textApe.setText("");
+		textMail.setText("");
+		textCompan.setText("");
+		textLink.setText("");
+		DateFecha.setDate(null);
+		rutaImagen = "";
+	}
 	private boolean chequearFormulario() {
 		String nickname = textNick.getText();
 		String correo = textMail.getText();
