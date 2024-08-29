@@ -144,6 +144,7 @@ public class Sistema extends ISistema {
 		return this.usuarios;
 	}
 	
+
 	@Override
 	public HashMap<Integer, OrdenDeCompra> getOrdenes(){
 		return this.ordenes;
@@ -418,6 +419,21 @@ public class Sistema extends ISistema {
 	
 	// FUNCION GENERAR CODIGO ORDEN
 	
+	@Override
+	public void agregarOrden(List<Cantidad> cantidad) {
+		if (this.usuarioActual instanceof Cliente) {
+	        Cliente clienteActual = (Cliente) this.usuarioActual;
+	        
+	        OrdenDeCompra nueva = new OrdenDeCompra(this.generarCodigoOrden(), this.getFechaActual(), clienteActual, cantidad);
+	        this.ordenes.put(this.generarCodigoOrden(), nueva);
+	        
+	        List<OrdenDeCompra> ordenes = clienteActual.getOrdenesDeCompras();
+	        ordenes.add(nueva);
+	        clienteActual.setOrdenesDeCompras(ordenes);
+	    } else {
+	        throw new IllegalArgumentException("El usuario actual no es un cliente.");
+	    }
+	}
 	
 	@Override
 	public int generarCodigoOrden() {
@@ -692,5 +708,7 @@ public class Sistema extends ISistema {
 		this.usuarioActual = null;
 		this.listaOrden.clear();
 	}
+	
+	
 	
 }

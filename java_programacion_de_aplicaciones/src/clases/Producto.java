@@ -131,4 +131,11 @@ public class Producto {
         this.precio = precio;
         this.especificacion = especificacion;
     }
+    
+    @Override
+    public String toString() {
+        return nombreProducto;  
+    }
+
 }
+
