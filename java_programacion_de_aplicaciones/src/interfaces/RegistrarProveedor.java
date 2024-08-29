@@ -15,10 +15,13 @@ import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -130,6 +133,22 @@ public class RegistrarProveedor extends JInternalFrame {
 		getContentPane().add(LabelFecha);
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
+		ButtonImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 JFileChooser fileChooser = new JFileChooser();
+	                fileChooser.setDialogTitle("Seleccione una imagen");
+	                // Filtrar por imágenes
+	                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+	                
+	                int userSelection = fileChooser.showOpenDialog(RegistrarProveedor.this);
+	                
+	                if (userSelection == JFileChooser.APPROVE_OPTION) {
+	                    File fileToUpload = fileChooser.getSelectedFile();
+	                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
+	                    JOptionPane.showMessageDialog(RegistrarProveedor.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+	                }
+			}
+		});
 		ButtonImg.setBounds(38, 386, 144, 20);
 		getContentPane().add(ButtonImg);
 		
