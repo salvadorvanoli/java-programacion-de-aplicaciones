@@ -123,15 +123,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 		
 		this.JTreeSeleccionCategoriaPadre = treeCategorias;
 		
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-		
-		for (Categoria cat : sistema.getCategorias().values()) {
-			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
-		}
-		
-		DefaultTreeModel treeModel = new DefaultTreeModel(root);
-        this.JTreeSeleccionCategoriaPadre.setModel(treeModel);
-	
+		cargarJTree();
 		
 		JLabel labelSeleccionProducto = new JLabel("Selecciona uno de los productos de la lista *");
 		labelSeleccionProducto.setHorizontalAlignment(SwingConstants.CENTER);
@@ -269,6 +261,17 @@ public class ModificarDatosProducto extends JInternalFrame {
         });
 
 
+	}
+	
+	public void cargarJTree() {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
+		
+		for (Categoria cat : sistema.getCategorias().values()) {
+			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
+		}
+		
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        this.JTreeSeleccionCategoriaPadre.setModel(treeModel);
 	}
 	
 	public void cargarCategoriaJTree(Categoria cat, DefaultMutableTreeNode nodo) {

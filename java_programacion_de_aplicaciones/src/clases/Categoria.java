@@ -121,9 +121,10 @@ public class Categoria {
     }
 
 
-@Override
-public String toString() {
-    return nombreCat; 
-}
+	@Override
+	public String toString() {
+	    return nombreCat; 
+	}
+	
 
 }
