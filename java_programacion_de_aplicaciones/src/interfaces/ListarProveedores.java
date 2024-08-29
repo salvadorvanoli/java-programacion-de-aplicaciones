@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -19,8 +18,6 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 
 public class ListarProveedores extends JInternalFrame {
