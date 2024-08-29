@@ -358,12 +358,17 @@ public class Sistema extends ISistema {
 	*/
 	
 	@Override
-	public void altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
+	public Categoria altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
         if (this.categorias.containsKey(nombre)) {
             throw new CategoriaRepetidaException("Error: Ya existe una categoría con el nombre " + '"' + nombre + '"' + '.');
         }
 		Categoria cat = new Categoria(nombre, tieneProductos, padre);
-		this.categorias.put(nombre, cat);
+		if (padre == null) {
+			this.categorias.put(nombre, cat);
+		} else {
+			padre.agregarHijo(nombre, cat);
+		}
+		return cat;
 	}
 
 	@Override

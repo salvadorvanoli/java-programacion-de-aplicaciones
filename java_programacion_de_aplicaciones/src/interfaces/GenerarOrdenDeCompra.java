@@ -36,11 +36,14 @@ import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import clases.Cantidad;
 import clases.Producto;
+import excepciones.CategoriaNoExisteException;
 import excepciones.UsuarioNoExisteException;
 import clases.Cliente;
 import clases.DTCliente;
 import java.awt.Component;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.JInternalFrame;
 import java.awt.Font;
 
@@ -142,13 +145,37 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		
 		
-		/* SE ME OCURRIO USAR ESTO PARA CARGAR EL ARBOL */
 		
+		
+		
+		
+		
+		/* SE ME OCURRIO USAR ESTO PARA CARGAR EL ARBOL */
 		/*
+		
+		JTree seleccionarProducto = new JTree();
+		
+		// Crear nodo raíz
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
+		
 		for (Categoria cat : sistema.getCategorias().values()) {
-			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
+			this.cargarJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
 		}
+		
+		
+		// Crear el modelo del árbol con el nodo raíz
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+
+		// Asignar el modelo al JTree
+		seleccionarProducto.setModel(treeModel);
+
+		scrollPane.setViewportView(seleccionarProducto);
+		seleccionarProducto.setName("");
+		seleccionarProducto.setToggleClickCount(1);
+		
 		*/
+		
+		
 		
 		
 		
@@ -427,7 +454,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	
 	// Esta funcion la agregué para ir creando recursivamente el JTree
 	
-	public void cargarCategoriaJTree(Categoria cat, DefaultMutableTreeNode nodo) {
+	public void cargarJTree(Categoria cat, DefaultMutableTreeNode nodo) {
 		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
 		if (!(cat.getProductos().isEmpty())) {
 			for (Producto prod : cat.getProductos()) {
@@ -437,7 +464,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		}
 		if (!(cat.getHijos().values().isEmpty())) {
 			for (Categoria hijo : cat.getHijos().values()) {
-				cargarCategoriaJTree(hijo, newNodo);
+				cargarJTree(hijo, newNodo);
 			}
 		}
 		nodo.add(newNodo);

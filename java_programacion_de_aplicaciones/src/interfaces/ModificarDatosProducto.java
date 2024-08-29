@@ -8,6 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import clases.ISistema;
+import clases.Producto;
 import excepciones.ProductoNoExisteException;
 import excepciones.UsuarioNoExisteException;
 
@@ -122,7 +123,15 @@ public class ModificarDatosProducto extends JInternalFrame {
 		
 		this.JTreeSeleccionCategoriaPadre = treeCategorias;
 		
-		cargarJTree();
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
+		
+		for (Categoria cat : sistema.getCategorias().values()) {
+			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
+		}
+		
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        this.JTreeSeleccionCategoriaPadre.setModel(treeModel);
+	
 		
 		JLabel labelSeleccionProducto = new JLabel("Selecciona uno de los productos de la lista *");
 		labelSeleccionProducto.setHorizontalAlignment(SwingConstants.CENTER);
@@ -262,51 +271,16 @@ public class ModificarDatosProducto extends JInternalFrame {
 
 	}
 	
+	public void cargarCategoriaJTree(Categoria cat, DefaultMutableTreeNode nodo) {
+		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
+		if (!(cat.getHijos().values().isEmpty())) {
+			for (Categoria hijo : cat.getHijos().values()) {
+				cargarCategoriaJTree(hijo, newNodo);
+			}
+		}
+		nodo.add(newNodo);
+	}
 	
-	private void cargarJTree() {
-        // Vaciar el JTree
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-
-        HashMap<String, Categoria> categorias = sistema.getCategorias();
-
-        if (categorias == null || categorias.isEmpty()) {
-            // MOSTRAR POPUP DE ERROR
-        }
-
-        // Crear un mapa para guardar los nodos de categoría por nombre
-        Map<String, DefaultMutableTreeNode> nodoMap = new HashMap<>();
-
-        // Crear nodos para cada categoría y almacenarlos en el mapa
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(categoria.getNombreCat());
-            nodoMap.put(categoria.getNombreCat(), node);
-        }
-
-        // Agregar nodos hijos a sus nodos padres
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = nodoMap.get(categoria.getNombreCat());
-            Categoria padre = categoria.getPadre();
-
-            if (padre != null) {
-                DefaultMutableTreeNode parentNode = nodoMap.get(padre.getNombreCat());
-                if (parentNode != null) {
-                    parentNode.add(node);
-                } else {
-                    // Si el padre no está en el mapa, agregar el nodo al nodo raíz
-                    root.add(node);
-                }
-            } else {
-                // Si no tiene padre, agregar al nodo raíz
-                root.add(node);
-            }
-        }
-
-        // Crear el modelo de árbol y asignarlo al JTree
-        DefaultTreeModel treeModel = new DefaultTreeModel(root);
-        this.JTreeSeleccionCategoriaPadre.setModel(treeModel);
-    }
 
 	/*
     @Override

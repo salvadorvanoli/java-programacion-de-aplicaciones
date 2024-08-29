@@ -10,13 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import clases.Categoria;
+import clases.DTProveedor;
 import clases.ISistema;
 import clases.Proveedor;
 import excepciones.ProductoRepetidoException;
+import excepciones.UsuarioNoExisteException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -164,7 +168,7 @@ public class RegistrarProducto extends JInternalFrame {
 				//List<Categoria> categorias;
 				Proveedor proveedor;/* falta proveedor actual*/
 				try {
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, proveedor);
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio);
 				} catch (ProductoRepetidoException e1) {
 					//aun no se q va aca
 				}
