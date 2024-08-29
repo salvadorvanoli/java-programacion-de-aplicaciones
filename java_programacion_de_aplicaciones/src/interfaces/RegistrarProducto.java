@@ -164,9 +164,6 @@ public class RegistrarProducto extends JInternalFrame {
 				String especificacion = campoEspecificacion.getText();
 				int numReferencia =0/*aca iria un generador de num*/ ;
 				int precio = Integer.parseInt(campoPrecio.getText());
-				//List<String> imagenes;
-				//List<Categoria> categorias;
-				Proveedor proveedor;/* falta proveedor actual*/
 				try {
 					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio);
 				} catch (ProductoRepetidoException e1) {
