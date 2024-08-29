@@ -298,13 +298,28 @@ public class Sistema extends ISistema {
 	*/
 
 	@Override
-	public boolean elegirCategoria(String nombreCat) throws CategoriaNoExisteException { // No creo que sea necesario que sean bool (todos los elegir)
-		Categoria cat = this.categorias.get(nombreCat);
-        if (cat == null){
-            throw new CategoriaNoExisteException("Error: La categoría de nombre " + '"' + nombreCat + '"' + " no existe.");
-        }
-        this.categoriaActual = cat;
-        return true;
+	public boolean elegirCategoria(String nombreCat) throws CategoriaNoExisteException {
+	    Categoria cat = buscarCategoriaRecursivamente(nombreCat, this.categorias);
+	    if (cat == null) {
+	        throw new CategoriaNoExisteException("Error: La categoría de nombre " + '"' + nombreCat + '"' + " no existe.");
+	    }
+	    this.categoriaActual = cat;
+	    return true;
+	}
+
+	@Override
+	public Categoria buscarCategoriaRecursivamente(String nombreCat, HashMap<String, Categoria> categorias) {
+	    for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
+	        Categoria categoria = entry.getValue();
+	        if (categoria.getNombreCat().equals(nombreCat)) {
+	            return categoria;
+	        }
+	        Categoria catEncontrada = buscarCategoriaRecursivamente(nombreCat, categoria.getHijos());
+	        if (catEncontrada != null) {
+	            return catEncontrada;
+	        }
+	    }
+	    return null;
 	}
 
 	@Override

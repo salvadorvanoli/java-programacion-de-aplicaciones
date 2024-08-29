@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.Choice;
@@ -96,42 +97,46 @@ public class AltaDeCategoria extends JInternalFrame {
         // Llamar al método para cargar datos al inicializar el frame
         cargarDatos();
 
-        // Eventos de cada botón
+        // Modificación en el evento de crear una nueva categoría
         crearBtnAltaDeCategoria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 1. Extraer el nombre de la categoría
                 String nombreCategoria = inputNombreDeLaCategoria.getText().trim();
                 
-                // 2. Determinar el valor del booleano
-                boolean contieneProductos = contieneProductosCheckbox.isSelected();
-                
-                // 3. Obtener la categoría padre
-                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectCategoriaPadreAltaDeCategoria.getLastSelectedPathComponent();
-                Categoria categoriaPadre = null;
+                if(nombreCategoria.isEmpty() || nombreCategoria.isBlank()) {
+                	JOptionPane.showMessageDialog(null, "Debe agregar un nombre a la categoría", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                	// 2. Determinar el valor del booleano
+                    boolean contieneProductos = contieneProductosCheckbox.isSelected();
+                    
+                    // 3. Obtener la categoría padre
+                    DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectCategoriaPadreAltaDeCategoria.getLastSelectedPathComponent();
+                    Categoria categoriaPadre = null;
 
-                if (selectedNode != null && !selectedNode.toString().equals("Categorías")) {
-                    String nombrePadre = selectedNode.toString();
+                    if (selectedNode != null && !selectedNode.toString().equals("Categorías")) {
+                        String nombrePadre = selectedNode.toString();
+                        try {
+                            sistema.elegirCategoria(nombrePadre);
+                            categoriaPadre = sistema.getCategoriaActual();
+                        } catch (CategoriaNoExisteException e1) {
+                            // MANEJAR ERROR
+                        }
+                    }
+                    
+                    // 4. Llamar al método altaCategoria
                     try {
-                        sistema.elegirCategoria(nombrePadre);
-                        categoriaPadre = sistema.getCategoriaActual();
-                    } catch (CategoriaNoExisteException e1) {
+                        sistema.altaCategoria(nombreCategoria, contieneProductos, categoriaPadre);
+
+                        // Limpiar los campos después de la creación
+                        limpiarCampos();
+                    } catch (CategoriaRepetidaException e1) {
                         // MANEJAR ERROR
                     }
+                    
+                    // Volver a cargar los datos
+                    cargarDatos();
                 }
-                
-                // 4. Llamar al método altaCategoria
-                try {
-                    sistema.altaCategoria(nombreCategoria, contieneProductos, categoriaPadre);
-
-                    // Limpiar los campos después de la creación
-                    limpiarCampos();
-                } catch (CategoriaRepetidaException e1) {
-                    // MANEJAR ERROR
-                }
-                
-                // Volver a cargar los datos
-                cargarDatos();
             }
         });
     }
@@ -148,39 +153,33 @@ public class AltaDeCategoria extends JInternalFrame {
             return;
         }
 
-        // Crear un mapa para guardar los nodos de categoría por nombre
-        Map<String, DefaultMutableTreeNode> nodoMap = new HashMap<>();
-
-        // Crear nodos para cada categoría y almacenarlos en el mapa
+        // Agregar las categorías raíz al árbol
         for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
             Categoria categoria = entry.getValue();
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(categoria.getNombreCat());
-            nodoMap.put(categoria.getNombreCat(), node);
-        }
-
-        // Agregar nodos hijos a sus nodos padres
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = nodoMap.get(categoria.getNombreCat());
-            Categoria padre = categoria.getPadre();
-
-            if (padre != null) {
-                DefaultMutableTreeNode parentNode = nodoMap.get(padre.getNombreCat());
-                if (parentNode != null) {
-                    parentNode.add(node);
-                } else {
-                    // Si el padre no está en el mapa, agregar el nodo al nodo raíz
-                    root.add(node);
-                }
-            } else {
-                // Si no tiene padre, agregar al nodo raíz
-                root.add(node);
-            }
+            root.add(node);
+            
+            // Llamar a la función recursiva para agregar hijos
+            agregarHijosRecursivamente(categoria, node);
         }
 
         // Crear el modelo de árbol y asignarlo al JTree
         DefaultTreeModel treeModel = new DefaultTreeModel(root);
         selectCategoriaPadreAltaDeCategoria.setModel(treeModel);
+    }
+
+    // Método recursivo para agregar hijos al nodo del árbol
+    private void agregarHijosRecursivamente(Categoria categoria, DefaultMutableTreeNode nodoPadre) {
+        HashMap<String, Categoria> hijos = categoria.getHijos();
+
+        for (Map.Entry<String, Categoria> entry : hijos.entrySet()) {
+            Categoria hijo = entry.getValue();
+            DefaultMutableTreeNode nodoHijo = new DefaultMutableTreeNode(hijo.getNombreCat());
+            nodoPadre.add(nodoHijo);
+            
+            // Llamar recursivamente para los hijos del hijo
+            agregarHijosRecursivamente(hijo, nodoHijo);
+        }
     }
 
     @Override
