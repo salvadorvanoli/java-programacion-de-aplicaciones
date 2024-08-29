@@ -101,17 +101,13 @@ public class ModificarDatosProducto extends JInternalFrame {
 		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				System.out.println("GOLALDASLDASDAS");
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
                 if (selectedNode == null) {
                 	// ERROR CON POPUP
                 }
-                System.out.println("2222222222222222");
                 try {
-                	System.out.println(selectedNode.toString());
                 	sistema.elegirCategoria(selectedNode.toString());
                 	cargarProductos();
-                	System.out.println("333333333333");
                 } catch (CategoriaNoExisteException e1) {
                 	
                 }
@@ -297,6 +293,7 @@ public class ModificarDatosProducto extends JInternalFrame {
     }
     */
 
+	/*
     private void limpiarCampos() {
         this.seleccionProducto.removeAllItems();
         
@@ -305,6 +302,7 @@ public class ModificarDatosProducto extends JInternalFrame {
             this.JTreeSeleccionCategoriaPadre.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Categorías")));
         }
     }
+    */
     
     public void cargarProductos() {
 		List<DTProducto> lista = null;

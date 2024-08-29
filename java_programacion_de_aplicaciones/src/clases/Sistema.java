@@ -450,8 +450,6 @@ public class Sistema extends ISistema {
 	        int codigoOrden = this.generarCodigoOrden();
 	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, cantidad);
 	        
-	        System.out.println(nueva.toString());
-	        
 	        this.ordenes.put(codigoOrden, nueva);
 	        
 	        List<OrdenDeCompra> ordenes = clienteActual.getOrdenesDeCompras();
