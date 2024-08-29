@@ -53,6 +53,14 @@ public class DTProductoDetallado extends DTProducto{
 		this.imagenes = imagenes;
 	}
 	
+	public String toString() {
+		return "Nombre: " + this.getNombre() + System.lineSeparator() +
+				"Num. de Referencia: " + this.getNumReferencia() + System.lineSeparator() +
+				"Descripcion: " + this.getDescripcion() + System.lineSeparator() +
+				"Especificación: " + this.getNumReferencia() + System.lineSeparator() +
+				"Descripcion: " + this.getDescripcion() + System.lineSeparator();
+	}
+	
 	
 	
 	

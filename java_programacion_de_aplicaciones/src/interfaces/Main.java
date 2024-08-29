@@ -301,6 +301,7 @@ public class Main {
 		CasosDeUsoRegistrosOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	generarOrdenInternalFrame.cargarClientes();
                 menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
                 generarOrdenInternalFrame.setVisible(true);
                 generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
@@ -370,6 +371,7 @@ public class Main {
 		CasosDeUsoConsultasInformacionOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	infoOrdenInternalFrame.cargarOrdenesDeCompra();
                 menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
                 infoOrdenInternalFrame.setVisible(true);
                 infoOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame

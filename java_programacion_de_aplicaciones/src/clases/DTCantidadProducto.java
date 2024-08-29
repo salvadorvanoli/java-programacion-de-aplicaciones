@@ -33,5 +33,10 @@ public class DTCantidadProducto {
 		this.subtotal = subtotal;
 	}
 	
+	@Override
+	public String toString() {
+		return this.producto.getNombre() + " - Cantidad: " + this.cantidad.getCantidad() + " - Subtotal: " + this.subtotal;
+	}
+	
 	
 }

@@ -26,7 +26,7 @@ public class DTCliente {
 	}
 	
 	public String toString() {
-		return "Nickname: " + this.getNickname() + " - " + "Email: " + this.getEmail();
+		return this.getNickname() + " - " + this.getEmail();
 	}
 	
 	

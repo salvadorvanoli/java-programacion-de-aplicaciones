@@ -61,7 +61,7 @@ public abstract class ISistema{
 
 	public abstract boolean elegirOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException;
 	
-	public abstract DTOrdenDeCompraDetallada verInformacionOrdenDeCompra(int numero);
+	public abstract DTOrdenDeCompraDetallada verInformacionOrdenDeCompra();
 	
 	public abstract int generarCodigoOrden();
 
@@ -92,6 +92,8 @@ public abstract class ISistema{
 	public abstract void elegirProveedor(String nickname) throws UsuarioNoExisteException;
 	
 	public abstract DTProveedorDetallado verInformacionProveedor();
+	
+	public abstract void agregarOrden(List<Cantidad> cantidad);
 	
 	public abstract void setTodoNull();
 }
