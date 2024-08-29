@@ -4,17 +4,24 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.DTProveedor;
+import clases.DTProveedorDetallado;
 import clases.ISistema;
+import excepciones.UsuarioNoExisteException;
 
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
 public class ListarProveedores extends JInternalFrame {
 
@@ -42,47 +49,58 @@ public class ListarProveedores extends JInternalFrame {
 	 * Create the frame.
 	 * @param sistema 
 	 */
+	
+	private void limpiarFormulario(JTextArea campoInfoProv){
+		campoInfoProv.setText("");
+	}
+	
+	
 	public ListarProveedores(ISistema sistema) {
 		setClosable(true);
 		setTitle("Flamin-Go");
 		setFrameIcon(new ImageIcon(ListarProveedores.class.getResource("/Images/Flamin-Go.png")));
 		getContentPane().setBackground(new Color(240, 240, 240));
-		setBounds(100, 100, 264, 181);
+		setBounds(100, 100, 264, 319);
 		getContentPane().setLayout(null);
 		
-		JLabel TextoProveedor = new JLabel("Elija un Proveedor\r\n");
+		JLabel TextoProveedor = new JLabel("Selecciona un Proveedor\r\n");
 		TextoProveedor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		TextoProveedor.setHorizontalAlignment(SwingConstants.CENTER);
 		TextoProveedor.setBounds(0, 11, 247, 14);
 		getContentPane().add(TextoProveedor);
 		
-		JComboBox<Object> comboBox = new JComboBox<Object>();
-		comboBox.setBounds(71, 36, 103, 14);
-		getContentPane().add(comboBox);
+		JTextArea campoInfoProv = new JTextArea();
+		campoInfoProv.setBounds(41, 91, 166, 127);
+		getContentPane().add(campoInfoProv);
 		
-		JLabel Nick_1 = new JLabel("Nick");
-		Nick_1.setHorizontalAlignment(SwingConstants.CENTER);
-		Nick_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Nick_1.setBounds(0, 48, 247, 28);
-		getContentPane().add(Nick_1);
-		
-		JLabel Email_2 = new JLabel("Email");
-		Email_2.setHorizontalAlignment(SwingConstants.CENTER);
-		Email_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		Email_2.setBounds(0, 75, 247, 28);
-		getContentPane().add(Email_2);
-		
-		JButton BotonConfirmar = new JButton("Confirmar");
-		BotonConfirmar.addActionListener(new ActionListener() {
+		JComboBox <DTProveedor> boxProveedor = new JComboBox<>(sistema.listarProveedores().toArray(new DTProveedor[0]));
+		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
-                infoProveedorInternalFrame.setVisible(true);
-                infoProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();
+				String nick = selectedItem.getNickname();
+				try {
+					sistema.elegirProveedor(nick);
+				} catch (UsuarioNoExisteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				DTProveedorDetallado prov = sistema.verInformacionProveedor();
+				campoInfoProv.setText("NickName: "+ prov.getNickname() + "\nEmail: " + prov.getEmail() + "\nApellido: " + prov.getApellido() + "\nNombre: " + prov.getNombre() + "\nNombre de Compania" + prov.getNomCompania() + "\nLink: " + prov.getLink()); //setear la info del detallado
 			}
 		});
-		BotonConfirmar.setBounds(71, 102, 103, 23);
-		getContentPane().add(BotonConfirmar);
+		boxProveedor.setEditable(true);
+		boxProveedor.setBounds(41, 36, 166, 14);
+		getContentPane().add(boxProveedor);
+		
+		JLabel labelInfo = new JLabel("Informacion:");
+		labelInfo.setBounds(41, 66, 66, 14);
+		getContentPane().add(labelInfo);
+		
+		JButton botonAceptar = new JButton("Aceptar");
+		botonAceptar.setBounds(80, 255, 79, 23);
+		getContentPane().add(botonAceptar);
+		
+		
 	}
 }
+
