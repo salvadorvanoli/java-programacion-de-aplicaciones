@@ -106,6 +106,8 @@ public class AltaDeCategoria extends JInternalFrame {
                 
                 if(nombreCategoria.isEmpty() || nombreCategoria.isBlank()) {
                 	JOptionPane.showMessageDialog(null, "Debe agregar un nombre a la categoría", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (sistema.existeCategoria(nombreCategoria)) {
+                    JOptionPane.showMessageDialog(null, "El nombre de la categoría ya existe", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                 	// 2. Determinar el valor del booleano
                     boolean contieneProductos = contieneProductosCheckbox.isSelected();

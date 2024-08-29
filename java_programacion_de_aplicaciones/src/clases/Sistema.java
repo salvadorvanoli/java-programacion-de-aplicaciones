@@ -321,6 +321,25 @@ public class Sistema extends ISistema {
 	    }
 	    return null;
 	}
+	
+	@Override
+	public boolean existeCategoria(String nombreCategoria) {
+        for (Categoria categoria : getCategorias().values()) {
+            if (categoria.getNombreCat().equals(nombreCategoria) || existeCategoriaRecursivamente(categoria, nombreCategoria)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean existeCategoriaRecursivamente(Categoria categoria, String nombreCategoria) {
+        for (Categoria hijo : categoria.getHijos().values()) {
+            if (hijo.getNombreCat().equals(nombreCategoria) || existeCategoriaRecursivamente(hijo, nombreCategoria)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	@Override
 	public List<DTProducto> listarProductos(){
