@@ -148,39 +148,33 @@ public class AltaDeCategoria extends JInternalFrame {
             return;
         }
 
-        // Crear un mapa para guardar los nodos de categoría por nombre
-        Map<String, DefaultMutableTreeNode> nodoMap = new HashMap<>();
-
-        // Crear nodos para cada categoría y almacenarlos en el mapa
+        // Agregar las categorías raíz al árbol
         for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
             Categoria categoria = entry.getValue();
             DefaultMutableTreeNode node = new DefaultMutableTreeNode(categoria.getNombreCat());
-            nodoMap.put(categoria.getNombreCat(), node);
-        }
-
-        // Agregar nodos hijos a sus nodos padres
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = nodoMap.get(categoria.getNombreCat());
-            Categoria padre = categoria.getPadre();
-
-            if (padre != null) {
-                DefaultMutableTreeNode parentNode = nodoMap.get(padre.getNombreCat());
-                if (parentNode != null) {
-                    parentNode.add(node);
-                } else {
-                    // Si el padre no está en el mapa, agregar el nodo al nodo raíz
-                    root.add(node);
-                }
-            } else {
-                // Si no tiene padre, agregar al nodo raíz
-                root.add(node);
-            }
+            root.add(node);
+            
+            // Llamar a la función recursiva para agregar hijos
+            agregarHijosRecursivamente(categoria, node);
         }
 
         // Crear el modelo de árbol y asignarlo al JTree
         DefaultTreeModel treeModel = new DefaultTreeModel(root);
         selectCategoriaPadreAltaDeCategoria.setModel(treeModel);
+    }
+
+    // Método recursivo para agregar hijos al nodo del árbol
+    private void agregarHijosRecursivamente(Categoria categoria, DefaultMutableTreeNode nodoPadre) {
+        HashMap<String, Categoria> hijos = categoria.getHijos();
+
+        for (Map.Entry<String, Categoria> entry : hijos.entrySet()) {
+            Categoria hijo = entry.getValue();
+            DefaultMutableTreeNode nodoHijo = new DefaultMutableTreeNode(hijo.getNombreCat());
+            nodoPadre.add(nodoHijo);
+            
+            // Llamar recursivamente para los hijos del hijo
+            agregarHijosRecursivamente(hijo, nodoHijo);
+        }
     }
 
     @Override
