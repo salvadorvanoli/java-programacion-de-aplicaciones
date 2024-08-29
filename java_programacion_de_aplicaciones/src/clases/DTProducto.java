@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class DTProducto {
 	private String nombre;
-	private String descricpion;
+	private String descripcion;
 	private float precio;
 	
 	
-	public DTProducto(String nombre, String descricpion, float precio) {
+	public DTProducto(String nombre, String descripcion, float precio) {
 		super();
 		this.nombre = nombre;
-		this.descricpion = descricpion;
+		this.descripcion = descripcion;
 		this.precio = precio;
 	}
 	
@@ -21,17 +21,21 @@ public class DTProducto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescricpion() {
-		return descricpion;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDescricpion(String descricpion) {
-		this.descricpion = descricpion;
+	public void setDescripcion(String descricpion) {
+		this.descripcion = descricpion;
 	}
 	public float getPrecio() {
 		return precio;
 	}
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	
+	public String toString() {
+		return this.nombre + " - " + this.descripcion + " - " + String.valueOf(this.precio);
 	}
 	
 	

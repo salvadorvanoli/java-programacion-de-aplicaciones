@@ -81,6 +81,8 @@ public abstract class ISistema{
 	
 	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
 	
+	public abstract void agregarCategoriasAProducto(List<Categoria> listaCat);
+	
 	public abstract void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) throws ProductoRepetidoException;
 	
 	public abstract void modificarImagenesProducto(List<String> imagenes);
@@ -90,4 +92,6 @@ public abstract class ISistema{
 	public abstract void elegirProveedor(String nickname) throws UsuarioNoExisteException;
 	
 	public abstract DTProveedorDetallado verInformacionProveedor();
+	
+	public abstract void setTodoNull();
 }

@@ -43,9 +43,9 @@ public class DTProductoDetallado extends DTProducto{
 	public void setImagenes(List<String> imagenes) {
 		this.imagenes = imagenes;
 	}
-	public DTProductoDetallado(String nombre, String descricpion, float precio, int numReferencia,
+	public DTProductoDetallado(String nombre, String descripcion, float precio, int numReferencia,
 			String especificaciones, List<String> categorias, DTProveedor proveedor, List<String> imagenes) {
-		super(nombre, descricpion, precio);
+		super(nombre, descripcion, precio);
 		this.numReferencia = numReferencia;
 		this.especificaciones = especificaciones;
 		this.categorias = categorias;

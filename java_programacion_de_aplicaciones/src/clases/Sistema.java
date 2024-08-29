@@ -52,6 +52,9 @@ public class Sistema extends ISistema {
         Cliente cl1 = new Cliente("a", "a", "a", "a", fecha1, "a");
         Cliente cl2 = new Cliente("b", "b", "b", "b", fecha2, "b");
         
+        Proveedor pr1 = new Proveedor("nick1", "Juan", "Pérez", "juan.perez@example.com", fecha1, "foto1.jpg", "Compania1", "http://compania1.com");
+        Proveedor pr2 = new Proveedor("nick2", "María", "Gómez", "maria.gomez@example.com", fecha2, "foto2.png", "Compania2", "http://compania2.com");
+        
         // Crear listas de imágenes y categorías
         List<String> imagenes = new ArrayList<>();
         imagenes.add("imagen1.jpg");
@@ -66,7 +69,7 @@ public class Sistema extends ISistema {
             99.99f,                          // precio
             imagenes,                        // lista de imágenes
             null,                      // lista de categorías
-            null                        // proveedor
+            pr1                        // proveedor
         );
         
         Producto producto2 = new Producto(
@@ -77,7 +80,18 @@ public class Sistema extends ISistema {
                 99.99f,                          // precio
                 imagenes,                        // lista de imágenes
                 null,                      // lista de categorías
-                null                        // proveedor
+                pr1                        // proveedor
+            );
+        
+        Producto producto3 = new Producto(
+                "ca",          // nombreProducto
+                "ce",     // descripcion
+                "ci",   // especificacion
+                12345678,                           // numReferencia
+                99.99f,                          // precio
+                imagenes,                        // lista de imágenes
+                null,                      // lista de categorías
+                pr2                        // proveedor
             );
         
         // Crear dos órdenes de compra
@@ -104,6 +118,25 @@ public class Sistema extends ISistema {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
+        int count = 0;
+        
+        for (Categoria cat : this.categorias.values()) {
+        	count++;
+        	List<Categoria> lista = new ArrayList<>();
+        	lista.add(cat);
+        	if (count == 1) {
+        		cat.agregarProducto(producto);
+        		producto.setCategorias(lista);
+        	} else if (count == 2) {
+        		cat.agregarProducto(producto2);
+        		producto2.setCategorias(lista);
+        	} else if (count == 3) {
+        		cat.agregarProducto(producto3);
+        		producto3.setCategorias(lista);
+        	}
+        }
+        
 	}
 	
 	@Override
@@ -205,6 +238,29 @@ public class Sistema extends ISistema {
 		this.productoActual = prod;
 		return true;
 	}
+	
+	/* OTRA FORMA
+	@Override
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
+		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
+			throw new NullPointerException("Error: No se ha elegido un proveedor previamente.");
+		}
+		for (Categoria cat : this.categorias.values()) {
+			for (Producto prod : cat.getProductos()) {
+				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
+					throw new ProductoRepetidoException("Error: Ya existe un producto de nombre " + '"' + titulo + '"' + '.');
+				} else if (prod.getNumReferencia() == numReferencia) {
+					throw new ProductoRepetidoException("Error: Ya existe un producto de número de referencia " + '"' + numReferencia + '"' + '.');
+				}
+			}
+		}
+		Proveedor proveedor = (Proveedor) this.usuarioActual;
+		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, null, null, proveedor); // Esto esta re mal
+		proveedor.agregarProducto(prod);
+		this.productoActual = prod;
+		return true;
+	}
+	*/
 	
 	@Override // Lo podría leer directamente
 	public DTProductoDetallado verInformacionProducto() {
@@ -555,7 +611,7 @@ public class Sistema extends ISistema {
 		}
 	}
 	
-	public void agregarCategorias(List<Categoria> listaCat) {
+	public void agregarCategoriasAProducto(List<Categoria> listaCat) {
 		if (this.productoActual == null) {
 			throw new NullPointerException("Error: No se ha elegido un producto previamente.");
 		}
@@ -629,5 +685,12 @@ public class Sistema extends ISistema {
 		return pr.getDTProveedorDetallado();
 	}
 	
+	public void setTodoNull() {
+		this.ordenActual = null;
+		this.categoriaActual = null;
+		this.productoActual = null;
+		this.usuarioActual = null;
+		this.listaOrden.clear();
+	}
 	
 }

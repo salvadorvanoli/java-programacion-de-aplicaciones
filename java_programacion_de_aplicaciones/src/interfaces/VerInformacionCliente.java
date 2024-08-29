@@ -134,7 +134,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		
 		if (this.sistema == null) {
 			// tiro el error
-			throw new NullPointerException ("Error: El sistema no existe.");
+			throw new NullPointerException ("Error: El sistema no existe."); // FALTA POPUP
 		}
 		List<DTCliente> lista = null;
 		
@@ -145,8 +145,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		}
 		
 		if (lista.isEmpty()) {
-			this.btnVerInfoOrdenes.setEnabled(false);
-			throw new IllegalStateException ("Error: El sistema no tiene clientes.");
+			throw new IllegalStateException ("Error: El sistema no tiene clientes."); // FALTA POPUP
 		}
 		
 		return lista;
