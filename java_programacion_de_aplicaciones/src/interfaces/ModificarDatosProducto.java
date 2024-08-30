@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -22,8 +23,11 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +57,64 @@ public class ModificarDatosProducto extends JInternalFrame {
 	private JTextField textFieldPrecio;
 	private JTextArea textAreaDescripcion;
 	private JTextArea textAreaEspecificacion;
+	
+	private List<Categoria> nuevasCategorias;
+	private List<String> nuevasImagenes;
+	
+	public void setNuevasCategorias(List<Categoria> nuevasCategorias) {
+		this.nuevasCategorias = nuevasCategorias;
+	}
+	
+	private void limpiarCampos() {
+		this.JTreeSeleccionCategoriaPadre.setSelectionRow(0);
+		this.seleccionProducto.setSelectedIndex(-1);
+		this.textFieldNombre.setText("");
+		this.textFieldNumReferencia.setText("");
+		this.textFieldPrecio.setText("");
+		this.textAreaDescripcion.setText("");
+		this.textAreaEspecificacion.setText("");
+		this.nuevasCategorias = null;
+		this.nuevasImagenes = null;
+	}
+	
+	private boolean camposCompletos() {
+		return ! (this.textFieldNombre.getText().isBlank() || this.textFieldNombre.getText().isEmpty()) &&
+				! (this.textFieldNumReferencia.getText().isBlank() || this.textFieldNumReferencia.getText().isEmpty()) &&
+				! (this.textFieldPrecio.getText().isBlank() || this.textFieldPrecio.getText().isEmpty()) &&
+				! (this.textAreaDescripcion.getText().isBlank() || this.textAreaDescripcion.getText().isEmpty()) &&
+				! (this.textAreaEspecificacion.getText().isBlank() || this.textAreaEspecificacion.getText().isEmpty());
+	}
+	
+	private boolean checkNumReferencia() {
+		try {
+			Integer.valueOf(this.textFieldNumReferencia.getText());
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkPrecio() {
+		try {
+			int precio = Integer.valueOf(this.textFieldPrecio.getText());
+			return precio > 0;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	
+	private void camposValidos() {
+		if (!this.camposCompletos()) {
+			throw new IllegalStateException("Aún hay campos vacíos.");
+		}
+		if (!this.checkNumReferencia()) {
+			throw new NumberFormatException("El número de referencia debe ser un valor entero.");
+		}
+		if (!this.checkPrecio()) {
+			throw new NumberFormatException("El precio debe ser un valor entero mayor que 0.");
+		}
+	}
 
 	/**
 	 * Launch the application.
@@ -232,6 +294,50 @@ public class ModificarDatosProducto extends JInternalFrame {
 		JButton btnNuevasImagenes = new JButton("Elegir nuevas Imágenes");
 		btnNuevasImagenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// Crear un JFileChooser
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(true); // Permitir seleccionar múltiples archivos
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY); // Solo archivos, no directorios
+
+                // Filtro para permitir solo imágenes
+                FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Archivos de Imagen (JPG, PNG)", "jpg", "jpeg", "png");
+                fileChooser.setFileFilter(imageFilter); // Establecer el filtro
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                // Mostrar el diálogo de selección de archivos
+                int result = fileChooser.showOpenDialog(menu.getMenuPrincipal());
+
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    // Obtener los archivos seleccionados
+                    File[] selectedFiles = fileChooser.getSelectedFiles();
+
+                    List<String> rutasImagenes = new ArrayList<>();
+                    // Mostrar los archivos seleccionados en la consola
+                    for (File file : selectedFiles) {
+                    	if (imageFilter.accept(file)) {
+                    		rutasImagenes.add(file.getAbsolutePath());
+                    	} else {
+                    		rutasImagenes.clear();
+        		            JOptionPane.showMessageDialog(null, "Un archivo elegido no coincide con el tipo aceptado (jpg, jpeg o png).", "Error", JOptionPane.ERROR_MESSAGE);
+        		            break;
+                    	}
+                    }
+                    if (!(rutasImagenes.isEmpty())){
+                    	nuevasImagenes = rutasImagenes;
+                    }
+                } else {
+                	// Agregar codigo de error
+                }
+
+				
+				
+				
+				
+				
+				
+				
+				/*
 				// infoClienteInternalFrame.toBack();
 				menu.getMenuPrincipal().getContentPane().add(menu.getModificarImagenesProductoInternalFrame());
 				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
@@ -239,12 +345,35 @@ public class ModificarDatosProducto extends JInternalFrame {
 				menu.getModificarImagenesProductoInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
 				menu.getMenuPrincipal().revalidate();
 				menu.getMenuPrincipal().repaint();
+				*/
 			}
 		});
 		btnNuevasImagenes.setBounds(331, 507, 189, 28);
 		getContentPane().add(btnNuevasImagenes);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					camposValidos();
+					String nombreProd = textFieldNombre.getText().trim();
+					int numReferencia = Integer.valueOf(textFieldNumReferencia.getText().trim());
+					float precio = Float.valueOf(textFieldPrecio.getText().trim());
+					String descripcion = textAreaDescripcion.getText().trim();
+					String especificacion = textAreaEspecificacion.getText().trim();
+					sistema.modificarDatosProducto(nombreProd, numReferencia, descripcion, precio, especificacion);
+					sistema.modificarImagenesProducto(nuevasImagenes);
+					sistema.quitarProductoDeCategorias();
+					sistema.agregarCategoriasAProducto(nuevasCategorias);
+					sistema.agregarProductoACategorias(nuevasCategorias);
+			        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE); // ME QUEDE ACAAAAAAAAAAAAAAAA
+				} catch (Exception exc) {
+		            JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		btnAceptar.setBounds(249, 580, 100, 29);
 		getContentPane().add(btnAceptar);
 		
