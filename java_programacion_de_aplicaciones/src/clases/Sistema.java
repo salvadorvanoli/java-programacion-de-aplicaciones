@@ -705,11 +705,13 @@ public class Sistema extends ISistema {
 	}
 
 	//@Override
-	private boolean buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia) {
+	private boolean buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia) { // Hay que probar esto
 	    for (Producto producto : categoria.getProductos()) {
 	        if (producto.getNombreProducto().equalsIgnoreCase(nombreProd) || 
 	            producto.getNumReferencia() == numReferencia) {
-	            return true;
+	        	if (producto != this.productoActual) {
+	        		return true;
+	        	}
 	        }
 	    }
 
