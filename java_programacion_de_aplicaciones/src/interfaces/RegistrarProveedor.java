@@ -155,14 +155,14 @@ public class RegistrarProveedor extends JInternalFrame {
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				boolean chequeo = chequearFormulario();
 				String nickname = textNick.getText();
 				String correo = textMail.getText();
 				String nombre = textNom.getText();
 				String apellido = textApe.getText();
-				Date fechaN = DateFecha.getDate();	
 				String comp = textCompan.getText();
 				String link = textLink.getText();
+				Date fechaN = DateFecha.getDate();	
 				Calendar calendar = Calendar.getInstance();
 		        calendar.setTime(fechaN);
 		        int dia = calendar.get(Calendar.DAY_OF_MONTH);
@@ -170,20 +170,23 @@ public class RegistrarProveedor extends JInternalFrame {
 		        int anio = calendar.get(Calendar.YEAR);
 		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
 				
-				chequearFormulario();
+				
 				
 				
 				try {
+					if(chequeo) {
 					sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
 					
 					JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
 							JOptionPane.INFORMATION_MESSAGE);
+					limpiarFormulario();
+					setVisible(false);
+					}
 				}
 				catch(UsuarioRepetidoException e1){
 					JOptionPane.showMessageDialog(RegistrarProveedor.this, e1.getMessage(), "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
 				}
-				limpiarFormulario();
-				setVisible(false);
+				
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
@@ -221,11 +224,11 @@ public class RegistrarProveedor extends JInternalFrame {
 		String correo = textMail.getText();
 		String nombre = textNom.getText();
 		String apellido = textApe.getText();
-		Date fechaN = DateFecha.getDate();
+		//Date fechaN = DateFecha.getDate();
 		String comp = textCompan.getText();
 		String link = textLink.getText();
 		
-		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechaN == null || comp.isEmpty() || link.isEmpty()) {
+		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null || comp.isEmpty() || link.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
 					JOptionPane.ERROR_MESSAGE);
 			return false;

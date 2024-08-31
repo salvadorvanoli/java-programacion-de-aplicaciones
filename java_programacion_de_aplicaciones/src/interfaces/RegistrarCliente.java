@@ -141,6 +141,7 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				boolean chequeo = chequearFormulario();
 				String nickname = textNick.getText();
 				String correo = textMail.getText();
 				String nombre = textNom.getText();
@@ -153,20 +154,23 @@ public class RegistrarCliente extends JInternalFrame {
 		        int anio = calendar.get(Calendar.YEAR);
 		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
 				
-				chequearFormulario();
+				
 				
 				
 				try {
+					if (chequeo) {
 					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen);
 					
 					JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 							JOptionPane.INFORMATION_MESSAGE);
+					limpiarFormulario();
+					setVisible(false);
+					}
 				}
 				catch(UsuarioRepetidoException e){
 					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
 				}
-				limpiarFormulario();
-				setVisible(false);
+				
 			}
 		});
 		ButtonReg.setBackground(new Color(250, 214, 235));
@@ -200,8 +204,8 @@ public class RegistrarCliente extends JInternalFrame {
 			String correo = textMail.getText();
 			String nombre = textNom.getText();
 			String apellido = textApe.getText();
-			Date fechaN = DateFecha.getDate();
-			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechaN == null) {
+			//Date fechaN = DateFecha.getDate();
+			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null) {
 				JOptionPane.showMessageDialog(RegistrarCliente.this, "No puede haber campos vacíos", "Registrar ",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
