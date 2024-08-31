@@ -33,14 +33,22 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class VerInfoProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTree treeCat;
 	private JComboBox<String> comboBoxProd;
-	private JTextArea TextDatosProd;
+	//private JTextArea TextDatosProd;
 	private ISistema sistema;
+	private JTextField textNom;
+	private JTextField textDesc;
+	private JTextField textPrec;
+	private JTextField textRef;
+	private JTextField textCat;
+	private JTextField textProv;
+	private JTextField textImg;
 	/**
 	 * Launch the application.
 	 */
@@ -92,8 +100,29 @@ public class VerInfoProducto extends JInternalFrame {
 
 					try {
 						sistema.elegirProducto(nombreProducto);
-						String ProductoDetallado = sistema.verInformacionProducto().toString();
-						TextDatosProd.setText(ProductoDetallado);
+						//String ProductoDetallado = sistema.verInformacionProducto().toString();
+						String nomDet = sistema.verInformacionProducto().getNombre().toString();
+						String descDet = sistema.verInformacionProducto().getDescripcion().toString();
+								Float prec = sistema.verInformacionProducto().getPrecio();
+						String precDet = Float.toString(prec);
+						
+						String nickProvDet = sistema.verInformacionProducto().getProveedor().getNickname();
+						String mailProvDet = sistema.verInformacionProducto().getProveedor().getEmail();
+						String provDet = nickProvDet + " - " + mailProvDet;
+						String catDet = sistema.verInformacionProducto().getCategorias().toString();
+								Integer num = sistema.verInformacionProducto().getNumReferencia();
+						String numDet = Integer.toString(num);
+						String imgDet = sistema.verInformacionProducto().getImagenes().toString();
+						
+						textNom.setText(nomDet);
+						textDesc.setText(descDet);
+						textPrec.setText(precDet);
+						textProv.setText(provDet);
+						textCat.setText(catDet);
+						textRef.setText(numDet);
+						textImg.setText(imgDet);
+						
+						//TextDatosProd.setText(ProductoDetallado);
 					} catch (ProductoNoExisteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -105,13 +134,6 @@ public class VerInfoProducto extends JInternalFrame {
 		});
 		comboBoxProd.setBounds(30, 160, 255, 22);
 		getContentPane().add(comboBoxProd);
-		
-		JTextArea TextDatosProd = new JTextArea();
-		TextDatosProd.setEditable(false);
-		TextDatosProd.setText("Aquí se mostrarán los datos \r\ndel producto");
-		TextDatosProd.setBounds(30, 193, 255, 256);
-		getContentPane().add(TextDatosProd);
-		this.TextDatosProd = TextDatosProd;
 		
 		
 		treeCat = new JTree();
@@ -141,6 +163,78 @@ public class VerInfoProducto extends JInternalFrame {
 		
 		ButtonConfCat.setBounds(225, 67, 88, 36);
 		getContentPane().add(ButtonConfCat);
+		
+		JLabel LabelNom = new JLabel("Nombre:");
+		LabelNom.setBounds(30, 198, 48, 14);
+		getContentPane().add(LabelNom);
+		
+		textNom = new JTextField();
+		textNom.setBounds(88, 193, 197, 20);
+		getContentPane().add(textNom);
+		textNom.setColumns(10);
+		this.textNom = textNom;
+		
+		JLabel labelDesc = new JLabel("Descripción:");
+		labelDesc.setBounds(30, 226, 60, 14);
+		getContentPane().add(labelDesc);
+		
+		textDesc = new JTextField();
+		textDesc.setColumns(10);
+		textDesc.setBounds(97, 223, 188, 42);
+		getContentPane().add(textDesc);
+		this.textDesc = textDesc;
+		
+		JLabel labelPrec = new JLabel("Precio:");
+		labelPrec.setBounds(30, 279, 60, 14);
+		getContentPane().add(labelPrec);
+		
+		textPrec = new JTextField();
+		textPrec.setColumns(10);
+		textPrec.setBounds(97, 276, 88, 20);
+		getContentPane().add(textPrec);
+		this.textPrec = textPrec;
+		
+		
+		JLabel labelRef = new JLabel("N° de Referencia:");
+		labelRef.setBounds(30, 310, 91, 14);
+		getContentPane().add(labelRef);
+		
+		textRef = new JTextField();
+		textRef.setColumns(10);
+		textRef.setBounds(131, 307, 154, 20);
+		getContentPane().add(textRef);
+		this.textRef = textRef;
+		
+		JLabel labelCat = new JLabel("Categorías:");
+		labelCat.setBounds(30, 340, 60, 14);
+		getContentPane().add(labelCat);
+		
+		textCat = new JTextField();
+		textCat.setColumns(10);
+		textCat.setBounds(97, 337, 188, 42);
+		getContentPane().add(textCat);
+		this.textCat = textCat;
+		
+		textProv = new JTextField();
+		textProv.setColumns(10);
+		textProv.setBounds(97, 390, 188, 20);
+		getContentPane().add(textProv);
+		this.textProv = textProv;
+		
+		JLabel labelProv = new JLabel("Proveedor:");
+		labelProv.setBounds(30, 393, 60, 14);
+		getContentPane().add(labelProv);
+		
+		textImg = new JTextField();
+		textImg.setColumns(10);
+		textImg.setBounds(107, 421, 177, 20);
+		getContentPane().add(textImg);
+		this.textImg = textImg;
+		
+		JLabel labelImg = new JLabel("Imágenes:");
+		labelImg.setBounds(40, 424, 60, 14);
+		getContentPane().add(labelImg);
+		
 
 	}
 	
@@ -198,7 +292,14 @@ public class VerInfoProducto extends JInternalFrame {
 	    comboBoxProd.removeAllItems();
 	    List<DTProducto> lista = sistema.listarProductos();
         if(lista.isEmpty()) {
-        	TextDatosProd.setText("Aquí se mostraran los datos del Producto");
+        	//TextDatosProd.setText("Aquí se mostraran los datos del Producto");
+        	textNom.setText("[Nombre del Producto]");
+        	textDesc.setText("[Descripción del Producto]");
+        	textPrec.setText("[Precio del Producto]");
+        	textProv.setText("[Proveedor del Producto]");
+        	textCat.setText("[Categorías del Producto]");
+        	textRef.setText("[N° de Referencia del Producto]");
+        	textImg.setText("[Imágenes del Producto]");
         }
 	    // Verificar si la categoría tiene productos
 	    if (categoriaSeleccionada != null && categoriaSeleccionada.getProductos() != null) {
@@ -211,8 +312,6 @@ public class VerInfoProducto extends JInternalFrame {
 	        }
 	    }
 	}
-
-
 }
 
 
