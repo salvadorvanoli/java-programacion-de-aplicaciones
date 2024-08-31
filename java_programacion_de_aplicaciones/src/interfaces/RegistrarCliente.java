@@ -4,24 +4,38 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.DTFecha;
 import clases.ISistema;
+import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
 public class RegistrarCliente extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textNick;
+	private JTextField textMail;
+	private JTextField textNom;
+	private JTextField textApe;
+	private JDateChooser DateFecha;
+	private String rutaImagen = "";
 
 	/**
 	 * Launch the application.
@@ -49,67 +63,153 @@ public class RegistrarCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(RegistrarCliente.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 385, 405);
+		setBounds(100, 100, 385, 436);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Registrar Cliente");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setBounds(0, 11, 369, 29);
-		getContentPane().add(lblNewLabel);
+		JLabel LabelRegCli = new JLabel("Registrar Cliente");
+		LabelRegCli.setHorizontalAlignment(SwingConstants.CENTER);
+		LabelRegCli.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		LabelRegCli.setBounds(0, 11, 369, 29);
+		getContentPane().add(LabelRegCli);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nickname");
-		lblNewLabel_1.setBounds(38, 54, 48, 14);
-		getContentPane().add(lblNewLabel_1);
+		JLabel LabelNick = new JLabel("Nickname");
+		LabelNick.setBounds(38, 54, 48, 14);
+		getContentPane().add(LabelNick);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(106, 51, 222, 20);
-		getContentPane().add(textField);
+		textNick = new JTextField();
+		textNick.setColumns(10);
+		textNick.setBounds(106, 51, 222, 20);
+		getContentPane().add(textNick);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_1_2.setBounds(38, 98, 89, 14);
-		getContentPane().add(lblNewLabel_1_2);
+		JLabel LabelMail = new JLabel("Correo Electrónico");
+		LabelMail.setBounds(38, 98, 89, 14);
+		getContentPane().add(LabelMail);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(148, 95, 180, 20);
-		getContentPane().add(textField_1);
+		textMail = new JTextField();
+		textMail.setColumns(10);
+		textMail.setBounds(148, 95, 180, 20);
+		getContentPane().add(textMail);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Nombre");
-		lblNewLabel_1_1.setBounds(38, 143, 48, 14);
-		getContentPane().add(lblNewLabel_1_1);
+		JLabel LabelNom = new JLabel("Nombre");
+		LabelNom.setBounds(38, 143, 48, 14);
+		getContentPane().add(LabelNom);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(96, 140, 232, 20);
-		getContentPane().add(textField_2);
+		textNom = new JTextField();
+		textNom.setColumns(10);
+		textNom.setBounds(96, 140, 232, 20);
+		getContentPane().add(textNom);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Apellido");
-		lblNewLabel_1_1_1.setBounds(38, 188, 48, 14);
-		getContentPane().add(lblNewLabel_1_1_1);
+		JLabel LabelApe = new JLabel("Apellido");
+		LabelApe.setBounds(38, 188, 48, 14);
+		getContentPane().add(LabelApe);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(96, 185, 232, 20);
-		getContentPane().add(textField_3);
+		textApe = new JTextField();
+		textApe.setColumns(10);
+		textApe.setBounds(96, 185, 232, 20);
+		getContentPane().add(textApe);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_1_2_1.setBounds(38, 233, 102, 14);
-		getContentPane().add(lblNewLabel_1_2_1);
+		JLabel LabelFecha = new JLabel("Fecha de Nacimiento");
+		LabelFecha.setBounds(38, 233, 102, 14);
+		getContentPane().add(LabelFecha);
 		
-		JButton lblNewLabel_2 = new JButton("Asignar una imagen");
-		lblNewLabel_2.setBounds(38, 319, 144, 20);
-		getContentPane().add(lblNewLabel_2);
+		JButton ButtonImg = new JButton("Asignar una imagen");
+		ButtonImg.setBounds(38, 308, 144, 20);
+		getContentPane().add(ButtonImg);
 		
-		JButton btnNewButton = new JButton("Registrar");
-		btnNewButton.setBackground(new Color(250, 214, 235));
-		btnNewButton.setBounds(255, 335, 89, 23);
-		getContentPane().add(btnNewButton);
+		ButtonImg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Seleccione una imagen");
+                // Filtrar por imágenes
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+                
+                int userSelection = fileChooser.showOpenDialog(RegistrarCliente.this);
+                
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToUpload = fileChooser.getSelectedFile();
+                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
+                    JOptionPane.showMessageDialog(RegistrarCliente.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+		DateFecha = new JDateChooser();
+		DateFecha.setBounds(38, 258, 144, 20);
+		getContentPane().add(DateFecha);
+		//this.DateFecha = DateFecha;
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(38, 258, 144, 20);
-		getContentPane().add(dateChooser);
-
+		JButton ButtonReg = new JButton("Registrar");
+		ButtonReg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String nickname = textNick.getText();
+				String correo = textMail.getText();
+				String nombre = textNom.getText();
+				String apellido = textApe.getText();
+				Date fechaN = DateFecha.getDate();	
+				Calendar calendar = Calendar.getInstance();
+		        calendar.setTime(fechaN);
+		        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+		        int mes = calendar.get(Calendar.MONTH) + 1;
+		        int anio = calendar.get(Calendar.YEAR);
+		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				
+				chequearFormulario();
+				
+				
+				try {
+					sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen);
+					
+					JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				catch(UsuarioRepetidoException e){
+					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
+				}
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		ButtonReg.setBackground(new Color(250, 214, 235));
+		ButtonReg.setBounds(255, 354, 89, 23);
+		getContentPane().add(ButtonReg);
+		
+		JButton ButtonCancel = new JButton("Cancelar");
+		ButtonCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		ButtonCancel.setBounds(26, 354, 89, 23);
+		getContentPane().add(ButtonCancel);
 	}
+	
+	//metodos
+	
+	private void limpiarFormulario() {
+		textNick.setText("");
+		textNom.setText("");
+		textApe.setText("");
+		textMail.setText("");
+		DateFecha.setDate(null);
+		rutaImagen = "";
+	}
+		
+	private boolean chequearFormulario() {
+			String nickname = textNick.getText();
+			String correo = textMail.getText();
+			String nombre = textNom.getText();
+			String apellido = textApe.getText();
+			Date fechaN = DateFecha.getDate();
+			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || fechaN == null) {
+				JOptionPane.showMessageDialog(RegistrarCliente.this, "No puede haber campos vacíos", "Registrar ",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			return true;
+	}
+			
+	
+	
 }
+
