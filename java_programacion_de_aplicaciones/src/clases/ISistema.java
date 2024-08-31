@@ -81,7 +81,7 @@ public abstract class ISistema{
 	
 	public abstract DTClienteDetallado verInformacionCliente();
 
-	public abstract void quitarProductoDeCategorias();
+	public abstract void quitarProductoDeCategorias(boolean seAgreganCategorias);
 	
 	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
 	

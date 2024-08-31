@@ -660,13 +660,15 @@ public class Sistema extends ISistema {
 	}
 
 	@Override
-	public void quitarProductoDeCategorias() {
+	public void quitarProductoDeCategorias(boolean seAgreganCategorias) {
 		if (this.productoActual == null) {
 			throw new NullPointerException("No se ha elegido un producto previamente.");
 		}
-		for(Categoria cat : this.categorias.values()) {
-			cat.getProductos().remove(this.productoActual);
-			quitarProductoDeCategoriasSistema(cat);
+		if (seAgreganCategorias) {
+			for(Categoria cat : this.categorias.values()) {
+				cat.getProductos().remove(this.productoActual);
+				quitarProductoDeCategoriasSistema(cat);
+			}
 		}
 	}
 	
@@ -676,8 +678,10 @@ public class Sistema extends ISistema {
 		if (this.productoActual == null) {
 			throw new NullPointerException("No se ha elegido un producto previamente.");
 		}
-		for (Categoria cat : listaCat) {
-			cat.getProductos().add(this.productoActual);
+		if (listaCat != null && ! (listaCat.isEmpty())) {
+			for (Categoria cat : listaCat) {
+				cat.getProductos().add(this.productoActual);
+			}
 		}
 	}
 	

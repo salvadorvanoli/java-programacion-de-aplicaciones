@@ -57,6 +57,9 @@ public class ModificarDatosProducto extends JInternalFrame {
 	private JTextField textFieldPrecio;
 	private JTextArea textAreaDescripcion;
 	private JTextArea textAreaEspecificacion;
+	private JButton btnNuevasImagenes;
+	private JButton btnNuevasCategorias;
+	private JButton btnAceptar;
 	
 	private List<Categoria> nuevasCategorias;
 	private List<String> nuevasImagenes;
@@ -66,7 +69,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 	}
 	
 	private void limpiarCampos() {
-		this.JTreeSeleccionCategoriaPadre.setSelectionRow(0);
+		this.JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
 		this.seleccionProducto.setSelectedIndex(-1);
 		this.textFieldNombre.setText("");
 		this.textFieldNumReferencia.setText("");
@@ -75,6 +78,10 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.textAreaEspecificacion.setText("");
 		this.nuevasCategorias = null;
 		this.nuevasImagenes = null;
+	}
+	
+	public void limpiarListaProductos() {
+		this.seleccionProducto.removeAllItems();
 	}
 	
 	private boolean camposCompletos() {
@@ -87,16 +94,16 @@ public class ModificarDatosProducto extends JInternalFrame {
 	
 	private boolean checkNumReferencia() {
 		try {
-			Integer.valueOf(this.textFieldNumReferencia.getText());
+			int numReferencia = Integer.valueOf(this.textFieldNumReferencia.getText());
+			return numReferencia > 0;
 		} catch (NumberFormatException e) {
 			return false;
 		}
-		return true;
 	}
 	
 	private boolean checkPrecio() {
 		try {
-			int precio = Integer.valueOf(this.textFieldPrecio.getText());
+			float precio = Float.valueOf(this.textFieldPrecio.getText());
 			return precio > 0;
 		} catch (NumberFormatException e) {
 			return false;
@@ -109,10 +116,10 @@ public class ModificarDatosProducto extends JInternalFrame {
 			throw new IllegalStateException("Aún hay campos vacíos.");
 		}
 		if (!this.checkNumReferencia()) {
-			throw new NumberFormatException("El número de referencia debe ser un valor entero.");
+			throw new NumberFormatException("El número de referencia debe ser un valor entero positivo.");
 		}
 		if (!this.checkPrecio()) {
-			throw new NumberFormatException("El precio debe ser un valor entero mayor que 0.");
+			throw new NumberFormatException("El precio debe ser un valor entero (o decimal) mayor que 0.");
 		}
 	}
 
@@ -148,6 +155,9 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.sistema = sistema;
 		this.menu = menu;
 		
+		this.nuevasCategorias = null;
+		this.nuevasImagenes = null;
+		
 		JLabel lblTitulo = new JLabel("Modificar datos de un Producto");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -163,17 +173,24 @@ public class ModificarDatosProducto extends JInternalFrame {
 		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
-                if (selectedNode == null) {
-                	// ERROR CON POPUP
-                }
-                try {
-                	sistema.elegirCategoria(selectedNode.toString());
-                	cargarProductos();
-                } catch (CategoriaNoExisteException e1) {
-                	
-                }
-                
+				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) { 
+					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
+	                if (selectedNode == null) {
+	                	JOptionPane.showMessageDialog(null, "Ninguna categoría fue seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+	                } else {
+	                	Object node = selectedNode.getUserObject();
+	                	if (node instanceof Categoria) {
+			                try {
+			                	sistema.elegirCategoria(selectedNode.toString());
+			                	cargarProductos();
+			                } catch (CategoriaNoExisteException exc) {
+			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			                }
+	                	} else {
+	                		//bt
+	                	}
+	                }
+				}
 			}
 		});
 		treeCategorias.setBounds(53, 93, 240, 171);
@@ -203,11 +220,11 @@ public class ModificarDatosProducto extends JInternalFrame {
                         textFieldPrecio.setText(String.valueOf(prodDetallado.getPrecio()));
                         textAreaDescripcion.setText(prodDetallado.getDescripcion());
                         textAreaEspecificacion.setText(prodDetallado.getEspecificaciones());
-                    } catch (ProductoNoExisteException e1) {
-                        // CREAR UNA VENTANA DE ERROR
+                    } catch (ProductoNoExisteException exc) {
+                    	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    // CREAR UNA VENTANA DE ERROR
+                	limpiarCampos();
                 }
 			}
 		});
@@ -276,10 +293,11 @@ public class ModificarDatosProducto extends JInternalFrame {
 		
 		this.textAreaEspecificacion = textAreaEspecificacion;
 		
-		JButton btnNuevasCategoiras = new JButton("Elegir nuevas Categorías");
-		btnNuevasCategoiras.addActionListener(new ActionListener() {
+		JButton btnNuevasCategorias = new JButton("Elegir nuevas Categorías");
+		btnNuevasCategorias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// infoClienteInternalFrame.toBack();
+				menu.getModificarCategoriasProductoInternalFrame().cargarJTree();
 				menu.getMenuPrincipal().getContentPane().add(menu.getModificarCategoriasProductoInternalFrame());
 				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
 				menu.getModificarCategoriasProductoInternalFrame().setVisible(true);
@@ -288,8 +306,10 @@ public class ModificarDatosProducto extends JInternalFrame {
 				menu.getMenuPrincipal().repaint();
 			}
 		});
-		btnNuevasCategoiras.setBounds(78, 507, 189, 28);
-		getContentPane().add(btnNuevasCategoiras);
+		btnNuevasCategorias.setBounds(78, 507, 189, 28);
+		getContentPane().add(btnNuevasCategorias);
+		
+		this.btnNuevasCategorias = btnNuevasCategorias;
 		
 		JButton btnNuevasImagenes = new JButton("Elegir nuevas Imágenes");
 		btnNuevasImagenes.addActionListener(new ActionListener() {
@@ -327,7 +347,8 @@ public class ModificarDatosProducto extends JInternalFrame {
                     	nuevasImagenes = rutasImagenes;
                     }
                 } else {
-                	// Agregar codigo de error
+                	
+                	JOptionPane.showMessageDialog(null, "Se eligieron archivos no válidos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
 				
@@ -351,6 +372,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 		btnNuevasImagenes.setBounds(331, 507, 189, 28);
 		getContentPane().add(btnNuevasImagenes);
 		
+		this.btnNuevasImagenes = btnNuevasImagenes;
+		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -364,7 +387,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 					String especificacion = textAreaEspecificacion.getText().trim();
 					sistema.modificarDatosProducto(nombreProd, numReferencia, descripcion, precio, especificacion);
 					sistema.modificarImagenesProducto(nuevasImagenes);
-					sistema.quitarProductoDeCategorias();
+					boolean sePuedenModificarCategorias = (nuevasCategorias != null && ! (nuevasCategorias.isEmpty()));
+					sistema.quitarProductoDeCategorias(sePuedenModificarCategorias);
 					sistema.agregarCategoriasAProducto(nuevasCategorias);
 					sistema.agregarProductoACategorias(nuevasCategorias);
 			        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE); // ME QUEDE ACAAAAAAAAAAAAAAAA
@@ -377,10 +401,14 @@ public class ModificarDatosProducto extends JInternalFrame {
 		btnAceptar.setBounds(249, 580, 100, 29);
 		getContentPane().add(btnAceptar);
 		
+		this.btnAceptar = btnAceptar;
+		
 		this.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
             public void internalFrameClosing(InternalFrameEvent e) {
             	sistema.setTodoNull();
+            	limpiarCampos();
+            	JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
             	dispose();
             }
         });
