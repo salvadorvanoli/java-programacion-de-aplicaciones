@@ -1,5 +1,11 @@
 package interfaces;
 import java.awt.EventQueue;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +89,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		setClosable(true);
 		setFrameIcon(new ImageIcon(GenerarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 445, 300);
+		setBounds(100, 100, 486, 389);
 		getContentPane().setLayout(null);
 		
 		this.sistema = sistema;
@@ -91,7 +97,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(27, 127, 159, 70);
+		scrollPane.setBounds(27, 142, 169, 133);
 		getContentPane().add(scrollPane);
 		
 		JTree seleccionarProducto = new JTree();
@@ -110,7 +116,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		// Crear nodo raíz
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-
+		
 		// Crear nodos de categorías
 		DefaultMutableTreeNode nodoElectronicos = new DefaultMutableTreeNode(categoriaElectronicos);
 		DefaultMutableTreeNode nodoFarmacia = new DefaultMutableTreeNode(categoriaFarmacia);
@@ -181,12 +187,13 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		
 		JComboBox<DTCliente> seleccionarCliente = new JComboBox<DTCliente>();
+		seleccionarCliente.addItem(new DTCliente("Seleccione un cliente", ""));
 		seleccionarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACA SE TIENE QUE SELECCIONAR EL USUARIO EN EL SISTEMA
 			}
 		});
-		seleccionarCliente.setBounds(27, 69, 124, 22);
+		seleccionarCliente.setBounds(27, 84, 124, 22);
 		getContentPane().add(seleccionarCliente);
 
 		this.seleccionarCliente = seleccionarCliente;
@@ -202,25 +209,25 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 
 		
 		JLabel lblNewLabel = new JLabel("Seleccionar cliente:");
-		lblNewLabel.setBounds(27, 44, 154, 14);
+		lblNewLabel.setBounds(27, 59, 154, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Seleccionar producto:");
-		lblNewLabel_1.setBounds(27, 102, 186, 14);
+		lblNewLabel_1.setBounds(27, 117, 186, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		cantidadPoner = new JTextField();
-		cantidadPoner.setBounds(88, 208, 30, 20);
+		cantidadPoner.setBounds(81, 286, 30, 20);
 		getContentPane().add(cantidadPoner);
 		cantidadPoner.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cantidad:");
-		lblNewLabel_2.setBounds(32, 211, 59, 14);
+		lblNewLabel_2.setBounds(27, 289, 59, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setBounds(245, 71, 154, 83);
+		scrollPane_1.setBounds(278, 86, 169, 111);
 		getContentPane().add(scrollPane_1);
 		
 		JList<String> orden = new JList<>();
@@ -299,21 +306,33 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 			
 
 	
-		agregar.setBounds(32, 236, 149, 23);
+		agregar.setBounds(27, 325, 149, 23);
 		getContentPane().add(agregar);
 		
 
 		
 		JLabel lblNewLabel_3 = new JLabel("Orden provisoria:");
-		lblNewLabel_3.setBounds(245, 44, 135, 14);
+		lblNewLabel_3.setBounds(278, 59, 135, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		
 //////////////////botón para descartar línea///////////
 		JButton descartar = new JButton("Descartar linea");
+		descartar.setEnabled(false);
+		
+		orden.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                // Habilitar el botón si hay una selección, deshabilitar si no hay selección
+                boolean hasSelection = !orden.isSelectionEmpty();
+                descartar.setEnabled(hasSelection);
+            }
+        });
+		
 		descartar.addActionListener(new ActionListener() {
+		
+			
 			public void actionPerformed(ActionEvent e) {
-				// Verifico si se ha seleccionado algún elemento en la JList
 			    int selectedIndex = orden.getSelectedIndex();
 			    if (selectedIndex != -1) {
 			        String cantidadStr = model.getElementAt(selectedIndex);
@@ -324,23 +343,22 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 			        // Encontrar la instancia correspondiente en la lista de Cantidades y eliminarla
 			        Cantidad cantidadAEliminar = null;
 			        for (Cantidad c : listaCantidades) {
-			            if (c.toString().equals(cantidadStr)) {
+			            if (c.toString2().equals(cantidadStr)) {
 			                cantidadAEliminar = c;
 			                break;
 			            }
 			        }
-			        
+
 			        if (cantidadAEliminar != null) {
 			            listaCantidades.remove(cantidadAEliminar);
 			        }
-			    } else {
-			        // Mostrar mensaje si no se ha seleccionado ningún elemento
-			        JOptionPane.showMessageDialog(null, "Seleccione un elemento para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
 			    }
 			}
+
+
 		}); 
 		
-		descartar.setBounds(255, 165, 144, 23);
+		descartar.setBounds(278, 208, 144, 23);
 		getContentPane().add(descartar);
 		
 	//////////////////botón para cancelar///////////
@@ -356,50 +374,61 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 				    model.clear(); //Limpia todos los elementos del modelo
 			}
 		});
-		cancelar.setBounds(206, 236, 99, 23);
+		cancelar.setBounds(236, 325, 99, 23);
 		getContentPane().add(cancelar);
 		
 //////////////////botón para dar de alta///////////
 		JButton btnNewButton_3 = new JButton("Dar de alta");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					
-					 
-						
-				    if (listaCantidades == null || listaCantidades.isEmpty()) {
-				        throw new Exception("No ha ingresado nada aún");
-				    } else {
-				    	
-				    	//aca va el codigo de agregar uno a uno( se llama a "sistema" es decir sistema.agreagrProducto...
-				    	sistema.agregarOrden(listaCantidades);
-				    	
-				        // Mostrar el mensaje de éxito
-				        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			    try {
+			        // Obtén el cliente seleccionado como un objeto DTCliente
+			        DTCliente clienteSeleccionado = (DTCliente) seleccionarCliente.getSelectedItem();
+			        
+			        // Depuración: Imprimir el valor del cliente seleccionado
+			        System.out.println("Cliente seleccionado: " + clienteSeleccionado);
 
-				        // Cerrar el JInternalFrame
-				        JInternalFrame internalFrame = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, (Component) e.getSource());
-				        if (internalFrame != null) {
-				            internalFrame.dispose();
-				        }
-				    }
-				} catch (Exception ex) {
-				    // Mostrar el mensaje de error
-				    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				}
+			        // Verifica si el clienteSeleccionado es null
+			        if (clienteSeleccionado == null) {
+			            throw new Exception("Debes elegir un cliente"); // Lanza excepción si no se seleccionó un cliente
+			        }
 
-				{
-					 if (listaCantidades != null) {
-					        listaCantidades.clear(); // Limpio todos los elementos de la lista
-					    }
+			        // Verifica si listaCantidades está vacío o es null
+			        if (listaCantidades == null || listaCantidades.isEmpty()) {
+			            throw new Exception("No ha ingresado nada aún"); // Lanza excepción si la lista está vacía
+			        } else {
+			            // Agrega uno a uno a la orden
+			            sistema.agregarOrden(listaCantidades);
 
-					    //Borro los elementos de la JList y actualizo la vista
-					    DefaultListModel model = (DefaultListModel) orden.getModel(); 
-					    model.clear(); //Limpia todos los elementos del modelo
-				}
+			            // Mostrar el mensaje de éxito
+			            JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+			            // Cerrar el JInternalFrame
+			            JInternalFrame internalFrame = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, (Component) e.getSource());
+			            if (internalFrame != null) {
+			                internalFrame.dispose();
+			            }
+			        }
+			    } catch (Exception ex) {
+			        // Mostrar solo el mensaje de error
+			        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			    } finally {
+			        // Limpiar listaCantidades y JList
+			        if (listaCantidades != null) {
+			            listaCantidades.clear(); // Limpio todos los elementos de la lista
+			        }
+
+			        DefaultListModel<?> model = (DefaultListModel<?>) orden.getModel();
+			        model.clear(); // Limpia todos los elementos del modelo
+			    }
 			}
+
+
+
+
+
 		});
-		btnNewButton_3.setBounds(315, 236, 104, 23);
+		btnNewButton_3.setBounds(345, 325, 104, 23);
 		getContentPane().add(btnNewButton_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Generar Orden de Compra");
@@ -423,6 +452,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		try {
 			lista = this.sistema.listarClientes();
+			
 		} catch (IllegalArgumentException e) {
 			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
 		}

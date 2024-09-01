@@ -39,6 +39,9 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private ISistema sistema;
 	private JComboBox<DTOrdenDeCompra> ordenes;
+	private JTextField id;
+	private JTextField fecha;
+	private JTextField cliente;
 
 	/**
 	 * Launch the application.
@@ -63,24 +66,25 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInfoOrdenDeCompra(ISistema sistema) {
+		
 		setClosable(true);
 		setFrameIcon(new ImageIcon(VerInfoOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 516, 466);
 		getContentPane().setLayout(null);
 		
 		this.sistema = sistema;
 		
 		JComboBox<DTOrdenDeCompra> comboBox = new JComboBox<DTOrdenDeCompra>();
 		comboBox.setEditable(true);
-		comboBox.setBounds(24, 62, 149, 22);
+		comboBox.setBounds(24, 70, 149, 22);
 		getContentPane().add(comboBox);
 		
 		ordenes = comboBox;
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(24, 119, 189, 98);
+		scrollPane.setBounds(24, 272, 234, 129);
 		getContentPane().add(scrollPane);
 		
 		JTextArea ordenDetalles = new JTextArea();
@@ -154,6 +158,9 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		            try {
 		            	sistema.elegirOrdenDeCompra(ordenSeleccionada.getNumero());
 		            	DTOrdenDeCompraDetallada detalles = sistema.verInformacionOrdenDeCompra();
+		            	cliente.setText(detalles.toStringCliente());
+		            	fecha.setText(detalles.getFecha().toString());
+		            	id.setText(detalles.toStringNumero());
 		            	ordenDetalles.setText(detalles.toString());
 		            } catch (OrdenDeCompraNoExisteException exc) {
 		            	// FALTA POPUP
@@ -169,24 +176,56 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		
 		
 		
-		JLabel lblNewLabel_1 = new JLabel("Orden de compra:");
-		lblNewLabel_1.setBounds(24, 95, 120, 14);
-		getContentPane().add(lblNewLabel_1);
+		JLabel a = new JLabel("Cliente:");
+		a.setBounds(24, 159, 46, 14);
+		getContentPane().add(a);
 		
 		JButton borrar = new JButton("Consultar otra orden");
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 ordenDetalles.setText("");
 				 comboBox.setSelectedIndex(-1); 
+				 cliente.setText("");
+				 id.setText("");
+				 fecha.setText("");
+				
+				 
 			}
 		});
-		borrar.setBounds(253, 236, 149, 23);
+		borrar.setBounds(305, 378, 173, 23);
 		getContentPane().add(borrar);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ver informacion de orden de compra");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(50, 11, 308, 23);
 		getContentPane().add(lblNewLabel_2);
+		
+		JLabel b = new JLabel("Fecha:");
+		b.setBounds(24, 202, 46, 14);
+		getContentPane().add(b);
+		
+		JLabel lblNewLabel_4 = new JLabel("ID:");
+		lblNewLabel_4.setBounds(24, 114, 46, 14);
+		getContentPane().add(lblNewLabel_4);
+		
+		id = new JTextField();
+		id.setBounds(50, 111, 86, 20);
+		getContentPane().add(id);
+		id.setColumns(10);
+		
+		fecha = new JTextField();
+		fecha.setBounds(72, 199, 86, 20);
+		getContentPane().add(fecha);
+		fecha.setColumns(10);
+		
+		cliente = new JTextField();
+		cliente.setBounds(72, 156, 86, 20);
+		getContentPane().add(cliente);
+		cliente.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Orden de compra:");
+		lblNewLabel_5.setBounds(24, 247, 134, 14);
+		getContentPane().add(lblNewLabel_5);
 
 	}
 	
@@ -228,5 +267,9 @@ public List<DTOrdenDeCompra> getOrdenesDeCompra(){
 		}
 		
 	}
+	
+	
+	
 
+	
 }

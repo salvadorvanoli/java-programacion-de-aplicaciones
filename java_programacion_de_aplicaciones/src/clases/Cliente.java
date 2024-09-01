@@ -42,4 +42,6 @@ public class Cliente extends Usuario{
 			DTClienteDetallado c = new DTClienteDetallado(this.getNickname(), this.getEmail(), this.getNombre(), this.getApellido(), this.getFechaNac(), this.getFoto());
 			return c;
 		}
+		
+		
 }
