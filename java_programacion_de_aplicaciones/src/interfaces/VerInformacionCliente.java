@@ -22,6 +22,7 @@ import java.util.List;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 
 public class VerInformacionCliente extends JInternalFrame {
 	
@@ -36,6 +37,11 @@ public class VerInformacionCliente extends JInternalFrame {
 	}
 
 	private static final long serialVersionUID = 1L;
+	private JTextField textFieldNickname;
+	private JTextField textFieldEmail;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellido;
+	private JTextField textFieldFechaNac;
 
 	/**
 	 * Launch the application.
@@ -67,12 +73,12 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 461, 386);
+		setBounds(100, 100, 526, 619);
 		getContentPane().setLayout(null);
 		
 		JLabel labelClientesSistema = new JLabel("Selecciona uno de los clientes del sistema especificados debajo *");
 		labelClientesSistema.setHorizontalAlignment(SwingConstants.CENTER);
-		labelClientesSistema.setBounds(10, 48, 425, 28);
+		labelClientesSistema.setBounds(10, 48, 490, 28);
 		getContentPane().add(labelClientesSistema);
 		
 		JComboBox<DTCliente> seleccionCliente = new JComboBox<DTCliente>();
@@ -93,14 +99,14 @@ public class VerInformacionCliente extends JInternalFrame {
                 }
 			}
 		});
-		seleccionCliente.setBounds(43, 87, 352, 22);
+		seleccionCliente.setBounds(10, 87, 490, 22);
 		getContentPane().add(seleccionCliente);
 		
 		this.seleccionCliente = seleccionCliente;
 		
 		JTextArea txtMostrarInfoCliente = new JTextArea();
 		txtMostrarInfoCliente.setText("Aquí se mostrará la información del\r\ncliente elegido.");
-		txtMostrarInfoCliente.setBounds(43, 120, 352, 152);
+		txtMostrarInfoCliente.setBounds(43, 120, 435, 152);
 		getContentPane().add(txtMostrarInfoCliente);
 		
 		this.txtMostrarInfoCliente = txtMostrarInfoCliente;
@@ -117,7 +123,7 @@ public class VerInformacionCliente extends JInternalFrame {
 				menu.getMenuPrincipal().repaint();
 			}
 		});
-		btnVerInfoOrdenes.setBounds(135, 301, 177, 23);
+		btnVerInfoOrdenes.setBounds(167, 529, 177, 23);
 		getContentPane().add(btnVerInfoOrdenes);
 		
 		this.btnVerInfoOrdenes = btnVerInfoOrdenes;
@@ -125,8 +131,57 @@ public class VerInformacionCliente extends JInternalFrame {
 		JLabel lblVerInfoCliente = new JLabel("Ver información de un Cliente");
 		lblVerInfoCliente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVerInfoCliente.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblVerInfoCliente.setBounds(10, 11, 425, 29);
+		lblVerInfoCliente.setBounds(10, 11, 490, 29);
 		getContentPane().add(lblVerInfoCliente);
+		
+		JLabel lblNickname = new JLabel("Nickname");
+		lblNickname.setBounds(10, 295, 81, 21);
+		getContentPane().add(lblNickname);
+		
+		textFieldNickname = new JTextField();
+		textFieldNickname.setBounds(96, 296, 129, 20);
+		getContentPane().add(textFieldNickname);
+		textFieldNickname.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(10, 336, 81, 21);
+		getContentPane().add(lblEmail);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setColumns(10);
+		textFieldEmail.setBounds(96, 337, 129, 20);
+		getContentPane().add(textFieldEmail);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(263, 295, 81, 21);
+		getContentPane().add(lblNombre);
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.setColumns(10);
+		textFieldNombre.setBounds(349, 296, 129, 20);
+		getContentPane().add(textFieldNombre);
+		
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setBounds(263, 336, 81, 21);
+		getContentPane().add(lblApellido);
+		
+		textFieldApellido = new JTextField();
+		textFieldApellido.setColumns(10);
+		textFieldApellido.setBounds(349, 337, 129, 20);
+		getContentPane().add(textFieldApellido);
+		
+		JLabel lblFechaNac = new JLabel("Fecha nac.");
+		lblFechaNac.setBounds(10, 378, 81, 21);
+		getContentPane().add(lblFechaNac);
+		
+		textFieldFechaNac = new JTextField();
+		textFieldFechaNac.setColumns(10);
+		textFieldFechaNac.setBounds(96, 379, 129, 20);
+		getContentPane().add(textFieldFechaNac);
+		
+		JButton btnVerFoto = new JButton("Ver foto");
+		btnVerFoto.setBounds(319, 375, 103, 28);
+		getContentPane().add(btnVerFoto);
 
 	}
 	
