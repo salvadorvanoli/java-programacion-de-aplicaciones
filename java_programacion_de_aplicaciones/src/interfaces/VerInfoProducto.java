@@ -1,9 +1,15 @@
 package interfaces;
 
+import java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +25,9 @@ import clases.ISistema;
 import clases.Producto;
 import excepciones.CategoriaNoExisteException;
 import excepciones.ProductoNoExisteException;
-
+import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
@@ -32,8 +39,10 @@ import javax.swing.tree.TreePath;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+
 
 public class VerInfoProducto extends JInternalFrame {
 
@@ -49,6 +58,7 @@ public class VerInfoProducto extends JInternalFrame {
 	private JTextField textCat;
 	private JTextField textProv;
 	private JTextField textImg;
+	private JDesktopPane desktopPane;
 	/**
 	 * Launch the application.
 	 */
@@ -73,6 +83,7 @@ public class VerInfoProducto extends JInternalFrame {
 	 */
 	public VerInfoProducto(ISistema sistema) {
 		this.sistema = sistema;
+		this.desktopPane = desktopPane;
 		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
@@ -112,7 +123,9 @@ public class VerInfoProducto extends JInternalFrame {
 						String catDet = sistema.verInformacionProducto().getCategorias().toString();
 								Integer num = sistema.verInformacionProducto().getNumReferencia();
 						String numDet = Integer.toString(num);
-						String imgDet = sistema.verInformacionProducto().getImagenes().toString();
+						//String imgDet = sistema.verInformacionProducto().getImagenes().toString();
+						
+						List<String> imagenes = sistema.verInformacionProducto().getImagenes();
 						
 						textNom.setText(nomDet);
 						textDesc.setText(descDet);
@@ -120,8 +133,8 @@ public class VerInfoProducto extends JInternalFrame {
 						textProv.setText(provDet);
 						textCat.setText(catDet);
 						textRef.setText(numDet);
-						textImg.setText(imgDet);
-						
+						//textImg.setText(imgDet);
+						mostrarImagenesEnInternalFrame(imagenes);						
 						//TextDatosProd.setText(ProductoDetallado);
 					} catch (ProductoNoExisteException e1) {
 						// TODO Auto-generated catch block
@@ -225,16 +238,6 @@ public class VerInfoProducto extends JInternalFrame {
 		labelProv.setBounds(30, 393, 60, 14);
 		getContentPane().add(labelProv);
 		
-		textImg = new JTextField();
-		textImg.setColumns(10);
-		textImg.setBounds(107, 421, 177, 20);
-		getContentPane().add(textImg);
-		this.textImg = textImg;
-		
-		JLabel labelImg = new JLabel("Imágenes:");
-		labelImg.setBounds(40, 424, 60, 14);
-		getContentPane().add(labelImg);
-		
 
 	}
 	
@@ -299,7 +302,7 @@ public class VerInfoProducto extends JInternalFrame {
         	textProv.setText("[Proveedor del Producto]");
         	textCat.setText("[Categorías del Producto]");
         	textRef.setText("[N° de Referencia del Producto]");
-        	textImg.setText("[Imágenes del Producto]");
+        	//textImg.setText("[Imágenes del Producto]");
         }
 	    // Verificar si la categoría tiene productos
 	    if (categoriaSeleccionada != null && categoriaSeleccionada.getProductos() != null) {
@@ -312,6 +315,40 @@ public class VerInfoProducto extends JInternalFrame {
 	        }
 	    }
 	}
+	
+	private void mostrarImagenesEnInternalFrame(List<String> rutasImagenes) {
+        // Crear el JInternalFrame
+        JInternalFrame internalFrame = new JInternalFrame("Galería de Imágenes", true, true, true, true);
+        internalFrame.setSize(600, 400);
+        internalFrame.getContentPane().setLayout(new BorderLayout());
+
+        // Crear un JPanel para contener las imágenes
+        JPanel panelImagenes = new JPanel();
+        panelImagenes.setLayout(new FlowLayout());
+
+        // Rutas de las imágenes (debes modificar las rutas según tu caso)
+       
+
+        // Cargar y agregar las imágenes al panel
+        for (String ruta : rutasImagenes) {
+            File archivoImagen = new File(ruta);
+            if (archivoImagen.exists()) {
+                ImageIcon icono = new ImageIcon(ruta);
+                JLabel etiquetaImagen = new JLabel(icono);
+                panelImagenes.add(etiquetaImagen);
+            } else {
+                System.out.println("Archivo no encontrado: " + ruta);
+            }
+        }
+
+        // Añadir el panel al JInternalFrame
+        JScrollPane scrollPane = new JScrollPane(panelImagenes);
+        internalFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+        // Añadir el JInternalFrame al JDesktopPane
+        desktopPane.add(internalFrame);
+        internalFrame.setVisible(true);
+    }
 }
 
 
