@@ -4,26 +4,40 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import clases.DTFecha;
 import clases.ISistema;
+import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
 public class RegistrarProveedor extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textNick;
+	private JTextField textMail;
+	private JTextField textNom;
+	private JTextField textApe;
+	private JTextField textCompan;
+	private JTextField textLink;
+	private JDateChooser DateFecha;
+	private String rutaImagen = "";
+
 
 	/**
 	 * Launch the application.
@@ -48,88 +62,173 @@ public class RegistrarProveedor extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public RegistrarProveedor(ISistema sistema) {
+		setResizable(true);
 		setFrameIcon(new ImageIcon(RegistrarProveedor.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 385, 491);
+		setBounds(100, 100, 385, 522);
 		getContentPane().setLayout(null);
 		
-		JLabel lblRegistrarProovedor = new JLabel("Registrar Proveedor");
-		lblRegistrarProovedor.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistrarProovedor.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblRegistrarProovedor.setBounds(0, 11, 369, 29);
-		getContentPane().add(lblRegistrarProovedor);
+		JLabel LabelRegProv = new JLabel("Registrar Proveedor");
+		LabelRegProv.setHorizontalAlignment(SwingConstants.CENTER);
+		LabelRegProv.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		LabelRegProv.setBounds(0, 11, 369, 29);
+		getContentPane().add(LabelRegProv);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("Nickname");
-		lblNewLabel_1_3.setBounds(38, 54, 48, 14);
-		getContentPane().add(lblNewLabel_1_3);
+		JLabel LabelNick = new JLabel("Nickname");
+		LabelNick.setBounds(38, 54, 48, 14);
+		getContentPane().add(LabelNick);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(106, 51, 222, 20);
-		getContentPane().add(textField);
+		textNick = new JTextField();
+		textNick.setColumns(10);
+		textNick.setBounds(106, 51, 222, 20);
+		getContentPane().add(textNick);
 		
-		JLabel lblNewLabel_1_2_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_1_2_2.setBounds(38, 98, 89, 14);
-		getContentPane().add(lblNewLabel_1_2_2);
+		JLabel LabelMail = new JLabel("Correo Electrónico");
+		LabelMail.setBounds(38, 98, 89, 14);
+		getContentPane().add(LabelMail);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(148, 95, 180, 20);
-		getContentPane().add(textField_1);
+		textMail = new JTextField();
+		textMail.setColumns(10);
+		textMail.setBounds(148, 95, 180, 20);
+		getContentPane().add(textMail);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Nombre");
-		lblNewLabel_1_1_2.setBounds(38, 143, 48, 14);
-		getContentPane().add(lblNewLabel_1_1_2);
+		JLabel LabelNom = new JLabel("Nombre");
+		LabelNom.setBounds(38, 143, 48, 14);
+		getContentPane().add(LabelNom);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(96, 140, 232, 20);
-		getContentPane().add(textField_2);
+		textNom = new JTextField();
+		textNom.setColumns(10);
+		textNom.setBounds(96, 140, 232, 20);
+		getContentPane().add(textNom);
 		
-		JLabel lblNewLabel_1_1_1_3 = new JLabel("Apellido");
-		lblNewLabel_1_1_1_3.setBounds(38, 188, 48, 14);
-		getContentPane().add(lblNewLabel_1_1_1_3);
+		JLabel LabelApe = new JLabel("Apellido");
+		LabelApe.setBounds(38, 188, 48, 14);
+		getContentPane().add(LabelApe);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(96, 185, 232, 20);
-		getContentPane().add(textField_3);
+		textApe = new JTextField();
+		textApe.setColumns(10);
+		textApe.setBounds(96, 185, 232, 20);
+		getContentPane().add(textApe);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(172, 224, 156, 20);
-		getContentPane().add(textField_4);
+		textCompan = new JTextField();
+		textCompan.setColumns(10);
+		textCompan.setBounds(172, 224, 156, 20);
+		getContentPane().add(textCompan);
 		
-		JLabel lblNewLabel_1_1_2_1 = new JLabel("Nombre de la Compañía");
-		lblNewLabel_1_1_2_1.setBounds(38, 227, 118, 14);
-		getContentPane().add(lblNewLabel_1_1_2_1);
+		JLabel LabelCompan = new JLabel("Nombre de la Compañía");
+		LabelCompan.setBounds(38, 227, 118, 14);
+		getContentPane().add(LabelCompan);
 		
-		JLabel lblNewLabel_1_1_1_3_1 = new JLabel("Link Web");
-		lblNewLabel_1_1_1_3_1.setBounds(38, 272, 48, 14);
-		getContentPane().add(lblNewLabel_1_1_1_3_1);
+		JLabel LabelLink = new JLabel("Link Web");
+		LabelLink.setBounds(38, 272, 48, 14);
+		getContentPane().add(LabelLink);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(96, 269, 232, 20);
-		getContentPane().add(textField_5);
+		textLink = new JTextField();
+		textLink.setColumns(10);
+		textLink.setBounds(96, 269, 232, 20);
+		getContentPane().add(textLink);
 		
-		JLabel lblNewLabel_1_2_1_2 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_1_2_1_2.setBounds(38, 312, 102, 14);
-		getContentPane().add(lblNewLabel_1_2_1_2);
+		JLabel LabelFecha = new JLabel("Fecha de Nacimiento");
+		LabelFecha.setBounds(38, 312, 102, 14);
+		getContentPane().add(LabelFecha);
 		
-		JButton lblNewLabel_2_1 = new JButton("Asignar una imagen");
-		lblNewLabel_2_1.setBounds(38, 398, 144, 20);
-		getContentPane().add(lblNewLabel_2_1);
+		JButton ButtonImg = new JButton("Asignar una imagen");
+		ButtonImg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 JFileChooser fileChooser = new JFileChooser();
+	                fileChooser.setDialogTitle("Seleccione una imagen");
+	                // Filtrar por imágenes
+	                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+	                
+	                int userSelection = fileChooser.showOpenDialog(RegistrarProveedor.this);
+	                
+	                if (userSelection == JFileChooser.APPROVE_OPTION) {
+	                    File fileToUpload = fileChooser.getSelectedFile();
+	                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
+	                    JOptionPane.showMessageDialog(RegistrarProveedor.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+	                }
+			}
+		});
+		ButtonImg.setBounds(38, 386, 144, 20);
+		getContentPane().add(ButtonImg);
 		
-		JButton btnNewButton_1 = new JButton("Registrar");
-		btnNewButton_1.setBackground(new Color(250, 214, 235));
-		btnNewButton_1.setBounds(256, 422, 89, 23);
-		getContentPane().add(btnNewButton_1);
+		JButton ButtonReg = new JButton("Registrar");
+		ButtonReg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(chequearFormulario()) {
+						String nickname = textNick.getText();
+						String correo = textMail.getText();
+						String nombre = textNom.getText();
+						String apellido = textApe.getText();
+						String comp = textCompan.getText();
+						String link = textLink.getText();
+						Date fechaN = DateFecha.getDate();	
+						Calendar calendar = Calendar.getInstance();
+				        calendar.setTime(fechaN);
+				        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+				        int mes = calendar.get(Calendar.MONTH) + 1;
+				        int anio = calendar.get(Calendar.YEAR);
+				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+						sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
+						
+						JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarFormulario();
+						setVisible(false);
+					}
+				}
+				catch(UsuarioRepetidoException e1){
+					JOptionPane.showMessageDialog(RegistrarProveedor.this, e1.getMessage(), "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		ButtonReg.setBackground(new Color(250, 214, 235));
+		ButtonReg.setBounds(256, 433, 89, 23);
+		getContentPane().add(ButtonReg);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(38, 337, 144, 20);
-		getContentPane().add(dateChooser);
+		DateFecha = new JDateChooser();
+		DateFecha.setBounds(38, 337, 144, 20);
+		getContentPane().add(DateFecha);
+		
+		JButton ButtonCancel = new JButton("Cancelar");
+		ButtonCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		ButtonCancel.setBounds(38, 433, 89, 23);
+		getContentPane().add(ButtonCancel);
 
 	}
+	
+	private void limpiarFormulario() {
+		textNick.setText("");
+		textNom.setText("");
+		textApe.setText("");
+		textMail.setText("");
+		textCompan.setText("");
+		textLink.setText("");
+		DateFecha.setDate(null);
+		rutaImagen = "";
+	}
+	private boolean chequearFormulario() {
+		String nickname = textNick.getText();
+		String correo = textMail.getText();
+		String nombre = textNom.getText();
+		String apellido = textApe.getText();
+		//Date fechaN = DateFecha.getDate();
+		String comp = textCompan.getText();
+		String link = textLink.getText();
+		
+		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null || comp.isEmpty() || link.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+}
 }
