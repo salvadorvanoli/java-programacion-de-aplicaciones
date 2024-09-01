@@ -88,6 +88,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		
 		JTextArea ordenDetalles = new JTextArea();
+		ordenDetalles.setEditable(false);
 		scrollPane.setViewportView(ordenDetalles);
 		
 		
@@ -209,16 +210,19 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
 		getContentPane().add(lblNewLabel_4);
 		
 		id = new JTextField();
+		id.setEditable(false);
 		id.setBounds(50, 111, 86, 20);
 		getContentPane().add(id);
 		id.setColumns(10);
 		
 		fecha = new JTextField();
+		fecha.setEditable(false);
 		fecha.setBounds(72, 199, 86, 20);
 		getContentPane().add(fecha);
 		fecha.setColumns(10);
 		
 		cliente = new JTextField();
+		cliente.setEditable(false);
 		cliente.setBounds(72, 156, 86, 20);
 		getContentPane().add(cliente);
 		cliente.setColumns(10);

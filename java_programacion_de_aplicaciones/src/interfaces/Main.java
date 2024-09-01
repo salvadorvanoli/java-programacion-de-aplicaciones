@@ -179,7 +179,7 @@ public class Main {
 	    infoClienteInternalFrame = new VerInformacionCliente(sistema, this);
 	    infoClienteInternalFrame.setVisible(false);
 	    
-	    modificarCategoriasProductoInternalFrame = new ModificarCategoriasProducto(sistema);
+	    modificarCategoriasProductoInternalFrame = new ModificarCategoriasProducto(sistema, modificarProductoInternalFrame);
 	    modificarCategoriasProductoInternalFrame.setVisible(false);
 	    
 	    modificarImagenesProductoInternalFrame = new ModificarImagenesProducto(sistema);
@@ -302,6 +302,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
             	generarOrdenInternalFrame.cargarClientes();
+            	generarOrdenInternalFrame.cargarJTree();
                 menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
                 generarOrdenInternalFrame.setVisible(true);
                 generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
@@ -391,6 +392,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
             	modificarProductoInternalFrame.cargarJTree();
+            	modificarProductoInternalFrame.limpiarListaProductos();
                 menuPrincipal.getContentPane().add(modificarProductoInternalFrame);
                 modificarProductoInternalFrame.setVisible(true);
                 modificarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame

@@ -81,11 +81,15 @@ public abstract class ISistema{
 	
 	public abstract DTClienteDetallado verInformacionCliente();
 
-	public abstract void quitarProductoDeCategorias();
+	public abstract void quitarProductoDeCategorias(boolean seAgreganCategorias);
 	
 	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
 	
 	public abstract void agregarCategoriasAProducto(List<Categoria> listaCat);
+	
+	public abstract boolean existeProducto(String nombreProd, int numReferencia);
+
+	// public abstract boolean buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia);
 	
 	public abstract void modificarDatosProducto(String nombreProd, int numReferencia, String descripcion, float precio, String especificacion) throws ProductoRepetidoException;
 	
