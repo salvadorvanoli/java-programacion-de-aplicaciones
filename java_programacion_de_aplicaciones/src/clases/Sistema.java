@@ -743,6 +743,7 @@ public class Sistema extends ISistema {
 		this.productoActual.setNumReferencia(numReferencia);
 		this.productoActual.setDescripcion(descripcion);
 		this.productoActual.setEspecificacion(especificacion);
+		this.productoActual.setPrecio(precio);
 	}
 	
 	// ESTA RECONTRA MAL

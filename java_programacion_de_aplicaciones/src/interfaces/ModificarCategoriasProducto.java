@@ -35,6 +35,7 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 	private ModificarDatosProducto internalFramePadre;
 	private List<Categoria> nuevasCategorias;
 	private JTree JTreeSeleccionNuevasCategorias;
+	private String nuevoTextoCategorias;
 	
 	
 	/**
@@ -92,7 +93,9 @@ public class ModificarCategoriasProducto extends JInternalFrame {
             public void valueChanged(TreeSelectionEvent e) {
             	// Obtener todas las rutas seleccionadas
             	TreePath[] selectedPaths = JTreeSeleccionNuevasCategorias.getSelectionPaths();
+            	
             	if (selectedPaths != null) {
+            		nuevoTextoCategorias = "";
 	            	nuevasCategorias.clear();
 	                for (TreePath item : selectedPaths) {
 	                	DefaultMutableTreeNode node = (DefaultMutableTreeNode) item.getLastPathComponent();
@@ -100,14 +103,16 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 	                	if (userObject instanceof Categoria) {
 	                		Categoria cat = (Categoria) userObject;
 	                		nuevasCategorias.add(cat);
+	                		nuevoTextoCategorias += cat.getNombreCat() + System.lineSeparator();
 	                	}
 	                }
+	                /*
 	                int count = 1;
 	                for (Categoria cat : nuevasCategorias) {
 	                    System.out.println("Categoría " + count + ": " + cat.toString());
 	                    count++;
 	                }
-	                // updateComboBox(selectedPaths); // Actualizar el JComboBox basado en las categorías seleccionadas
+	                */
             	}
             }
         });
@@ -117,6 +122,9 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (! (nuevoTextoCategorias.isBlank()) && ! (nuevoTextoCategorias.isEmpty())) {
+					internalFramePadre.setTextAreaCategorias(nuevoTextoCategorias);
+				}
 				internalFramePadre.setNuevasCategorias(nuevasCategorias);
 			}
 		});

@@ -1,10 +1,14 @@
 package interfaces;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -57,15 +61,43 @@ public class ModificarDatosProducto extends JInternalFrame {
 	private JTextField textFieldPrecio;
 	private JTextArea textAreaDescripcion;
 	private JTextArea textAreaEspecificacion;
+	private JTextArea textAreaCategorias;
+	//private JTextArea textAreaImagenes;
 	private JButton btnNuevasImagenes;
 	private JButton btnNuevasCategorias;
 	private JButton btnAceptar;
+	private String textoCategoriasOriginal;
+	// private String textoImagenesOriginal;
+	private JButton btnVerImagenes;
+	private JInternalFrame vistaImagenes;
 	
 	private List<Categoria> nuevasCategorias;
 	private List<String> nuevasImagenes;
 	
 	public void setNuevasCategorias(List<Categoria> nuevasCategorias) {
 		this.nuevasCategorias = nuevasCategorias;
+	}
+	
+	public void setTextAreaCategorias(String text) {
+		this.textAreaCategorias.setText(text);
+	}
+	
+	public String getTextAreaCategorias() {
+		return this.textAreaCategorias.getText();
+	}
+	
+	public void alternarCampos(boolean habilitar) {
+		this.textFieldNombre.setEnabled(habilitar);
+		this.textFieldNumReferencia.setEnabled(habilitar);
+		this.textFieldPrecio.setEnabled(habilitar);
+		this.textAreaDescripcion.setEnabled(habilitar);
+		this.textAreaEspecificacion.setEnabled(habilitar);
+		this.textAreaCategorias.setEnabled(habilitar);
+		//this.textAreaImagenes.setEnabled(habilitar);
+		this.btnNuevasImagenes.setEnabled(habilitar);
+		this.btnNuevasCategorias.setEnabled(habilitar);
+		this.btnAceptar.setEnabled(habilitar);
+		this.btnVerImagenes.setEnabled(habilitar);
 	}
 	
 	private void limpiarCampos() {
@@ -76,8 +108,10 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.textFieldPrecio.setText("");
 		this.textAreaDescripcion.setText("");
 		this.textAreaEspecificacion.setText("");
-		this.nuevasCategorias = null;
-		this.nuevasImagenes = null;
+		this.textAreaCategorias.setText("");
+		//this.textAreaImagenes.setText("");
+		this.nuevasCategorias = new ArrayList<>();
+		this.nuevasImagenes = new ArrayList<>();
 	}
 	
 	public void limpiarListaProductos() {
@@ -149,14 +183,11 @@ public class ModificarDatosProducto extends JInternalFrame {
 		setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 636, 666);
+		setBounds(100, 100, 638, 725);
 		getContentPane().setLayout(null);
 		
 		this.sistema = sistema;
 		this.menu = menu;
-		
-		this.nuevasCategorias = null;
-		this.nuevasImagenes = null;
 		
 		JLabel lblTitulo = new JLabel("Modificar datos de un Producto");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -173,7 +204,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) { 
+				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) {
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
 	                if (selectedNode == null) {
 	                	JOptionPane.showMessageDialog(null, "Ninguna categoría fue seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
@@ -210,6 +241,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				DTProducto seleccionado = (DTProducto) seleccionProducto.getSelectedItem(); // TENEMOS QUE INCLUIR EL NUMERO DE REFERENCIA EN DTPRODUCTO
                 if (seleccionado != null) {
+                	alternarCampos(true);
                     String nombre = seleccionado.getNombre();
                     // String numReferencia = seleccionado.getNumReferencia();
                     try {
@@ -220,11 +252,26 @@ public class ModificarDatosProducto extends JInternalFrame {
                         textFieldPrecio.setText(String.valueOf(prodDetallado.getPrecio()));
                         textAreaDescripcion.setText(prodDetallado.getDescripcion());
                         textAreaEspecificacion.setText(prodDetallado.getEspecificaciones());
+                        textAreaCategorias.setText("");
+                        for (String cat : prodDetallado.getCategorias()) {
+                        	textAreaCategorias.setText(textAreaCategorias.getText() + cat + System.lineSeparator());
+                        }
+                        // textAreaImagenes.setText("");
+                        nuevasImagenes = prodDetallado.getImagenes();
+                        /*
+                        for (String image : prodDetallado.getImagenes()) {
+                        	nuevasImagenes.add(image);
+                        	// textAreaImagenes.setText(textAreaImagenes.getText() + image + System.lineSeparator());
+                        }
+                        */
+                        textoCategoriasOriginal = textAreaCategorias.getText();
+                        // textoImagenesOriginal = textAreaImagenes.getText();
                     } catch (ProductoNoExisteException exc) {
                     	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                 	limpiarCampos();
+                	alternarCampos(false);
                 }
 			}
 		});
@@ -306,7 +353,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 				menu.getMenuPrincipal().repaint();
 			}
 		});
-		btnNuevasCategorias.setBounds(78, 507, 189, 28);
+		btnNuevasCategorias.setBounds(40, 507, 189, 28);
 		getContentPane().add(btnNuevasCategorias);
 		
 		this.btnNuevasCategorias = btnNuevasCategorias;
@@ -327,29 +374,37 @@ public class ModificarDatosProducto extends JInternalFrame {
 
                 // Mostrar el diálogo de selección de archivos
                 int result = fileChooser.showOpenDialog(menu.getMenuPrincipal());
-
+                
                 if (result == JFileChooser.APPROVE_OPTION) {
                     // Obtener los archivos seleccionados
                     File[] selectedFiles = fileChooser.getSelectedFiles();
+                    
+                    // String textImagenesAnt = textAreaImagenes.getText();
+                    // textAreaImagenes.setText("");
 
                     List<String> rutasImagenes = new ArrayList<>();
                     // Mostrar los archivos seleccionados en la consola
                     for (File file : selectedFiles) {
                     	if (imageFilter.accept(file)) {
                     		rutasImagenes.add(file.getAbsolutePath());
+                    		//textAreaImagenes.setText(textAreaImagenes.getText() + file.getAbsolutePath() + System.lineSeparator());
                     	} else {
                     		rutasImagenes.clear();
+                    		//textAreaImagenes.setText(textImagenesAnt);
         		            JOptionPane.showMessageDialog(null, "Un archivo elegido no coincide con el tipo aceptado (jpg, jpeg o png).", "Error", JOptionPane.ERROR_MESSAGE);
         		            break;
                     	}
                     }
                     if (!(rutasImagenes.isEmpty())){
                     	nuevasImagenes = rutasImagenes;
-                    }
-                } else {
+                    	// textoImagenesOriginal = textAreaImagenes.getText();
+                    } /*else {
+                    	textAreaImagenes.setText(textImagenesAnt);
+                    }*/
+                } /* else {
                 	
                 	JOptionPane.showMessageDialog(null, "Se eligieron archivos no válidos", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                }*/
 
 				
 				
@@ -369,7 +424,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 				*/
 			}
 		});
-		btnNuevasImagenes.setBounds(331, 507, 189, 28);
+		btnNuevasImagenes.setBounds(388, 507, 189, 28);
 		getContentPane().add(btnNuevasImagenes);
 		
 		this.btnNuevasImagenes = btnNuevasImagenes;
@@ -391,18 +446,80 @@ public class ModificarDatosProducto extends JInternalFrame {
 					sistema.quitarProductoDeCategorias(sePuedenModificarCategorias);
 					sistema.agregarCategoriasAProducto(nuevasCategorias);
 					sistema.agregarProductoACategorias(nuevasCategorias);
-			        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE); // ME QUEDE ACAAAAAAAAAAAAAAAA
+			        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			        cargarProductos();
 				} catch (Exception exc) {
 		            JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
-		btnAceptar.setBounds(249, 580, 100, 29);
+		btnAceptar.setBounds(256, 643, 100, 29);
 		getContentPane().add(btnAceptar);
 		
 		this.btnAceptar = btnAceptar;
 		
+		JTextArea textAreaCategorias = new JTextArea();
+		textAreaCategorias.setEditable(false);
+		textAreaCategorias.setBounds(40, 546, 189, 101);
+		getContentPane().add(textAreaCategorias);
+		
+		this.textAreaCategorias = textAreaCategorias;
+		
+		/*
+		JTextArea textAreaImagenes = new JTextArea();
+		textAreaImagenes.setEditable(false);
+		textAreaImagenes.setBounds(388, 546, 189, 101);
+		getContentPane().add(textAreaImagenes);
+		
+		 this.textAreaImagenes = textAreaImagenes;
+		*/
+		
+		JButton btnVerImagenes = new JButton("Ver Imagenes");
+		btnVerImagenes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (nuevasImagenes != null && ! (nuevasImagenes.isEmpty())) {
+					// Crear el JInternalFrame
+					vistaImagenes = new JInternalFrame("Galería de Imágenes", true, true, true, true);
+					vistaImagenes.setSize(600, 400);
+					vistaImagenes.getContentPane().setLayout(new BorderLayout());
+
+			        // Crear un JPanel para contener las imágenes
+			        JPanel panelImagenes = new JPanel();
+			        panelImagenes.setLayout(new FlowLayout());
+
+			        // Cargar y agregar las imágenes al panel
+			        for (String ruta : nuevasImagenes) {
+			            File archivoImagen = new File(ruta);
+			            if (archivoImagen.exists()) {
+			                ImageIcon icono = new ImageIcon(ruta);
+			                JLabel etiquetaImagen = new JLabel(icono);
+			                panelImagenes.add(etiquetaImagen);
+			            } else {
+        		            JOptionPane.showMessageDialog(null, "Archivo no encontrado: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
+			            }
+			        }
+
+			        // Añadir el panel al JInternalFrame
+			        JScrollPane scrollPane = new JScrollPane(panelImagenes);
+			        vistaImagenes.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+			        // Añadir el JInternalFrame al JDesktopPane
+			        menu.getMenuPrincipal().getContentPane().add(vistaImagenes);
+			        vistaImagenes.setVisible(true);
+				} else {
+	            	JOptionPane.showMessageDialog(null, "El producto actual no posee imágenes y las mismas no han sido seleccionadas", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnVerImagenes.setBounds(418, 576, 129, 28);
+		getContentPane().add(btnVerImagenes);
+		
+		this.btnVerImagenes = btnVerImagenes;
+		
+		alternarCampos(false);
+
 		this.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
             public void internalFrameClosing(InternalFrameEvent e) {
@@ -477,6 +594,4 @@ public class ModificarDatosProducto extends JInternalFrame {
 		}
 		
 	}
-	
-	
 }
