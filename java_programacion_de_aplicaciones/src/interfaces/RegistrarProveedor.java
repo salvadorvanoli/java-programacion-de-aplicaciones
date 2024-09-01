@@ -156,32 +156,27 @@ public class RegistrarProveedor extends JInternalFrame {
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean chequeo = chequearFormulario();
-				String nickname = textNick.getText();
-				String correo = textMail.getText();
-				String nombre = textNom.getText();
-				String apellido = textApe.getText();
-				String comp = textCompan.getText();
-				String link = textLink.getText();
-				Date fechaN = DateFecha.getDate();	
-				Calendar calendar = Calendar.getInstance();
-		        calendar.setTime(fechaN);
-		        int dia = calendar.get(Calendar.DAY_OF_MONTH);
-		        int mes = calendar.get(Calendar.MONTH) + 1;
-		        int anio = calendar.get(Calendar.YEAR);
-		        DTFecha dtFecha = new DTFecha(dia, mes, anio);
-				
-				
-				
-				
 				try {
-					if(chequeo) {
-					sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
-					
-					JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
-							JOptionPane.INFORMATION_MESSAGE);
-					limpiarFormulario();
-					setVisible(false);
+					if(chequearFormulario()) {
+						String nickname = textNick.getText();
+						String correo = textMail.getText();
+						String nombre = textNom.getText();
+						String apellido = textApe.getText();
+						String comp = textCompan.getText();
+						String link = textLink.getText();
+						Date fechaN = DateFecha.getDate();	
+						Calendar calendar = Calendar.getInstance();
+				        calendar.setTime(fechaN);
+				        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+				        int mes = calendar.get(Calendar.MONTH) + 1;
+				        int anio = calendar.get(Calendar.YEAR);
+				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+						sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
+						
+						JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarFormulario();
+						setVisible(false);
 					}
 				}
 				catch(UsuarioRepetidoException e1){

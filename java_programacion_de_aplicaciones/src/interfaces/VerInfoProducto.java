@@ -59,6 +59,8 @@ public class VerInfoProducto extends JInternalFrame {
 	private JTextField textProv;
 	private JTextField textImg;
 	private JDesktopPane desktopPane;
+	private Main main;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -81,10 +83,10 @@ public class VerInfoProducto extends JInternalFrame {
 	 * Create the frame.
 	 * @param sistema 
 	 */
-	public VerInfoProducto(ISistema sistema) {
+	public VerInfoProducto(ISistema sistema, Main main) {
 		setResizable(true);
 		this.sistema = sistema;
-		this.desktopPane = desktopPane;
+		this.main = main;
 		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
@@ -106,9 +108,13 @@ public class VerInfoProducto extends JInternalFrame {
 		comboBoxProd = new JComboBox<>();
 		comboBoxProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nombreProducto = (String) comboBoxProd.getSelectedItem();
-				DTProductoDetallado hola;
 				
+				if(comboBoxProd.getSelectedItem() == null) {
+					return;
+				}
+				
+				String nombreProducto = (String) comboBoxProd.getSelectedItem();
+				System.out.println(nombreProducto);
 
 					try {
 						sistema.elegirProducto(nombreProducto);
@@ -167,10 +173,10 @@ public class VerInfoProducto extends JInternalFrame {
                     try {
                         sistema.elegirCategoria(nombreCat);
                         categoriaActual = sistema.getCategoriaActual();
+                        cargarProductosEnComboBox(sistema.getCategoriaActual());
                     } catch (CategoriaNoExisteException e1) {
                         // MANEJAR ERROR
                     }
-                    cargarProductosEnComboBox(sistema.getCategoriaActual());
                 }
 			}
 		});
@@ -347,7 +353,7 @@ public class VerInfoProducto extends JInternalFrame {
         internalFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         // Añadir el JInternalFrame al JDesktopPane
-        desktopPane.add(internalFrame);
+        this.main.getMenuPrincipal().getContentPane().add(internalFrame);
         internalFrame.setVisible(true);
     }
 }

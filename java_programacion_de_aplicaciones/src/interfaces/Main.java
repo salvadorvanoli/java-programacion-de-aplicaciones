@@ -173,7 +173,7 @@ public class Main {
 	    infoOrdenInternalFrame = new VerInfoOrdenDeCompra(sistema);
 	    infoOrdenInternalFrame.setVisible(false);
 	    
-	    infoProductoInternalFrame = new VerInfoProducto(sistema);
+	    infoProductoInternalFrame = new VerInfoProducto(sistema, this);
 	    infoProductoInternalFrame.setVisible(false);
 	    
 	    infoClienteInternalFrame = new VerInformacionCliente(sistema, this);
