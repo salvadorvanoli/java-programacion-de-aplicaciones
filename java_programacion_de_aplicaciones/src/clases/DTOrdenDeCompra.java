@@ -51,4 +51,13 @@ public class DTOrdenDeCompra {
 	    public String toString() {
 	        return "Número de la orden: " + numero;
 	    }
+	 
+	 public String toStringCliente() {
+			return this.getCliente().getNickname();
+		}
+	 
+	 public String toStringNumero() {
+		 return String.valueOf(this.getNumero());
+
+		}
 }

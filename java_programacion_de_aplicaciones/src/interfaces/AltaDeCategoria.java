@@ -31,6 +31,8 @@ import excepciones.OrdenDeCompraNoExisteException;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTree;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class AltaDeCategoria extends JInternalFrame {
 
@@ -86,13 +88,17 @@ public class AltaDeCategoria extends JInternalFrame {
         tituloPrincipalAltaDeCategoria.setBounds(221, 21, 128, 34);
         getContentPane().add(tituloPrincipalAltaDeCategoria);
 
-        selectCategoriaPadreAltaDeCategoria = new JTree();
-        selectCategoriaPadreAltaDeCategoria.setBounds(30, 218, 501, 263);
-        getContentPane().add(selectCategoriaPadreAltaDeCategoria);
-
         JButton crearBtnAltaDeCategoria = new JButton("Crear");
         crearBtnAltaDeCategoria.setBounds(231, 540, 89, 23);
         getContentPane().add(crearBtnAltaDeCategoria);
+        
+        JScrollPane scrollCategoriasTree = new JScrollPane();
+        scrollCategoriasTree.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollCategoriasTree.setBounds(30, 218, 515, 263);
+        getContentPane().add(scrollCategoriasTree);
+        
+                selectCategoriaPadreAltaDeCategoria = new JTree();
+                scrollCategoriasTree.setViewportView(selectCategoriaPadreAltaDeCategoria);
 
         // Llamar al método para cargar datos al inicializar el frame
         cargarDatos();
@@ -188,7 +194,7 @@ public class AltaDeCategoria extends JInternalFrame {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            cargarDatos(); // Usar la variable de instancia
+            cargarDatos();
         } else {
             limpiarCampos();
         }
@@ -196,17 +202,14 @@ public class AltaDeCategoria extends JInternalFrame {
 
     private void limpiarCampos() {
         if (inputNombreDeLaCategoria != null) {
-            // Vaciar el campo de texto
             inputNombreDeLaCategoria.setText("");
         }
         
         if (contieneProductosCheckbox != null) {
-            // Deseleccionar el checkbox
             contieneProductosCheckbox.setSelected(false);
         }
         
         if (selectCategoriaPadreAltaDeCategoria != null) {
-            // Vaciar el JTree
             selectCategoriaPadreAltaDeCategoria.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Categorías")));
         }
     }
