@@ -525,7 +525,6 @@ public class ModificarDatosProducto extends JInternalFrame {
             public void internalFrameClosing(InternalFrameEvent e) {
             	sistema.setTodoNull();
             	limpiarCampos();
-            	JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
             	dispose();
             }
         });
