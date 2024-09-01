@@ -62,6 +62,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	private ISistema sistema;
 	private JTextField cantidadPoner;
 	private JComboBox<DTCliente> seleccionarCliente;
+	private JTree seleccionarProducto;
 
 	/**
 	 * Launch the application.
@@ -95,12 +96,19 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		this.sistema = sistema;
 		this.listaCantidades = new ArrayList<>();
 		
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(27, 142, 169, 133);
 		getContentPane().add(scrollPane);
 		
 		JTree seleccionarProducto = new JTree();
+		
+		this.seleccionarProducto = seleccionarProducto;
+		
+		/*
+		
 		// Crear categorías
 		Categoria categoriaElectronicos = new Categoria("Electronicos", true, null);
 		Categoria categoriaFarmacia = new Categoria("Farmacia", true, null);
@@ -145,12 +153,13 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		// Asignar el modelo al JTree
 		seleccionarProducto.setModel(treeModel);
 
+		*/
+
 		scrollPane.setViewportView(seleccionarProducto);
 		seleccionarProducto.setName("");
 		seleccionarProducto.setToggleClickCount(1);
 		
-		
-		
+		cargarJTree();
 		
 		
 		
@@ -482,9 +491,21 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 	}
 	
+	public void cargarJTree() {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
+		
+		for (Categoria cat : sistema.getCategorias().values()) {
+			this.cargarElementosJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
+		}
+		
+		
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        this.seleccionarProducto.setModel(treeModel);
+	}
+	
 	// Esta funcion la agregué para ir creando recursivamente el JTree
 	
-	public void cargarJTree(Categoria cat, DefaultMutableTreeNode nodo) {
+	public void cargarElementosJTree(Categoria cat, DefaultMutableTreeNode nodo) {
 		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
 		if (!(cat.getProductos().isEmpty())) {
 			for (Producto prod : cat.getProductos()) {
@@ -494,7 +515,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		}
 		if (!(cat.getHijos().values().isEmpty())) {
 			for (Categoria hijo : cat.getHijos().values()) {
-				cargarJTree(hijo, newNodo);
+				cargarElementosJTree(hijo, newNodo);
 			}
 		}
 		nodo.add(newNodo);

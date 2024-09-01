@@ -302,6 +302,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
             	generarOrdenInternalFrame.cargarClientes();
+            	generarOrdenInternalFrame.cargarJTree();
                 menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
                 generarOrdenInternalFrame.setVisible(true);
                 generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
