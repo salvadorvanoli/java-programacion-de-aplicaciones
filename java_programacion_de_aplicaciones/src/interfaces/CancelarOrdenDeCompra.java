@@ -55,7 +55,6 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
     }
 
     private void inicializarComponentes() {
-        // Inicializa todos los componentes aquí, excepto la carga de datos en el JComboBox
         setClosable(true);
         setTitle("Flamin-Go");
         setFrameIcon(new ImageIcon(CancelarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
@@ -189,9 +188,6 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
                     try {
                     	limpiarCampos();
                         sistema.elegirOrdenDeCompra(numeroOrden);
-                        String informacionDetalladaOrdenDeCompra = sistema.getOrdenDeCompraActual().toString();
-                        
-                        // NUEVA FORMA DE MOSTRAR DATOS
                         
                         DTOrdenDeCompraDetallada orden = sistema.verInformacionOrdenDeCompra();
                         

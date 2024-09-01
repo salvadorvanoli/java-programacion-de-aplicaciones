@@ -194,7 +194,7 @@ public class AltaDeCategoria extends JInternalFrame {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-            cargarDatos(); // Usar la variable de instancia
+            cargarDatos();
         } else {
             limpiarCampos();
         }
@@ -202,17 +202,14 @@ public class AltaDeCategoria extends JInternalFrame {
 
     private void limpiarCampos() {
         if (inputNombreDeLaCategoria != null) {
-            // Vaciar el campo de texto
             inputNombreDeLaCategoria.setText("");
         }
         
         if (contieneProductosCheckbox != null) {
-            // Deseleccionar el checkbox
             contieneProductosCheckbox.setSelected(false);
         }
         
         if (selectCategoriaPadreAltaDeCategoria != null) {
-            // Vaciar el JTree
             selectCategoriaPadreAltaDeCategoria.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Categorías")));
         }
     }
