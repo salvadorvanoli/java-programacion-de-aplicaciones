@@ -60,6 +60,7 @@ public class RegistrarCliente extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public RegistrarCliente(ISistema sistema) {
+		setResizable(true);
 		setFrameIcon(new ImageIcon(RegistrarCliente.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);

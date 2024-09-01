@@ -62,6 +62,7 @@ public class RegistrarProveedor extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public RegistrarProveedor(ISistema sistema) {
+		setResizable(true);
 		setFrameIcon(new ImageIcon(RegistrarProveedor.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);

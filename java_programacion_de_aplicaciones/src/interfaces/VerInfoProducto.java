@@ -82,6 +82,7 @@ public class VerInfoProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInfoProducto(ISistema sistema) {
+		setResizable(true);
 		this.sistema = sistema;
 		this.desktopPane = desktopPane;
 		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
