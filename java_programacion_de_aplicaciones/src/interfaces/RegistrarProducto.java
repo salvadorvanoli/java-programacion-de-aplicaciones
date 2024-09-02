@@ -180,11 +180,11 @@ public class RegistrarProducto extends JInternalFrame {
 		this.campoNombre = campoNombre;
 		
 		JLabel TextoNombre = new JLabel("* Nombre ");
-		TextoNombre.setBounds(42, 36, 60, 14);
+		TextoNombre.setBounds(42, 36, 86, 14);
 		getContentPane().add(TextoNombre);
 	
 		JLabel TextoEspecificacion = new JLabel("* Especificación");
-		TextoEspecificacion.setBounds(149, 36, 79, 14);
+		TextoEspecificacion.setBounds(149, 36, 109, 14);
 		getContentPane().add(TextoEspecificacion);
 		
 		JTextField campoEspecificacion = new JTextField();
@@ -201,11 +201,11 @@ public class RegistrarProducto extends JInternalFrame {
 		this.campoDescripcion = campoDescripcion;
 		
 		JLabel TextoDescripcion = new JLabel("* Descripción");
-		TextoDescripcion.setBounds(42, 86, 63, 14);
+		TextoDescripcion.setBounds(42, 86, 148, 14);
 		getContentPane().add(TextoDescripcion);
 		
 		JLabel TextoPrecio = new JLabel("* Precio ");
-		TextoPrecio.setBounds(42, 188, 41, 14);
+		TextoPrecio.setBounds(42, 188, 60, 14);
 		getContentPane().add(TextoPrecio);
 		
 		JTextField campoPrecio = new JTextField();
@@ -216,7 +216,7 @@ public class RegistrarProducto extends JInternalFrame {
 		this.campoPrecio = campoPrecio;
 		
 		JLabel TextoImagen = new JLabel("Imagen");
-		TextoImagen.setBounds(150, 188, 46, 14);
+		TextoImagen.setBounds(150, 188, 78, 14);
 		getContentPane().add(TextoImagen);
 		
 		JButton BotonSeleccionImagen = new JButton("Seleccion...");
@@ -228,7 +228,7 @@ public class RegistrarProducto extends JInternalFrame {
                 fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
                     @Override
                     public boolean accept(File file) {
-                        String[] validExtensions = { "jpg", "jpeg", "png", "gif" };
+                        String[] validExtensions = { "jpg", "jpeg", "png"};
                         for (String ext : validExtensions) {
                             if (file.isFile() && file.getName().toLowerCase().endsWith(ext)) {
                                 return true;
@@ -262,11 +262,11 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(TextoTitulo);
 		
 		JLabel TextoProveedor = new JLabel("* Seleccione un proveedor:");
-		TextoProveedor.setBounds(268, 188, 136, 14);
+		TextoProveedor.setBounds(268, 188, 183, 14);
 		getContentPane().add(TextoProveedor);
 		
 		JLabel TextoCategoria = new JLabel("*Selecciona una categoria");
-		TextoCategoria.setBounds(268, 36, 125, 14);
+		TextoCategoria.setBounds(268, 36, 183, 14);
 		getContentPane().add(TextoCategoria);
 		
 		JTree treeCategorias = new JTree();
@@ -299,7 +299,7 @@ public class RegistrarProducto extends JInternalFrame {
 		cargarJTree();
 		
 		JLabel TextoNum = new JLabel("* Numero de Referencia");
-		TextoNum.setBounds(42, 230, 116, 14);
+		TextoNum.setBounds(42, 230, 148, 14);
 		getContentPane().add(TextoNum);
 		
 		JTextField campoNumRef = new JTextField();
@@ -317,11 +317,14 @@ public class RegistrarProducto extends JInternalFrame {
 	         }
 	    });
 	
-		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>();
+		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>(sistema.listarProveedores().toArray(new DTProveedor[0]));
 		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();
-				String nick = selectedItem.getNickname();
+				String nick  = "";
+				if(selectedItem != null) {
+					nick = selectedItem.getNickname();
+				}
 				try {
 					sistema.elegirProveedor(nick);
 				} catch (UsuarioNoExisteException e1) {
@@ -329,8 +332,6 @@ public class RegistrarProducto extends JInternalFrame {
 				}
 			}
 		});
-		
-		
 		boxProveedor.setEditable(true);
 		boxProveedor.setBounds(268, 202, 194, 20);
 		boxProveedor.setSelectedItem(null);
