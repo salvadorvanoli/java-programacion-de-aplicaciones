@@ -334,7 +334,6 @@ public class RegistrarProducto extends JInternalFrame {
 		});
 		boxProveedor.setEditable(true);
 		boxProveedor.setBounds(268, 202, 194, 20);
-		boxProveedor.setSelectedItem(null);
 		getContentPane().add(boxProveedor);
 		
 		this.boxProveedor = boxProveedor;

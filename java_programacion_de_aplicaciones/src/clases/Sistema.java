@@ -111,6 +111,8 @@ public class Sistema extends ISistema {
 		
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
+		this.usuarios.add(pr1);
+		this.usuarios.add(pr2);
         
         try {
         	Categoria cat = new Categoria("A", true, null);
