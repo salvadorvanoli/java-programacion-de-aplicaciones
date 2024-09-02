@@ -317,7 +317,7 @@ public class RegistrarProducto extends JInternalFrame {
 	         }
 	    });
 	
-		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>();
+		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>(sistema.listarProveedores().toArray(new DTProveedor[0]));
 		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();

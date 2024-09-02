@@ -223,7 +223,7 @@ public class Sistema extends ISistema {
 	
 	// ESTA FUNCION HAY QUE RE CHEQUEARLA
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
