@@ -163,7 +163,7 @@ public class Main {
 		altaCategoriaInternalFrame = new AltaDeCategoria(sistema);
 		altaCategoriaInternalFrame.setVisible(false);
 		
-	    cancelarOrdenInternalFrame = new CancelarOrdenDeCompra(sistema);
+	    cancelarOrdenInternalFrame = new CancelarOrdenDeCompra(sistema, this);
 	    cancelarOrdenInternalFrame.setVisible(false);
 	    
 	    generarOrdenInternalFrame = new GenerarOrdenDeCompra(sistema);
@@ -187,7 +187,7 @@ public class Main {
 	    registrarProveedorInternalFrame = new RegistrarProveedor(sistema);
 	    registrarProveedorInternalFrame.setVisible(false);
 	    
-	    infoOrdenInternalFrame = new VerInfoOrdenDeCompra(sistema);
+	    infoOrdenInternalFrame = new VerInfoOrdenDeCompra(sistema, this);
 	    infoOrdenInternalFrame.setVisible(false);
 	    
 	    infoProductoInternalFrame = new VerInfoProducto(sistema, this);
