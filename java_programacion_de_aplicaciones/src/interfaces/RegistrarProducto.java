@@ -379,6 +379,7 @@ public class RegistrarProducto extends JInternalFrame {
 	
 				} catch(Exception exc) {
 					JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				try {
 					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
@@ -386,6 +387,7 @@ public class RegistrarProducto extends JInternalFrame {
 					
 				} catch (ProductoRepetidoException e) {
 					e.printStackTrace();
+					return;
 				}
 				
 				mostrarInformacion();
