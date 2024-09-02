@@ -77,6 +77,15 @@ public class RegistrarProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	
+	
+	public List<Categoria> listaCategorias() {
+		return this.Categorias;
+	}
+	
+	public List<String> listaImagenes() {
+		return this.Imagenes;
+	}
+	
 	public void cargarImagen(String a){
 		this.Imagenes.add(a);
 	}
@@ -279,21 +288,23 @@ public class RegistrarProducto extends JInternalFrame {
 		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
-				System.out.println("GOLALDASLDASDAS");
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
-                if (selectedNode == null) {
-                	// ERROR CON POPUP
-                }
-                System.out.println("2222222222222222");
-                try {
-                	System.out.println(selectedNode.toString());
-                	sistema.elegirCategoria(selectedNode.toString());
-
-                	System.out.println("333333333333");
-                } catch (CategoriaNoExisteException e1) {
-                	
-                }
-                
+				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) {
+					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
+	                if (selectedNode == null) {
+	                	JOptionPane.showMessageDialog(null, "Ninguna categoría fue seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+	                } else {
+	                	Object node = selectedNode.getUserObject();
+	                	if (node instanceof Categoria) {
+			                try {
+			                	sistema.elegirCategoria(selectedNode.toString());
+			                } catch (CategoriaNoExisteException exc) {
+			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			                }
+	                	} else {
+	                		//bt
+	                	}
+	                }
+				}
 			}
 		});
 		treeCategorias.setBounds(268, 50, 194, 118);
@@ -364,6 +375,8 @@ public class RegistrarProducto extends JInternalFrame {
 					especificacion = campoEspecificacion.getText();
 					numReferencia = Integer.valueOf(campoNumRef.getText().trim());
 					precio = Float.valueOf(campoPrecio.getText().trim());
+					categoria = listaCategorias();
+					imagenes = listaImagenes();
 	
 				} catch(Exception exc) {
 					JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
