@@ -116,7 +116,6 @@ public class Main {
     	return this.modificarImagenesProductoInternalFrame;
     }
     
-    /*
     public boolean checkVentanasAbiertas() {
     	return (this.altaCategoriaInternalFrame.isVisible() ||
     			this.cancelarOrdenInternalFrame.isVisible() ||
@@ -131,7 +130,6 @@ public class Main {
     			this.infoProductoInternalFrame.isVisible() ||
     			this.infoClienteInternalFrame.isVisible());
     }
-    */
 
 	/**
 	 * Launch the application.
@@ -258,11 +256,16 @@ public class Main {
 		CasosDeUsoRegistrosCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(registrarClienteInternalFrame);
-                registrarClienteInternalFrame.setVisible(true);
-                registrarClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(registrarClienteInternalFrame);
+	                registrarClienteInternalFrame.setVisible(true);
+	                registrarClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	} else {
+            		
+            	}
             }
         });
 		
@@ -273,11 +276,14 @@ public class Main {
 		CasosDeUsoRegistrosProveedor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(registrarProveedorInternalFrame);
-                registrarProveedorInternalFrame.setVisible(true);
-                registrarProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(registrarProveedorInternalFrame);
+	                registrarProveedorInternalFrame.setVisible(true);
+	                registrarProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -288,11 +294,14 @@ public class Main {
 		CasosDeUsoRegistrosProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
-                registrarProductoInternalFrame.setVisible(true);
-                registrarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
+	                registrarProductoInternalFrame.setVisible(true);
+	                registrarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -303,11 +312,14 @@ public class Main {
 		CasosDeUsoRegistrosCategoria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(altaCategoriaInternalFrame);
-                altaCategoriaInternalFrame.setVisible(true);
-                altaCategoriaInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(altaCategoriaInternalFrame);
+	                altaCategoriaInternalFrame.setVisible(true);
+	                altaCategoriaInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -318,13 +330,16 @@ public class Main {
 		CasosDeUsoRegistrosOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	generarOrdenInternalFrame.cargarClientes();
-            	generarOrdenInternalFrame.cargarJTree();
-                menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
-                generarOrdenInternalFrame.setVisible(true);
-                generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	            	generarOrdenInternalFrame.cargarClientes();
+	            	generarOrdenInternalFrame.cargarJTree();
+	                menuPrincipal.getContentPane().add(generarOrdenInternalFrame);
+	                generarOrdenInternalFrame.setVisible(true);
+	                generarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -338,16 +353,19 @@ public class Main {
 		CasosDeUsoConsultasInformacionCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	try {
-	            	infoClienteInternalFrame.cargarClientes();
-	                menuPrincipal.getContentPane().add(infoClienteInternalFrame);
-	                infoClienteInternalFrame.setVisible(true);
-	                infoClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-	                menuPrincipal.revalidate();
-	                menuPrincipal.repaint();
-            	} catch (Exception exc) {
-            		System.out.println(exc.getMessage()); // ACA TENEMOS QUE AGREGAR QUE SE MUESTRE UN POPUP
-            		infoClienteInternalFrame.setVisible(false);
+            	if (! checkVentanasAbiertas()) {
+	            	try {
+		            	infoClienteInternalFrame.cargarClientes();
+		            	sistema.setTodoNull();
+		                menuPrincipal.getContentPane().add(infoClienteInternalFrame);
+		                infoClienteInternalFrame.setVisible(true);
+		                infoClienteInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+		                menuPrincipal.revalidate();
+		                menuPrincipal.repaint();
+	            	} catch (Exception exc) {
+	            		System.out.println(exc.getMessage()); // ACA TENEMOS QUE AGREGAR QUE SE MUESTRE UN POPUP
+	            		infoClienteInternalFrame.setVisible(false);
+	            	}
             	}
             }
         });
@@ -359,11 +377,14 @@ public class Main {
 		CasosDeUsoConsultasInformacionProveedor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
-                infoProveedorInternalFrame.setVisible(true);
-                infoProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
+	                infoProveedorInternalFrame.setVisible(true);
+	                infoProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -374,11 +395,14 @@ public class Main {
 		CasosDeUsoConsultasInformacionProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(infoProductoInternalFrame);
-                infoProductoInternalFrame.setVisible(true);
-                infoProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(infoProductoInternalFrame);
+	                infoProductoInternalFrame.setVisible(true);
+	                infoProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -389,12 +413,15 @@ public class Main {
 		CasosDeUsoConsultasInformacionOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	infoOrdenInternalFrame.cargarOrdenesDeCompra();
-                menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
-                infoOrdenInternalFrame.setVisible(true);
-                infoOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	            	infoOrdenInternalFrame.cargarOrdenesDeCompra();
+	                menuPrincipal.getContentPane().add(infoOrdenInternalFrame);
+	                infoOrdenInternalFrame.setVisible(true);
+	                infoOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -408,13 +435,17 @@ public class Main {
 		CasosDeUsoModificacionesProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	modificarProductoInternalFrame.cargarJTree();
-            	modificarProductoInternalFrame.limpiarListaProductos();
-                menuPrincipal.getContentPane().add(modificarProductoInternalFrame);
-                modificarProductoInternalFrame.setVisible(true);
-                modificarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+            		modificarProductoInternalFrame.limpiarCampos();
+	            	modificarProductoInternalFrame.cargarJTree();
+	            	modificarProductoInternalFrame.limpiarListaProductos();
+	                menuPrincipal.getContentPane().add(modificarProductoInternalFrame);
+	                modificarProductoInternalFrame.setVisible(true);
+	                modificarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 		
@@ -428,11 +459,14 @@ public class Main {
 		CasosDeUsoSupresionesOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuPrincipal.getContentPane().add(cancelarOrdenInternalFrame);
-                cancelarOrdenInternalFrame.setVisible(true);
-                cancelarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
-                menuPrincipal.revalidate();
-                menuPrincipal.repaint();
+            	if (! checkVentanasAbiertas()) {
+            		sistema.setTodoNull();
+	                menuPrincipal.getContentPane().add(cancelarOrdenInternalFrame);
+	                cancelarOrdenInternalFrame.setVisible(true);
+	                cancelarOrdenInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+	                menuPrincipal.revalidate();
+	                menuPrincipal.repaint();
+            	}
             }
         });
 	}

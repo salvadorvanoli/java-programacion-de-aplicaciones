@@ -100,7 +100,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.btnVerImagenes.setEnabled(habilitar);
 	}
 	
-	private void limpiarCampos() {
+	public void limpiarCampos() {
 		this.JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
 		this.seleccionProducto.setSelectedIndex(-1);
 		this.textFieldNombre.setText("");
@@ -530,15 +530,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.btnVerImagenes = btnVerImagenes;
 		
 		alternarCampos(false);
-
-		this.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e) {
-            	sistema.setTodoNull();
-            	limpiarCampos();
-            	dispose();
-            }
-        });
 
 
 	}
