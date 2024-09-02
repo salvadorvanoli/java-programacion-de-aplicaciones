@@ -353,6 +353,7 @@ public class RegistrarProducto extends JInternalFrame {
 				String especificacion = null;
 				int numReferencia = -1;
 				float precio = -1;
+				Categoria = null;
 				
 				try {
 					camposValidos();	
@@ -361,12 +362,13 @@ public class RegistrarProducto extends JInternalFrame {
 					especificacion = campoEspecificacion.getText();
 					numReferencia = Integer.valueOf(campoNumRef.getText().trim());
 					precio = Float.valueOf(campoPrecio.getText().trim());
-					
+	
 				} catch(Exception exc) {
 					JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				try {
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio);
+					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, );
 					
 				} catch (ProductoRepetidoException e) {
 					e.printStackTrace();
