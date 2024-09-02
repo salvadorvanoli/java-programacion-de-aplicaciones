@@ -39,7 +39,6 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
     private static final long serialVersionUID = 1L;
     private JComboBox<String> selectOrdenOrdenDeCompra;
     private ISistema sistema;
-    private Main main;
     private JTextField numOrdenTextField;
     private JTextField fechaTextField;
     private JTextField totalTextField;
@@ -50,12 +49,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
     private JTextField subtotalDeLaLineaTextField;
     private JList<String> lineasList;
     
-    public JComboBox<String> getCombobox() {
-    	return this.selectOrdenOrdenDeCompra;
-    }
-    
-    public VerInfoOrdenDeCompra(ISistema sistema, Main main) {
-    	this.main = main;
+    public VerInfoOrdenDeCompra(ISistema sistema) {
         this.sistema = sistema; // Guardar la referencia al sistema
         inicializarComponentes();
         cargarOrdenesDeCompra(); // Cargar las órdenes de compra al inicializar la ventana
@@ -194,16 +188,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
                     try {
                     	limpiarCampos();
                     	
-                    	sistema.elegirOrdenDeCompra(numeroOrden);
-                    	
-                    	// Si el caso cancelarOrdenDeCompra está activo, muestra el valor que le interesa a ese caso
-                    	
-                    	if(main.getCancelarOrdenInternalFrame().isVisible()) {
-                    		String seleccionadoCanc = (String) main.getCancelarOrdenInternalFrame().getCombobox().getSelectedItem();
-                    		String numeroOrdenStrCanc = seleccionadoCanc.split(" - ")[0];
-                            int numeroOrdenCanc = Integer.parseInt(numeroOrdenStrCanc);
-                    		sistema.elegirOrdenDeCompra(numeroOrdenCanc);
-                    	}
+                        sistema.elegirOrdenDeCompra(numeroOrden);
                         
                         DTOrdenDeCompraDetallada orden = sistema.verInformacionOrdenDeCompra();
                         
@@ -237,7 +222,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
                     	JOptionPane.showMessageDialog(null, "La orden de compra seleccionada no existe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                	limpiarCampos();
+                	// Ignorar
                 }
             }
         });

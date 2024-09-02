@@ -1,27 +1,21 @@
 package interfaces;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import clases.DTCliente;
-import clases.DTClienteDetallado;
+
 import clases.ISistema;
 import excepciones.OrdenDeCompraNoExisteException;
 import excepciones.UsuarioNoExisteException;
 
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.awt.event.ActionEvent;
 
 import java.util.List;
@@ -32,34 +26,22 @@ import javax.swing.JTextField;
 
 public class VerInformacionCliente extends JInternalFrame {
 	
-	private static final long serialVersionUID = 1L;
-	private Main menu;
 	private ISistema sistema;
 	private JComboBox<DTCliente> seleccionCliente;
 	private JTextArea txtMostrarInfoCliente;
 	private JButton btnVerInfoOrdenes;
+	private Main menu;
+	
+	public JButton getBtnVerInfoOrdenes() {
+		return this.btnVerInfoOrdenes;
+	}
+
+	private static final long serialVersionUID = 1L;
 	private JTextField textFieldNickname;
 	private JTextField textFieldEmail;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldFechaNac;
-	private String imagen;
-	private JButton btnVerFoto;
-	private JInternalFrame vistaFoto;
-	
-	public JButton getBtnVerInfoOrdenes() {
-		return this.btnVerInfoOrdenes;
-	}
-	
-	public void limpiarCampos() {
-		this.seleccionCliente.setSelectedIndex(-1);
-		this.textFieldNickname.setText("");
-		this.textFieldEmail.setText("");
-		this.textFieldNombre.setText("");
-		this.textFieldApellido.setText("");
-		this.textFieldFechaNac.setText("");
-		this.imagen = "";
-	}
 
 	/**
 	 * Launch the application.
@@ -91,7 +73,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
 		setClosable(true);
 		setTitle("Flamin-Go");
-		setBounds(100, 100, 526, 366);
+		setBounds(100, 100, 526, 619);
 		getContentPane().setLayout(null);
 		
 		JLabel labelClientesSistema = new JLabel("Selecciona uno de los clientes del sistema especificados debajo *");
@@ -107,16 +89,8 @@ public class VerInformacionCliente extends JInternalFrame {
                     String nickname = seleccionado.getNickname();
                     try {
                         sistema.elegirCliente(nickname);
-                        DTClienteDetallado informacionDetalladaCliente = sistema.verInformacionCliente();
-                        textFieldNickname.setText(nickname);
-                        textFieldEmail.setText(informacionDetalladaCliente.getEmail());
-                        textFieldNombre.setText(informacionDetalladaCliente.getNombre());
-                        textFieldApellido.setText(informacionDetalladaCliente.getApellido());
-                        textFieldFechaNac.setText(informacionDetalladaCliente.getFechaNac().toString());
-                        imagen = informacionDetalladaCliente.getFoto();
-                        if (menu.getInfoOrdenInternalFrame() != null && menu.getInfoOrdenInternalFrame().isVisible()) {
-                        	menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
-                        }
+                        String informacionDetalladaCliente = sistema.verInformacionCliente().toString();
+                        txtMostrarInfoCliente.setText(informacionDetalladaCliente);
                     } catch (UsuarioNoExisteException e1) {
                         // CREAR UNA VENTANA DE ERROR
                     }
@@ -130,22 +104,26 @@ public class VerInformacionCliente extends JInternalFrame {
 		
 		this.seleccionCliente = seleccionCliente;
 		
+		JTextArea txtMostrarInfoCliente = new JTextArea();
+		txtMostrarInfoCliente.setText("Aquí se mostrará la información del\r\ncliente elegido.");
+		txtMostrarInfoCliente.setBounds(43, 120, 435, 152);
+		getContentPane().add(txtMostrarInfoCliente);
+		
+		this.txtMostrarInfoCliente = txtMostrarInfoCliente;
+		
 		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sistema.listarOrdenesDeCompra() != null) {
-					// infoClienteInternalFrame.toBack();
-					menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
-					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
-					// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
-					menu.getInfoOrdenInternalFrame().setVisible(true);
-					menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
-					menu.getMenuPrincipal().revalidate();
-					menu.getMenuPrincipal().repaint();
-				}
+				// infoClienteInternalFrame.toBack();
+				menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
+				menu.getInfoOrdenInternalFrame().setVisible(true);
+				menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
+				menu.getMenuPrincipal().revalidate();
+				menu.getMenuPrincipal().repaint();
 			}
 		});
-		btnVerInfoOrdenes.setBounds(166, 283, 177, 23);
+		btnVerInfoOrdenes.setBounds(167, 529, 177, 23);
 		getContentPane().add(btnVerInfoOrdenes);
 		
 		this.btnVerInfoOrdenes = btnVerInfoOrdenes;
@@ -157,103 +135,53 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblVerInfoCliente);
 		
 		JLabel lblNickname = new JLabel("Nickname");
-		lblNickname.setBounds(20, 138, 81, 21);
+		lblNickname.setBounds(10, 295, 81, 21);
 		getContentPane().add(lblNickname);
 		
-		JTextField textFieldNickname = new JTextField();
-		textFieldNickname.setBounds(106, 139, 129, 20);
+		textFieldNickname = new JTextField();
+		textFieldNickname.setBounds(96, 296, 129, 20);
 		getContentPane().add(textFieldNickname);
 		textFieldNickname.setColumns(10);
 		
-		this.textFieldNickname = textFieldNickname;
-		
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(20, 179, 81, 21);
+		lblEmail.setBounds(10, 336, 81, 21);
 		getContentPane().add(lblEmail);
 		
-		JTextField textFieldEmail = new JTextField();
+		textFieldEmail = new JTextField();
 		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(106, 180, 129, 20);
+		textFieldEmail.setBounds(96, 337, 129, 20);
 		getContentPane().add(textFieldEmail);
 		
-		this.textFieldEmail = textFieldEmail;
-		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(273, 138, 81, 21);
+		lblNombre.setBounds(263, 295, 81, 21);
 		getContentPane().add(lblNombre);
 		
-		JTextField textFieldNombre = new JTextField();
+		textFieldNombre = new JTextField();
 		textFieldNombre.setColumns(10);
-		textFieldNombre.setBounds(359, 139, 129, 20);
+		textFieldNombre.setBounds(349, 296, 129, 20);
 		getContentPane().add(textFieldNombre);
 		
-		this.textFieldNombre = textFieldNombre;
-		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(273, 179, 81, 21);
+		lblApellido.setBounds(263, 336, 81, 21);
 		getContentPane().add(lblApellido);
 		
-		JTextField textFieldApellido = new JTextField();
+		textFieldApellido = new JTextField();
 		textFieldApellido.setColumns(10);
-		textFieldApellido.setBounds(359, 180, 129, 20);
+		textFieldApellido.setBounds(349, 337, 129, 20);
 		getContentPane().add(textFieldApellido);
 		
-		this.textFieldApellido = textFieldApellido;
-		
 		JLabel lblFechaNac = new JLabel("Fecha nac.");
-		lblFechaNac.setBounds(20, 221, 81, 21);
+		lblFechaNac.setBounds(10, 378, 81, 21);
 		getContentPane().add(lblFechaNac);
 		
-		JTextField textFieldFechaNac = new JTextField();
+		textFieldFechaNac = new JTextField();
 		textFieldFechaNac.setColumns(10);
-		textFieldFechaNac.setBounds(106, 222, 129, 20);
+		textFieldFechaNac.setBounds(96, 379, 129, 20);
 		getContentPane().add(textFieldFechaNac);
 		
-		this.textFieldFechaNac = textFieldFechaNac;
-		
 		JButton btnVerFoto = new JButton("Ver foto");
-		btnVerFoto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if ( imagen != null && (! imagen.isBlank()) && ! (imagen.isEmpty())) {
-
-			        // Cargar y agregar la imagen al panel
-		            File archivoImagen = new File(imagen);
-		            if (archivoImagen.exists()) {
-		            	
-		            	// Crear el JInternalFrame
-						vistaFoto = new JInternalFrame("Flamin-Go", true, true, true, true);
-						vistaFoto.setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
-						vistaFoto.setSize(600, 400);
-						vistaFoto.getContentPane().setLayout(new BorderLayout());
-						
-				        // Crear un JPanel para contener las imágenes
-				        JPanel panelImagenes = new JPanel();
-				        panelImagenes.setLayout(new FlowLayout());
-		            	
-		                ImageIcon icono = new ImageIcon(imagen);
-		                JLabel etiquetaImagen = new JLabel(icono);
-		                panelImagenes.add(etiquetaImagen);
-		                
-		                // Añadir el panel al JInternalFrame
-				        JScrollPane scrollPane = new JScrollPane(panelImagenes);
-				        vistaFoto.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-				        // Añadir el JInternalFrame al JDesktopPane
-				        menu.getMenuPrincipal().getContentPane().add(vistaFoto);
-				        vistaFoto.setVisible(true);
-		            } else {
-    		            JOptionPane.showMessageDialog(null, "Archivo no encontrado: " + imagen, "Error", JOptionPane.ERROR_MESSAGE);
-		            }
-				} else {
-	            	JOptionPane.showMessageDialog(null, "El cliente actual no tiene foto de perfil", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnVerFoto.setBounds(329, 218, 103, 28);
+		btnVerFoto.setBounds(319, 375, 103, 28);
 		getContentPane().add(btnVerFoto);
-		
-		this.btnVerFoto = btnVerFoto;
 
 	}
 	

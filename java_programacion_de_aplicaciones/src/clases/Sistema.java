@@ -223,9 +223,9 @@ public class Sistema extends ISistema {
 		return true;
 	}
 	
-	// ESTA FUNCION HAY QUE RE CHEQUEARLA
+	/*
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
@@ -244,10 +244,11 @@ public class Sistema extends ISistema {
 		this.productoActual = prod;
 		return true;
 	}
+	*/
 	
-	/* OTRA FORMA
+	
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
@@ -261,12 +262,12 @@ public class Sistema extends ISistema {
 			}
 		}
 		Proveedor proveedor = (Proveedor) this.usuarioActual;
-		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, null, null, proveedor); // Esto esta re mal
+		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, imagenes, categorias, proveedor); // Esto esta re mal
 		proveedor.agregarProducto(prod);
 		this.productoActual = prod;
 		return true;
 	}
-	*/
+	
 	
 	@Override // Lo podría leer directamente
 	public DTProductoDetallado verInformacionProducto() {
