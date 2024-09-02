@@ -1,279 +1,292 @@
 package interfaces;
+
 import java.awt.EventQueue;
-import java.util.ArrayList;
+
+
+import javax.swing.JInternalFrame;
+import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Choice;
+import javax.swing.JButton;
+import java.awt.TextArea;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import clases.DTCantidadProducto;
+import clases.DTFecha;
 import clases.DTOrdenDeCompra;
 import clases.DTOrdenDeCompraDetallada;
-import clases.Cantidad;
-import clases.DTCliente;
-
-import java.util.List;
-import javax.swing.JInternalFrame;
-import javax.swing.SwingUtilities;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-import clases.Producto;
+import clases.ISistema;
 import excepciones.OrdenDeCompraNoExisteException;
 
-import javax.swing.JInternalFrame;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import clases.ISistema;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import java.awt.Font;
-
 public class VerInfoOrdenDeCompra extends JInternalFrame {
 
-	private static final long serialVersionUID = 1L;
-	private ISistema sistema;
-	private JComboBox<DTOrdenDeCompra> ordenes;
-	private JTextField id;
-	private JTextField fecha;
-	private JTextField cliente;
+    private static final long serialVersionUID = 1L;
+    private JComboBox<String> selectOrdenOrdenDeCompra;
+    private ISistema sistema;
+    private JTextField numOrdenTextField;
+    private JTextField fechaTextField;
+    private JTextField totalTextField;
+    private JTextField nicknameTextField;
+    private JTextField nombreProductoTextField;
+    private JTextField precioUnitarioTextField;
+    private JTextField cantidadDelProductoTextField;
+    private JTextField subtotalDeLaLineaTextField;
+    private JList<String> lineasList;
+    
+    public VerInfoOrdenDeCompra(ISistema sistema) {
+        this.sistema = sistema; // Guardar la referencia al sistema
+        inicializarComponentes();
+        cargarOrdenesDeCompra(); // Cargar las órdenes de compra al inicializar la ventana
+    }
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VerInfoOrdenDeCompra frame = new VerInfoOrdenDeCompra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-
-	/**
-	 * Create the frame.
-	 * @param sistema 
-	 */
-	public VerInfoOrdenDeCompra(ISistema sistema) {
-		
-		setClosable(true);
-		setFrameIcon(new ImageIcon(VerInfoOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
-		setTitle("Flamin-Go");
-		setBounds(100, 100, 516, 466);
-		getContentPane().setLayout(null);
-		
-		this.sistema = sistema;
-		
-		JComboBox<DTOrdenDeCompra> comboBox = new JComboBox<DTOrdenDeCompra>();
-		comboBox.setEditable(true);
-		comboBox.setBounds(24, 70, 149, 22);
-		getContentPane().add(comboBox);
-		
-		ordenes = comboBox;
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(24, 272, 234, 129);
-		getContentPane().add(scrollPane);
-		
-		JTextArea ordenDetalles = new JTextArea();
-		ordenDetalles.setEditable(false);
-		scrollPane.setViewportView(ordenDetalles);
-		
-		
-		
-		///////////// CASO DE PRUEBA -> COMENTARLO Y DES-COMENTAR LO DE ABAJO PARA QUE FUNCIONE NORMAL//////////
-       /* Producto producto1 = new Producto("Producto A", "q", "w", 1, 3, null, null, null);
-        Producto producto2 = new Producto("Producto B", "q", "w", 1, 3, null, null, null);
-        Producto producto3 = new Producto("Producto C", "q", "w", 1, 3, null, null, null);
-        Producto producto4 = new Producto("Producto D", "q", "w", 1, 3, null, null, null);
-        Producto producto5 = new Producto("Producto E", "q", "w", 1, 3, null, null, null);
-        Producto producto6 = new Producto("Producto F", "q", "w", 1, 3, null, null, null);
-
-        // Crear cantidades para la primera orden
-        Cantidad cantidad1_1 = new Cantidad(producto1, 10);
-        Cantidad cantidad1_2 = new Cantidad(producto2, 5);
-        Cantidad cantidad1_3 = new Cantidad(producto3, 2);
-
-        // Crear cantidades para la segunda orden
-        Cantidad cantidad2_1 = new Cantidad(producto4, 7);
-        Cantidad cantidad2_2 = new Cantidad(producto5, 3);
-        Cantidad cantidad2_3 = new Cantidad(producto6, 1);
-
-        // Crear cantidades para la tercera orden
-        Cantidad cantidad3_1 = new Cantidad(producto1, 8);
-        Cantidad cantidad3_2 = new Cantidad(producto4, 6);
-        Cantidad cantidad3_3 = new Cantidad(producto6, 4);
-
-        // Crear listas de cantidades para cada orden
-        List<Cantidad> cantidadesOrden1 = new ArrayList<>();
-        cantidadesOrden1.add(cantidad1_1);
-        cantidadesOrden1.add(cantidad1_2);
-        cantidadesOrden1.add(cantidad1_3);
-
-        List<Cantidad> cantidadesOrden2 = new ArrayList<>();
-        cantidadesOrden2.add(cantidad2_1);
-        cantidadesOrden2.add(cantidad2_2);
-        cantidadesOrden2.add(cantidad2_3);
-
-        List<Cantidad> cantidadesOrden3 = new ArrayList<>();
-        cantidadesOrden3.add(cantidad3_1);
-        cantidadesOrden3.add(cantidad3_2);
-        cantidadesOrden3.add(cantidad3_3);
-
-        // Crear instancias de DTOrdenDeCompra
-        DTOrdenDeCompra orden1 = new DTOrdenDeCompra(1, null, cantidadesOrden1);
-        DTOrdenDeCompra orden2 = new DTOrdenDeCompra(2, null, cantidadesOrden2);
-        DTOrdenDeCompra orden3 = new DTOrdenDeCompra(3, null, cantidadesOrden3);
-
-        // Crear una lista de órdenes de compra
-        List<DTOrdenDeCompra> listaOrdenes = new ArrayList<>();
-        listaOrdenes.add(orden1);
-        listaOrdenes.add(orden2);
-        listaOrdenes.add(orden3);
+    private void inicializarComponentes() {
+        setClosable(true);
+        setTitle("Flamin-Go");
+        setFrameIcon(new ImageIcon(CancelarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
+        setBounds(100, 100, 590, 628);
+        getContentPane().setLayout(null);
         
-        //Iterar sobre la lista y agregar cada DTOrdenDeCompra al JComboBox
- 		for (DTOrdenDeCompra ordenDetalles1 : listaOrdenes) {
- 		    comboBox.addItem(ordenDetalles1); 
- 		} */
- 
+        JLabel labelSelectOrdenCancelarOrdenDeCompra = new JLabel("Seleccione la orden de compra *");
+        labelSelectOrdenCancelarOrdenDeCompra.setBounds(27, 125, 224, 14);
+        getContentPane().add(labelSelectOrdenCancelarOrdenDeCompra);
         
-		comboBox.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Obtenego la orden seleccionada
-		        DTOrdenDeCompra ordenSeleccionada = (DTOrdenDeCompra) comboBox.getSelectedItem();
-		        
-		        if (ordenSeleccionada != null) {
-		            try {
-		            	sistema.elegirOrdenDeCompra(ordenSeleccionada.getNumero());
-		            	DTOrdenDeCompraDetallada detalles = sistema.verInformacionOrdenDeCompra();
-		            	cliente.setText(detalles.toStringCliente());
-		            	fecha.setText(detalles.getFecha().toString());
-		            	id.setText(detalles.toStringNumero());
-		            	ordenDetalles.setText(detalles.toString());
-		            } catch (OrdenDeCompraNoExisteException exc) {
-		            	// FALTA POPUP
-		            }
-		        }
-		    }
-		});
+        selectOrdenOrdenDeCompra = new JComboBox<>();
+        selectOrdenOrdenDeCompra.setBounds(27, 161, 423, 22);
+        getContentPane().add(selectOrdenOrdenDeCompra);
+        
+        JLabel verinfotitulo = new JLabel("Ver información de orden de compra");
+        verinfotitulo.setVerticalAlignment(SwingConstants.TOP);
+        verinfotitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        verinfotitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        verinfotitulo.setBounds(99, 58, 334, 20);
+        getContentPane().add(verinfotitulo);
+        
+        numOrdenTextField = new JTextField();
+        numOrdenTextField.setEditable(false);
+        numOrdenTextField.setBounds(27, 228, 112, 20);
+        getContentPane().add(numOrdenTextField);
+        numOrdenTextField.setColumns(10);
+        
+        fechaTextField = new JTextField();
+        fechaTextField.setEditable(false);
+        fechaTextField.setBounds(270, 228, 111, 20);
+        getContentPane().add(fechaTextField);
+        fechaTextField.setColumns(10);
+        
+        totalTextField = new JTextField();
+        totalTextField.setEditable(false);
+        totalTextField.setBounds(27, 292, 112, 20);
+        getContentPane().add(totalTextField);
+        totalTextField.setColumns(10);
+        
+        nicknameTextField = new JTextField();
+        nicknameTextField.setEditable(false);
+        nicknameTextField.setColumns(10);
+        nicknameTextField.setBounds(270, 292, 112, 20);
+        getContentPane().add(nicknameTextField);
+        
+        JLabel numOrdenLabel = new JLabel("Número de orden");
+        numOrdenLabel.setBounds(149, 231, 224, 14);
+        getContentPane().add(numOrdenLabel);
+        
+        JLabel fechaLabel = new JLabel("Fecha");
+        fechaLabel.setBounds(391, 231, 224, 14);
+        getContentPane().add(fechaLabel);
+        
+        JLabel totalLabel = new JLabel("Total");
+        totalLabel.setBounds(149, 295, 224, 14);
+        getContentPane().add(totalLabel);
+        
+        JLabel nicknameLabel = new JLabel("Nickname Cliente");
+        nicknameLabel.setBounds(391, 295, 224, 14);
+        getContentPane().add(nicknameLabel);
+        
+        JLabel productosLabel = new JLabel("Lineas de la orden de compra");
+        productosLabel.setBounds(191, 347, 224, 14);
+        getContentPane().add(productosLabel);
+        
+        JScrollPane scrollLineasList = new JScrollPane();
+        scrollLineasList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollLineasList.setBounds(27, 383, 224, 188);
+        getContentPane().add(scrollLineasList);
+        
+        lineasList = new JList<>(new DefaultListModel<>());
+        scrollLineasList.setViewportView(lineasList);
+        
+        nombreProductoTextField = new JTextField();
+        nombreProductoTextField.setEditable(false);
+        nombreProductoTextField.setColumns(10);
+        nombreProductoTextField.setBounds(270, 385, 112, 20);
+        getContentPane().add(nombreProductoTextField);
+        
+        precioUnitarioTextField = new JTextField();
+        precioUnitarioTextField.setEditable(false);
+        precioUnitarioTextField.setColumns(10);
+        precioUnitarioTextField.setBounds(269, 429, 112, 20);
+        getContentPane().add(precioUnitarioTextField);
+        
+        cantidadDelProductoTextField = new JTextField();
+        cantidadDelProductoTextField.setEditable(false);
+        cantidadDelProductoTextField.setColumns(10);
+        cantidadDelProductoTextField.setBounds(269, 477, 112, 20);
+        getContentPane().add(cantidadDelProductoTextField);
+        
+        subtotalDeLaLineaTextField = new JTextField();
+        subtotalDeLaLineaTextField.setEditable(false);
+        subtotalDeLaLineaTextField.setColumns(10);
+        subtotalDeLaLineaTextField.setBounds(270, 528, 112, 20);
+        getContentPane().add(subtotalDeLaLineaTextField);
+        
+        JLabel nombreDelProductoLabel = new JLabel("Nombre del producto");
+        nombreDelProductoLabel.setBounds(391, 385, 224, 14);
+        getContentPane().add(nombreDelProductoLabel);
+        
+        JLabel precioUnitarioDelProductoLabel = new JLabel("Precio unitario del producto");
+        precioUnitarioDelProductoLabel.setBounds(391, 432, 224, 14);
+        getContentPane().add(precioUnitarioDelProductoLabel);
+        
+        JLabel cantidadDelProductoLabel = new JLabel("Cantidad del producto");
+        cantidadDelProductoLabel.setBounds(391, 480, 224, 14);
+        getContentPane().add(cantidadDelProductoLabel);
+        
+        JLabel subtotalDeLaLineaLabel = new JLabel("Subtotal de la línea");
+        subtotalDeLaLineaLabel.setBounds(391, 531, 224, 14);
+        getContentPane().add(subtotalDeLaLineaLabel);
+        
+        JButton otra = new JButton("Ver otra orden");
+        otra.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		limpiarCampos();
+        	}
+        });
+        otra.setBounds(391, 564, 140, 23);
+        getContentPane().add(otra);
 
-		
-		JLabel lblNewLabel = new JLabel("Seleccionar orden de compra:");
-		lblNewLabel.setBounds(24, 45, 149, 14);
-		getContentPane().add(lblNewLabel);
-		
-		
-		
-		JLabel a = new JLabel("Cliente:");
-		a.setBounds(24, 159, 46, 14);
-		getContentPane().add(a);
-		
-		JButton borrar = new JButton("Consultar otra orden");
-		borrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 ordenDetalles.setText("");
-				 comboBox.setSelectedIndex(-1); 
-				 cliente.setText("");
-				 id.setText("");
-				 fecha.setText("");
-				
-				 
-			}
-		});
-		borrar.setBounds(305, 378, 173, 23);
-		getContentPane().add(borrar);
-		
-		JLabel lblNewLabel_2 = new JLabel("Ver informacion de orden de compra");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(50, 11, 308, 23);
-		getContentPane().add(lblNewLabel_2);
-		
-		JLabel b = new JLabel("Fecha:");
-		b.setBounds(24, 202, 46, 14);
-		getContentPane().add(b);
-		
-		JLabel lblNewLabel_4 = new JLabel("ID:");
-		lblNewLabel_4.setBounds(24, 114, 46, 14);
-		getContentPane().add(lblNewLabel_4);
-		
-		id = new JTextField();
-		id.setEditable(false);
-		id.setBounds(50, 111, 86, 20);
-		getContentPane().add(id);
-		id.setColumns(10);
-		
-		fecha = new JTextField();
-		fecha.setEditable(false);
-		fecha.setBounds(72, 199, 86, 20);
-		getContentPane().add(fecha);
-		fecha.setColumns(10);
-		
-		cliente = new JTextField();
-		cliente.setEditable(false);
-		cliente.setBounds(72, 156, 86, 20);
-		getContentPane().add(cliente);
-		cliente.setColumns(10);
-		
-		JLabel lblNewLabel_5 = new JLabel("Orden de compra:");
-		lblNewLabel_5.setBounds(24, 247, 134, 14);
-		getContentPane().add(lblNewLabel_5);
+        selectOrdenOrdenDeCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccionado = (String) selectOrdenOrdenDeCompra.getSelectedItem();
+                if (seleccionado != null && seleccionado.contains(" - ")) {
+                    String numeroOrdenStr = seleccionado.split(" - ")[0];
+                    int numeroOrden = Integer.parseInt(numeroOrdenStr);
+                    try {
+                    	limpiarCampos();
+                    	
+                        sistema.elegirOrdenDeCompra(numeroOrden);
+                        
+                        DTOrdenDeCompraDetallada orden = sistema.verInformacionOrdenDeCompra();
+                        
+                        
+                        for (DTCantidadProducto productoCantidad : orden.getProductosCantidad()) {
+                            String nombreProducto = productoCantidad.getProducto().getNombre(); // o el método correspondiente
+                            int cantidad = productoCantidad.getCantidad().getCantidad();
+                            System.out.println("Producto: " + nombreProducto + ", Cantidad: " + cantidad);
+                        }
+                        
+                        
+                        numOrdenTextField.setText(String.valueOf(orden.getNumero()));
+                        
+                        DTFecha fecha = orden.getFecha();
+                        String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
+                        fechaTextField.setText(fechaFormateada);
+                        
+                        totalTextField.setText(String.valueOf(orden.getPrecioTotal()));
+                        
+                        nicknameTextField.setText(orden.getCliente().getNickname());
+                        
+                        // Obtener el modelo de la lista
+                        DefaultListModel<String> listModel = (DefaultListModel<String>) lineasList.getModel();
+                        listModel.clear();
+                        
+                        for (DTCantidadProducto cantProd : orden.getProductosCantidad()) {
+                            // Agregar el nombre del producto al modelo de la lista
+                            listModel.addElement(cantProd.getProducto().getNombre());
+                        }
+                    } catch (OrdenDeCompraNoExisteException e1) {
+                    	JOptionPane.showMessageDialog(null, "La orden de compra seleccionada no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                	// Ignorar
+                }
+            }
+        });
+        
+        lineasList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) { // Esto previene que el evento se dispare dos veces
+                    String selectedProductName = lineasList.getSelectedValue();
+                    if (selectedProductName != null) {
+                        // Buscar el producto correspondiente y mostrar la información detallada en productosTextArea
+                        DTOrdenDeCompraDetallada orden = sistema.verInformacionOrdenDeCompra();
+                        
+                        for (DTCantidadProducto cantProd : orden.getProductosCantidad()) {
+                            if (cantProd.getProducto().getNombre().equals(selectedProductName)) {
+                                
+                                nombreProductoTextField.setText(cantProd.getProducto().getNombre());
+                                cantidadDelProductoTextField.setText(String.valueOf(cantProd.getCantidad().getCantidad()));
+                                precioUnitarioTextField.setText(String.valueOf(cantProd.getProducto().getPrecio()));
+                                subtotalDeLaLineaTextField.setText(String.valueOf(cantProd.getSubtotal()));
+                                
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
-	}
-	
-public List<DTOrdenDeCompra> getOrdenesDeCompra(){
-		
-		if (this.sistema == null) {
-			// tiro el error
-			throw new NullPointerException ("Error: El sistema no existe."); // FALTA POPUP
-		}
-		List<DTOrdenDeCompra> lista = null;
-		
-		try {
-			lista = this.sistema.listarOrdenesDeCompra();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		if (lista.isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene ordenes de compra."); // FALTA POPUP
-		}
-		
-		return lista;
-		
-	}
+       
+    }
+    
+    public void cargarOrdenesDeCompra() {
+        selectOrdenOrdenDeCompra.removeAllItems(); // Limpiar el JComboBox
+        List<DTOrdenDeCompra> lista = sistema.listarOrdenesDeCompra();
+        if(lista.isEmpty()) {
+        	
+        	
+        }
+        for (DTOrdenDeCompra orden : lista) {
+            DTFecha fecha = orden.getFecha();
+            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
+            String opcion = orden.getNumero() + " - " + fechaFormateada;
+            selectOrdenOrdenDeCompra.addItem(opcion);
+        }
+    }
 
-	public void cargarOrdenesDeCompra() {
-		List<DTOrdenDeCompra> lista = null;
-		
-		try {
-			lista = this.getOrdenesDeCompra();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
-		
-		this.ordenes.removeAllItems();
-		
-		for (DTOrdenDeCompra item : lista) {
-			this.ordenes.addItem(item);
-		}
-		
-	}
-	
-	
-	
-
-	
-}
+    @Override
+    public void setVisible(boolean aFlag) {
+        super.setVisible(aFlag);
+        if (aFlag) {
+        	limpiarCampos();
+            cargarOrdenesDeCompra(); // Recargar las órdenes de compra cada vez que se muestra la ventana
+        }
+    }
+    
+    private void limpiarCampos() {
+        numOrdenTextField.setText("");
+        fechaTextField.setText("");
+        totalTextField.setText("");
+        nicknameTextField.setText("");
+        nombreProductoTextField.setText("");
+        precioUnitarioTextField.setText("");
+        cantidadDelProductoTextField.setText("");
+        subtotalDeLaLineaTextField.setText("");
+        ((DefaultListModel<String>) lineasList.getModel()).clear();
+    }}
