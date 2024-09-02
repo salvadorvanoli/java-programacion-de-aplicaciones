@@ -76,6 +76,11 @@ public class RegistrarProducto extends JInternalFrame {
 	 * Create the frame.
 	 * @param sistema 
 	 */
+	
+	public void cargarImagen(String a){
+		this.Imagenes.add(a);
+	}
+	
 	public void cargarJTree() {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
 		
@@ -231,6 +236,7 @@ public class RegistrarProducto extends JInternalFrame {
                         String[] validExtensions = { "jpg", "jpeg", "png"};
                         for (String ext : validExtensions) {
                             if (file.isFile() && file.getName().toLowerCase().endsWith(ext)) {
+                            	cargarImagen(file.getPath());
                                 return true;
                             }
                         }
