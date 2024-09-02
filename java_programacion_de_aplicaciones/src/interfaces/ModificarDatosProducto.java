@@ -481,7 +481,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 
 				if (nuevasImagenes != null && ! (nuevasImagenes.isEmpty())) {
 					// Crear el JInternalFrame
-					vistaImagenes = new JInternalFrame("Galería de Imágenes", true, true, true, true);
+					vistaImagenes = new JInternalFrame("Flamin-Go", true, true, true, true);
+					vistaImagenes.setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
 					vistaImagenes.setSize(600, 400);
 					vistaImagenes.getContentPane().setLayout(new BorderLayout());
 
