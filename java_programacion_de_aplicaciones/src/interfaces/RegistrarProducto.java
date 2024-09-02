@@ -353,7 +353,9 @@ public class RegistrarProducto extends JInternalFrame {
 				String especificacion = null;
 				int numReferencia = -1;
 				float precio = -1;
-				Categoria = null;
+				List<Categoria> categoria = null;
+				List<String> imagenes = null;
+		
 				
 				try {
 					camposValidos();	
@@ -368,7 +370,7 @@ public class RegistrarProducto extends JInternalFrame {
 				}
 				try {
 					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, );
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, imagenes);
 					
 				} catch (ProductoRepetidoException e) {
 					e.printStackTrace();
