@@ -115,6 +115,23 @@ public class Main {
     public ModificarImagenesProducto getModificarImagenesProductoInternalFrame() {
     	return this.modificarImagenesProductoInternalFrame;
     }
+    
+    /*
+    public boolean checkVentanasAbiertas() {
+    	return (this.altaCategoriaInternalFrame.isVisible() ||
+    			this.cancelarOrdenInternalFrame.isVisible() ||
+    			this.generarOrdenInternalFrame.isVisible() ||
+    			this.infoProveedorInternalFrame.isVisible() ||
+    			this.listarProveedoresInternalFrame.isVisible() ||
+    			this.modificarProductoInternalFrame.isVisible() ||
+    			this.registrarClienteInternalFrame.isVisible() ||
+    			this.registrarProductoInternalFrame.isVisible() ||
+    			this.registrarProveedorInternalFrame.isVisible() ||
+    			this.infoOrdenInternalFrame.isVisible() ||
+    			this.infoProductoInternalFrame.isVisible() ||
+    			this.infoClienteInternalFrame.isVisible());
+    }
+    */
 
 	/**
 	 * Launch the application.
