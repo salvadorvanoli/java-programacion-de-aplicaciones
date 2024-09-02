@@ -221,9 +221,9 @@ public class Sistema extends ISistema {
 		return true;
 	}
 	
-	// ESTA FUNCION HAY QUE RE CHEQUEARLA
+	/*
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
@@ -242,10 +242,11 @@ public class Sistema extends ISistema {
 		this.productoActual = prod;
 		return true;
 	}
+	*/
 	
-	/* OTRA FORMA
+	
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
@@ -259,12 +260,12 @@ public class Sistema extends ISistema {
 			}
 		}
 		Proveedor proveedor = (Proveedor) this.usuarioActual;
-		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, null, null, proveedor); // Esto esta re mal
+		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, imagenes, categorias, proveedor); // Esto esta re mal
 		proveedor.agregarProducto(prod);
 		this.productoActual = prod;
 		return true;
 	}
-	*/
+	
 	
 	@Override // Lo podría leer directamente
 	public DTProductoDetallado verInformacionProducto() {
@@ -408,18 +409,18 @@ public class Sistema extends ISistema {
 	@Override
 	public List<DTOrdenDeCompra> listarOrdenesDeCompra(){
 		List<DTOrdenDeCompra> lista = new ArrayList<>();
-		/*if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
+		if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
 			Cliente cli = (Cliente) this.usuarioActual;
 			for (OrdenDeCompra ord : cli.getOrdenesDeCompras()) {
 				DTOrdenDeCompra dt = ord.getDTOrden();
 				lista.add(dt);
 			}
-		} else {*/
+		} else {
 			for (OrdenDeCompra ord : this.ordenes.values()) {
 				DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
 				lista.add(dt);
 			}
-		//}
+		}
 		return lista;
 	}
 	
@@ -467,7 +468,11 @@ public class Sistema extends ISistema {
 	        Cliente clienteActual = (Cliente) this.usuarioActual;
 	        
 	        int codigoOrden = this.generarCodigoOrden();
-	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, cantidad);
+	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, null);
+	        
+	        for (Cantidad cant : cantidad) {
+	        	nueva.agregarProducto(cant.getProducto(), cant.getCantidad());
+	        }
 	        
 	        this.ordenes.put(codigoOrden, nueva);
 	        
