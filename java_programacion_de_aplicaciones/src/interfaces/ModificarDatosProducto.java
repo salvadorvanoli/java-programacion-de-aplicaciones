@@ -100,7 +100,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.btnVerImagenes.setEnabled(habilitar);
 	}
 	
-	private void limpiarCampos() {
+	public void limpiarCampos() {
 		this.JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
 		this.seleccionProducto.setSelectedIndex(-1);
 		this.textFieldNombre.setText("");
@@ -480,10 +480,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (nuevasImagenes != null && ! (nuevasImagenes.isEmpty())) {
-					// Crear el JInternalFrame
-					vistaImagenes = new JInternalFrame("Galería de Imágenes", true, true, true, true);
-					vistaImagenes.setSize(600, 400);
-					vistaImagenes.getContentPane().setLayout(new BorderLayout());
+					
+					boolean panelVacio = true;
 
 			        // Crear un JPanel para contener las imágenes
 			        JPanel panelImagenes = new JPanel();
@@ -496,18 +494,31 @@ public class ModificarDatosProducto extends JInternalFrame {
 			                ImageIcon icono = new ImageIcon(ruta);
 			                JLabel etiquetaImagen = new JLabel(icono);
 			                panelImagenes.add(etiquetaImagen);
+			                panelVacio = false;
 			            } else {
         		            JOptionPane.showMessageDialog(null, "Archivo no encontrado: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
 			            }
 			        }
 
-			        // Añadir el panel al JInternalFrame
-			        JScrollPane scrollPane = new JScrollPane(panelImagenes);
-			        vistaImagenes.getContentPane().add(scrollPane, BorderLayout.CENTER);
+			        if (!panelVacio) {
+			        	// Crear el JInternalFrame
+						vistaImagenes = new JInternalFrame("Flamin-Go", true, true, true, true);
+						vistaImagenes.setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
+						vistaImagenes.setSize(600, 400);
+						vistaImagenes.getContentPane().setLayout(new BorderLayout());
+			        	
+			        	// Añadir el panel al JInternalFrame
+				        JScrollPane scrollPane = new JScrollPane(panelImagenes);
+				        vistaImagenes.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-			        // Añadir el JInternalFrame al JDesktopPane
-			        menu.getMenuPrincipal().getContentPane().add(vistaImagenes);
-			        vistaImagenes.setVisible(true);
+				        // Añadir el JInternalFrame al JDesktopPane
+				        menu.getMenuPrincipal().getContentPane().add(vistaImagenes);
+				        vistaImagenes.setVisible(true);
+				        
+			        } else {
+		            	JOptionPane.showMessageDialog(null, "No fue posible cargar ninguna imagen", "Error", JOptionPane.ERROR_MESSAGE);
+			        }
+
 				} else {
 	            	JOptionPane.showMessageDialog(null, "El producto actual no posee imágenes y las mismas no han sido seleccionadas", "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -519,15 +530,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 		this.btnVerImagenes = btnVerImagenes;
 		
 		alternarCampos(false);
-
-		this.addInternalFrameListener(new InternalFrameAdapter() {
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e) {
-            	sistema.setTodoNull();
-            	limpiarCampos();
-            	dispose();
-            }
-        });
 
 
 	}
