@@ -239,7 +239,7 @@ public class RegistrarProducto extends JInternalFrame {
 
                     @Override
                     public String getDescription() {
-                        return "Archivos de imagen (*.jpg, *.jpeg, *.png, *.gif)";
+                        return "Archivos de imagen (*.jpg, *.jpeg, *.png)";
                     }
                 });
 
