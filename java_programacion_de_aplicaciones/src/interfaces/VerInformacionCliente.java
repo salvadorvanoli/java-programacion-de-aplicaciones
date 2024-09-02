@@ -114,6 +114,9 @@ public class VerInformacionCliente extends JInternalFrame {
                         textFieldApellido.setText(informacionDetalladaCliente.getApellido());
                         textFieldFechaNac.setText(informacionDetalladaCliente.getFechaNac().toString());
                         imagen = informacionDetalladaCliente.getFoto();
+                        if (menu.getInfoOrdenInternalFrame() != null && menu.getInfoOrdenInternalFrame().isVisible()) {
+                        	menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
+                        }
                     } catch (UsuarioNoExisteException e1) {
                         // CREAR UNA VENTANA DE ERROR
                     }
@@ -130,14 +133,16 @@ public class VerInformacionCliente extends JInternalFrame {
 		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// infoClienteInternalFrame.toBack();
-				menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
-				menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
-				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
-				menu.getInfoOrdenInternalFrame().setVisible(true);
-				menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
-				menu.getMenuPrincipal().revalidate();
-				menu.getMenuPrincipal().repaint();
+				if (sistema.listarOrdenesDeCompra() != null) {
+					// infoClienteInternalFrame.toBack();
+					menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
+					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+					// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
+					menu.getInfoOrdenInternalFrame().setVisible(true);
+					menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
+					menu.getMenuPrincipal().revalidate();
+					menu.getMenuPrincipal().repaint();
+				}
 			}
 		});
 		btnVerInfoOrdenes.setBounds(166, 283, 177, 23);

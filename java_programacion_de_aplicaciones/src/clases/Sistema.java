@@ -408,18 +408,18 @@ public class Sistema extends ISistema {
 	@Override
 	public List<DTOrdenDeCompra> listarOrdenesDeCompra(){
 		List<DTOrdenDeCompra> lista = new ArrayList<>();
-		/*if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
+		if (this.usuarioActual != null && (this.usuarioActual instanceof Cliente)) {
 			Cliente cli = (Cliente) this.usuarioActual;
 			for (OrdenDeCompra ord : cli.getOrdenesDeCompras()) {
 				DTOrdenDeCompra dt = ord.getDTOrden();
 				lista.add(dt);
 			}
-		} else {*/
+		} else {
 			for (OrdenDeCompra ord : this.ordenes.values()) {
 				DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
 				lista.add(dt);
 			}
-		//}
+		}
 		return lista;
 	}
 	
@@ -467,7 +467,11 @@ public class Sistema extends ISistema {
 	        Cliente clienteActual = (Cliente) this.usuarioActual;
 	        
 	        int codigoOrden = this.generarCodigoOrden();
-	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, cantidad);
+	        OrdenDeCompra nueva = new OrdenDeCompra(codigoOrden, this.getFechaActual(), clienteActual, null);
+	        
+	        for (Cantidad cant : cantidad) {
+	        	nueva.agregarProducto(cant.getProducto(), cant.getCantidad());
+	        }
 	        
 	        this.ordenes.put(codigoOrden, nueva);
 	        
