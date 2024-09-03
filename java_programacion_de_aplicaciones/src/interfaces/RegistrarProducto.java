@@ -11,28 +11,52 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import clases.Categoria;
+import clases.DTProducto;
 import clases.DTProveedor;
 import clases.ISistema;
-import clases.Proveedor;
+import excepciones.CategoriaNoExisteException;
 import excepciones.ProductoRepetidoException;
 import excepciones.UsuarioNoExisteException;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTree;
+
+
+@SuppressWarnings("unused")
 public class RegistrarProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	 
-
+	private ISistema sistema;
+	private Main menu;
+	private JTextField campoNumRef;
+	private JComboBox <DTProveedor> boxProveedor;
+	private JTextField campoNombre;
+	private JTextField campoEspecificacion;
+	private JTextArea campoDescripcion;
+	private JTextField campoPrecio;
+	private JTree treeCategorias;
+	private List<Categoria> Categorias;
+	private List<String> Imagenes;
 	/**
 	 * Launch the application.
 	 */
@@ -56,129 +80,413 @@ public class RegistrarProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	
-	private void limpiarFormulario(JTextField campoNombre, JTextField campoEspecificacion, JTextField campoPrecio) {
-		campoNombre.setText("");
-		campoEspecificacion.setText("");
-		campoPrecio.setText("");
-		//FALTA CONTEMPLAR IMAGEN
+	
+	public List<Categoria> listaCategorias() {
+		return this.Categorias;
 	}
 	
-	private boolean checkFormulario(JTextField campoNombre, JTextField campoEspecificacion, JTextField campoPrecio, JTextArea campoDescripcion, JComboBox boxProveedor){
-		String nombre = campoNombre.getText();
-		String descrip = campoDescripcion.getText();
-		String especificacion = campoEspecificacion.getText();
-		String precioString = campoPrecio.getText();
-		DTProveedor eleccionProv = null;
-		eleccionProv = boxProveedor; //inchequeable
+	public List<String> listaImagenes() {
+		return this.Imagenes;
+	}
+	
+	public void cargarImagen(String a){
+		this.Imagenes.add(a);
+	}
+	
+	public void cargarJTree() {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
 		
-		if(nombre.isEmpty() || descrip.isEmpty() || especificacion.isEmpty() || precioString.isEmpty() || eleccionProv == null){
-			JOptionPane.showInputDialog(this, "No puede haber campos vacios", "Registrar Producto", JOptionPane.ERROR_MESSAGE);
-			return false;
+		for (Categoria cat : sistema.getCategorias().values()) {
+			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
 		}
 		
-		return true;
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        this.treeCategorias.setModel(treeModel);
 	}
 	
-	public RegistrarProducto(ISistema sistema) {
+	public void cargarCategoriaJTree(Categoria cat, DefaultMutableTreeNode nodo) {
+		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
+		if (!(cat.getHijos().values().isEmpty())) {
+			for (Categoria hijo : cat.getHijos().values()) {
+				cargarCategoriaJTree(hijo, newNodo);
+			}
+		}
+		nodo.add(newNodo);
+	}
+	
+	public void cargarProveedores() {
+		List<DTProveedor> lista = null;
+		
+		try {
+			lista = this.sistema.listarProveedores();
+		} catch (NullPointerException e) {
+			throw new NullPointerException (e.getMessage()); // FALTA POPUP DE ERROR
+		}
+		
+		this.boxProveedor.removeAllItems();
+		
+		for (DTProveedor prod : lista) {
+			this.boxProveedor.addItem(prod);
+		}
+		
+	}
+	
+	public void limpiarCampos() {
+		this.boxProveedor.setSelectedIndex(-1);
+		this.treeCategorias.setSelectionRow(-1);
+		this.campoNombre.setText("");
+		this.campoNumRef.setText("");
+		this.campoPrecio.setText("");
+		this.campoDescripcion.setText("");
+		this.campoEspecificacion.setText("");
+		this.Categorias = new ArrayList<>();
+		this.Imagenes = new ArrayList<>();
+	}
+	
+	private boolean camposCompletos() {
+		return ! (this.campoNombre.getText().isBlank() || this.campoNombre.getText().isEmpty()) &&
+				! (this.campoEspecificacion.getText().isBlank() || this.campoEspecificacion.getText().isEmpty()) &&
+				! (this.campoPrecio.getText().isBlank() || this.campoPrecio.getText().isEmpty()) &&
+				! (this.campoDescripcion.getText().isBlank() || this.campoDescripcion.getText().isEmpty()) &&
+				! (this.campoNumRef.getText().isBlank() || this.campoNumRef.getText().isEmpty());
+	}
+	
+	private boolean checkNumReferencia() {
+		try {
+			int numReferencia = Integer.valueOf(this.campoNumRef.getText());
+			return numReferencia > 0;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	private boolean checkPrecio() {
+		try {
+			float precio = Float.valueOf(this.campoPrecio.getText());
+			return precio > 0;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	private boolean checkProveedor() {
+		return this.boxProveedor.getSelectedIndex() == -1 || this.boxProveedor.getSelectedItem() == null;
+	}
+	
+	private boolean checkCategorias() {
+		return this.Categorias == null || this.Categorias.isEmpty();
+	}
+	
+
+	private void camposValidos() {
+		if (!this.camposCompletos()) {
+			throw new IllegalStateException("Aún hay campos vacíos.");
+		}
+		if (!this.checkNumReferencia()) {
+			throw new NumberFormatException("El número de referencia debe ser un valor entero positivo.");
+		}
+		if (!this.checkPrecio()) {
+			throw new NumberFormatException("El precio debe ser un valor entero (o decimal) mayor que 0.");
+		}
+		if (checkProveedor()) {
+			throw new IllegalStateException("No se eligió a ningún proveedor.");
+		}
+		if(checkCategorias()) {
+			throw new IllegalStateException("No se eligió a ninguna categoría.");
+		}
+	}
+	
+	
+	public void mostrarInformacion() {
+	    JOptionPane.showMessageDialog(
+	        this,                          // 'this' se refiere al componente actual, usa null si no tienes un componente padre específico
+	        "Todo ha salido bien.",        // El mensaje de información
+	        "Éxito",                       // El título de la ventana
+	        JOptionPane.INFORMATION_MESSAGE // El tipo de mensaje (en este caso, un mensaje de información)
+	    );
+	}
+		
+	public RegistrarProducto(ISistema sistema, Main menu) {
+		this.sistema = sistema;
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);
 		setBackground(new Color(255, 192, 203));
 		setFrameIcon(new ImageIcon(RegistrarProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go\r\n");
-		setBounds(100, 100, 294, 250);
+		setBounds(100, 100, 514, 328);
 		getContentPane().setLayout(null);
 		
 		JTextField campoNombre = new JTextField();
 		campoNombre.setColumns(10);
-		campoNombre.setBounds(42, 40, 86, 20);
+		campoNombre.setBounds(42, 50, 86, 20);
 		getContentPane().add(campoNombre);
 		
-		JLabel TextoNombre = new JLabel("Nombre");
-		TextoNombre.setBounds(49, 25, 46, 14);
-		getContentPane().add(TextoNombre);
+		this.campoNombre = campoNombre;
 		
-		JLabel TextoEspecificacion = new JLabel("Especificación");
-		TextoEspecificacion.setBounds(157, 25, 71, 14);
+		JLabel TextoNombre = new JLabel("* Nombre ");
+		TextoNombre.setBounds(42, 36, 86, 14);
+		getContentPane().add(TextoNombre);
+	
+		JLabel TextoEspecificacion = new JLabel("* Especificación");
+		TextoEspecificacion.setBounds(149, 36, 109, 14);
 		getContentPane().add(TextoEspecificacion);
 		
 		JTextField campoEspecificacion = new JTextField();
 		campoEspecificacion.setColumns(10);
-		campoEspecificacion.setBounds(150, 40, 86, 20);
+		campoEspecificacion.setBounds(150, 50, 86, 20);
 		getContentPane().add(campoEspecificacion);
 		
+		this.campoEspecificacion = campoEspecificacion;
+		
 		JTextArea campoDescripcion = new JTextArea();
-		campoDescripcion.setBounds(42, 85, 194, 43);
+		campoDescripcion.setBounds(42, 100, 194, 77);
 		getContentPane().add(campoDescripcion);
 		
-		JLabel TextoDescripcion = new JLabel("Descripción");
-		TextoDescripcion.setBounds(42, 71, 54, 14);
+		this.campoDescripcion = campoDescripcion;
+		
+		JLabel TextoDescripcion = new JLabel("* Descripción");
+		TextoDescripcion.setBounds(42, 86, 148, 14);
 		getContentPane().add(TextoDescripcion);
 		
-		JLabel TextoPrecio = new JLabel("Precio");
-		TextoPrecio.setBounds(42, 139, 29, 14);
+		JLabel TextoPrecio = new JLabel("* Precio ");
+		TextoPrecio.setBounds(42, 188, 60, 14);
 		getContentPane().add(TextoPrecio);
 		
 		JTextField campoPrecio = new JTextField();
 		campoPrecio.setColumns(10);
-		campoPrecio.setBounds(42, 153, 86, 20);
+		campoPrecio.setBounds(42, 202, 79, 20);
 		getContentPane().add(campoPrecio);
 		
+		this.campoPrecio = campoPrecio;
+		
 		JLabel TextoImagen = new JLabel("Imagen");
-		TextoImagen.setBounds(157, 139, 46, 14);
+		TextoImagen.setBounds(150, 188, 78, 14);
 		getContentPane().add(TextoImagen);
 		
-		JButton BotonSeleccionImagen = new JButton("Seleccionar...");
-		BotonSeleccionImagen.setBounds(152, 152, 84, 23);
+		JButton BotonSeleccionImagen = new JButton("Seleccion...");
+		BotonSeleccionImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				// Crear un JFileChooser
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setMultiSelectionEnabled(true); // Permitir seleccionar múltiples archivos
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY); // Solo archivos, no directorios
+
+                // Filtro para permitir solo imágenes
+                FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Archivos de Imagen (JPG, PNG)", "jpg", "jpeg", "png");
+                fileChooser.setFileFilter(imageFilter); // Establecer el filtro
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                // Mostrar el diálogo de selección de archivos
+                int result = fileChooser.showOpenDialog(menu.getMenuPrincipal());
+                
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    // Obtener los archivos seleccionados
+                    File[] selectedFiles = fileChooser.getSelectedFiles();
+                    
+                    // String textImagenesAnt = textAreaImagenes.getText();
+                    // textAreaImagenes.setText("");
+
+                    List<String> rutasImagenes = new ArrayList<>();
+                    // Mostrar los archivos seleccionados en la consola
+                    for (File file : selectedFiles) {
+                    	if (imageFilter.accept(file)) {
+                    		rutasImagenes.add(file.getAbsolutePath());
+                    		//textAreaImagenes.setText(textAreaImagenes.getText() + file.getAbsolutePath() + System.lineSeparator());
+                    	} else {
+                    		rutasImagenes.clear();
+                    		//textAreaImagenes.setText(textImagenesAnt);
+        		            JOptionPane.showMessageDialog(null, "Un archivo elegido no coincide con el tipo aceptado (jpg, jpeg o png).", "Error", JOptionPane.ERROR_MESSAGE);
+        		            break;
+                    	}
+                    }
+                    if (!(rutasImagenes.isEmpty())){
+                    	Imagenes = rutasImagenes;
+                    	// textoImagenesOriginal = textAreaImagenes.getText();
+                    } /*else {
+                    	textAreaImagenes.setText(textImagenesAnt);
+                    }*/
+                } /* else {
+                	
+                	JOptionPane.showMessageDialog(null, "Se eligieron archivos no válidos", "Error", JOptionPane.ERROR_MESSAGE);
+                }*/
+
+                
+				
+				/*
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Selecciona una imagen");
+                fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        String[] validExtensions = { "jpg", "jpeg", "png"};
+                        for (String ext : validExtensions) {
+                            if (file.isFile() && file.getName().toLowerCase().endsWith(ext)) {
+                            	cargarImagen(file.getPath());
+                                return true;
+                            }
+                        }
+                        return file.isDirectory();
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "Archivos de imagen (*.jpg, *.jpeg, *.png)";
+                    }
+                });
+
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    JOptionPane.showMessageDialog(null, "Seleccionaste: " + selectedFile.getAbsolutePath());
+                }
+                */
+            }
+        });
+		
+		BotonSeleccionImagen.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		BotonSeleccionImagen.setBounds(150, 201, 86, 23);
 		getContentPane().add(BotonSeleccionImagen);
 		
 		JLabel TextoTitulo = new JLabel("Registrar Producto");
 		TextoTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		TextoTitulo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		TextoTitulo.setBounds(0, 0, 278, 29);
+		TextoTitulo.setBounds(0, 0, 498, 29);
 		getContentPane().add(TextoTitulo);
+		
+		JLabel TextoProveedor = new JLabel("* Seleccione un proveedor:");
+		TextoProveedor.setBounds(268, 188, 183, 14);
+		getContentPane().add(TextoProveedor);
+		
+		JLabel TextoCategoria = new JLabel("*Selecciona una categoria");
+		TextoCategoria.setBounds(268, 36, 183, 14);
+		getContentPane().add(TextoCategoria);
+		
+		JTree treeCategorias = new JTree();
+		treeCategorias.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION); // Configurar el TreeSelectionModel para selección múltiple no contigua
+		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
+			@Override
+			public void valueChanged(TreeSelectionEvent e) {
+				
+				TreePath[] selectedPaths = treeCategorias.getSelectionPaths();
+				
+				if (selectedPaths != null) {
+					Categorias.clear();
+	                for (TreePath item : selectedPaths) {
+	                	DefaultMutableTreeNode node = (DefaultMutableTreeNode) item.getLastPathComponent();
+	                	Object userObject = node.getUserObject();
+	                	if (userObject instanceof Categoria) {
+	                		Categoria cat = (Categoria) userObject;
+	                		Categorias.add(cat);
+	                	}
+	                }
+            	}
+				
+				/*
+				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) {
+					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
+	                if (selectedNode == null) {
+	                	JOptionPane.showMessageDialog(null, "Ninguna categoría fue seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+	                } else {
+	                	Object node = selectedNode.getUserObject();
+	                	if (node instanceof Categoria) {
+			                try {
+			                	Categoria cat = (Categoria) node;
+			                	sistema.elegirCategoria(cat.getNombreCat());
+			                } catch (CategoriaNoExisteException exc) {
+			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			                }
+	                	} else {
+	                		//bt
+	                	}
+	                }
+				}
+				*/
+			}
+		});
+		treeCategorias.setBounds(268, 50, 194, 118);
+		getContentPane().add(treeCategorias);
+		
+		this.treeCategorias = treeCategorias;
+
+		cargarJTree();
+		
+		JLabel TextoNum = new JLabel("* Numero de Referencia");
+		TextoNum.setBounds(42, 230, 148, 14);
+		getContentPane().add(TextoNum);
+		
+		JTextField campoNumRef = new JTextField();
+		campoNumRef.setColumns(10);
+		campoNumRef.setBounds(42, 244, 116, 20);
+		getContentPane().add(campoNumRef);
+		
+		this.campoNumRef = campoNumRef;
+		
+		this.addInternalFrameListener(new InternalFrameAdapter() {
+	         @Override
+	         public void internalFrameClosing(InternalFrameEvent e) {
+	        	 limpiarCampos();
+	        	 dispose();
+	         }
+	    });
 	
-		JComboBox <DTProveedor> boxProveedor = new JComboBox<>(sistema.listarProveedores().toArray(new DTProveedor[0]));
+		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>(sistema.listarProveedores().toArray(new DTProveedor[0]));
 		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();
-				String nick = selectedItem.getNickname();
-				try {
-					sistema.elegirProveedor(nick);
-				} catch (UsuarioNoExisteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(selectedItem != null) {
+					String nick = selectedItem.getNickname();
+					try {
+						sistema.elegirProveedor(nick);
+					} catch (UsuarioNoExisteException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
-		
 		boxProveedor.setEditable(true);
-		boxProveedor.setBounds(41, 36, 166, 14);
+		boxProveedor.setBounds(268, 202, 194, 20);
 		getContentPane().add(boxProveedor);
+		
+		this.boxProveedor = boxProveedor;
 	
 		JButton BotonRegistrar = new JButton("Registrar");
 		BotonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				checkFormulario(campoNombre, campoEspecificacion, campoPrecio, campoDescripcion, boxProveedor);
-				String nombre = campoNombre.getText();
-				String descrip = campoDescripcion.getText();
-				String especificacion = campoEspecificacion.getText();
-				int numReferencia =0/*aca iria un generador de num*/ ;
-				int precio = Integer.parseInt(campoPrecio.getText());
-				//List<String> imagenes;
-				//List<Categoria> categorias;
-				Proveedor proveedor;/* falta proveedor actual*/
+				String nombre = null;
+				String descrip = null;
+				String especificacion = null;
+				int numReferencia = -1;
+				float precio = -1;
+				List<Categoria> categoria = null;
+				List<String> imagenes = null;
+		
+				
 				try {
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio);
-				} catch (ProductoRepetidoException e1) {
-					//aun no se q va aca
+					camposValidos();	
+					nombre = campoNombre.getText();
+					descrip = campoDescripcion.getText();
+					especificacion = campoEspecificacion.getText();
+					numReferencia = Integer.valueOf(campoNumRef.getText().trim());
+					precio = Float.valueOf(campoPrecio.getText().trim());
+					categoria = listaCategorias();
+					imagenes = listaImagenes();
+					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, imagenes);
+					mostrarInformacion();
+					limpiarCampos();
+				} catch(Exception exc) {
+					JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
-				limpiarFormulario(campoNombre, campoEspecificacion, campoPrecio);
 			}
 		});
-		
-		BotonRegistrar.setBounds(84, 184, 104, 23);
+		BotonRegistrar.setBackground(new Color(255, 157, 176));
+		BotonRegistrar.setBounds(384, 264, 104, 23);
 		getContentPane().add(BotonRegistrar);
-		
-		
+			
 	}
+
+	
 }

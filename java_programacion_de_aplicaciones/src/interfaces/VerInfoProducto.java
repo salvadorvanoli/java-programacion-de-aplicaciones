@@ -48,7 +48,7 @@ public class VerInfoProducto extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTree treeCat;
-	private JComboBox<String> comboBoxProd;
+	private JComboBox<DTProducto> comboBoxProd;
 	//private JTextArea TextDatosProd;
 	private ISistema sistema;
 	private JTextField textNom;
@@ -105,7 +105,7 @@ public class VerInfoProducto extends JInternalFrame {
 		LabelProd.setBounds(0, 135, 313, 14);
 		getContentPane().add(LabelProd);
 		
-		comboBoxProd = new JComboBox<>();
+		this.comboBoxProd = new JComboBox<DTProducto>();
 		comboBoxProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -113,8 +113,8 @@ public class VerInfoProducto extends JInternalFrame {
 					return;
 				}
 				
-				String nombreProducto = (String) comboBoxProd.getSelectedItem();
-				System.out.println(nombreProducto);
+				DTProducto producto = (DTProducto) comboBoxProd.getSelectedItem();
+				String nombreProducto = producto.getNombre();
 
 					try {
 						sistema.elegirProducto(nombreProducto);
@@ -157,7 +157,7 @@ public class VerInfoProducto extends JInternalFrame {
 		
 		
 		treeCat = new JTree();
-		cargarDatos();
+		cargarJTree();
 		treeCat.setBounds(51, 46, 143, 78);
 		getContentPane().add(treeCat);
 		//this.treeCat = treeCat;
@@ -172,8 +172,9 @@ public class VerInfoProducto extends JInternalFrame {
                     String nombreCat = selectedNode.toString();
                     try {
                         sistema.elegirCategoria(nombreCat);
-                        categoriaActual = sistema.getCategoriaActual();
-                        cargarProductosEnComboBox(sistema.getCategoriaActual());
+                        // categoriaActual = sistema.getCategoriaActual();
+                        // cargarProductosEnComboBox(sistema.getCategoriaActual());
+                        cargarProductos();
                     } catch (CategoriaNoExisteException e1) {
                         // MANEJAR ERROR
                     }
@@ -188,7 +189,8 @@ public class VerInfoProducto extends JInternalFrame {
 		LabelNom.setBounds(30, 198, 48, 14);
 		getContentPane().add(LabelNom);
 		
-		textNom = new JTextField();
+		JTextField textNom = new JTextField();
+		textNom.setEditable(false);
 		textNom.setBounds(88, 193, 197, 20);
 		getContentPane().add(textNom);
 		textNom.setColumns(10);
@@ -198,7 +200,8 @@ public class VerInfoProducto extends JInternalFrame {
 		labelDesc.setBounds(30, 226, 60, 14);
 		getContentPane().add(labelDesc);
 		
-		textDesc = new JTextField();
+		JTextField textDesc = new JTextField();
+		textDesc.setEditable(false);
 		textDesc.setColumns(10);
 		textDesc.setBounds(97, 223, 188, 42);
 		getContentPane().add(textDesc);
@@ -208,7 +211,8 @@ public class VerInfoProducto extends JInternalFrame {
 		labelPrec.setBounds(30, 279, 60, 14);
 		getContentPane().add(labelPrec);
 		
-		textPrec = new JTextField();
+		JTextField textPrec = new JTextField();
+		textPrec.setEditable(false);
 		textPrec.setColumns(10);
 		textPrec.setBounds(97, 276, 88, 20);
 		getContentPane().add(textPrec);
@@ -219,7 +223,8 @@ public class VerInfoProducto extends JInternalFrame {
 		labelRef.setBounds(30, 310, 91, 14);
 		getContentPane().add(labelRef);
 		
-		textRef = new JTextField();
+		JTextField textRef = new JTextField();
+		textRef.setEditable(false);
 		textRef.setColumns(10);
 		textRef.setBounds(131, 307, 154, 20);
 		getContentPane().add(textRef);
@@ -229,13 +234,15 @@ public class VerInfoProducto extends JInternalFrame {
 		labelCat.setBounds(30, 340, 60, 14);
 		getContentPane().add(labelCat);
 		
-		textCat = new JTextField();
+		JTextField textCat = new JTextField();
+		textCat.setEditable(false);
 		textCat.setColumns(10);
 		textCat.setBounds(97, 337, 188, 42);
 		getContentPane().add(textCat);
 		this.textCat = textCat;
 		
-		textProv = new JTextField();
+		JTextField textProv = new JTextField();
+		textProv.setEditable(false);
 		textProv.setColumns(10);
 		textProv.setBounds(97, 390, 188, 20);
 		getContentPane().add(textProv);
@@ -247,6 +254,8 @@ public class VerInfoProducto extends JInternalFrame {
 		
 
 	}
+	
+	/*
 	
 	private void cargarDatos() {
         // Vaciar el JTree
@@ -294,8 +303,9 @@ public class VerInfoProducto extends JInternalFrame {
         DefaultTreeModel treeModel = new DefaultTreeModel(root);
         treeCat.setModel(treeModel);
     }
+	*/
 	
-	
+	/*
 	// Método para cargar los productos de una categoría en el JComboBox
 	private void cargarProductosEnComboBox(Categoria categoriaSeleccionada) {
 	    // Limpiar el JComboBox
@@ -315,46 +325,108 @@ public class VerInfoProducto extends JInternalFrame {
 	    if (categoriaSeleccionada != null && categoriaSeleccionada.getProductos() != null) {
 	        // Llenar el JComboBox con los productos de la categoría seleccionada
 	        for (DTProducto producto : lista) {
-	        	String nombre = producto.getNombre();
-	        	//int codigo = producto.getNumReferencia();
-	            comboBoxProd.addItem(nombre);
+	        	// int codigo = producto.getNumReferencia();
+	            comboBoxProd.addItem(producto);
 
 	        }
 	    }
 	}
+	*/
+	
+	public void limpiarCampos() {
+		// Limpiar el JComboBox
+	    comboBoxProd.removeAllItems();
+    	textNom.setText("[Nombre del Producto]");
+    	textDesc.setText("[Descripción del Producto]");
+    	textPrec.setText("[Precio del Producto]");
+    	textProv.setText("[Proveedor del Producto]");
+    	textCat.setText("[Categorías del Producto]");
+    	textRef.setText("[N° de Referencia del Producto]");
+    	//textImg.setText("[Imágenes del Producto]");
+	}
+	
+	public void cargarJTree() {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
+		
+		for (Categoria cat : sistema.getCategorias().values()) {
+			this.cargarCategoriaJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
+		}
+		
+		DefaultTreeModel treeModel = new DefaultTreeModel(root);
+        this.treeCat.setModel(treeModel);
+	}
+	
+	public void cargarCategoriaJTree(Categoria cat, DefaultMutableTreeNode nodo) {
+		DefaultMutableTreeNode newNodo = new DefaultMutableTreeNode(cat);
+		if (!(cat.getHijos().values().isEmpty())) {
+			for (Categoria hijo : cat.getHijos().values()) {
+				cargarCategoriaJTree(hijo, newNodo);
+			}
+		}
+		nodo.add(newNodo);
+	}
+	
+	public void cargarProductos() {
+		List<DTProducto> lista = null;
+		
+		try {
+			lista = this.sistema.listarProductos();
+		} catch (NullPointerException e) {
+			throw new NullPointerException (e.getMessage()); // FALTA POPUP DE ERROR
+		}
+		
+		this.comboBoxProd.removeAllItems();
+		
+		for (DTProducto prod : lista) {
+			this.comboBoxProd.addItem(prod);
+		}
+		
+	}
 	
 	private void mostrarImagenesEnInternalFrame(List<String> rutasImagenes) {
-        // Crear el JInternalFrame
-        JInternalFrame internalFrame = new JInternalFrame("Galería de Imágenes", true, true, true, true);
-        internalFrame.setSize(600, 400);
-        internalFrame.getContentPane().setLayout(new BorderLayout());
+		
+		if (rutasImagenes != null && ! (rutasImagenes.isEmpty())) {
 
-        // Crear un JPanel para contener las imágenes
-        JPanel panelImagenes = new JPanel();
-        panelImagenes.setLayout(new FlowLayout());
-
-        // Rutas de las imágenes (debes modificar las rutas según tu caso)
-       
-
-        // Cargar y agregar las imágenes al panel
-        for (String ruta : rutasImagenes) {
-            File archivoImagen = new File(ruta);
-            if (archivoImagen.exists()) {
-                ImageIcon icono = new ImageIcon(ruta);
-                JLabel etiquetaImagen = new JLabel(icono);
-                panelImagenes.add(etiquetaImagen);
-            } else {
-                System.out.println("Archivo no encontrado: " + ruta);
-            }
-        }
-
-        // Añadir el panel al JInternalFrame
-        JScrollPane scrollPane = new JScrollPane(panelImagenes);
-        internalFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
-        // Añadir el JInternalFrame al JDesktopPane
-        this.main.getMenuPrincipal().getContentPane().add(internalFrame);
-        internalFrame.setVisible(true);
+	        boolean hayImagenes = false;
+	        
+	        // Crear un JPanel para contener las imágenes
+	        JPanel panelImagenes = new JPanel();
+	        panelImagenes.setLayout(new FlowLayout());
+	
+	        // Cargar y agregar las imágenes al panel
+	        for (String ruta : rutasImagenes) {
+	            File archivoImagen = new File(ruta);
+	            if (archivoImagen.exists()) {
+	                ImageIcon icono = new ImageIcon(ruta);
+	                JLabel etiquetaImagen = new JLabel(icono);
+	                panelImagenes.add(etiquetaImagen);
+	                hayImagenes = true;
+	            } else {
+	                System.out.println("Archivo no encontrado: " + ruta);
+	            }
+	        }
+	        
+	        if (hayImagenes) {
+	        	// Crear el JInternalFrame
+	            JInternalFrame internalFrame = new JInternalFrame("Galería de Imágenes", true, true, true, true);
+	            internalFrame.setSize(600, 400);
+	            internalFrame.getContentPane().setLayout(new BorderLayout());
+	            
+	            // Añadir el panel al JInternalFrame
+	            JScrollPane scrollPane = new JScrollPane(panelImagenes);
+	            internalFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+	
+	            // Añadir el JInternalFrame al JDesktopPane
+	            this.main.getMenuPrincipal().getContentPane().add(internalFrame);
+	            internalFrame.setVisible(true);
+	            
+	        } else {
+	        	// MOSTRAR ERROR
+	        }
+        
+		} else {
+			// MOSTRAR ERROR
+		}
     }
 }
 

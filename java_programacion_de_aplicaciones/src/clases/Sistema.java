@@ -111,6 +111,8 @@ public class Sistema extends ISistema {
 		
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
+		this.usuarios.add(pr1);
+		this.usuarios.add(pr2);
         
         try {
         	Categoria cat = new Categoria("A", true, null);
@@ -691,7 +693,7 @@ public class Sistema extends ISistema {
 		}
 		if (listaCat != null && ! (listaCat.isEmpty())) {
 			for (Categoria cat : listaCat) {
-				cat.getProductos().add(this.productoActual);
+				cat.agregarProducto(this.productoActual);
 			}
 		}
 	}
@@ -706,11 +708,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override
-	public boolean existeProducto(String nombreProd, int numReferencia) {
-	    if (this.productoActual == null) {
-			throw new NullPointerException("No se ha elegido un producto previamente.");
-	    }
-		
+	public boolean existeProducto(String nombreProd, int numReferencia) {		
 		for (Categoria categoria : this.categorias.values()) {
 	        if (buscarProductoEnCategoria(categoria, nombreProd, numReferencia)) {
 	            return true;

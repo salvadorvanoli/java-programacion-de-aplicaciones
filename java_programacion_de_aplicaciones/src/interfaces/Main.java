@@ -179,7 +179,7 @@ public class Main {
 	    registrarClienteInternalFrame = new RegistrarCliente(sistema);
 	    registrarClienteInternalFrame.setVisible(false);
 	    
-	    registrarProductoInternalFrame = new RegistrarProducto(sistema);
+	    registrarProductoInternalFrame = new RegistrarProducto(sistema, this);
 	    registrarProductoInternalFrame.setVisible(false);
 	    
 	    registrarProveedorInternalFrame = new RegistrarProveedor(sistema);
@@ -296,6 +296,9 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
             	if (! checkVentanasAbiertas()) {
             		sistema.setTodoNull();
+            		registrarProductoInternalFrame.limpiarCampos();
+            		registrarProductoInternalFrame.cargarJTree();
+            		registrarProductoInternalFrame.cargarProveedores();
 	                menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
 	                registrarProductoInternalFrame.setVisible(true);
 	                registrarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
@@ -397,6 +400,8 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
             	if (! checkVentanasAbiertas()) {
             		sistema.setTodoNull();
+            		infoProductoInternalFrame.limpiarCampos();
+            		infoProductoInternalFrame.cargarJTree();
 	                menuPrincipal.getContentPane().add(infoProductoInternalFrame);
 	                infoProductoInternalFrame.setVisible(true);
 	                infoProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
