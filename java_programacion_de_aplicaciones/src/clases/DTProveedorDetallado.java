@@ -45,6 +45,7 @@ public class DTProveedorDetallado extends DTProveedor {
 	
 	public DTProveedorDetallado(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String foto, String nomCompania, String link) {
 		super(nickname, email);
+		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setFechaNac(fechaNac);
 		this.setFoto(foto);

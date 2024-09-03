@@ -170,7 +170,7 @@ public class Main {
 	    infoProveedorInternalFrame = new InfoProveedorDetallado(sistema);
 	    infoProveedorInternalFrame.setVisible(false);
 	    
-	    listarProveedoresInternalFrame = new ListarProveedores(sistema);
+	    listarProveedoresInternalFrame = new ListarProveedores(sistema, this);
 	    listarProveedoresInternalFrame.setVisible(false);
 	    
 	    modificarProductoInternalFrame = new ModificarDatosProducto(sistema, this);
@@ -382,9 +382,10 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
             	if (! checkVentanasAbiertas()) {
             		sistema.setTodoNull();
-	                menuPrincipal.getContentPane().add(infoProveedorInternalFrame);
-	                infoProveedorInternalFrame.setVisible(true);
-	                infoProveedorInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
+            		listarProveedoresInternalFrame.cargarProveedores();
+	                menuPrincipal.getContentPane().add(listarProveedoresInternalFrame);
+	                listarProveedoresInternalFrame.setVisible(true);
+	                listarProveedoresInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame
 	                menuPrincipal.revalidate();
 	                menuPrincipal.repaint();
             	}
