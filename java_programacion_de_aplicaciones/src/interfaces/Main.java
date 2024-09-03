@@ -271,6 +271,7 @@ public class Main {
 		CasosDeUsoRegistrosProducto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	registrarProductoInternalFrame.limpiarCampos();
                 menuPrincipal.getContentPane().add(registrarProductoInternalFrame);
                 registrarProductoInternalFrame.setVisible(true);
                 registrarProductoInternalFrame.setLocation(0, 0);  // Ajustar la posición del InternalFrame

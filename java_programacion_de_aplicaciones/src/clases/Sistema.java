@@ -248,10 +248,11 @@ public class Sistema extends ISistema {
 	
 	
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
+		/*
 		for (Categoria cat : this.categorias.values()) {
 			for (Producto prod : cat.getProductos()) {
 				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
@@ -261,10 +262,15 @@ public class Sistema extends ISistema {
 				}
 			}
 		}
+		*/
+		if (existeProducto(titulo, numReferencia)) {
+			throw new ProductoRepetidoException("Ya existe un producto con ese nombre y/o ese número de referencia en el sistema.");
+		}
 		Proveedor proveedor = (Proveedor) this.usuarioActual;
 		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, imagenes, categorias, proveedor); // Esto esta re mal
 		proveedor.agregarProducto(prod);
 		this.productoActual = prod;
+		this.agregarProductoACategorias(categorias);
 		return true;
 	}
 	
@@ -687,7 +693,7 @@ public class Sistema extends ISistema {
 		}
 		if (listaCat != null && ! (listaCat.isEmpty())) {
 			for (Categoria cat : listaCat) {
-				cat.getProductos().add(this.productoActual);
+				cat.agregarProducto(this.productoActual);
 			}
 		}
 	}
@@ -703,10 +709,7 @@ public class Sistema extends ISistema {
 	
 	@Override
 	public boolean existeProducto(String nombreProd, int numReferencia) {
-	    if (this.productoActual == null) {
-			throw new NullPointerException("No se ha elegido un producto previamente.");
-	    }
-		
+
 		for (Categoria categoria : this.categorias.values()) {
 	        if (buscarProductoEnCategoria(categoria, nombreProd, numReferencia)) {
 	            return true;

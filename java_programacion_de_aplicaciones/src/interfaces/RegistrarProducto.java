@@ -113,8 +113,8 @@ public class RegistrarProducto extends JInternalFrame {
 	
 	
 	
-	private void limpiarCampos() {
-		this.boxProveedor.setSelectedItem(null);
+	public void limpiarCampos() {
+		this.boxProveedor.setSelectedIndex(-1);
 		this.JTreeSeleccionCategoriaPadre.setSelectionRow(-1);
 		this.campoNombre.setText("");
 		this.campoNumRef.setText("");
@@ -296,7 +296,8 @@ public class RegistrarProducto extends JInternalFrame {
 	                	Object node = selectedNode.getUserObject();
 	                	if (node instanceof Categoria) {
 			                try {
-			                	sistema.elegirCategoria(selectedNode.toString());
+			                	Categoria cat = (Categoria) node;
+			                	sistema.elegirCategoria(cat.getNombreCat());
 			                } catch (CategoriaNoExisteException exc) {
 			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			                }
@@ -338,14 +339,13 @@ public class RegistrarProducto extends JInternalFrame {
 		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();
-				String nick  = "";
 				if(selectedItem != null) {
-					nick = selectedItem.getNickname();
-				}
-				try {
-					sistema.elegirProveedor(nick);
-				} catch (UsuarioNoExisteException e1) {
-					e1.printStackTrace();
+					String nick = selectedItem.getNickname();
+					try {
+						sistema.elegirProveedor(nick);
+					} catch (UsuarioNoExisteException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -376,22 +376,14 @@ public class RegistrarProducto extends JInternalFrame {
 					precio = Float.valueOf(campoPrecio.getText().trim());
 					categoria = listaCategorias();
 					imagenes = listaImagenes();
-	
+					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, imagenes);
+					mostrarInformacion();
+					limpiarCampos();
 				} catch(Exception exc) {
 					JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				try {
-					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, imagenes);
-					
-				} catch (ProductoRepetidoException e) {
-					e.printStackTrace();
-					return;
-				}
-				
-				mostrarInformacion();
-				limpiarCampos();
 			}
 		});
 		BotonRegistrar.setBackground(new Color(255, 157, 176));

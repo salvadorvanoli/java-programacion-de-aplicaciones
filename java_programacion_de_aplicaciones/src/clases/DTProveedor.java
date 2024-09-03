@@ -25,4 +25,8 @@ public class DTProveedor {
 		this.email = email;
 	}
 	
+	public String toString() {
+		return this.nickname;
+	}
+	
 }
