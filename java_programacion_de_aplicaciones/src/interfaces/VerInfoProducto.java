@@ -87,6 +87,7 @@ public class VerInfoProducto extends JInternalFrame {
 		setResizable(true);
 		this.sistema = sistema;
 		this.main = main;
+		//hola
 		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
 		setTitle("Flamin-Go");
 		setClosable(true);
