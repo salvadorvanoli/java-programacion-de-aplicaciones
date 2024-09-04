@@ -189,7 +189,7 @@ public class RegistrarCliente extends JInternalFrame {
 	
 	//metodos
 	
-	private void limpiarFormulario() {
+	public void limpiarFormulario() {
 		textNick.setText("");
 		textNom.setText("");
 		textApe.setText("");
