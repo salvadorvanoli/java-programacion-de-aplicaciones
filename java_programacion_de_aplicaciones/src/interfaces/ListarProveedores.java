@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ListarProveedores extends JInternalFrame {
 
@@ -69,6 +70,11 @@ public class ListarProveedores extends JInternalFrame {
 	 * @param sistema 
 	 */
 	
+	public void limpiarBox(){
+		this.boxProveedor.setSelectedIndex(-1);
+		this.boxProveedor.setSelectedItem(null);
+	}
+	
 	private void limpiarFormulario(){
 		this.campoNick.setText("");
 		this.campoNombre.setText("");
@@ -77,7 +83,7 @@ public class ListarProveedores extends JInternalFrame {
 		this.campoLink.setText("");
 		this.campoFecha.setText("");
 		this.campoCompañia.setText("");
-		this.boxProveedor.setSelectedIndex(-1);
+		this.foto = null;
 	}
 	
 	public ListarProveedores(ISistema sistema, Main main) {
@@ -87,7 +93,7 @@ public class ListarProveedores extends JInternalFrame {
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
 		getContentPane().setBackground(new Color(240, 240, 240));
-		setBounds(100, 100, 328, 376);
+		setBounds(100, 100, 326, 408);
 		getContentPane().setLayout(null);
 		
 		this.sistema = sistema;
@@ -182,12 +188,13 @@ public class ListarProveedores extends JInternalFrame {
 		getContentPane().add(campoFecha);
 
 		this.campoFecha = campoFecha;
-
+		
 		JComboBox <DTProveedor> boxProveedor = new JComboBox<DTProveedor>();
 		boxProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
 				DTProveedor selectedItem = (DTProveedor) boxProveedor.getSelectedItem();
-				if (selectedItem != null) {
+				if (selectedItem != null &&  boxProveedor.getSelectedItem() != null && boxProveedor.getSelectedIndex() != -1) {
 					String nick = selectedItem.getNickname();
 					try {
 						sistema.elegirProveedor(nick);
@@ -200,7 +207,6 @@ public class ListarProveedores extends JInternalFrame {
 						campoFecha.setText(prov.getFechaNac().toString());
 						campoCompañia.setText(prov.getNomCompania());
 						foto = prov.getFoto();
-						mostrarFotoEnInternalFrame(foto);
 					} catch (UsuarioNoExisteException e1) {
 						e1.printStackTrace();
 					}
@@ -213,10 +219,21 @@ public class ListarProveedores extends JInternalFrame {
 		
 		this.boxProveedor = boxProveedor;
 		
+		
+		JButton botonImagen = new JButton("Ver imagen");
+		botonImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarFotoEnInternalFrame(foto);
+			}
+		});
+		botonImagen.setBounds(109, 344, 89, 23);
+		getContentPane().add(botonImagen);
+		
 		this.addInternalFrameListener(new InternalFrameAdapter() {
 	         @Override
 	         public void internalFrameClosing(InternalFrameEvent e) {
 	        	 limpiarFormulario();
+	        	 limpiarBox();
 	        	 dispose();
 	         }
 	    });
@@ -259,12 +276,12 @@ public class ListarProveedores extends JInternalFrame {
 		for (DTProveedor prov : lista) {
 			this.boxProveedor.addItem(prov);
 		}
-		
+		limpiarBox();
 	}
 	
 	private void mostrarFotoEnInternalFrame(String imagen) {
 			
-		if ( imagen != null && (! imagen.isBlank()) && ! (imagen.isEmpty())) {
+		if (imagen != null && (! imagen.isBlank()) && ! (imagen.isEmpty())) {
 	
 	        // Cargar y agregar la imagen al panel
 	        File archivoImagen = new File(imagen);
@@ -298,6 +315,4 @@ public class ListarProveedores extends JInternalFrame {
 	    	JOptionPane.showMessageDialog(null, "El proveedor actual no tiene foto de perfil", "Error", JOptionPane.ERROR_MESSAGE);
 		}
     }
-	
-	
 }
