@@ -253,15 +253,13 @@ public class ListarProveedores extends JInternalFrame {
 		}
 		List<DTProveedor> lista = null;
 		
-		try {
-			lista = this.sistema.listarProveedores();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
+		lista = this.sistema.listarProveedores();
 		
+		/*
 		if (lista.isEmpty()) {
 			throw new IllegalStateException ("Error: El sistema no tiene proveedores."); // FALTA POPUP
 		}
+		*/
 		
 		return lista;
 		
@@ -270,11 +268,7 @@ public class ListarProveedores extends JInternalFrame {
 	public void cargarProveedores() {
 		List<DTProveedor> lista = null;
 		
-		try {
-			lista = this.getProveedores();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
+		lista = this.getProveedores();
 		
 		this.boxProveedor.removeAllItems();
 		

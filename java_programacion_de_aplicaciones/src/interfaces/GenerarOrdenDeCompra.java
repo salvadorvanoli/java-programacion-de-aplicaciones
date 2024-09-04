@@ -458,16 +458,13 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		}
 		List<DTCliente> lista = null;
 		
-		try {
-			lista = this.sistema.listarClientes();
-			
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
+		lista = this.sistema.listarClientes();
 		
+		/*
 		if (lista.isEmpty()) {
 			throw new IllegalStateException ("Error: El sistema no tiene clientes."); // FALTA POPUP
 		}
+		*/
 		
 		return lista;
 		
@@ -476,11 +473,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	public void cargarClientes() {
 		List<DTCliente> lista = null;
 		
-		try {
-			lista = this.getClientes();
-		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
+		lista = this.getClientes();
 		
 		this.seleccionarCliente.removeAllItems();
 		

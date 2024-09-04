@@ -397,11 +397,7 @@ public class VerInfoProducto extends JInternalFrame {
 	public void cargarProductos() {
 		List<DTProducto> lista = null;
 		
-		try {
-			lista = this.sistema.listarProductos();
-		} catch (NullPointerException e) {
-			throw new NullPointerException (e.getMessage()); // FALTA POPUP DE ERROR
-		}
+		lista = this.sistema.listarProductos();
 		
 		this.comboBoxProd.removeAllItems();
 		

@@ -259,6 +259,16 @@ public class RegistrarProveedor extends JInternalFrame {
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		if (!SinNumeros(nombre) || !SinNumeros(apellido)) {
+	        JOptionPane.showMessageDialog(this, "El nombre y apellido no pueden contener números.", "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
 		return true;
 }
+
+	private boolean SinNumeros(String nombre) {
+	    // Expresión regular que permite solo letras (mayúsculas y minúsculas) y espacios
+	    return nombre.matches("[a-zA-Z ]+");
+	
+	}
 }

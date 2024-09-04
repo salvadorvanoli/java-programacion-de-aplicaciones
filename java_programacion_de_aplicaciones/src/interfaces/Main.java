@@ -17,6 +17,7 @@ import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
@@ -33,6 +34,7 @@ import java.awt.Toolkit;
 
 import clases.Cliente;
 import clases.DTCliente;
+import javax.swing.JButton;
 
 public class Main {
 	
@@ -440,6 +442,15 @@ public class Main {
 		
 		JMenuItem CasosDeUsoSupresionesOrdenDeCompra = new JMenuItem("Orden de Compra");
 		CasosDeUsoSupresiones.add(CasosDeUsoSupresionesOrdenDeCompra);
+		
+		JButton btnCargarDatos = new JButton("Cargar datos");
+		btnCargarDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sistema.crearCasos();
+				JOptionPane.showMessageDialog(null, "Los datos han sido cargados satisfactoriamente", "Cargar datos", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		menuBar.add(btnCargarDatos);
 		CasosDeUsoSupresionesOrdenDeCompra.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
