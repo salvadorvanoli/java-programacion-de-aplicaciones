@@ -140,21 +140,26 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(selectOrdenCancelarOrdenDeCompra.getSelectedItem() != null) {
-					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
-					menu.getInfoOrdenInternalFrame().setVisible(true);
-					menu.getInfoOrdenInternalFrame().setLocation(0, 0);
-					menu.getMenuPrincipal().revalidate();
-					menu.getMenuPrincipal().repaint();
-					
-					DTFecha fecha = sistema.getOrdenDeCompraActual().getFecha();
-		            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
-		            String opcion = sistema.getOrdenDeCompraActual().getNumero() + " - " + fechaFormateada;
-		            
-					menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(opcion);
+				if(!menu.getInfoOrdenInternalFrame().isVisible()) {
+					if(selectOrdenCancelarOrdenDeCompra.getSelectedItem() != null) {
+						menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+						menu.getInfoOrdenInternalFrame().setVisible(true);
+						menu.getInfoOrdenInternalFrame().setLocation(0, 0);
+						menu.getMenuPrincipal().revalidate();
+						menu.getMenuPrincipal().repaint();
+						
+						DTFecha fecha = sistema.getOrdenDeCompraActual().getFecha();
+			            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
+			            String opcion = sistema.getOrdenDeCompraActual().getNumero() + " - " + fechaFormateada;
+			            
+						menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(opcion);
+					} else {
+						JOptionPane.showMessageDialog(null, "No hay ninguna orden de compra seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+					}	
 				} else {
-					JOptionPane.showMessageDialog(null, "No hay ninguna orden de compra seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
-				}	
+					JOptionPane.showMessageDialog(null, "Ya está la ventana abierta", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		btnVerInfoOrdenes.setBounds(189, 234, 177, 23);

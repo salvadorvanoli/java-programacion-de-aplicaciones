@@ -752,6 +752,10 @@ public class Sistema extends ISistema {
         c2.add(cat1);
         c3.add(cat2);
         
+        this.getCategorias().put(cat1.getNombreCat(), cat1);
+        this.getCategorias().put(cat2.getNombreCat(), cat2);
+        this.getCategorias().put(cat3.getNombreCat(), cat3);
+        
         String imagen1 = "/Images/Chico1.png";
         String imagen2 = "/Images/Chico2.png";
         String imagen3 = "/Images/Chico3.png";
@@ -789,9 +793,9 @@ public class Sistema extends ISistema {
         orden3.agregarProducto(producto3.getDTProducto(), 1000);
         orden3.agregarProducto(producto2.getDTProducto(), 1);
         
-		ordenes.put(1, orden1);
-		ordenes.put(2, orden2);
-		ordenes.put(2, orden3);
+		ordenes.put(orden1.getNumero(), orden1);
+		ordenes.put(orden2.getNumero(), orden2);
+		ordenes.put(orden3.getNumero(), orden3);
 		
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
