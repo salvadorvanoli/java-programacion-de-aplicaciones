@@ -34,5 +34,15 @@ public class DTOrdenDeCompraDetallada extends DTOrdenDeCompra{
 	}
 	
 	
+	public float getPrecioTotal() {
+	    float total = 0;
+	    
+	    for (DTCantidadProducto item : productosCantidad) {
+	        total += item.getProducto().getPrecio() * item.getCantidad().getCantidad();
+	    }
+	    
+	    return total;
+	}
+
 	
 }

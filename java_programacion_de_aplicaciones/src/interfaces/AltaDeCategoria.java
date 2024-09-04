@@ -139,7 +139,7 @@ public class AltaDeCategoria extends JInternalFrame {
                     try {
                         sistema.altaCategoria(nombreCategoria, contieneProductos, categoriaPadre);
 
-                        // Limpiar los campos después de la creación
+                        JOptionPane.showMessageDialog(null, "La categoría se creó exitosamente", "Crear categoría", JOptionPane.INFORMATION_MESSAGE);
                         limpiarCampos();
                     } catch (CategoriaRepetidaException e1) {
                         // MANEJAR ERROR
