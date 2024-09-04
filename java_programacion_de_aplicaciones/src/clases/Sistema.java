@@ -738,41 +738,60 @@ public class Sistema extends ISistema {
 		DTFecha fecha1 = new DTFecha(2, 4, 2024);
         DTFecha fecha2 = new DTFecha(6, 8, 2024);
        
-        Categoria cat1 = new Categoria( "", false, null);
-        Categoria cat2 = new Categoria( "",  false, cat1);
-        Categoria cat3 = new Categoria( "",  false, cat1);
+        Categoria cat1 = new Categoria( "Liquidos", false, null);
+        Categoria cat3 = new Categoria( "Electronicos",  false, null);
+        Categoria cat2 = new Categoria( "Intrumentos Electricos",  false, cat3);
         
         List<Categoria> c1= new ArrayList<>();
         List<Categoria> c2= new ArrayList<>();
+        List<Categoria> c3= new ArrayList<>();
         c1.add(cat3);
         c1.add(cat2);
         c2.add(cat1);
-        c2.add(cat2);
-        c2.add(cat3);
+        c3.add(cat2);
         
-        Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, null);
-        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, null);
         
-        Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "juan.perez@example.com", fecha1, null, "Sugar Cane Bank", "http://compania1.com");
-        Proveedor pr2 = new Proveedor("Maria_02", "María", "Gómez", "maria.gomez@example.com", fecha2, null, "Mary on a cross Enterprise", "http://compania2.com");
-       
-        Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c1,  pr2);
-        Producto producto2 = new Producto("Guitarra", "Guitarra electrica de ebano.", "Hambucker Doble", 998, 16500.0f, null, c2,  pr2);
-        Producto producto3 = new Producto("Control Remoto", "Util para televisores de alta calidad.", "Pilas AAA", 997, 350.20f, null, c1,  pr1);
+        String imagen1 = "/Images/Chico1.png";
+        String imagen2 = "/Images/Chico2.png";
+        String imagen3 = "/Images/Chico3.png";
+        String imagen4 = "/Images/Chica1.png";
+        String imagen5 = "/Images/Chica2.png";
+        String imagen6 = "/Images/Chica3.png";
+        
+        
+        Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, imagen2);
+        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, imagen5);
+        Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1);
+        
+        Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com");
+        Proveedor pr2 = new Proveedor("Maria_02", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACrossEnterprise.com");
+        Proveedor pr3 = new Proveedor("Zo3", "Zoe", "Gatusso", "zoe.gatu@example.com", fecha2, imagen6, "Flamin-Go", "http://FlaminGo.com");
+        
+        Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c2,  pr3);
+        Producto producto2 = new Producto("Guitarra", "Guitarra electrica de ebano.", "Hambucker Doble", 998, 16500.0f, null, c1,  pr2);
+        Producto producto3 = new Producto("Control Remoto", "Util para televisores de alta calidad.", "Pilas AAA", 997, 350.20f, null, c3,  pr1);
         
         OrdenDeCompra orden1 = new OrdenDeCompra(88, fecha1, cl1, null);
-        orden1.setPrecioTotal(100.50f);
-        OrdenDeCompra orden2 = new OrdenDeCompra(77, fecha2, cl2, null);
-        orden2.setPrecioTotal(200.75f);
+        orden1.setPrecioTotal(1350.50f);
         
-        orden1.agregarProducto(producto1.getDTProducto(), 100);
+        OrdenDeCompra orden2 = new OrdenDeCompra(77, fecha2, cl2, null);
+        orden2.setPrecioTotal(555.75f);
+        
+        OrdenDeCompra orden3 = new OrdenDeCompra(66, fecha1, cl3, null);
+        orden3.setPrecioTotal(625.50f);
+        
+        orden1.agregarProducto(producto1.getDTProducto(), 15);
         orden1.agregarProducto(producto2.getDTProducto(), 3);
         
         orden2.agregarProducto(producto3.getDTProducto(), 20);
         orden2.agregarProducto(producto1.getDTProducto(), 45);
         
+        orden3.agregarProducto(producto3.getDTProducto(), 1000);
+        orden3.agregarProducto(producto2.getDTProducto(), 1);
+        
 		ordenes.put(1, orden1);
 		ordenes.put(2, orden2);
+		ordenes.put(2, orden3);
 		
 		this.usuarios.add(cl1);
 		this.usuarios.add(cl2);
