@@ -44,6 +44,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
 
 
 public class VerInfoProducto extends JInternalFrame {
@@ -95,19 +97,19 @@ public class VerInfoProducto extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 436, 523);
+		setBounds(100, 100, 436, 560);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelSelectCat = new JLabel("Seleccione una categoría del sistema y luego \"Confirmar\"");
 		LabelSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
 		LabelSelectCat.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		LabelSelectCat.setBounds(0, 22, 420, 14);
+		LabelSelectCat.setBounds(0, 11, 420, 14);
 		getContentPane().add(LabelSelectCat);
 		
 		JLabel LabelProd = new JLabel("Seleccione un producto");
 		LabelProd.setHorizontalAlignment(SwingConstants.CENTER);
 		LabelProd.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		LabelProd.setBounds(0, 135, 420, 14);
+		LabelProd.setBounds(0, 203, 420, 14);
 		getContentPane().add(LabelProd);
 		
 		this.comboBoxProd = new JComboBox<DTProducto>();
@@ -159,14 +161,17 @@ public class VerInfoProducto extends JInternalFrame {
                 //////////////ACA////////////////
 			}
 		});
-		comboBoxProd.setBounds(86, 160, 255, 22);
+		comboBoxProd.setBounds(86, 228, 255, 22);
 		getContentPane().add(comboBoxProd);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(46, 49, 169, 133);
+		getContentPane().add(scrollPane);
 		
 		
 		treeCat = new JTree();
+		scrollPane.setViewportView(treeCat);
 		cargarJTree();
-		treeCat.setBounds(51, 46, 143, 78);
-		getContentPane().add(treeCat);
 		//this.treeCat = treeCat;
 		
 		JButton ButtonConfCat = new JButton("Confirmar\r\n");
@@ -189,74 +194,74 @@ public class VerInfoProducto extends JInternalFrame {
 			}
 		});
 		
-		ButtonConfCat.setBounds(225, 67, 115, 36);
+		ButtonConfCat.setBounds(225, 97, 115, 36);
 		getContentPane().add(ButtonConfCat);
 		
 		JLabel LabelNom = new JLabel("Nombre:");
-		LabelNom.setBounds(60, 214, 67, 14);
+		LabelNom.setBounds(60, 273, 67, 14);
 		getContentPane().add(LabelNom);
 		
 		JTextField textNom = new JTextField();
 		textNom.setEditable(false);
-		textNom.setBounds(126, 209, 231, 20);
+		textNom.setBounds(126, 268, 231, 20);
 		getContentPane().add(textNom);
 		textNom.setColumns(10);
 		this.textNom = textNom;
 		
 		JLabel labelDesc = new JLabel("Descripción:");
-		labelDesc.setBounds(60, 242, 76, 14);
+		labelDesc.setBounds(60, 301, 76, 14);
 		getContentPane().add(labelDesc);
 		
 		JTextField textDesc = new JTextField();
 		textDesc.setEditable(false);
 		textDesc.setColumns(10);
-		textDesc.setBounds(135, 239, 222, 42);
+		textDesc.setBounds(135, 298, 222, 42);
 		getContentPane().add(textDesc);
 		this.textDesc = textDesc;
 		
 		JLabel labelPrec = new JLabel("Precio:");
-		labelPrec.setBounds(60, 295, 67, 14);
+		labelPrec.setBounds(60, 354, 67, 14);
 		getContentPane().add(labelPrec);
 		
 		JTextField textPrec = new JTextField();
 		textPrec.setEditable(false);
 		textPrec.setColumns(10);
-		textPrec.setBounds(135, 292, 222, 20);
+		textPrec.setBounds(135, 351, 222, 20);
 		getContentPane().add(textPrec);
 		this.textPrec = textPrec;
 		
 		
 		JLabel labelRef = new JLabel("N° de Referencia:");
-		labelRef.setBounds(60, 326, 115, 14);
+		labelRef.setBounds(60, 385, 115, 14);
 		getContentPane().add(labelRef);
 		
 		JTextField textRef = new JTextField();
 		textRef.setEditable(false);
 		textRef.setColumns(10);
-		textRef.setBounds(169, 323, 188, 20);
+		textRef.setBounds(169, 382, 188, 20);
 		getContentPane().add(textRef);
 		this.textRef = textRef;
 		
 		JLabel labelCat = new JLabel("Categorías:");
-		labelCat.setBounds(60, 356, 88, 14);
+		labelCat.setBounds(60, 415, 88, 14);
 		getContentPane().add(labelCat);
 		
 		JTextField textCat = new JTextField();
 		textCat.setEditable(false);
 		textCat.setColumns(10);
-		textCat.setBounds(135, 353, 222, 42);
+		textCat.setBounds(135, 412, 222, 42);
 		getContentPane().add(textCat);
 		this.textCat = textCat;
 		
 		JTextField textProv = new JTextField();
 		textProv.setEditable(false);
 		textProv.setColumns(10);
-		textProv.setBounds(135, 406, 222, 20);
+		textProv.setBounds(135, 465, 222, 20);
 		getContentPane().add(textProv);
 		this.textProv = textProv;
 		
 		JLabel labelProv = new JLabel("Proveedor:");
-		labelProv.setBounds(60, 409, 88, 14);
+		labelProv.setBounds(60, 468, 88, 14);
 		getContentPane().add(labelProv);
 		
 		ButtonImg = new JButton("Ver Imágenes");
@@ -267,9 +272,11 @@ public class VerInfoProducto extends JInternalFrame {
 
 			}
 		});
-		ButtonImg.setBounds(214, 447, 143, 23);
+		ButtonImg.setBounds(214, 496, 143, 23);
 		getContentPane().add(ButtonImg);
 		ButtonImg.setEnabled(false);
+		
+		
 		
 
 	}
