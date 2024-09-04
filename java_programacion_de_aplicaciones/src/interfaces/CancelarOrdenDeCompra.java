@@ -103,7 +103,6 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
                         		menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(seleccionado);
                         	}
                         }
-                        
                     } catch (OrdenDeCompraNoExisteException e1) {
                     	JOptionPane.showMessageDialog(null, "La orden de compra seleccionada no existe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -124,6 +123,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
                         sistema.cancelarOrdenDeCompra(numeroOrden);
                         cargarOrdenesDeCompra();
                         menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
+                        JOptionPane.showMessageDialog(null, "La orden se eliminó exitosamente", "Eliminar orden", JOptionPane.INFORMATION_MESSAGE);
                     } catch (OrdenDeCompraNoExisteException e1) {
                     	JOptionPane.showMessageDialog(null, "No hay ninguna orden de compra seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -136,17 +136,22 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
         JButton btnVerInfoOrdenes = new JButton("Ver Orden de Compra");
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
-				menu.getInfoOrdenInternalFrame().setVisible(true);
-				menu.getInfoOrdenInternalFrame().setLocation(0, 0);
-				menu.getMenuPrincipal().revalidate();
-				menu.getMenuPrincipal().repaint();
 				
-				DTFecha fecha = sistema.getOrdenDeCompraActual().getFecha();
-	            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
-	            String opcion = sistema.getOrdenDeCompraActual().getNumero() + " - " + fechaFormateada;
-	            
-				menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(opcion);
+				if(selectOrdenCancelarOrdenDeCompra.getSelectedItem() != null) {
+					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+					menu.getInfoOrdenInternalFrame().setVisible(true);
+					menu.getInfoOrdenInternalFrame().setLocation(0, 0);
+					menu.getMenuPrincipal().revalidate();
+					menu.getMenuPrincipal().repaint();
+					
+					DTFecha fecha = sistema.getOrdenDeCompraActual().getFecha();
+		            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
+		            String opcion = sistema.getOrdenDeCompraActual().getNumero() + " - " + fechaFormateada;
+		            
+					menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(opcion);
+				} else {
+					JOptionPane.showMessageDialog(null, "No hay ninguna orden de compra seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+				}	
 			}
 		});
 		btnVerInfoOrdenes.setBounds(189, 234, 177, 23);

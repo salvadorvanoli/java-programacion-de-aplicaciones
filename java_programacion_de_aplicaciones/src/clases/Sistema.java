@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import excepciones.UsuarioNoExisteException;
 import excepciones.UsuarioRepetidoException;
 import excepciones.CategoriaNoExisteException;
+import excepciones.CategoriaNoPuedeTenerProductosException;
 import excepciones.CategoriaRepetidaException;
 import excepciones.ProductoNoExisteException;
 import excepciones.ProductoRepetidoException;
@@ -248,7 +249,7 @@ public class Sistema extends ISistema {
 	
 	
 	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException {
+	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException, CategoriaNoPuedeTenerProductosException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
@@ -266,6 +267,20 @@ public class Sistema extends ISistema {
 		if (this.existeProducto(titulo, numReferencia)) {
 			throw new ProductoRepetidoException("Ya existe un producto con ese nombre y/o número de referencia en el sistema.");
 		}
+		
+		String categoriasSinProductos = "";
+		for(Categoria cat : categorias) {
+			if(!cat.isTieneProductos()) {
+				if(categoriasSinProductos != "") {
+					categoriasSinProductos += ", ";
+				}
+				categoriasSinProductos += cat.getNombreCat();
+			}
+		}
+		
+		if (categoriasSinProductos != "") {
+	        throw new CategoriaNoPuedeTenerProductosException("Las categorías " + categoriasSinProductos + " no puede contener productos.");
+	    }
 		Proveedor proveedor = (Proveedor) this.usuarioActual;
 		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, imagenes, categorias, proveedor); // Esto esta re mal
 		proveedor.agregarProducto(prod);

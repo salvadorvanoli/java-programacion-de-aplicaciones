@@ -307,4 +307,5 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
         cantidadDelProductoTextField.setText("");
         subtotalDeLaLineaTextField.setText("");
         ((DefaultListModel<String>) lineasList.getModel()).clear();
-    }}
+    }	
+}
