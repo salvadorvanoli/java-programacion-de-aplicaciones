@@ -163,6 +163,14 @@ public class RegistrarCliente extends JInternalFrame {
 				        int mes = calendar.get(Calendar.MONTH) + 1;
 				        int anio = calendar.get(Calendar.YEAR);
 				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				        Calendar currentCalendar = Calendar.getInstance();
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.setTime(fechaN);
+
+                        if (selectedCalendar.after(currentCalendar)) {
+                            JOptionPane.showMessageDialog(RegistrarCliente.this, "La fecha seleccionada no puede ser posterior a la fecha actual.", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
 				        if (!rutaImagen.isEmpty()) {
 		                    File fileToUpload = new File(rutaImagen);
 		                    String destinationPath = "src/images/" + fileToUpload.getName();  
@@ -185,7 +193,6 @@ public class RegistrarCliente extends JInternalFrame {
 						JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 								JOptionPane.INFORMATION_MESSAGE);
 						limpiarFormulario();
-						setVisible(false);
 					}
 				}
 				catch(UsuarioRepetidoException e){
@@ -201,7 +208,6 @@ public class RegistrarCliente extends JInternalFrame {
 		ButtonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormulario();
-				setVisible(false);
 			}
 		});
 		ButtonCancel.setBounds(38, 354, 105, 23);

@@ -179,6 +179,14 @@ public class RegistrarProveedor extends JInternalFrame {
 				        int dia = calendar.get(Calendar.DAY_OF_MONTH);
 				        int mes = calendar.get(Calendar.MONTH) + 1;
 				        int anio = calendar.get(Calendar.YEAR);
+				        Calendar currentCalendar = Calendar.getInstance();
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.setTime(fechaN);
+
+                        if (selectedCalendar.after(currentCalendar)) {
+                            JOptionPane.showMessageDialog(RegistrarProveedor.this, "La fecha seleccionada no puede ser posterior a la fecha actual.", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
 				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
 				        if (!rutaImagen.isEmpty()) {
 		                    File fileToUpload = new File(rutaImagen);
@@ -201,7 +209,6 @@ public class RegistrarProveedor extends JInternalFrame {
 						JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
 								JOptionPane.INFORMATION_MESSAGE);
 						limpiarFormulario();
-						setVisible(false);
 					}
 				}
 				catch(UsuarioRepetidoException e1){
@@ -221,7 +228,6 @@ public class RegistrarProveedor extends JInternalFrame {
 		ButtonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormulario();
-				setVisible(false);
 			}
 		});
 		ButtonCancel.setBounds(38, 433, 105, 23);
