@@ -209,7 +209,7 @@ public class RegistrarProveedor extends JInternalFrame {
 
 	}
 	
-	private void limpiarFormulario() {
+	public void limpiarFormulario() {
 		textNick.setText("");
 		textNom.setText("");
 		textApe.setText("");
