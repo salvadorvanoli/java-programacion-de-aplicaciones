@@ -245,6 +245,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (! checkVentanasAbiertas()) {
+            		registrarClienteInternalFrame.limpiarFormulario();
             		sistema.setTodoNull();
 	                menuPrincipal.getContentPane().add(registrarClienteInternalFrame);
 	                registrarClienteInternalFrame.setVisible(true);
@@ -265,6 +266,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (! checkVentanasAbiertas()) {
+            		registrarProveedorInternalFrame.limpiarFormulario();
             		sistema.setTodoNull();
 	                menuPrincipal.getContentPane().add(registrarProveedorInternalFrame);
 	                registrarProveedorInternalFrame.setVisible(true);
