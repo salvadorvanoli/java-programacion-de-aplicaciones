@@ -170,7 +170,7 @@ public class VerInfoProducto extends JInternalFrame {
 		ButtonConfCat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCat.getLastSelectedPathComponent();
-                Categoria categoriaActual = null;
+                
 
                 if (selectedNode != null && !selectedNode.toString().equals("Categorías")) {
                     String nombreCat = selectedNode.toString();

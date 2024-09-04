@@ -197,10 +197,10 @@ public class Sistema extends ISistema {
 	public boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException {
 		for (Usuario user : this.usuarios) {
 			if (user.getEmail().equalsIgnoreCase(email)) {
-				throw new UsuarioRepetidoException("Ya existe un cliente registrado con el email " + '"' + email + '"' + '.');
+				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el email " + '"' + email + '"' + '.');
 			}
 			if (user.getNickname().equalsIgnoreCase(nickname)) {
-				throw new UsuarioRepetidoException("Ya existe un cliente registrado con el nickname"  + '"' + nickname + '"' + '.');
+				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname"  + '"' + nickname + '"' + '.');
 			}
 		}
 		Cliente nuevo = new Cliente(nickname, nombre, apellido, email, fechaNac, imagen); // ESTO HAY QUE CAMBIARLO
@@ -212,10 +212,10 @@ public class Sistema extends ISistema {
 	public boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException {
 		for (Usuario user : this.usuarios) {
 			if (user.getEmail().equalsIgnoreCase(email)) {
-				throw new UsuarioRepetidoException("Ya existe un proveedor registrado con el email " + '"' + email + '"' + '.');
+				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el email " + '"' + email + '"' + '.');
 			}
 			if (user.getNickname().equalsIgnoreCase(nickname)) {
-				throw new UsuarioRepetidoException("Ya existe un proveedor registrado con el nickname " + '"' + nickname + '"' + '.');
+				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname " + '"' + nickname + '"' + '.');
 			}
 		}
 		Proveedor nuevo = new Proveedor(nickname, nombre, apellido, email, fechaNac, imagen, nomCompania, linkWeb);
