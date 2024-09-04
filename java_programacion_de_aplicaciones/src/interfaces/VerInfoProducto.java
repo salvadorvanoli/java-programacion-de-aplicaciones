@@ -65,6 +65,7 @@ public class VerInfoProducto extends JInternalFrame {
 	private JDesktopPane desktopPane;
 	private JButton ButtonImg;
 	private Main main;
+	private JInternalFrame vistaImagenes;
 	
 	/**
 	 * Launch the application.
@@ -434,17 +435,25 @@ public class VerInfoProducto extends JInternalFrame {
 	        
 	        if (hayImagenes) {
 	        	// Crear el JInternalFrame
-	            JInternalFrame internalFrame = new JInternalFrame("Galería de Imágenes", true, true, true, true);
-	            internalFrame.setSize(600, 400);
-	            internalFrame.getContentPane().setLayout(new BorderLayout());
+	        	
+	        	if (this.vistaImagenes != null) {
+	        		this.vistaImagenes.dispose();
+	        	}
+	        	
+	        	this.vistaImagenes = new JInternalFrame("Galería de Imágenes", true, true, true, true);
+	        	ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		        Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		        this.vistaImagenes.setFrameIcon(new ImageIcon(img));
+	        	this.vistaImagenes.setSize(600, 400);
+	        	this.vistaImagenes.getContentPane().setLayout(new BorderLayout());
 	            
 	            // Añadir el panel al JInternalFrame
 	            JScrollPane scrollPane = new JScrollPane(panelImagenes);
-	            internalFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+	            this.vistaImagenes.getContentPane().add(scrollPane, BorderLayout.CENTER);
 	
 	            // Añadir el JInternalFrame al JDesktopPane
-	            this.main.getMenuPrincipal().getContentPane().add(internalFrame);
-	            internalFrame.setVisible(true);
+	            this.main.getMenuPrincipal().getContentPane().add(this.vistaImagenes);
+	            this.vistaImagenes.setVisible(true);
 	            
 	        } else {
 	        	// MOSTRAR ERROR

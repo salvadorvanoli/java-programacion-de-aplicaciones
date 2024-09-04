@@ -143,7 +143,7 @@ public class RegistrarProveedor extends JInternalFrame {
 				 JFileChooser fileChooser = new JFileChooser();
 	                fileChooser.setDialogTitle("Seleccione una imagen");
 	                // Filtrar por imágenes
-	                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg", "gif"));
+	                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg"));
 	                
 	                int userSelection = fileChooser.showOpenDialog(RegistrarProveedor.this);
 	                

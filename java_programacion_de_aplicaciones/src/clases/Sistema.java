@@ -264,8 +264,10 @@ public class Sistema extends ISistema {
 			}
 		}
 		*/
-		if (this.existeProducto(titulo, numReferencia)) {
-			throw new ProductoRepetidoException("Ya existe un producto con ese nombre y/o número de referencia en el sistema.");
+		try {
+			this.existeProducto(titulo, numReferencia);
+		} catch (ProductoRepetidoException e) {
+			throw new ProductoRepetidoException(e.getMessage());
 		}
 		
 		String categoriasSinProductos = "";
@@ -723,33 +725,34 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override
-	public boolean existeProducto(String nombreProd, int numReferencia) {		
+	public void existeProducto(String nombreProd, int numReferencia) throws ProductoRepetidoException {		
 		for (Categoria categoria : this.categorias.values()) {
-	        if (buscarProductoEnCategoria(categoria, nombreProd, numReferencia)) {
-	            return true;
-	        }
+			try {
+				buscarProductoEnCategoria(categoria, nombreProd, numReferencia);
+			} catch (ProductoRepetidoException e) {
+				throw new ProductoRepetidoException(e.getMessage());
+			}
 	    }
-	    return false;
 	}
 
 	//@Override
-	private boolean buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia) { // Hay que probar esto
+	private void buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia) throws ProductoRepetidoException { // Hay que probar esto
 	    for (Producto producto : categoria.getProductos()) {
-	        if (producto.getNombreProducto().equalsIgnoreCase(nombreProd) || 
-	            producto.getNumReferencia() == numReferencia) {
-	        	if (producto != this.productoActual) {
-	        		return true;
-	        	}
+	        if (producto.getNombreProducto().equalsIgnoreCase(nombreProd)) {
+	        	throw new ProductoRepetidoException("Ya existe un producto con ese nombre en el sistema.");
+	        }
+	        if (producto.getNumReferencia() == numReferencia){
+	        	throw new ProductoRepetidoException("Ya existe un producto con ese número de referencia en el sistema.");
 	        }
 	    }
 
 	    for (Categoria subcategoria : categoria.getHijos().values()) {
-	        if (buscarProductoEnCategoria(subcategoria, nombreProd, numReferencia)) {
-	            return true;
-	        }
+	    	try {
+				buscarProductoEnCategoria(subcategoria, nombreProd, numReferencia);
+			} catch (ProductoRepetidoException e) {
+				throw new ProductoRepetidoException(e.getMessage());
+			}
 	    }
-
-	    return false;
 	}
 	
 	@Override
@@ -760,8 +763,10 @@ public class Sistema extends ISistema {
 		if (precio <= 0) {
 			throw new IllegalArgumentException("El precio elegido no puede ser menor o igual a 0.");
 		}
-		if (existeProducto(nombreProd, numReferencia)) {
-			throw new IllegalArgumentException("Ya existe un producto con el nombre o con el número de referencia especificados");
+		try {
+			existeProducto(nombreProd, numReferencia);
+		} catch (ProductoRepetidoException e) {
+			throw new ProductoRepetidoException(e.getMessage());
 		}
 		this.productoActual.setNombreProducto(nombreProd);
 		this.productoActual.setNumReferencia(numReferencia);

@@ -88,7 +88,7 @@ public abstract class ISistema{
 	
 	public abstract void agregarCategoriasAProducto(List<Categoria> listaCat);
 	
-	public abstract boolean existeProducto(String nombreProd, int numReferencia);
+	public abstract void existeProducto(String nombreProd, int numReferencia) throws ProductoRepetidoException;
 
 	// public abstract boolean buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia);
 	

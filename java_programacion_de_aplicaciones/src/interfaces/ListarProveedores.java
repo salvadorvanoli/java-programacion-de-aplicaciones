@@ -291,11 +291,17 @@ public class ListarProveedores extends JInternalFrame {
 	        File archivoImagen = new File(imagen);
 	        if (archivoImagen.exists()) {
 	        	
+	        	if (this.vistaFoto != null) {
+	        		this.vistaFoto.dispose();
+	        	}
+	        	
 	        	// Crear el JInternalFrame
 				this.vistaFoto = new JInternalFrame("Flamin-Go", true, true, true, true);
-				this.vistaFoto.setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
-				vistaFoto.setSize(600, 400);
-				vistaFoto.getContentPane().setLayout(new BorderLayout());
+				ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		        Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+				this.vistaFoto.setFrameIcon(new ImageIcon(img));
+				this.vistaFoto.setSize(600, 400);
+				this.vistaFoto.getContentPane().setLayout(new BorderLayout());
 				
 		        // Crear un JPanel para contener las imágenes
 		        JPanel panelImagenes = new JPanel();
@@ -307,11 +313,11 @@ public class ListarProveedores extends JInternalFrame {
 	            
 	            // Añadir el panel al JInternalFrame
 		        JScrollPane scrollPane = new JScrollPane(panelImagenes);
-		        vistaFoto.getContentPane().add(scrollPane, BorderLayout.CENTER);
+		        this.vistaFoto.getContentPane().add(scrollPane, BorderLayout.CENTER);
 	
 		        // Añadir el JInternalFrame al JDesktopPane
-		        menu.getMenuPrincipal().getContentPane().add(vistaFoto);
-		        vistaFoto.setVisible(true);
+		        menu.getMenuPrincipal().getContentPane().add(this.vistaFoto);
+		        this.vistaFoto.setVisible(true);
 	        } else {
 	            JOptionPane.showMessageDialog(null, "Archivo no encontrado: " + imagen, "Error", JOptionPane.ERROR_MESSAGE);
 	        }
