@@ -42,7 +42,6 @@ public class Main {
     private AltaDeCategoria altaCategoriaInternalFrame;
     private CancelarOrdenDeCompra cancelarOrdenInternalFrame;
     private GenerarOrdenDeCompra generarOrdenInternalFrame;
-    private InfoProveedorDetallado infoProveedorInternalFrame;
     private ListarProveedores listarProveedoresInternalFrame;
     private ModificarDatosProducto modificarProductoInternalFrame;
     private RegistrarCliente registrarClienteInternalFrame;
@@ -54,7 +53,6 @@ public class Main {
     
     // Dos pestañas más (sirven para manejar el caso de uso ModificarDatosProducto
     private ModificarCategoriasProducto modificarCategoriasProductoInternalFrame;
-    private ModificarImagenesProducto modificarImagenesProductoInternalFrame;
     
     // Agregamos getters de todo lo que posee el Main (con la idea de manejar otros casos de uso desde fuera)
     
@@ -72,10 +70,6 @@ public class Main {
     
     public GenerarOrdenDeCompra getGenerarOrdenInternalFrame() {
     	return this.generarOrdenInternalFrame;
-    }
-    
-    public InfoProveedorDetallado getInfoProveedorInternalFrame() {
-    	return this.infoProveedorInternalFrame;
     }
     
     public ListarProveedores getListarProveedoresInternalFrame(){
@@ -114,15 +108,10 @@ public class Main {
     	return this.modificarCategoriasProductoInternalFrame;
     }
     
-    public ModificarImagenesProducto getModificarImagenesProductoInternalFrame() {
-    	return this.modificarImagenesProductoInternalFrame;
-    }
-    
     public boolean checkVentanasAbiertas() {
     	return (this.altaCategoriaInternalFrame.isVisible() ||
     			this.cancelarOrdenInternalFrame.isVisible() ||
     			this.generarOrdenInternalFrame.isVisible() ||
-    			this.infoProveedorInternalFrame.isVisible() ||
     			this.listarProveedoresInternalFrame.isVisible() ||
     			this.modificarProductoInternalFrame.isVisible() ||
     			this.registrarClienteInternalFrame.isVisible() ||
@@ -169,9 +158,6 @@ public class Main {
 	    generarOrdenInternalFrame = new GenerarOrdenDeCompra(sistema);
 	    generarOrdenInternalFrame.setVisible(false);
 	    
-	    infoProveedorInternalFrame = new InfoProveedorDetallado(sistema);
-	    infoProveedorInternalFrame.setVisible(false);
-	    
 	    listarProveedoresInternalFrame = new ListarProveedores(sistema, this);
 	    listarProveedoresInternalFrame.setVisible(false);
 	    
@@ -198,9 +184,6 @@ public class Main {
 	    
 	    modificarCategoriasProductoInternalFrame = new ModificarCategoriasProducto(sistema, modificarProductoInternalFrame);
 	    modificarCategoriasProductoInternalFrame.setVisible(false);
-	    
-	    modificarImagenesProductoInternalFrame = new ModificarImagenesProducto(sistema);
-	    modificarImagenesProductoInternalFrame.setVisible(false);
 	    
 	    // AGREGUÉ UN ADDEVENTLISTENER EN EL MAIN (PERO ES SOBRE OTRO CASO DE USO).
 	    

@@ -24,6 +24,9 @@ import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -69,7 +72,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
-		setTitle("Flamin-Go");
+		setTitle("Registrar Proveedor");
 		setClosable(true);
 		setBounds(100, 100, 416, 522);
 		getContentPane().setLayout(null);
@@ -140,21 +143,22 @@ public class RegistrarProveedor extends JInternalFrame {
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
 		ButtonImg.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 JFileChooser fileChooser = new JFileChooser();
-	                fileChooser.setDialogTitle("Seleccione una imagen");
-	                // Filtrar por imágenes
-	                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg"));
-	                
-	                int userSelection = fileChooser.showOpenDialog(RegistrarProveedor.this);
-	                
-	                if (userSelection == JFileChooser.APPROVE_OPTION) {
-	                    File fileToUpload = fileChooser.getSelectedFile();
-	                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
-	                    JOptionPane.showMessageDialog(RegistrarProveedor.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
-	                }
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        JFileChooser fileChooser = new JFileChooser();
+		        fileChooser.setDialogTitle("Seleccione una imagen");
+		        // Filtrar por imágenes
+		        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg"));
+
+		        int userSelection = fileChooser.showOpenDialog(RegistrarProveedor.this);
+
+		        if (userSelection == JFileChooser.APPROVE_OPTION) {
+		            File fileToUpload = fileChooser.getSelectedFile();
+		            rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen seleccionada
+		            JOptionPane.showMessageDialog(RegistrarProveedor.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+		        }
+		    }
 		});
+
 		ButtonImg.setBounds(38, 386, 168, 20);
 		getContentPane().add(ButtonImg);
 		
@@ -176,8 +180,24 @@ public class RegistrarProveedor extends JInternalFrame {
 				        int mes = calendar.get(Calendar.MONTH) + 1;
 				        int anio = calendar.get(Calendar.YEAR);
 				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				        if (!rutaImagen.isEmpty()) {
+		                    File fileToUpload = new File(rutaImagen);
+		                    String destinationPath = "src/images/" + fileToUpload.getName();  
+		                    File destinationFile = new File(destinationPath);
+
+		                    // Crear la carpeta si no existe
+		                    destinationFile.getParentFile().mkdirs();
+
+		                    try {
+		                        // Copiar el archivo a la carpeta de destino
+		                        Files.copy(fileToUpload.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		                        rutaImagen = destinationFile.getAbsolutePath();
+		                    } catch (IOException ioException) {
+		                        JOptionPane.showMessageDialog(RegistrarProveedor.this, "Error al guardar la imagen: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		                   
+		                    }
+		                }
 						sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
-						
 						JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
 								JOptionPane.INFORMATION_MESSAGE);
 						limpiarFormulario();

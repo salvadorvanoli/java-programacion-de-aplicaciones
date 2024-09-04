@@ -24,6 +24,9 @@ import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,7 +70,7 @@ public class RegistrarCliente extends JInternalFrame {
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
-		setTitle("Flamin-Go");
+		setTitle("Registrar Cliente");
 		setClosable(true);
 		setBounds(100, 100, 416, 436);
 		getContentPane().setLayout(null);
@@ -123,21 +126,22 @@ public class RegistrarCliente extends JInternalFrame {
 		getContentPane().add(ButtonImg);
 		
 		ButtonImg.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Seleccione una imagen");
-                // Filtrar por imágenes
-                fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg"));
-                
-                int userSelection = fileChooser.showOpenDialog(RegistrarCliente.this);
-                
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File fileToUpload = fileChooser.getSelectedFile();
-                    rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen
-                    JOptionPane.showMessageDialog(RegistrarCliente.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });
+			 public void actionPerformed(ActionEvent e) {
+			        JFileChooser fileChooser = new JFileChooser();
+			        fileChooser.setDialogTitle("Seleccione una imagen");
+			        // Filtrar por imágenes
+			        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imágenes", "jpg", "png", "jpeg"));
+
+			        int userSelection = fileChooser.showOpenDialog(RegistrarCliente.this);
+
+			        if (userSelection == JFileChooser.APPROVE_OPTION) {
+			            File fileToUpload = fileChooser.getSelectedFile();
+			            rutaImagen = fileToUpload.getAbsolutePath();  // Guardar la ruta de la imagen seleccionada
+			            JOptionPane.showMessageDialog(RegistrarCliente.this, "Imagen seleccionada: " + rutaImagen, "Imagen", JOptionPane.INFORMATION_MESSAGE);
+			        }
+			    }
+		});
+
 		DateFecha = new JDateChooser();
 		DateFecha.setBounds(38, 258, 144, 20);
 		getContentPane().add(DateFecha);
@@ -159,6 +163,23 @@ public class RegistrarCliente extends JInternalFrame {
 				        int mes = calendar.get(Calendar.MONTH) + 1;
 				        int anio = calendar.get(Calendar.YEAR);
 				        DTFecha dtFecha = new DTFecha(dia, mes, anio);
+				        if (!rutaImagen.isEmpty()) {
+		                    File fileToUpload = new File(rutaImagen);
+		                    String destinationPath = "src/images/" + fileToUpload.getName();  
+		                    File destinationFile = new File(destinationPath);
+
+		                    // Crear la carpeta si no existe
+		                    destinationFile.getParentFile().mkdirs();
+
+		                    try {
+		                        // Copiar el archivo a la carpeta de destino
+		                        Files.copy(fileToUpload.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		                        rutaImagen = destinationFile.getAbsolutePath();
+		                    } catch (IOException ioException) {
+		                        JOptionPane.showMessageDialog(RegistrarCliente.this, "Error al guardar la imagen: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		                   
+		                    }
+		                }
 						sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen);
 						
 						JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",

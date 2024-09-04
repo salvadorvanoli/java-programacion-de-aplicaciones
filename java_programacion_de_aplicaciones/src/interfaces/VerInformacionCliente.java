@@ -96,7 +96,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		
 		setClosable(true);
-		setTitle("Flamin-Go");
+		setTitle("Ver Información de un Cliente");
 		setBounds(100, 100, 526, 366);
 		getContentPane().setLayout(null);
 		
