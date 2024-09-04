@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Cantidad {
 	
-	private Producto producto;
+	private DTProducto producto;
 	private int cantidad;
 	
-	public Producto getProducto() {
+	public DTProducto getProducto() {
 		return producto;
 	}
-	public void setProducto(Producto producto) {
+	public void setProducto(DTProducto producto) {
 		this.producto = producto;
 	}
 	public int getCantidad() {
@@ -25,7 +25,7 @@ public class Cantidad {
 		this.cantidad = cantidad;
 	}
 	
-	public void linkProducto(Producto producto) {
+	public void linkProducto(DTProducto producto) {
 		this.producto = producto;
 	}
 	
@@ -33,24 +33,24 @@ public class Cantidad {
 		return this.cantidad*this.producto.getPrecio();
 	}
 	
-	public Cantidad(Producto producto, int cantidad) {
+	public Cantidad(DTProducto producto, int cantidad) {
 		super();
 		this.producto = producto;
 		this.cantidad = cantidad;
 	}
 	
 	public DTCantidadProducto getDTCantidadProducto() {
-		return new DTCantidadProducto(this, this.producto.getDTProducto(), this.getSubtotal());
+		return new DTCantidadProducto(this, this.producto, this.getSubtotal());
 	}
 	
 	public String toString() {
-		return "Nombre del producto: " + this.producto.getNombreProducto() + System.lineSeparator()
-		+ "Codigo del producto: " + this.producto.getNumReferencia() + System.lineSeparator()
+		return "Nombre del producto: " + this.producto.getNombre() + System.lineSeparator()
+		// + "Codigo del producto: " + this.producto.getNumReferencia() + System.lineSeparator()
         + "Cantidad del producto = " + this.cantidad + ";" + System.lineSeparator();
 	}
 	
 	public String toString2() {
-		return this.producto.getNombreProducto() + System.lineSeparator()
+		return this.producto.getNombre() + System.lineSeparator()
         + "   X" + this.cantidad + "" + System.lineSeparator();
 	}
 }
