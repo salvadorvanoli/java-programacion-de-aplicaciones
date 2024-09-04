@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Color;
 
 public class CancelarOrdenDeCompra extends JInternalFrame {
 
@@ -63,6 +64,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
         getContentPane().setLayout(null);
         
         JTextPane tituloCancelarOrdenDeCompra = new JTextPane();
+        tituloCancelarOrdenDeCompra.setBackground(new Color(240, 240, 240));
         tituloCancelarOrdenDeCompra.setEditable(false);
         tituloCancelarOrdenDeCompra.setText("Bienvenido a la interfaz de eliminación de órdenes de compra, elija una y seleccione \"Eliminar\"");
         tituloCancelarOrdenDeCompra.setBounds(10, 62, 534, 20);

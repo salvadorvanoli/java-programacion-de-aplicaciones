@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTree;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Color;
 
 public class AltaDeCategoria extends JInternalFrame {
 
@@ -57,32 +58,34 @@ public class AltaDeCategoria extends JInternalFrame {
 
         // Inicializar los componentes
         JTextPane tituloAltaDeCategoria = new JTextPane();
+        tituloAltaDeCategoria.setBackground(new Color(240, 240, 240));
         tituloAltaDeCategoria.setEditable(false);
         tituloAltaDeCategoria.setText("Bienvenido a la interfaz de creación de una categoría, rellene el formulario e ingrese \"Crear\" para dar de alta la categoría.");
-        tituloAltaDeCategoria.setBounds(10, 66, 535, 34);
+        tituloAltaDeCategoria.setBounds(30, 66, 515, 34);
         getContentPane().add(tituloAltaDeCategoria);
 
         JLabel labelNombreCategoriaAltaDeCategoria = new JLabel("Nombre de la categoría *");
-        labelNombreCategoriaAltaDeCategoria.setBounds(30, 103, 170, 14);
+        labelNombreCategoriaAltaDeCategoria.setBounds(30, 120, 170, 14);
         getContentPane().add(labelNombreCategoriaAltaDeCategoria);
 
         inputNombreDeLaCategoria = new JTextField();
         inputNombreDeLaCategoria.setColumns(10);
-        inputNombreDeLaCategoria.setBounds(30, 128, 515, 20);
+        inputNombreDeLaCategoria.setBounds(30, 145, 515, 20);
         getContentPane().add(inputNombreDeLaCategoria);
 
         contieneProductosCheckbox = new JCheckBox("Contiene productos");
-        contieneProductosCheckbox.setBounds(30, 155, 170, 23);
+        contieneProductosCheckbox.setBounds(30, 172, 170, 23);
         getContentPane().add(contieneProductosCheckbox);
 
         JLabel labelSelectDeCategoriaAltaDeCategoria = new JLabel("Seleccione una categoría a la que pertenezca (no seleccione ninguna si es categoría raíz)");
-        labelSelectDeCategoriaAltaDeCategoria.setBounds(31, 193, 664, 14);
+        labelSelectDeCategoriaAltaDeCategoria.setBounds(31, 210, 664, 14);
         getContentPane().add(labelSelectDeCategoriaAltaDeCategoria);
 
         JTextPane obligatorioAltaDeCategoria = new JTextPane();
+        obligatorioAltaDeCategoria.setBackground(new Color(240, 240, 240));
         obligatorioAltaDeCategoria.setEditable(false);
         obligatorioAltaDeCategoria.setText("Los elementos marcados con * son obligatorios");
-        obligatorioAltaDeCategoria.setBounds(30, 492, 306, 20);
+        obligatorioAltaDeCategoria.setBounds(30, 509, 306, 20);
         getContentPane().add(obligatorioAltaDeCategoria);
 
         JLabel tituloPrincipalAltaDeCategoria = new JLabel("Alta de Categoría");
@@ -92,12 +95,12 @@ public class AltaDeCategoria extends JInternalFrame {
         getContentPane().add(tituloPrincipalAltaDeCategoria);
 
         JButton crearBtnAltaDeCategoria = new JButton("Crear");
-        crearBtnAltaDeCategoria.setBounds(231, 540, 89, 23);
+        crearBtnAltaDeCategoria.setBounds(231, 550, 89, 23);
         getContentPane().add(crearBtnAltaDeCategoria);
         
         JScrollPane scrollCategoriasTree = new JScrollPane();
         scrollCategoriasTree.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollCategoriasTree.setBounds(30, 218, 515, 263);
+        scrollCategoriasTree.setBounds(30, 235, 515, 263);
         getContentPane().add(scrollCategoriasTree);
         
                 selectCategoriaPadreAltaDeCategoria = new JTree();
