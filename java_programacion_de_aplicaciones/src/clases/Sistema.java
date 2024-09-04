@@ -750,7 +750,6 @@ public class Sistema extends ISistema {
         c2.add(cat2);
         c2.add(cat3);
         
-        
         Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, null);
         Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, null);
         
