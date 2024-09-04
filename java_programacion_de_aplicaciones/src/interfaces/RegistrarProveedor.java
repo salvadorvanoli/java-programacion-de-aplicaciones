@@ -189,7 +189,6 @@ public class RegistrarProveedor extends JInternalFrame {
 				
 			}
 		});
-		ButtonReg.setBackground(new Color(255, 255, 255));
 		ButtonReg.setBounds(256, 433, 114, 23);
 		getContentPane().add(ButtonReg);
 		

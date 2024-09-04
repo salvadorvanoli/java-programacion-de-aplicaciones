@@ -493,7 +493,6 @@ public class RegistrarProducto extends JInternalFrame {
 				}
 			}
 		});
-		BotonRegistrar.setBackground(new Color(240, 240, 240));
 		BotonRegistrar.setBounds(381, 304, 104, 23);
 		getContentPane().add(BotonRegistrar);
 			

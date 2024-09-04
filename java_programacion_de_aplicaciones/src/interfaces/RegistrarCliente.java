@@ -172,7 +172,6 @@ public class RegistrarCliente extends JInternalFrame {
 				
 			}
 		});
-		ButtonReg.setBackground(new Color(240, 240, 240));
 		ButtonReg.setBounds(268, 354, 105, 23);
 		getContentPane().add(ButtonReg);
 		
