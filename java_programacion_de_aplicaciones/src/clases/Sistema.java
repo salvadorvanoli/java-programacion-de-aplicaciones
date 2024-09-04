@@ -760,7 +760,7 @@ public class Sistema extends ISistema {
         String imagen6 = "/Images/Chica3.png";
         
         Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, imagen2);
-        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, imagen5);
+        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Panconqueso1012@example.com", fecha2, imagen5);
         Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1);
         
         Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com");
