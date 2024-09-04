@@ -27,6 +27,8 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
@@ -88,7 +90,10 @@ public class VerInformacionCliente extends JInternalFrame {
 		this.sistema = sistema;
 		this.menu = menu;
 		
-		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
+		
 		setClosable(true);
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 526, 366);

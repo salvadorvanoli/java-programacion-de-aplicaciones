@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,9 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 		this.nuevasCategorias = new ArrayList<>();
 		this.internalFramePadre = internalFramePadre;
 		
-		setFrameIcon(new ImageIcon(VerInformacionCliente.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setClosable(true);
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 366, 254);
@@ -106,13 +109,6 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 	                		nuevoTextoCategorias += cat.getNombreCat() + System.lineSeparator();
 	                	}
 	                }
-	                /*
-	                int count = 1;
-	                for (Categoria cat : nuevasCategorias) {
-	                    System.out.println("Categoría " + count + ": " + cat.toString());
-	                    count++;
-	                }
-	                */
             	}
             }
         });

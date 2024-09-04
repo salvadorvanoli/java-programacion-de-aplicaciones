@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 
 import clases.DTFecha;
@@ -61,7 +63,9 @@ public class RegistrarCliente extends JInternalFrame {
 	 */
 	public RegistrarCliente(ISistema sistema) {
 		setResizable(true);
-		setFrameIcon(new ImageIcon(RegistrarCliente.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setClosable(true);
 		setBounds(100, 100, 385, 436);

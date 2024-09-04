@@ -14,6 +14,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -211,7 +213,9 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);
 		setBackground(new Color(255, 192, 203));
-		setFrameIcon(new ImageIcon(RegistrarProducto.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go\r\n");
 		setBounds(100, 100, 514, 328);
 		getContentPane().setLayout(null);
@@ -263,7 +267,7 @@ public class RegistrarProducto extends JInternalFrame {
 		TextoImagen.setBounds(150, 188, 78, 14);
 		getContentPane().add(TextoImagen);
 		
-		JButton BotonSeleccionImagen = new JButton("Seleccion...");
+		JButton BotonSeleccionImagen = new JButton("Seleccionar");
 		BotonSeleccionImagen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -47,7 +48,9 @@ public class AltaDeCategoria extends JInternalFrame {
 
         // Inicializar el frame
         setClosable(true);
-        setFrameIcon(new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png")));
+        ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+        Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+        setFrameIcon(new ImageIcon(img));
         setTitle("Flamin-Go");
         setBounds(100, 100, 590, 625);
         getContentPane().setLayout(null);

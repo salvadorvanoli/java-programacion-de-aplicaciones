@@ -7,10 +7,12 @@ import java.awt.FlowLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +89,9 @@ public class VerInfoProducto extends JInternalFrame {
 		setResizable(true);
 		this.sistema = sistema;
 		this.main = main;
-		setFrameIcon(new ImageIcon(VerInfoProducto.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setClosable(true);
 		setBounds(100, 100, 380, 505);
@@ -402,7 +406,7 @@ public class VerInfoProducto extends JInternalFrame {
 	                panelImagenes.add(etiquetaImagen);
 	                hayImagenes = true;
 	            } else {
-	                System.out.println("Archivo no encontrado: " + ruta);
+	                JOptionPane.showMessageDialog(null, "Archivo no encontrado: " + ruta, "Error", JOptionPane.ERROR_MESSAGE);
 	            }
 	        }
 	        

@@ -52,6 +52,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JInternalFrame;
 import java.awt.Font;
+import java.awt.Image;
 
 public class GenerarOrdenDeCompra extends JInternalFrame {
 	public List<Cantidad> listaCantidades;
@@ -88,7 +89,9 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	 */
 	public GenerarOrdenDeCompra(ISistema sistema) {
 		setClosable(true);
-		setFrameIcon(new ImageIcon(GenerarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setBounds(100, 100, 486, 389);
 		getContentPane().setLayout(null);
@@ -295,8 +298,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		            // Agregar una representación de la cantidad a la JList
 		            model.addElement(nuevaCantidad.toString2());
 		            
-		            System.out.println("LLEGUE HASTA ACAAAA");
-		            
 		            // Limpiar los campos
 		            cantidadPoner.setText("");
 		            
@@ -393,9 +394,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 			    try {
 			        // Obtén el cliente seleccionado como un objeto DTCliente
 			        DTCliente clienteSeleccionado = (DTCliente) seleccionarCliente.getSelectedItem();
-			        
-			        // Depuración: Imprimir el valor del cliente seleccionado
-			        System.out.println("Cliente seleccionado: " + clienteSeleccionado);
 
 			        // Verifica si el clienteSeleccionado es null
 			        if (clienteSeleccionado == null) {

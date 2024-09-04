@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import clases.ISistema;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Dimension;
 import javax.swing.JTextArea;
 
@@ -46,7 +47,9 @@ public class InfoProveedorDetallado extends JInternalFrame {
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);
 		setBackground(Color.WHITE);
-		setFrameIcon(new ImageIcon(InfoProveedorDetallado.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setBounds(new Rectangle(0, 0, 256, 220));
 		setBounds(100, 100, 441, 299);

@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -81,7 +83,9 @@ public class ListarProveedores extends JInternalFrame {
 	public ListarProveedores(ISistema sistema, Main main) {
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setFrameIcon(new ImageIcon(ListarProveedores.class.getResource("/Images/Flamin-Go.png")));
+		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+		setFrameIcon(new ImageIcon(img));
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setBounds(100, 100, 328, 376);
 		getContentPane().setLayout(null);

@@ -11,6 +11,8 @@ import java.awt.Choice;
 import javax.swing.JButton;
 import java.awt.TextArea;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -54,7 +56,9 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
     private void inicializarComponentes() {
         setClosable(true);
         setTitle("Flamin-Go");
-        setFrameIcon(new ImageIcon(CancelarOrdenDeCompra.class.getResource("/Images/Flamin-Go.png")));
+        ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+        Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+        setFrameIcon(new ImageIcon(img));
         setBounds(100, 100, 590, 328);
         getContentPane().setLayout(null);
         
@@ -141,8 +145,6 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 				DTFecha fecha = sistema.getOrdenDeCompraActual().getFecha();
 	            String fechaFormateada = String.format("%02d/%02d/%04d", fecha.getDia(), fecha.getMes(), fecha.getAnio());
 	            String opcion = sistema.getOrdenDeCompraActual().getNumero() + " - " + fechaFormateada;
-                
-	            System.out.println("Opción a seleccionar: " + opcion);
 	            
 				menu.getInfoOrdenInternalFrame().getCombobox().setSelectedItem(opcion);
 			}
