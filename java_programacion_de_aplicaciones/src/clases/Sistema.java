@@ -45,104 +45,7 @@ public class Sistema extends ISistema {
 		this.ordenActual = null;
 		this.categoriaActual = null;
 		this.productoActual = null;
-		this.listaOrden = new ArrayList<>();
-		
-		DTFecha fecha1 = new DTFecha(2, 4, 2024);
-        DTFecha fecha2 = new DTFecha(6, 8, 2024);
-        
-        Cliente cl1 = new Cliente("a", "a", "a", "a", fecha1, "a");
-        Cliente cl2 = new Cliente("b", "b", "b", "b", fecha2, "b");
-        
-        Proveedor pr1 = new Proveedor("nick1", "Juan", "Pérez", "juan.perez@example.com", fecha1, "foto1.jpg", "Compania1", "http://compania1.com");
-        Proveedor pr2 = new Proveedor("nick2", "María", "Gómez", "maria.gomez@example.com", fecha2, "foto2.png", "Compania2", "http://compania2.com");
-        
-        // Crear listas de imágenes y categorías
-        List<String> imagenes = new ArrayList<>();
-        imagenes.add("imagen1.jpg");
-        imagenes.add("imagen2.jpg");
-        
-        // Crear una instancia de Producto con todos los campos llenos
-        Producto producto = new Producto(
-            "aa",          // nombreProducto
-            "ae",     // descripcion
-            "ai",   // especificacion
-            12345,                           // numReferencia
-            99.99f,                          // precio
-            imagenes,                        // lista de imágenes
-            null,                      // lista de categorías
-            pr1                        // proveedor
-        );
-        
-        Producto producto2 = new Producto(
-                "ba",          // nombreProducto
-                "be",     // descripcion
-                "bi",   // especificacion
-                1234567,                           // numReferencia
-                99.99f,                          // precio
-                imagenes,                        // lista de imágenes
-                null,                      // lista de categorías
-                pr1                        // proveedor
-            );
-        
-        Producto producto3 = new Producto(
-                "ca",          // nombreProducto
-                "ce",     // descripcion
-                "ci",   // especificacion
-                12345678,                           // numReferencia
-                99.99f,                          // precio
-                imagenes,                        // lista de imágenes
-                null,                      // lista de categorías
-                pr2                        // proveedor
-            );
-        
-        // Crear dos órdenes de compra
-        OrdenDeCompra orden1 = new OrdenDeCompra(1, fecha1, cl1, null);
-        orden1.setPrecioTotal(100.50f);
-        OrdenDeCompra orden2 = new OrdenDeCompra(2, fecha2, cl2, null);
-        orden2.setPrecioTotal(200.75f);
-        
-        orden1.agregarProducto(producto.getDTProducto(), 5);
-        orden1.agregarProducto(producto2.getDTProducto(), 64);
-        
-        orden2.agregarProducto(producto3.getDTProducto(), 7);
-        orden2.agregarProducto(producto.getDTProducto(), 69);
-        
-		ordenes.put(1, orden1);
-		ordenes.put(2, orden2);
-		
-		this.usuarios.add(cl1);
-		this.usuarios.add(cl2);
-		this.usuarios.add(pr1);
-		this.usuarios.add(pr2);
-        
-        try {
-        	Categoria cat = new Categoria("A", true, null);
-			altaCategoria("A", true, null);
-			altaCategoria("B", true, cat);
-			altaCategoria("C", true, null);
-		} catch (CategoriaRepetidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        int count = 0;
-        
-        for (Categoria cat : this.categorias.values()) {
-        	count++;
-        	List<Categoria> lista = new ArrayList<>();
-        	lista.add(cat);
-        	if (count == 1) {
-        		cat.agregarProducto(producto);
-        		producto.setCategorias(lista);
-        	} else if (count == 2) {
-        		cat.agregarProducto(producto2);
-        		producto2.setCategorias(lista);
-        	} else if (count == 3) {
-        		cat.agregarProducto(producto3);
-        		producto3.setCategorias(lista);
-        	}
-        }
-        
+		this.listaOrden = new ArrayList<>(); 
 	}
 	
 	@Override
@@ -827,6 +730,75 @@ public class Sistema extends ISistema {
 		this.productoActual = null;
 		this.usuarioActual = null;
 		this.listaOrden.clear();
+	}
+
+	@Override
+	public void crearCasos() {
+		// TODO Auto-generated method stub
+		DTFecha fecha1 = new DTFecha(2, 4, 2024);
+        DTFecha fecha2 = new DTFecha(6, 8, 2024);
+       
+        Categoria cat1 = new Categoria( "", false, null);
+        Categoria cat2 = new Categoria( "",  false, cat1);
+        Categoria cat3 = new Categoria( "",  false, cat1);
+        
+        List<Categoria> c1= new ArrayList<>();
+        List<Categoria> c2= new ArrayList<>();
+        c1.add(cat3);
+        c1.add(cat2);
+        c2.add(cat1);
+        c2.add(cat2);
+        c2.add(cat3);
+        
+        
+        Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, null);
+        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, null);
+        
+        Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "juan.perez@example.com", fecha1, null, "Sugar Cane Bank", "http://compania1.com");
+        Proveedor pr2 = new Proveedor("Maria_02", "María", "Gómez", "maria.gomez@example.com", fecha2, null, "Mary on a cross Enterprise", "http://compania2.com");
+       
+        Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c1,  pr2);
+        Producto producto2 = new Producto("Guitarra", "Guitarra electrica de ebano.", "Hambucker Doble", 998, 16500.0f, null, c2,  pr2);
+        Producto producto3 = new Producto("Control Remoto", "Util para televisores de alta calidad.", "Pilas AAA", 997, 350.20f, null, c1,  pr1);
+        
+        OrdenDeCompra orden1 = new OrdenDeCompra(88, fecha1, cl1, null);
+        orden1.setPrecioTotal(100.50f);
+        OrdenDeCompra orden2 = new OrdenDeCompra(77, fecha2, cl2, null);
+        orden2.setPrecioTotal(200.75f);
+        
+        orden1.agregarProducto(producto1.getDTProducto(), 100);
+        orden1.agregarProducto(producto2.getDTProducto(), 3);
+        
+        orden2.agregarProducto(producto3.getDTProducto(), 20);
+        orden2.agregarProducto(producto1.getDTProducto(), 45);
+        
+		ordenes.put(1, orden1);
+		ordenes.put(2, orden2);
+		
+		this.usuarios.add(cl1);
+		this.usuarios.add(cl2);
+		this.usuarios.add(pr1);
+		this.usuarios.add(pr2);
+
+        int count = 0;
+        
+        for (Categoria cat : this.categorias.values()) {
+        	count++;
+        	List<Categoria> lista = new ArrayList<>();
+        	lista.add(cat);
+        	if (count == 1) {
+        		cat.agregarProducto(producto1);
+        		producto1.setCategorias(lista);
+        	} else if (count == 2) {
+        		cat2.agregarProducto(producto2);
+        		producto2.setCategorias(lista);
+        	} else if (count == 3) {
+        		cat3.agregarProducto(producto3);
+        		producto3.setCategorias(lista);
+        	}
+        }
+       
+		
 	}
 	
 	

@@ -34,6 +34,8 @@ public abstract class ISistema{
 	
 	public abstract Producto getProductoActual();
 	
+	public abstract void crearCasos();
+	
 	// Falta destructor (busqué y creo que no tiene)
 	
 	// Le puse abstract a todo pero no se si esta bien
