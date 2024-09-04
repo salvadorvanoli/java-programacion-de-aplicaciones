@@ -61,6 +61,7 @@ public class VerInfoProducto extends JInternalFrame {
 	private JTextField textProv;
 	private JTextField textImg;
 	private JDesktopPane desktopPane;
+	private JButton ButtonImg;
 	private Main main;
 	
 	/**
@@ -113,9 +114,10 @@ public class VerInfoProducto extends JInternalFrame {
 		comboBoxProd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(comboBoxProd.getSelectedItem() == null) {
-					return;
-				}
+				if(comboBoxProd.getSelectedItem() == null || comboBoxProd.getSelectedIndex() == -1) {
+                    ButtonImg.setEnabled(false);
+                    return;
+                }
 				
 				DTProducto producto = (DTProducto) comboBoxProd.getSelectedItem();
 				String nombreProducto = producto.getNombre();
@@ -144,6 +146,7 @@ public class VerInfoProducto extends JInternalFrame {
 						textProv.setText(provDet);
 						textCat.setText(catDet);
 						textRef.setText(numDet);
+						ButtonImg.setEnabled(true);
 						//textImg.setText(imgDet);
 						//mostrarImagenesEnInternalFrame(imagenes);						
 						//TextDatosProd.setText(ProductoDetallado);
@@ -256,7 +259,7 @@ public class VerInfoProducto extends JInternalFrame {
 		labelProv.setBounds(60, 409, 88, 14);
 		getContentPane().add(labelProv);
 		
-		JButton ButtonImg = new JButton("Ver Imágenes");
+		ButtonImg = new JButton("Ver Imágenes");
 		ButtonImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<String> imagenes = sistema.verInformacionProducto().getImagenes();
@@ -266,6 +269,7 @@ public class VerInfoProducto extends JInternalFrame {
 		});
 		ButtonImg.setBounds(214, 447, 143, 23);
 		getContentPane().add(ButtonImg);
+		ButtonImg.setEnabled(false);
 		
 
 	}
@@ -395,7 +399,7 @@ public class VerInfoProducto extends JInternalFrame {
 		for (DTProducto prod : lista) {
 			this.comboBoxProd.addItem(prod);
 		}
-		
+		this.comboBoxProd.setSelectedIndex(-1);
 	}
 	
 	private void mostrarImagenesEnInternalFrame(List<String> rutasImagenes) {
