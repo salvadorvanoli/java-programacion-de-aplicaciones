@@ -752,7 +752,6 @@ public class Sistema extends ISistema {
         c2.add(cat1);
         c3.add(cat2);
         
-        
         String imagen1 = "/Images/Chico1.png";
         String imagen2 = "/Images/Chico2.png";
         String imagen3 = "/Images/Chico3.png";
@@ -760,13 +759,12 @@ public class Sistema extends ISistema {
         String imagen5 = "/Images/Chica2.png";
         String imagen6 = "/Images/Chica3.png";
         
-        
         Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, imagen2);
         Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Pancnqueso1012@example.com", fecha2, imagen5);
         Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1);
         
         Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com");
-        Proveedor pr2 = new Proveedor("Maria_02", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACrossEnterprise.com");
+        Proveedor pr2 = new Proveedor("Maria_02", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACross.com");
         Proveedor pr3 = new Proveedor("Zo3", "Zoe", "Gatusso", "zoe.gatu@example.com", fecha2, imagen6, "Flamin-Go", "http://FlaminGo.com");
         
         Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c2,  pr3);
