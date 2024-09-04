@@ -230,18 +230,6 @@ public class Main {
 		JMenuBar menuBar = new JMenuBar();
 		menuPrincipal.setJMenuBar(menuBar);
 		
-		JMenu SesionMainMenu = new JMenu("Sesión");
-		menuBar.add(SesionMainMenu);
-		
-		JMenuItem SesionCliente = new JMenuItem("Cliente");
-		SesionMainMenu.add(SesionCliente);
-		
-		JMenuItem SesionProveedor = new JMenuItem("Proveedor");
-		SesionMainMenu.add(SesionProveedor);
-		
-		JMenuItem SesionAdministrador = new JMenuItem("Administrador");
-		SesionMainMenu.add(SesionAdministrador);
-		
 		JMenu CasosDeUsoMainMenu = new JMenu("Casos de usos");
 		menuBar.add(CasosDeUsoMainMenu);
 		

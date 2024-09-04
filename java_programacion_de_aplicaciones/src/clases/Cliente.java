@@ -18,8 +18,8 @@ public class Cliente extends Usuario{
 			return c;
 		}
 		
-		public void desvincularOrdenDeCompra(int numero){
-			
+		public void desvincularOrdenDeCompra(OrdenDeCompra ord){
+			this.OrdenesDeCompras.remove(ord);
 		}
 		
 		public void setOrdenesDeCompras(List <OrdenDeCompra> OrdenesDeCompras){
