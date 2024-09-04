@@ -73,7 +73,7 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
 		setClosable(true);
-		setTitle("Flamin-Go");
+		setTitle("Modificar categorías de un producto");
 		setBounds(100, 100, 366, 254);
 		getContentPane().setLayout(null);
 		

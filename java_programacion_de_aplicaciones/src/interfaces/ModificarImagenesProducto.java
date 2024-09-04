@@ -46,7 +46,7 @@ public class ModificarImagenesProducto extends JInternalFrame {
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
 		setClosable(true);
-		setTitle("Flamin-Go");
+		setTitle("Modificar Imágenes de un producto");
 		getContentPane().setLayout(null);
 		
 		JLabel lblTitulo = new JLabel("Modificar Imágenes de un Producto");
