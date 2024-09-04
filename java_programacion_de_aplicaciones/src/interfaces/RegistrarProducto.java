@@ -232,18 +232,18 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(TextoNombre);
 	
 		JLabel TextoEspecificacion = new JLabel("* Especificación");
-		TextoEspecificacion.setBounds(149, 36, 109, 14);
+		TextoEspecificacion.setBounds(159, 36, 109, 14);
 		getContentPane().add(TextoEspecificacion);
 		
 		JTextField campoEspecificacion = new JTextField();
 		campoEspecificacion.setColumns(10);
-		campoEspecificacion.setBounds(150, 50, 86, 20);
+		campoEspecificacion.setBounds(159, 50, 86, 20);
 		getContentPane().add(campoEspecificacion);
 		
 		this.campoEspecificacion = campoEspecificacion;
 		
 		JTextArea campoDescripcion = new JTextArea();
-		campoDescripcion.setBounds(42, 100, 194, 77);
+		campoDescripcion.setBounds(42, 100, 204, 77);
 		getContentPane().add(campoDescripcion);
 		
 		this.campoDescripcion = campoDescripcion;
@@ -349,8 +349,8 @@ public class RegistrarProducto extends JInternalFrame {
             }
         });
 		
-		BotonSeleccionImagen.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		BotonSeleccionImagen.setBounds(150, 201, 86, 23);
+		BotonSeleccionImagen.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		BotonSeleccionImagen.setBounds(150, 201, 96, 23);
 		getContentPane().add(BotonSeleccionImagen);
 		
 		JLabel TextoTitulo = new JLabel("Registrar Producto");
@@ -486,7 +486,7 @@ public class RegistrarProducto extends JInternalFrame {
 				}
 			}
 		});
-		BotonRegistrar.setBackground(new Color(255, 157, 176));
+		BotonRegistrar.setBackground(new Color(240, 240, 240));
 		BotonRegistrar.setBounds(384, 264, 104, 23);
 		getContentPane().add(BotonRegistrar);
 			
