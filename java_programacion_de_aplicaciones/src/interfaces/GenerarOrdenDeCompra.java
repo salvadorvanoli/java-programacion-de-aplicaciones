@@ -290,7 +290,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		            }
 		            
 		            // Crear una nueva instancia de Cantidad
-		            Cantidad nuevaCantidad = new Cantidad(producto, cantidad);
+		            Cantidad nuevaCantidad = new Cantidad(producto.getDTProducto(), cantidad);
 		            
 		            // Guardar la instancia en la lista
 		            listaCantidades.add(nuevaCantidad);

@@ -50,6 +50,7 @@ import clases.Categoria;
 
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class ModificarDatosProducto extends JInternalFrame {
 
@@ -204,7 +205,13 @@ public class ModificarDatosProducto extends JInternalFrame {
 		labelSeleccionCategoria.setBounds(20, 54, 304, 28);
 		getContentPane().add(labelSeleccionCategoria);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(40, 93, 252, 166);
+		getContentPane().add(scrollPane);
+		
 		JTree treeCategorias = new JTree();
+		scrollPane.setViewportView(treeCategorias);
 		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
@@ -228,8 +235,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 				}
 			}
 		});
-		treeCategorias.setBounds(53, 93, 240, 171);
-		getContentPane().add(treeCategorias);
 		
 		this.JTreeSeleccionCategoriaPadre = treeCategorias;
 		

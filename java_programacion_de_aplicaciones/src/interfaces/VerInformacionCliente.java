@@ -138,7 +138,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sistema.listarOrdenesDeCompra() != null) {
+				if (sistema.listarOrdenesDeCompra() != null && ! (sistema.listarOrdenesDeCompra().isEmpty())) {
 					// infoClienteInternalFrame.toBack();
 					menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
 					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
@@ -147,6 +147,8 @@ public class VerInformacionCliente extends JInternalFrame {
 					menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
 					menu.getMenuPrincipal().revalidate();
 					menu.getMenuPrincipal().repaint();
+				} else {
+					
 				}
 			}
 		});
@@ -227,8 +229,15 @@ public class VerInformacionCliente extends JInternalFrame {
 		            if (archivoImagen.exists()) {
 		            	
 		            	// Crear el JInternalFrame
+		            	
+		            	if (vistaFoto != null) {
+		            		vistaFoto.dispose();
+		            	}
+		            	
 						vistaFoto = new JInternalFrame("Flamin-Go", true, true, true, true);
-						vistaFoto.setFrameIcon(new ImageIcon(ModificarDatosProducto.class.getResource("/Images/Flamin-Go.png")));
+						ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
+				        Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+						vistaFoto.setFrameIcon(new ImageIcon(img));
 						vistaFoto.setSize(600, 400);
 						vistaFoto.getContentPane().setLayout(new BorderLayout());
 						
