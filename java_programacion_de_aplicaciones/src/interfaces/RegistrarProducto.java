@@ -42,6 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 
 @SuppressWarnings("unused")
@@ -217,12 +219,12 @@ public class RegistrarProducto extends JInternalFrame {
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go\r\n");
-		setBounds(100, 100, 514, 328);
+		setBounds(100, 100, 533, 368);
 		getContentPane().setLayout(null);
 		
 		JTextField campoNombre = new JTextField();
 		campoNombre.setColumns(10);
-		campoNombre.setBounds(42, 50, 86, 20);
+		campoNombre.setBounds(42, 55, 86, 20);
 		getContentPane().add(campoNombre);
 		
 		this.campoNombre = campoNombre;
@@ -232,18 +234,18 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(TextoNombre);
 	
 		JLabel TextoEspecificacion = new JLabel("* Especificación");
-		TextoEspecificacion.setBounds(149, 36, 109, 14);
+		TextoEspecificacion.setBounds(172, 36, 109, 14);
 		getContentPane().add(TextoEspecificacion);
 		
 		JTextField campoEspecificacion = new JTextField();
 		campoEspecificacion.setColumns(10);
-		campoEspecificacion.setBounds(150, 50, 86, 20);
+		campoEspecificacion.setBounds(172, 55, 86, 20);
 		getContentPane().add(campoEspecificacion);
 		
 		this.campoEspecificacion = campoEspecificacion;
 		
 		JTextArea campoDescripcion = new JTextArea();
-		campoDescripcion.setBounds(42, 100, 194, 77);
+		campoDescripcion.setBounds(42, 114, 216, 77);
 		getContentPane().add(campoDescripcion);
 		
 		this.campoDescripcion = campoDescripcion;
@@ -253,18 +255,18 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(TextoDescripcion);
 		
 		JLabel TextoPrecio = new JLabel("* Precio ");
-		TextoPrecio.setBounds(42, 188, 60, 14);
+		TextoPrecio.setBounds(42, 202, 60, 14);
 		getContentPane().add(TextoPrecio);
 		
 		JTextField campoPrecio = new JTextField();
 		campoPrecio.setColumns(10);
-		campoPrecio.setBounds(42, 202, 79, 20);
+		campoPrecio.setBounds(42, 227, 86, 20);
 		getContentPane().add(campoPrecio);
 		
 		this.campoPrecio = campoPrecio;
 		
 		JLabel TextoImagen = new JLabel("Imagen");
-		TextoImagen.setBounds(150, 188, 78, 14);
+		TextoImagen.setBounds(151, 202, 78, 14);
 		getContentPane().add(TextoImagen);
 		
 		JButton BotonSeleccionImagen = new JButton("Seleccionar");
@@ -349,8 +351,8 @@ public class RegistrarProducto extends JInternalFrame {
             }
         });
 		
-		BotonSeleccionImagen.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		BotonSeleccionImagen.setBounds(150, 201, 86, 23);
+		BotonSeleccionImagen.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		BotonSeleccionImagen.setBounds(151, 226, 107, 23);
 		getContentPane().add(BotonSeleccionImagen);
 		
 		JLabel TextoTitulo = new JLabel("Registrar Producto");
@@ -360,20 +362,26 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(TextoTitulo);
 		
 		JLabel TextoProveedor = new JLabel("* Seleccione un proveedor:");
-		TextoProveedor.setBounds(268, 188, 183, 14);
+		TextoProveedor.setBounds(292, 202, 183, 14);
 		getContentPane().add(TextoProveedor);
 		
 		JLabel TextoCategoria = new JLabel("*Selecciona una categoria");
-		TextoCategoria.setBounds(268, 36, 183, 14);
+		TextoCategoria.setBounds(292, 36, 183, 14);
 		getContentPane().add(TextoCategoria);
+
+		JScrollPane scrollLineasList = new JScrollPane();
+		scrollLineasList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollLineasList.setBounds(292, 56, 193, 135);
+		getContentPane().add(scrollLineasList);
 		
-		JTree treeCategorias = new JTree();
-		treeCategorias.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION); // Configurar el TreeSelectionModel para selección múltiple no contigua
-		treeCategorias.addTreeSelectionListener(new TreeSelectionListener() {
+		JTree treeCategorias_1 = new JTree();
+		scrollLineasList.setViewportView(treeCategorias_1);
+		treeCategorias_1.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION); // Configurar el TreeSelectionModel para selección múltiple no contigua
+		treeCategorias_1.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
 				
-				TreePath[] selectedPaths = treeCategorias.getSelectionPaths();
+				TreePath[] selectedPaths = treeCategorias_1.getSelectionPaths();
 				
 				if (selectedPaths != null) {
 					Categorias.clear();
@@ -409,20 +417,18 @@ public class RegistrarProducto extends JInternalFrame {
 				*/
 			}
 		});
-		treeCategorias.setBounds(268, 50, 194, 118);
-		getContentPane().add(treeCategorias);
 		
-		this.treeCategorias = treeCategorias;
-
+		this.treeCategorias = treeCategorias_1;
+		
 		cargarJTree();
 		
 		JLabel TextoNum = new JLabel("* Numero de Referencia");
-		TextoNum.setBounds(42, 230, 148, 14);
+		TextoNum.setBounds(42, 258, 148, 14);
 		getContentPane().add(TextoNum);
 		
 		JTextField campoNumRef = new JTextField();
 		campoNumRef.setColumns(10);
-		campoNumRef.setBounds(42, 244, 116, 20);
+		campoNumRef.setBounds(42, 283, 116, 20);
 		getContentPane().add(campoNumRef);
 		
 		this.campoNumRef = campoNumRef;
@@ -450,7 +456,7 @@ public class RegistrarProducto extends JInternalFrame {
 			}
 		});
 		boxProveedor.setEditable(true);
-		boxProveedor.setBounds(268, 202, 194, 20);
+		boxProveedor.setBounds(291, 227, 194, 20);
 		boxProveedor.setSelectedIndex(-1);
 		getContentPane().add(boxProveedor);
 		
@@ -488,7 +494,7 @@ public class RegistrarProducto extends JInternalFrame {
 			}
 		});
 		BotonRegistrar.setBackground(new Color(240, 240, 240));
-		BotonRegistrar.setBounds(384, 264, 104, 23);
+		BotonRegistrar.setBounds(381, 304, 104, 23);
 		getContentPane().add(BotonRegistrar);
 			
 	}

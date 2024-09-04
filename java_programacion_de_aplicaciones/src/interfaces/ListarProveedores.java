@@ -93,61 +93,61 @@ public class ListarProveedores extends JInternalFrame {
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
 		getContentPane().setBackground(new Color(240, 240, 240));
-		setBounds(100, 100, 326, 408);
+		setBounds(100, 100, 411, 450);
 		getContentPane().setLayout(null);
 		
 		this.sistema = sistema;
 		this.menu = main;
 		
-		JLabel labelProveedor = new JLabel("Selecciona un Proveedor\r\n");
+		JLabel labelProveedor = new JLabel("Ver información proveedor");
 		labelProveedor.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelProveedor.setHorizontalAlignment(SwingConstants.CENTER);
-		labelProveedor.setBounds(0, 11, 312, 14);
+		labelProveedor.setBounds(36, 11, 312, 20);
 		getContentPane().add(labelProveedor);
 		
 		JLabel labelNick = new JLabel("Nickname");
-		labelNick.setBounds(10, 64, 48, 14);
+		labelNick.setBounds(47, 100, 65, 14);
 		getContentPane().add(labelNick);
 		
 		JTextField campoNick = new JTextField();
 		campoNick.setColumns(10);
-		campoNick.setBounds(78, 61, 222, 20);
+		campoNick.setBounds(116, 97, 232, 20);
 		campoNick.setEditable(false);
 		getContentPane().add(campoNick);
 		
 		this.campoNick = campoNick;
 		
 		JLabel labelCorreo = new JLabel("Correo Electrónico");
-		labelCorreo.setBounds(10, 108, 89, 14);
+		labelCorreo.setBounds(47, 144, 123, 14);
 		getContentPane().add(labelCorreo);
 		
 		JTextField campoEmail = new JTextField();
 		campoEmail.setColumns(10);
-		campoEmail.setBounds(120, 105, 180, 20);
+		campoEmail.setBounds(168, 141, 180, 20);
 		campoEmail.setEditable(false);
 		getContentPane().add(campoEmail);
 		
 		this.campoEmail = campoEmail;
 		
 		JLabel labelNombre = new JLabel("Nombre");
-		labelNombre.setBounds(10, 153, 48, 14);
+		labelNombre.setBounds(47, 189, 48, 14);
 		getContentPane().add(labelNombre);
 		
 		JTextField campoNombre = new JTextField();
 		campoNombre.setColumns(10);
-		campoNombre.setBounds(68, 150, 232, 20);
+		campoNombre.setBounds(116, 186, 232, 20);
 		campoNombre.setEditable(false);
 		getContentPane().add(campoNombre);
 		
 		this.campoNombre = campoNombre;
 		
 		JLabel labelApellido = new JLabel("Apellido");
-		labelApellido.setBounds(10, 198, 48, 14);
+		labelApellido.setBounds(47, 234, 59, 14);
 		getContentPane().add(labelApellido);
 		
 		JTextField campoApellido = new JTextField();
 		campoApellido.setColumns(10);
-		campoApellido.setBounds(68, 195, 232, 20);
+		campoApellido.setBounds(116, 231, 232, 20);
 		campoApellido.setEditable(false);
 		getContentPane().add(campoApellido);
 		
@@ -155,35 +155,35 @@ public class ListarProveedores extends JInternalFrame {
 		
 		JTextField campoCompañia = new JTextField();
 		campoCompañia.setColumns(10);
-		campoCompañia.setBounds(144, 234, 156, 20);
+		campoCompañia.setBounds(192, 270, 156, 20);
 		campoCompañia.setEditable(false);
 		getContentPane().add(campoCompañia);
 		
 		this.campoCompañia = campoCompañia;
 		
 		JLabel labelCompañia = new JLabel("Nombre de la Compañía");
-		labelCompañia.setBounds(10, 237, 118, 14);
+		labelCompañia.setBounds(47, 273, 145, 14);
 		getContentPane().add(labelCompañia);
 		
 		JLabel labelLink = new JLabel("Link Web");
-		labelLink.setBounds(10, 282, 48, 14);
+		labelLink.setBounds(47, 318, 65, 14);
 		getContentPane().add(labelLink);
 		
 		JTextField campoLink = new JTextField();
 		campoLink.setColumns(10);
-		campoLink.setBounds(68, 279, 232, 20);
+		campoLink.setBounds(116, 315, 232, 20);
 		campoLink.setEditable(false);
 		getContentPane().add(campoLink);
 		
 		this.campoLink = campoLink;
 		
 		JLabel labelFecha = new JLabel("Fecha de nacimiento");
-		labelFecha.setBounds(12, 319, 98, 14);
+		labelFecha.setBounds(47, 355, 123, 14);
 		getContentPane().add(labelFecha);
 		
 		JTextField campoFecha = new JTextField();
 		campoFecha.setColumns(10);
-		campoFecha.setBounds(122, 316, 79, 20);
+		campoFecha.setBounds(170, 352, 79, 20);
 		campoFecha.setEditable(false);
 		getContentPane().add(campoFecha);
 
@@ -214,7 +214,7 @@ public class ListarProveedores extends JInternalFrame {
 			}
 		});
 		boxProveedor.setEditable(true);
-		boxProveedor.setBounds(78, 36, 156, 14);
+		boxProveedor.setBounds(116, 53, 232, 20);
 		getContentPane().add(boxProveedor);
 		
 		this.boxProveedor = boxProveedor;
@@ -226,8 +226,12 @@ public class ListarProveedores extends JInternalFrame {
 				mostrarFotoEnInternalFrame(foto);
 			}
 		});
-		botonImagen.setBounds(109, 344, 89, 23);
+		botonImagen.setBounds(144, 386, 118, 23);
 		getContentPane().add(botonImagen);
+		
+		JLabel lblProveedor = new JLabel("Proveedor");
+		lblProveedor.setBounds(47, 56, 65, 14);
+		getContentPane().add(lblProveedor);
 		
 		this.addInternalFrameListener(new InternalFrameAdapter() {
 	         @Override
