@@ -48,6 +48,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
     }
     
     public CancelarOrdenDeCompra(ISistema sistema, Main main) {
+    	setIconifiable(true);
         this.sistema = sistema; // Guardar la referencia al sistema
         this.menu = main;
         inicializarComponentes();
@@ -56,7 +57,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
 
     private void inicializarComponentes() {
         setClosable(true);
-        setTitle("Flamin-Go");
+        setTitle("Cancelar una Orden de Compra");
         ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
         Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
         setFrameIcon(new ImageIcon(img));

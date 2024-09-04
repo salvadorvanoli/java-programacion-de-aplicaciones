@@ -86,6 +86,7 @@ public class VerInformacionCliente extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInformacionCliente(ISistema sistema, Main menu) {
+		setIconifiable(true);
 		
 		this.sistema = sistema;
 		this.menu = menu;
@@ -95,7 +96,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		
 		setClosable(true);
-		setTitle("Flamin-Go");
+		setTitle("Ver Información de un Cliente");
 		setBounds(100, 100, 526, 366);
 		getContentPane().setLayout(null);
 		

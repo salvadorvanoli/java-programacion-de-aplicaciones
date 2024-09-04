@@ -90,13 +90,14 @@ public class VerInfoProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInfoProducto(ISistema sistema, Main main) {
+		setIconifiable(true);
 		setResizable(true);
 		this.sistema = sistema;
 		this.main = main;
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
-		setTitle("Flamin-Go");
+		setTitle("Ver Información de un Producto");
 		setClosable(true);
 		setBounds(100, 100, 436, 560);
 		getContentPane().setLayout(null);

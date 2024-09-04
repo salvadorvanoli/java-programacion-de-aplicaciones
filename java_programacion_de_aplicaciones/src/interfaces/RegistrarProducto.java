@@ -211,6 +211,7 @@ public class RegistrarProducto extends JInternalFrame {
 	}
 		
 	public RegistrarProducto(ISistema sistema, Main menu) {
+		setIconifiable(true);
 		this.sistema = sistema;
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);
@@ -218,7 +219,7 @@ public class RegistrarProducto extends JInternalFrame {
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
 		setFrameIcon(new ImageIcon(img));
-		setTitle("Flamin-Go\r\n");
+		setTitle("Registrar Producto");
 		setBounds(100, 100, 533, 368);
 		getContentPane().setLayout(null);
 		
