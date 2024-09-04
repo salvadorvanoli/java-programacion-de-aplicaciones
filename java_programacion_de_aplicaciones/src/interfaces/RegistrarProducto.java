@@ -211,6 +211,7 @@ public class RegistrarProducto extends JInternalFrame {
 	}
 		
 	public RegistrarProducto(ISistema sistema, Main menu) {
+		setIconifiable(true);
 		this.sistema = sistema;
 		getContentPane().setBackground(new Color(240, 240, 240));
 		setClosable(true);

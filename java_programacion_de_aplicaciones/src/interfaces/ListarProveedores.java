@@ -87,6 +87,7 @@ public class ListarProveedores extends JInternalFrame {
 	}
 	
 	public ListarProveedores(ISistema sistema, Main main) {
+		setIconifiable(true);
 		setTitle("Flamin-Go");
 		setClosable(true);
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));

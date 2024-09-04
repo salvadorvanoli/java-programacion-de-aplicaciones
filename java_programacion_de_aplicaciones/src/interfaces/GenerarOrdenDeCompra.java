@@ -88,6 +88,7 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public GenerarOrdenDeCompra(ISistema sistema) {
+		setIconifiable(true);
 		setClosable(true);
 		ImageIcon icon = new ImageIcon(AltaDeCategoria.class.getResource("/Images/Flamin-Go.png"));
 		Image img = icon.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);

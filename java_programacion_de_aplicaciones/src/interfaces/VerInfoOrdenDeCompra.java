@@ -57,6 +57,7 @@ public class VerInfoOrdenDeCompra extends JInternalFrame {
     }
     
     public VerInfoOrdenDeCompra(ISistema sistema, Main main) {
+    	setIconifiable(true);
     	this.main = main;
         this.sistema = sistema; // Guardar la referencia al sistema
         inicializarComponentes();

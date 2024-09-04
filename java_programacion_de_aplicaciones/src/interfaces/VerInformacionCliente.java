@@ -86,6 +86,7 @@ public class VerInformacionCliente extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInformacionCliente(ISistema sistema, Main menu) {
+		setIconifiable(true);
 		
 		this.sistema = sistema;
 		this.menu = menu;

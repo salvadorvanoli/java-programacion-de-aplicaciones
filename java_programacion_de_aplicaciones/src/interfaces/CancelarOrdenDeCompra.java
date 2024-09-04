@@ -47,6 +47,7 @@ public class CancelarOrdenDeCompra extends JInternalFrame {
     }
     
     public CancelarOrdenDeCompra(ISistema sistema, Main main) {
+    	setIconifiable(true);
         this.sistema = sistema; // Guardar la referencia al sistema
         this.menu = main;
         inicializarComponentes();

@@ -90,6 +90,7 @@ public class VerInfoProducto extends JInternalFrame {
 	 * @param sistema 
 	 */
 	public VerInfoProducto(ISistema sistema, Main main) {
+		setIconifiable(true);
 		setResizable(true);
 		this.sistema = sistema;
 		this.main = main;
