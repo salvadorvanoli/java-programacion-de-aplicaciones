@@ -28,6 +28,8 @@ import clases.DTProducto;
 import clases.ISistema;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class ModificarCategoriasProducto extends JInternalFrame {
 
@@ -61,6 +63,7 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ModificarCategoriasProducto(ISistema sistema, ModificarDatosProducto internalFramePadre) {
+		setIconifiable(true);
 		
 		this.sistema = sistema;
 		this.nuevasCategorias = new ArrayList<>();
@@ -85,10 +88,26 @@ public class ModificarCategoriasProducto extends JInternalFrame {
 		lblSeleccionarCategorias.setBounds(10, 51, 330, 29);
 		getContentPane().add(lblSeleccionarCategorias);
 		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (! (nuevoTextoCategorias.isBlank()) && ! (nuevoTextoCategorias.isEmpty())) {
+					internalFramePadre.setTextAreaCategorias(nuevoTextoCategorias);
+				}
+				internalFramePadre.setNuevasCategorias(nuevasCategorias);
+			}
+		});
+		btnAceptar.setBounds(237, 136, 89, 23);
+		getContentPane().add(btnAceptar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(20, 86, 194, 127);
+		getContentPane().add(scrollPane);
+		
 		JTree JTreeSeleccionNuevasCategorias = new JTree();
-		JTreeSeleccionNuevasCategorias.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION); // Configurar el TreeSelectionModel para selección múltiple no contigua
-		JTreeSeleccionNuevasCategorias.setBounds(30, 91, 163, 106);
-		getContentPane().add(JTreeSeleccionNuevasCategorias);
+		scrollPane.setViewportView(JTreeSeleccionNuevasCategorias);
+		JTreeSeleccionNuevasCategorias.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
 		
 		// Añadir un TreeSelectionListener para manejar la selección
 		JTreeSeleccionNuevasCategorias.addTreeSelectionListener(new TreeSelectionListener() {
@@ -114,18 +133,6 @@ public class ModificarCategoriasProducto extends JInternalFrame {
         });
 		
 		this.JTreeSeleccionNuevasCategorias = JTreeSeleccionNuevasCategorias;
-		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (! (nuevoTextoCategorias.isBlank()) && ! (nuevoTextoCategorias.isEmpty())) {
-					internalFramePadre.setTextAreaCategorias(nuevoTextoCategorias);
-				}
-				internalFramePadre.setNuevasCategorias(nuevasCategorias);
-			}
-		});
-		btnAceptar.setBounds(224, 132, 89, 23);
-		getContentPane().add(btnAceptar);
 
 	}
 	

@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -36,6 +37,7 @@ import clases.DTCliente;
 public class Main {
 	
 	private JFrame menuPrincipal;
+	private JDesktopPane contenedor;
     private ISistema sistema;
     private AltaDeCategoria altaCategoriaInternalFrame;
     private CancelarOrdenDeCompra cancelarOrdenInternalFrame;
@@ -226,6 +228,9 @@ public class Main {
 		
 		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuPrincipal.setBounds(100, 100, 647, 695);
+		
+		contenedor = new JDesktopPane();
+		menuPrincipal.setContentPane(contenedor);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuPrincipal.setJMenuBar(menuBar);

@@ -45,6 +45,7 @@ public class AltaDeCategoria extends JInternalFrame {
     private ISistema sistema; // Variable de instancia para ISistema
 
     public AltaDeCategoria(ISistema sistema) {
+    	setIconifiable(true);
         this.sistema = sistema; // Guardar el sistema en la variable de instancia
 
         // Inicializar el frame
