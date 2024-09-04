@@ -70,71 +70,71 @@ public class RegistrarProveedor extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		setTitle("Flamin-Go");
 		setClosable(true);
-		setBounds(100, 100, 385, 522);
+		setBounds(100, 100, 416, 522);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelRegProv = new JLabel("Registrar Proveedor");
 		LabelRegProv.setHorizontalAlignment(SwingConstants.CENTER);
 		LabelRegProv.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		LabelRegProv.setBounds(0, 11, 369, 29);
+		LabelRegProv.setBounds(0, 11, 400, 29);
 		getContentPane().add(LabelRegProv);
 		
 		JLabel LabelNick = new JLabel("Nickname");
-		LabelNick.setBounds(38, 54, 48, 14);
+		LabelNick.setBounds(38, 54, 67, 14);
 		getContentPane().add(LabelNick);
 		
 		textNick = new JTextField();
 		textNick.setColumns(10);
-		textNick.setBounds(106, 51, 222, 20);
+		textNick.setBounds(148, 51, 222, 20);
 		getContentPane().add(textNick);
 		
 		JLabel LabelMail = new JLabel("Correo Electrónico");
-		LabelMail.setBounds(38, 98, 89, 14);
+		LabelMail.setBounds(38, 98, 118, 14);
 		getContentPane().add(LabelMail);
 		
 		textMail = new JTextField();
 		textMail.setColumns(10);
-		textMail.setBounds(148, 95, 180, 20);
+		textMail.setBounds(190, 95, 180, 20);
 		getContentPane().add(textMail);
 		
 		JLabel LabelNom = new JLabel("Nombre");
-		LabelNom.setBounds(38, 143, 48, 14);
+		LabelNom.setBounds(38, 143, 67, 14);
 		getContentPane().add(LabelNom);
 		
 		textNom = new JTextField();
 		textNom.setColumns(10);
-		textNom.setBounds(96, 140, 232, 20);
+		textNom.setBounds(138, 140, 232, 20);
 		getContentPane().add(textNom);
 		
 		JLabel LabelApe = new JLabel("Apellido");
-		LabelApe.setBounds(38, 188, 48, 14);
+		LabelApe.setBounds(38, 188, 67, 14);
 		getContentPane().add(LabelApe);
 		
 		textApe = new JTextField();
 		textApe.setColumns(10);
-		textApe.setBounds(96, 185, 232, 20);
+		textApe.setBounds(138, 185, 232, 20);
 		getContentPane().add(textApe);
 		
 		textCompan = new JTextField();
 		textCompan.setColumns(10);
-		textCompan.setBounds(172, 224, 156, 20);
+		textCompan.setBounds(214, 224, 156, 20);
 		getContentPane().add(textCompan);
 		
 		JLabel LabelCompan = new JLabel("Nombre de la Compañía");
-		LabelCompan.setBounds(38, 227, 118, 14);
+		LabelCompan.setBounds(38, 227, 144, 14);
 		getContentPane().add(LabelCompan);
 		
 		JLabel LabelLink = new JLabel("Link Web");
-		LabelLink.setBounds(38, 272, 48, 14);
+		LabelLink.setBounds(38, 272, 67, 14);
 		getContentPane().add(LabelLink);
 		
 		textLink = new JTextField();
 		textLink.setColumns(10);
-		textLink.setBounds(96, 269, 232, 20);
+		textLink.setBounds(138, 269, 232, 20);
 		getContentPane().add(textLink);
 		
 		JLabel LabelFecha = new JLabel("Fecha de Nacimiento");
-		LabelFecha.setBounds(38, 312, 102, 14);
+		LabelFecha.setBounds(38, 312, 118, 14);
 		getContentPane().add(LabelFecha);
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
@@ -154,7 +154,7 @@ public class RegistrarProveedor extends JInternalFrame {
 	                }
 			}
 		});
-		ButtonImg.setBounds(38, 386, 144, 20);
+		ButtonImg.setBounds(38, 386, 168, 20);
 		getContentPane().add(ButtonImg);
 		
 		JButton ButtonReg = new JButton("Registrar");
@@ -189,8 +189,8 @@ public class RegistrarProveedor extends JInternalFrame {
 				
 			}
 		});
-		ButtonReg.setBackground(new Color(250, 214, 235));
-		ButtonReg.setBounds(256, 433, 89, 23);
+		ButtonReg.setBackground(new Color(255, 255, 255));
+		ButtonReg.setBounds(256, 433, 114, 23);
 		getContentPane().add(ButtonReg);
 		
 		DateFecha = new JDateChooser();
@@ -204,7 +204,7 @@ public class RegistrarProveedor extends JInternalFrame {
 				setVisible(false);
 			}
 		});
-		ButtonCancel.setBounds(38, 433, 89, 23);
+		ButtonCancel.setBounds(38, 433, 105, 23);
 		getContentPane().add(ButtonCancel);
 
 	}
