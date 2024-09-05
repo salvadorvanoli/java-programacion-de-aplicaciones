@@ -391,7 +391,7 @@ public class Sistema extends ISistema {
 	// FUNCION GENERAR CODIGO ORDEN
 	
 	@Override
-	public void agregarOrden(List<Cantidad> cantidad) {
+	public OrdenDeCompra agregarOrden(List<Cantidad> cantidad) {
 		if (this.usuarioActual instanceof Cliente) {
 	        Cliente clienteActual = (Cliente) this.usuarioActual;
 	        
@@ -407,7 +407,7 @@ public class Sistema extends ISistema {
 	        List<OrdenDeCompra> ordenes = clienteActual.getOrdenesDeCompras();
 	        ordenes.add(nueva);
 	        clienteActual.setOrdenesDeCompras(ordenes);
-	        
+	        return nueva;
 	    } else {
 	        throw new IllegalArgumentException("El usuario actual no es un cliente.");
 	    }
