@@ -270,7 +270,13 @@ public class VerInfoProducto extends JInternalFrame {
 		ButtonImg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<String> imagenes = sistema.verInformacionProducto().getImagenes();
-				mostrarImagenesEnInternalFrame(imagenes);						
+				if (imagenes == null) {
+					JOptionPane.showMessageDialog(null, "Este Producto no tiene imágenes", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+				mostrarImagenesEnInternalFrame(imagenes);		
+				}
+									
 
 			}
 		});
