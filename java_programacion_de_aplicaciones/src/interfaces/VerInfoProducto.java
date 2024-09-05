@@ -70,20 +70,6 @@ public class VerInfoProducto extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VerInfoProducto frame = new VerInfoProducto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -289,83 +275,6 @@ public class VerInfoProducto extends JInternalFrame {
 
 	}
 	
-	/*
-	
-	private void cargarDatos() {
-        // Vaciar el JTree
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-
-        HashMap<String, Categoria> categorias = sistema.getCategorias();
-
-        if (categorias == null || categorias.isEmpty()) {
-            // Si no hay categorías, no agregar nodos
-            treeCat.setModel(new DefaultTreeModel(root));
-            return;
-        }
-
-        // Crear un mapa para guardar los nodos de categoría por nombre
-        Map<String, DefaultMutableTreeNode> nodoMap = new HashMap<>();
-
-        // Crear nodos para cada categoría y almacenarlos en el mapa
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = new DefaultMutableTreeNode(categoria.getNombreCat());
-            nodoMap.put(categoria.getNombreCat(), node);
-        }
-
-        // Agregar nodos hijos a sus nodos padres
-        for (Map.Entry<String, Categoria> entry : categorias.entrySet()) {
-            Categoria categoria = entry.getValue();
-            DefaultMutableTreeNode node = nodoMap.get(categoria.getNombreCat());
-            Categoria padre = categoria.getPadre();
-
-            if (padre != null) {
-                DefaultMutableTreeNode parentNode = nodoMap.get(padre.getNombreCat());
-                if (parentNode != null) {
-                    parentNode.add(node);
-                } else {
-                    // Si el padre no está en el mapa, agregar el nodo al nodo raíz
-                    root.add(node);
-                }
-            } else {
-                // Si no tiene padre, agregar al nodo raíz
-                root.add(node);
-            }
-        }
-
-        // Crear el modelo de árbol y asignarlo al JTree
-        DefaultTreeModel treeModel = new DefaultTreeModel(root);
-        treeCat.setModel(treeModel);
-    }
-	*/
-	
-	/*
-	// Método para cargar los productos de una categoría en el JComboBox
-	private void cargarProductosEnComboBox(Categoria categoriaSeleccionada) {
-	    // Limpiar el JComboBox
-	    comboBoxProd.removeAllItems();
-	    List<DTProducto> lista = sistema.listarProductos();
-        if(lista.isEmpty()) {
-        	//TextDatosProd.setText("Aquí se mostraran los datos del Producto");
-        	textNom.setText("[Nombre del Producto]");
-        	textDesc.setText("[Descripción del Producto]");
-        	textPrec.setText("[Precio del Producto]");
-        	textProv.setText("[Proveedor del Producto]");
-        	textCat.setText("[Categorías del Producto]");
-        	textRef.setText("[N° de Referencia del Producto]");
-        	//textImg.setText("[Imágenes del Producto]");
-        }
-	    // Verificar si la categoría tiene productos
-	    if (categoriaSeleccionada != null && categoriaSeleccionada.getProductos() != null) {
-	        // Llenar el JComboBox con los productos de la categoría seleccionada
-	        for (DTProducto producto : lista) {
-	        	// int codigo = producto.getNumReferencia();
-	            comboBoxProd.addItem(producto);
-
-	        }
-	    }
-	}
-	*/
 	
 	public void limpiarCampos() {
 		// Limpiar el JComboBox

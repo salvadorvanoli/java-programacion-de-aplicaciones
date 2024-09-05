@@ -53,16 +53,7 @@ public class OrdenDeCompra {
 		this.setCantidad(lista);
 	}
 	
-	/* Versión anterior
-	public OrdenDeCompra(int numero, DTFecha fecha, Cliente cliente) {
-		super();
-		this.numero = numero;
-		this.fecha = fecha;
-		this.cliente = cliente;
-		this.cantidad = new ArrayList<>();
-	}
-	*/
-	
+
 	public OrdenDeCompra(int numero, DTFecha fecha, Cliente cliente, List<Cantidad> cantidades) {
 		super();
 		this.numero = numero;

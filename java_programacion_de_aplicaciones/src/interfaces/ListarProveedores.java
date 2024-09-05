@@ -50,20 +50,7 @@ public class ListarProveedores extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListarProveedores frame = new ListarProveedores();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
+	
 
 	/**
 	 * Create the frame.
@@ -254,12 +241,6 @@ public class ListarProveedores extends JInternalFrame {
 		List<DTProveedor> lista = null;
 		
 		lista = this.sistema.listarProveedores();
-		
-		/*
-		if (lista.isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene proveedores."); // FALTA POPUP
-		}
-		*/
 		
 		return lista;
 		

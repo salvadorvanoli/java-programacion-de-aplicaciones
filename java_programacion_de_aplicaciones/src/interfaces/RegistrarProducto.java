@@ -69,20 +69,6 @@ public class RegistrarProducto extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistrarProducto frame = new RegistrarProducto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -316,44 +302,9 @@ public class RegistrarProducto extends JInternalFrame {
                     if (!(rutasImagenes.isEmpty())){
                     	Imagenes = rutasImagenes;
                     	// textoImagenesOriginal = textAreaImagenes.getText();
-                    } /*else {
-                    	textAreaImagenes.setText(textImagenesAnt);
-                    }*/
-                } /* else {
-                	
-                	JOptionPane.showMessageDialog(null, "Se eligieron archivos no válidos", "Error", JOptionPane.ERROR_MESSAGE);
-                }*/
-
-                
-				
-				/*
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Selecciona una imagen");
-                fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
-                    @Override
-                    public boolean accept(File file) {
-                        String[] validExtensions = { "jpg", "jpeg", "png"};
-                        for (String ext : validExtensions) {
-                            if (file.isFile() && file.getName().toLowerCase().endsWith(ext)) {
-                            	cargarImagen(file.getPath());
-                                return true;
-                            }
-                        }
-                        return file.isDirectory();
-                    }
-
-                    @Override
-                    public String getDescription() {
-                        return "Archivos de imagen (*.jpg, *.jpeg, *.png)";
-                    }
-                });
-
-                int returnValue = fileChooser.showOpenDialog(null);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    JOptionPane.showMessageDialog(null, "Seleccionaste: " + selectedFile.getAbsolutePath());
+                    } 
                 }
-                */
+                
             }
         });
 		
@@ -401,26 +352,7 @@ public class RegistrarProducto extends JInternalFrame {
 	                }
             	}
 				
-				/*
-				if (treeCategorias.getSelectionRows().length > 0 && treeCategorias.getSelectionRows()[0] > 0) {
-					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent(); // Consigo el elemento del JTree seleccionado por el usuario
-	                if (selectedNode == null) {
-	                	JOptionPane.showMessageDialog(null, "Ninguna categoría fue seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
-	                } else {
-	                	Object node = selectedNode.getUserObject();
-	                	if (node instanceof Categoria) {
-			                try {
-			                	Categoria cat = (Categoria) node;
-			                	sistema.elegirCategoria(cat.getNombreCat());
-			                } catch (CategoriaNoExisteException exc) {
-			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			                }
-	                	} else {
-	                		//bt
-	                	}
-	                }
-				}
-				*/
+			
 			}
 		});
 		

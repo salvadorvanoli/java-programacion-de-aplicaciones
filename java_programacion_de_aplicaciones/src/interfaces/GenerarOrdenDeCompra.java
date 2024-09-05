@@ -69,20 +69,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GenerarOrdenDeCompra frame = new GenerarOrdenDeCompra();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -112,92 +98,12 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		this.seleccionarProducto = seleccionarProducto;
 		
-		/*
-		
-		// Crear categorías
-		Categoria categoriaElectronicos = new Categoria("Electronicos", true, null);
-		Categoria categoriaFarmacia = new Categoria("Farmacia", true, null);
-
-		// Crear productos para Electrónicos
-		Producto laptop = new Producto("Laptop", "Descripción de Laptop", "Especificación de Laptop", 1, 1000.0f, null, null, null);
-		Producto celular = new Producto("Celular", "Descripción de Celular", "Especificación de Celular", 2, 500.0f, null, null, null);
-
-		// Crear productos para Farmacia
-		Producto jarabe = new Producto("Jarabe", "Descripción de Jarabe", "Especificación de Jarabe", 3, 10.0f, null, null, null);
-		Producto vitaminas = new Producto("Vitaminas", "Descripción de Vitaminas", "Especificación de Vitaminas", 4, 20.0f, null, null, null);
-		
-		
-		// Crear nodo raíz
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-		
-		// Crear nodos de categorías
-		DefaultMutableTreeNode nodoElectronicos = new DefaultMutableTreeNode(categoriaElectronicos);
-		DefaultMutableTreeNode nodoFarmacia = new DefaultMutableTreeNode(categoriaFarmacia);
-
-		// Crear nodos de productos para cada categoría
-		DefaultMutableTreeNode nodoLaptop = new DefaultMutableTreeNode(laptop);
-		DefaultMutableTreeNode nodoCelular = new DefaultMutableTreeNode(celular);
-		DefaultMutableTreeNode nodoJarabe = new DefaultMutableTreeNode(jarabe);
-		DefaultMutableTreeNode nodoVitaminas = new DefaultMutableTreeNode(vitaminas);
-		
-		
-		// Agregar productos a las categorías correspondientes
-		nodoElectronicos.add(nodoLaptop);
-		nodoElectronicos.add(nodoCelular);
-
-		nodoFarmacia.add(nodoJarabe);
-		nodoFarmacia.add(nodoVitaminas);
-
-		// Agregar categorías al nodo raíz
-		root.add(nodoElectronicos);
-		root.add(nodoFarmacia);
-
-		// Crear el modelo del árbol con el nodo raíz
-		DefaultTreeModel treeModel = new DefaultTreeModel(root);
-
-		// Asignar el modelo al JTree
-		seleccionarProducto.setModel(treeModel);
-
-		*/
 
 		scrollPane.setViewportView(seleccionarProducto);
 		seleccionarProducto.setName("");
 		seleccionarProducto.setToggleClickCount(1);
 		
 		cargarJTree();
-		
-		
-		
-		
-		
-		/* SE ME OCURRIO USAR ESTO PARA CARGAR EL ARBOL */
-		/*
-		
-		JTree seleccionarProducto = new JTree();
-		
-		// Crear nodo raíz
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categorías");
-		
-		for (Categoria cat : sistema.getCategorias().values()) {
-			this.cargarJTree(cat, root); // ROOT SERIA EL NODO RAIZ (PODEMOS PONERLE CATEGORIA NOMAS)
-		}
-		
-		
-		// Crear el modelo del árbol con el nodo raíz
-		DefaultTreeModel treeModel = new DefaultTreeModel(root);
-
-		// Asignar el modelo al JTree
-		seleccionarProducto.setModel(treeModel);
-
-		scrollPane.setViewportView(seleccionarProducto);
-		seleccionarProducto.setName("");
-		seleccionarProducto.setToggleClickCount(1);
-		
-		*/
-		
-		
-		
-		
 		
 		
 		JComboBox<DTCliente> seleccionarCliente = new JComboBox<DTCliente>();
@@ -475,11 +381,6 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 		
 		lista = this.sistema.listarClientes();
 		
-		/*
-		if (lista.isEmpty()) {
-			throw new IllegalStateException ("Error: El sistema no tiene clientes."); // FALTA POPUP
-		}
-		*/
 		
 		return lista;
 		

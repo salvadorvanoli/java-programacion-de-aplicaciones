@@ -170,20 +170,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ModificarDatosProducto frame = new ModificarDatosProducto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
@@ -260,9 +246,8 @@ public class ModificarDatosProducto extends JInternalFrame {
                 if (seleccionado != null) {
                 	alternarCampos(true);
                     String nombre = seleccionado.getNombre();
-                    // String numReferencia = seleccionado.getNumReferencia();
                     try {
-                        sistema.elegirProducto(nombre/*, numReferencia*/);
+                        sistema.elegirProducto(nombre);
                         DTProductoDetallado prodDetallado = sistema.verInformacionProducto();
                         textFieldNombre.setText(prodDetallado.getNombre());
                         textFieldNumReferencia.setText(String.valueOf(prodDetallado.getNumReferencia()));
@@ -273,17 +258,9 @@ public class ModificarDatosProducto extends JInternalFrame {
                         for (String cat : prodDetallado.getCategorias()) {
                         	textAreaCategorias.setText(textAreaCategorias.getText() + cat + System.lineSeparator());
                         }
-                        // textAreaImagenes.setText("");
                         imagenesActuales = prodDetallado.getImagenes();
                         nuevasImagenes = prodDetallado.getImagenes();
-                        /*
-                        for (String image : prodDetallado.getImagenes()) {
-                        	nuevasImagenes.add(image);
-                        	// textAreaImagenes.setText(textAreaImagenes.getText() + image + System.lineSeparator());
-                        }
-                        */
                         textoCategoriasOriginal = textAreaCategorias.getText();
-                        // textoImagenesOriginal = textAreaImagenes.getText();
                     } catch (ProductoNoExisteException exc) {
                     	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -361,10 +338,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 		JButton btnNuevasCategorias = new JButton("Elegir nuevas Categorías");
 		btnNuevasCategorias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// infoClienteInternalFrame.toBack();
 				menu.getModificarCategoriasProductoInternalFrame().cargarJTree();
 				menu.getMenuPrincipal().getContentPane().add(menu.getModificarCategoriasProductoInternalFrame());
-				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
 				menu.getModificarCategoriasProductoInternalFrame().setVisible(true);
 				menu.getModificarCategoriasProductoInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
 				menu.getMenuPrincipal().revalidate();
@@ -397,49 +372,26 @@ public class ModificarDatosProducto extends JInternalFrame {
                     // Obtener los archivos seleccionados
                     File[] selectedFiles = fileChooser.getSelectedFiles();
                     
-                    // String textImagenesAnt = textAreaImagenes.getText();
-                    // textAreaImagenes.setText("");
 
                     List<String> rutasImagenes = new ArrayList<>();
                     // Mostrar los archivos seleccionados en la consola
                     for (File file : selectedFiles) {
                     	if (imageFilter.accept(file)) {
                     		rutasImagenes.add(file.getAbsolutePath());
-                    		//textAreaImagenes.setText(textAreaImagenes.getText() + file.getAbsolutePath() + System.lineSeparator());
+
                     	} else {
                     		rutasImagenes.clear();
-                    		//textAreaImagenes.setText(textImagenesAnt);
         		            JOptionPane.showMessageDialog(null, "Un archivo elegido no coincide con el tipo aceptado (jpg, jpeg o png).", "Error", JOptionPane.ERROR_MESSAGE);
         		            break;
                     	}
                     }
                     if (!(rutasImagenes.isEmpty())){
                     	nuevasImagenes = rutasImagenes;
-                    	// textoImagenesOriginal = textAreaImagenes.getText();
-                    } /*else {
-                    	textAreaImagenes.setText(textImagenesAnt);
-                    }*/
-                } /* else {
-                	
-                	JOptionPane.showMessageDialog(null, "Se eligieron archivos no válidos", "Error", JOptionPane.ERROR_MESSAGE);
-                }*/
+
+                    } 
+                } 
 
 				
-				
-				
-				
-				
-				
-				
-				/*
-				// infoClienteInternalFrame.toBack();
-				menu.getMenuPrincipal().getContentPane().add(menu.getModificarImagenesProductoInternalFrame());
-				// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
-				menu.getModificarImagenesProductoInternalFrame().setVisible(true);
-				menu.getModificarImagenesProductoInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
-				menu.getMenuPrincipal().revalidate();
-				menu.getMenuPrincipal().repaint();
-				*/
 			}
 		});
 		btnNuevasImagenes.setBounds(388, 507, 189, 28);
@@ -485,15 +437,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 		getContentPane().add(textAreaCategorias);
 		
 		this.textAreaCategorias = textAreaCategorias;
-		
-		/*
-		JTextArea textAreaImagenes = new JTextArea();
-		textAreaImagenes.setEditable(false);
-		textAreaImagenes.setBounds(388, 546, 189, 101);
-		getContentPane().add(textAreaImagenes);
-		
-		 this.textAreaImagenes = textAreaImagenes;
-		*/
 		
 		JButton btnVerImagenes = new JButton("Ver Imagenes");
 		btnVerImagenes.addActionListener(new ActionListener() {
@@ -574,30 +517,6 @@ public class ModificarDatosProducto extends JInternalFrame {
 		}
 		nodo.add(newNodo);
 	}
-	
-
-	/*
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        if (visible) {
-            cargarDatos(); // Usar la variable de instancia
-        } else {
-            limpiarCampos();
-        }
-    }
-    */
-
-	/*
-    private void limpiarCampos() {
-        this.seleccionProducto.removeAllItems();
-        
-        if (this.JTreeSeleccionCategoriaPadre != null) {
-            // Vaciar el JTree
-            this.JTreeSeleccionCategoriaPadre.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Categorías")));
-        }
-    }
-    */
     
     public void cargarProductos() {
 		List<DTProducto> lista = null;

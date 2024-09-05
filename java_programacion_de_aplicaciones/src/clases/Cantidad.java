@@ -45,7 +45,6 @@ public class Cantidad {
 	
 	public String toString() {
 		return "Nombre del producto: " + this.producto.getNombre() + System.lineSeparator()
-		// + "Codigo del producto: " + this.producto.getNumReferencia() + System.lineSeparator()
         + "Cantidad del producto = " + this.cantidad + ";" + System.lineSeparator();
 	}
 	

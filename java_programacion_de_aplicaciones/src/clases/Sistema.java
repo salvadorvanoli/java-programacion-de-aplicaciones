@@ -127,46 +127,13 @@ public class Sistema extends ISistema {
 		return true;
 	}
 	
-	/*
-	@Override
-	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, int precio) throws ProductoRepetidoException {
-		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
-			throw new NullPointerException("No se ha elegido un proveedor previamente.");
-		}
-		for (Categoria cat : this.categorias.values()) {
-			for (Producto prod : cat.getProductos()) {
-				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
-					if (prod.getNumReferencia() == numReferencia) {
-						throw new ProductoRepetidoException("Ya existe un producto de nombre " + '"' + titulo + '"' + " y número de referencia " + '"' + numReferencia + '"' + '.');
-					}
-				}
-			}
-		}
-		Proveedor proveedor = (Proveedor) this.usuarioActual;
-		Producto prod = new Producto(titulo, descrip, especificaciones, numReferencia, precio, null, null, proveedor); // Esto esta re mal
-		proveedor.agregarProducto(prod);
-		this.productoActual = prod;
-		return true;
-	}
-	*/
-	
 	
 	@Override
 	public boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException, CategoriaNoPuedeTenerProductosException {
 		if (this.usuarioActual == null || ! (this.usuarioActual instanceof Proveedor)) {
 			throw new NullPointerException("No se ha elegido un proveedor previamente.");
 		}
-		/*
-		for (Categoria cat : this.categorias.values()) {
-			for (Producto prod : cat.getProductos()) {
-				if (prod.getNombreProducto().equalsIgnoreCase(titulo)) {
-					throw new ProductoRepetidoException("Ya existe un producto de nombre " + '"' + titulo + '"' + '.');
-				} else if (prod.getNumReferencia() == numReferencia) {
-					throw new ProductoRepetidoException("Ya existe un producto de número de referencia " + '"' + numReferencia + '"' + '.');
-				}
-			}
-		}
-		*/
+
 		try {
 			this.existeProducto(titulo, numReferencia, false);
 		} catch (ProductoRepetidoException e) {
@@ -213,18 +180,6 @@ public class Sistema extends ISistema {
 		return lista;
 	}
 	
-	/* OTRA FORMA --> No se recorre dos veces la lista (para hacerla y para imprimirla)
-	@Override
-	public void listarCategorias(){
-		System.out.println("---CATEGORIAS---\n");
-		int count = 1;
-		for (Categoria cat : this.categorias) {
-			DTCategoria dt = cat.getDTCategoria();
-			System.out.println("CATEGORIA " + count + "\n" +  dt.toString()); // TENEMOS QUE SOBREESCRIBIR EL METODO toString de la clase DTCategoria
-			count++;
-		}
-	}
-	*/
 
 	@Override
 	public boolean elegirCategoria(String nombreCat) throws CategoriaNoExisteException {
@@ -279,18 +234,6 @@ public class Sistema extends ISistema {
 		return lista;
 	}
 	
-	/* OTRA FORMA --> No se recorre dos veces la lista (para hacerla y para imprimirla)
-	@Override
-	public void listarProductos(){
-		System.out.println("---PRODUCTOS---\n");
-		int count = 1;
-		for (Producto prod : this.categoriaActual.getProductos()) {
-			DTProducto dt = cat.getDTProducto();
-			System.out.println("PRODUCTO " + count + "\n" +  dt.toString()); // TENEMOS QUE SOBREESCRIBIR EL METODO toString de la clase DTProducto
-			count++;
-		}
-	}
-	*/
 
 	// No se si incluir el numero de referencia (para buscar el producto)
 	@Override
@@ -305,20 +248,7 @@ public class Sistema extends ISistema {
 		this.productoActual = prod;
 		return true;
 	}
-	/*
-	public boolean elegirProducto(String nombreProd) throws ProductoNoExisteException {
-		if (this.categoriaActual == null) {
-			throw new NullPointerException("No se ha elegido una categoría previamente.");
-		}
-		for (Producto prod : this.categoriaActual.getProductos()) {
-			if (prod.getNombre() == nombreProd) {
-				this.productoActual = prod;
-				return true; // Capaz hacemos que no retorne nada
-			}
-		}
-		throw new ProductoNoExisteException("El producto de nombre " + '"' + nombreProd + '"' + " no existe.");
-	}
-	*/
+
 	
 	@Override
 	public Categoria altaCategoria(String nombre, boolean tieneProductos, Categoria padre) throws CategoriaRepetidaException{
@@ -352,18 +282,6 @@ public class Sistema extends ISistema {
 		return lista;
 	}
 	
-	/* OTRA FORMA --> No se recorre dos veces la lista (para hacerla y para imprimirla)
-	@Override
-	public void listarOrdenesDeCompra(){
-		System.out.println("---ORDENES DE COMPRA---\n");
-		int count = 1;
-		for (OrdenDeCompra ord : this.ordenes) {
-			DTOrdenDeCompra dt = ord.getDTOrden(); // Capaz la función no se llama así
-			System.out.println("ORDEN DE COMPRA " + count + "\n" +  dt.toString()); // TENEMOS QUE SOBREESCRIBIR EL METODO toString de la clase DTOrdenDeCompra
-			count++;
-		}
-	}
-	*/
 
 	@Override
 	public boolean elegirOrdenDeCompra(int numero) throws OrdenDeCompraNoExisteException {
@@ -430,30 +348,6 @@ public class Sistema extends ISistema {
 	
 	// FUNCION DAR ALTA ORDEN DE COMPRA
 	
-	/*
-	@Override
-	public DTOrdenDeCompraDetallada darAltaOrden() throws UsuarioNoExisteException {
-		if (this.usuarioActual == null) {
-			throw new NullPointerException("No se ha elegido un cliente previamente.");
-		}
-		if (this.usuarioActual instanceof Proveedor) {
-			throw new UsuarioNoExisteException("El usuario de nickname " + '"' + this.usuarioActual.getNickname() + '"' + " existe, pero no es un cliente.");
-		}
-		if (this.listaOrden.isEmpty()) {
-			throw new IllegalStateException("No se han elegido productos previamente.");
-		}
-		int numero = this.generarCodigoOrden();
-		DTFecha fecha = this.getFechaActual();
-		Cliente cli = (Cliente) this.usuarioActual;
-		OrdenDeCompra ord = new OrdenDeCompra(numero, fecha, cli);
-		this.ordenes.put(numero, ord);
-		for (Producto prod : this.listaOrden) {
-			ord.agregarProducto(prod, numero); // No se de donde sacar el producto
-		}
-		this.listaOrden.clear();
-		return ord.getDTOrdenDetallada();
-	}
-	*/
 	
 	/* ALTERNATIVA A LA FUNCION DAR ALTA ORDEN */
 	@Override
@@ -496,20 +390,6 @@ public class Sistema extends ISistema {
 	
 	// FUNCION AGREGAR PRODUCTO
 	
-	/* Versión anterior, con fallas
-	public boolean agregarProducto(String nombreProducto, int cantidad) throws ProductoNoExisteException {
-		if (this.categoriaActual == null) {
-			throw new NullPointerException("No se ha elegido una categoría previamente.");
-		}
-		Producto prod = this.categoriaActual.seleccionarProducto(nombreProducto);
-		if (prod == null) {
-			throw new ProductoNoExisteException("El producto de nombre " + '"' + nombreProducto + '"' + " no existe.");
-		}
-		
-		this.listaOrden.add(prod);
-		return true;
-	}
-	*/
 	
 	
 	@Override
@@ -532,11 +412,7 @@ public class Sistema extends ISistema {
 
 	@Override
 	public List<DTCliente> listarClientes(){
-		/*
-		if (this.usuarios.isEmpty()) {
-			throw new IllegalArgumentException("El sistema no tiene usuarios.");
-		}
-		*/
+
 		List<DTCliente> lista = new ArrayList<>();
 		for (Usuario user : this.usuarios) {
 			if (user instanceof Cliente) {
@@ -548,19 +424,6 @@ public class Sistema extends ISistema {
 		return lista;
 	}
 	
-	/* OTRA FORMA PARA NO ITERAR 2 VECES
-	@Override
-	public void listarClientes(){
-		int count = 1;
-		for (Usuario user : this.usuarios) {
-			if (user instanceof Cliente) {
-				DTCliente dt = user.getDTCliente();
-				System.out.println("CLIENTE " + count + "\n" +  dt.toString()); // TENEMOS QUE SOBREESCRIBIR EL METODO toString de la clase DTCliente
-				count++;
-			}
-		}
-	}
-	*/
 
 	@Override
 	public boolean elegirCliente(String nickname) throws UsuarioNoExisteException {
@@ -822,25 +685,6 @@ public class Sistema extends ISistema {
 		this.usuarios.add(pr1);
 		this.usuarios.add(pr2);
 
-		/*
-        int count = 0;
-        
-        for (Categoria cat : this.categorias.values()) {
-        	count++;
-        	List<Categoria> lista = new ArrayList<>();
-        	lista.add(cat);
-        	if (count == 1) {
-        		cat.agregarProducto(producto1);
-        		producto1.setCategorias(lista);
-        	} else if (count == 2) {
-        		cat2.agregarProducto(producto2);
-        		producto2.setCategorias(lista);
-        	} else if (count == 3) {
-        		cat3.agregarProducto(producto3);
-        		producto3.setCategorias(lista);
-        	}
-        }
-        */
        
 		
 	}
