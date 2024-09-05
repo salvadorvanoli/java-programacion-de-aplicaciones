@@ -411,13 +411,14 @@ public class ModificarDatosProducto extends JInternalFrame {
 					float precio = Float.valueOf(textFieldPrecio.getText().trim());
 					String descripcion = textAreaDescripcion.getText().trim();
 					String especificacion = textAreaEspecificacion.getText().trim();
-					sistema.modificarDatosProducto(nombreProd, numReferencia, descripcion, precio, especificacion);
-					List<String> rutasActualizadas = guardarImagenesEnCarpeta(imagenesActuales, nuevasImagenes);
-					sistema.modificarImagenesProducto(rutasActualizadas);
+					sistema.agregarCategoriasAProducto(nuevasCategorias);
 					boolean sePuedenModificarCategorias = (nuevasCategorias != null && ! (nuevasCategorias.isEmpty()));
 					sistema.quitarProductoDeCategorias(sePuedenModificarCategorias);
 					sistema.agregarCategoriasAProducto(nuevasCategorias);
 					sistema.agregarProductoACategorias(nuevasCategorias);
+					sistema.modificarDatosProducto(nombreProd, numReferencia, descripcion, precio, especificacion);
+					List<String> rutasActualizadas = guardarImagenesEnCarpeta(imagenesActuales, nuevasImagenes);
+					sistema.modificarImagenesProducto(rutasActualizadas);
 			        JOptionPane.showMessageDialog(null, "Producto modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 			        cargarProductos();
 			        limpiarCampos();
