@@ -33,6 +33,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +81,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 	
 	private List<Categoria> nuevasCategorias;
 	private List<String> nuevasImagenes;
+	private List<String> imagenesActuales;
 	
 	public void setNuevasCategorias(List<Categoria> nuevasCategorias) {
 		this.nuevasCategorias = nuevasCategorias;
@@ -267,6 +273,7 @@ public class ModificarDatosProducto extends JInternalFrame {
                         	textAreaCategorias.setText(textAreaCategorias.getText() + cat + System.lineSeparator());
                         }
                         // textAreaImagenes.setText("");
+                        imagenesActuales = prodDetallado.getImagenes();
                         nuevasImagenes = prodDetallado.getImagenes();
                         /*
                         for (String image : prodDetallado.getImagenes()) {
@@ -451,7 +458,8 @@ public class ModificarDatosProducto extends JInternalFrame {
 					String descripcion = textAreaDescripcion.getText().trim();
 					String especificacion = textAreaEspecificacion.getText().trim();
 					sistema.modificarDatosProducto(nombreProd, numReferencia, descripcion, precio, especificacion);
-					sistema.modificarImagenesProducto(nuevasImagenes);
+					List<String> rutasActualizadas = guardarImagenesEnCarpeta(imagenesActuales, nuevasImagenes);
+					sistema.modificarImagenesProducto(rutasActualizadas);
 					boolean sePuedenModificarCategorias = (nuevasCategorias != null && ! (nuevasCategorias.isEmpty()));
 					sistema.quitarProductoDeCategorias(sePuedenModificarCategorias);
 					sistema.agregarCategoriasAProducto(nuevasCategorias);
@@ -605,4 +613,49 @@ public class ModificarDatosProducto extends JInternalFrame {
 		}
 		
 	}
+    
+    public List<String> guardarImagenesEnCarpeta(List<String> imagenesAnteriores, List<String> nuevasImagenes) {
+    	
+    	if (imagenesAnteriores != null && !imagenesAnteriores.isEmpty() && nuevasImagenes != null && !nuevasImagenes.isEmpty()) {
+    		for (String rutaImagen : imagenesAnteriores) {
+    			Path path = Paths.get(rutaImagen);
+                try {
+                    // Eliminar la imagen si existe
+                    Files.deleteIfExists(path);
+                    
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error al eliminar la imagen: " + path.toString());
+                }
+
+    		}
+    	}
+    	
+    	List<String> nuevasRutas = new ArrayList<>();
+    	
+    	if (nuevasImagenes != null && !nuevasImagenes.isEmpty()) {
+    		for (String imagen : nuevasImagenes) {
+	            File fileToUpload = new File(imagen);
+	            String destinationPath = "src/images/" + fileToUpload.getName();  
+	            File destinationFile = new File(destinationPath);
+	
+	            // Crear la carpeta si no existe
+	            destinationFile.getParentFile().mkdirs();
+	
+	            try {
+	                // Copiar el archivo a la carpeta de destino
+	                Files.copy(fileToUpload.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	                imagen = destinationFile.getAbsolutePath();
+	                nuevasRutas.add(imagen);
+	            } catch (IOException ioException) {
+	                JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	           
+	            }
+	    	}
+    		return nuevasRutas;
+        }
+    	return null;
+    	
+    }
+
+    
 }

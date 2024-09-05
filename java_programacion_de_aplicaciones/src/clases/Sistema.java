@@ -168,7 +168,7 @@ public class Sistema extends ISistema {
 		}
 		*/
 		try {
-			this.existeProducto(titulo, numReferencia);
+			this.existeProducto(titulo, numReferencia, false);
 		} catch (ProductoRepetidoException e) {
 			throw new ProductoRepetidoException(e.getMessage());
 		}
@@ -630,10 +630,13 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override
-	public void existeProducto(String nombreProd, int numReferencia) throws ProductoRepetidoException {		
+	public void existeProducto(String nombreProd, int numReferencia, boolean caso) throws ProductoRepetidoException {
+		if (caso && this.productoActual == null) {
+			throw new NullPointerException("No se ha elegido un producto previamente.");
+		}
 		for (Categoria categoria : this.categorias.values()) {
 			try {
-				buscarProductoEnCategoria(categoria, nombreProd, numReferencia);
+				buscarProductoEnCategoria(categoria, nombreProd, numReferencia, caso);
 			} catch (ProductoRepetidoException e) {
 				throw new ProductoRepetidoException(e.getMessage());
 			}
@@ -641,19 +644,23 @@ public class Sistema extends ISistema {
 	}
 
 	//@Override
-	private void buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia) throws ProductoRepetidoException { // Hay que probar esto
+	private void buscarProductoEnCategoria(Categoria categoria, String nombreProd, int numReferencia, boolean caso) throws ProductoRepetidoException { // Hay que probar esto
 	    for (Producto producto : categoria.getProductos()) {
 	        if (producto.getNombreProducto().equalsIgnoreCase(nombreProd)) {
-	        	throw new ProductoRepetidoException("Ya existe un producto con ese nombre en el sistema.");
+	        	if (caso && producto != this.productoActual) {
+	        		throw new ProductoRepetidoException("Ya existe un producto con ese nombre en el sistema.");
+	        	}
 	        }
 	        if (producto.getNumReferencia() == numReferencia){
-	        	throw new ProductoRepetidoException("Ya existe un producto con ese número de referencia en el sistema.");
+	        	if (caso && producto != this.productoActual) {
+	        		throw new ProductoRepetidoException("Ya existe un producto con ese número de referencia en el sistema.");
+	        	}
 	        }
 	    }
 
 	    for (Categoria subcategoria : categoria.getHijos().values()) {
 	    	try {
-				buscarProductoEnCategoria(subcategoria, nombreProd, numReferencia);
+				buscarProductoEnCategoria(subcategoria, nombreProd, numReferencia, caso);
 			} catch (ProductoRepetidoException e) {
 				throw new ProductoRepetidoException(e.getMessage());
 			}
@@ -669,7 +676,7 @@ public class Sistema extends ISistema {
 			throw new IllegalArgumentException("El precio elegido no puede ser menor o igual a 0.");
 		}
 		try {
-			existeProducto(nombreProd, numReferencia);
+			existeProducto(nombreProd, numReferencia, true);
 		} catch (ProductoRepetidoException e) {
 			throw new ProductoRepetidoException(e.getMessage());
 		}
@@ -740,9 +747,11 @@ public class Sistema extends ISistema {
 		DTFecha fecha1 = new DTFecha(2, 4, 2024);
         DTFecha fecha2 = new DTFecha(6, 8, 2024);
        
-        Categoria cat1 = new Categoria( "Liquidos", false, null);
-        Categoria cat3 = new Categoria( "Electronicos",  false, null);
-        Categoria cat2 = new Categoria( "Intrumentos Electricos",  false, cat3);
+        Categoria cat1 = new Categoria( "Liquidos", true, null);
+        Categoria cat3 = new Categoria( "Electronicos",  true, null);
+        Categoria cat2 = new Categoria( "Intrumentos Electricos",  true, cat3);
+        
+        cat3.agregarHijo(cat2.getNombreCat(), cat2);
         
         List<Categoria> c1= new ArrayList<>();
         List<Categoria> c2= new ArrayList<>();
@@ -753,7 +762,7 @@ public class Sistema extends ISistema {
         c3.add(cat2);
         
         this.getCategorias().put(cat1.getNombreCat(), cat1);
-        this.getCategorias().put(cat2.getNombreCat(), cat2);
+        // this.getCategorias().put(cat2.getNombreCat(), cat2);
         this.getCategorias().put(cat3.getNombreCat(), cat3);
         
         String imagen1 = "/Images/Chico1.png";
@@ -775,14 +784,25 @@ public class Sistema extends ISistema {
         Producto producto2 = new Producto("Guitarra", "Guitarra electrica de ebano.", "Hambucker Doble", 998, 16500.0f, null, c1,  pr2);
         Producto producto3 = new Producto("Control Remoto", "Util para televisores de alta calidad.", "Pilas AAA", 997, 350.20f, null, c3,  pr1);
         
+        cat1.agregarProducto(producto1);
+        cat2.agregarProducto(producto2);
+        cat2.agregarProducto(producto3);
+        cat3.agregarProducto(producto2);
+        
         OrdenDeCompra orden1 = new OrdenDeCompra(88, fecha1, cl1, null);
         orden1.setPrecioTotal(1350.50f);
+        
+        cl1.getOrdenesDeCompras().add(orden1);
         
         OrdenDeCompra orden2 = new OrdenDeCompra(77, fecha2, cl2, null);
         orden2.setPrecioTotal(555.75f);
         
+        cl2.getOrdenesDeCompras().add(orden2);
+        
         OrdenDeCompra orden3 = new OrdenDeCompra(66, fecha1, cl3, null);
         orden3.setPrecioTotal(625.50f);
+        
+        cl1.getOrdenesDeCompras().add(orden3);
         
         orden1.agregarProducto(producto1.getDTProducto(), 15);
         orden1.agregarProducto(producto2.getDTProducto(), 3);
@@ -802,6 +822,7 @@ public class Sistema extends ISistema {
 		this.usuarios.add(pr1);
 		this.usuarios.add(pr2);
 
+		/*
         int count = 0;
         
         for (Categoria cat : this.categorias.values()) {
@@ -819,6 +840,7 @@ public class Sistema extends ISistema {
         		producto3.setCategorias(lista);
         	}
         }
+        */
        
 		
 	}

@@ -38,6 +38,11 @@ import excepciones.UsuarioNoExisteException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -484,8 +489,9 @@ public class RegistrarProducto extends JInternalFrame {
 					precio = Float.valueOf(campoPrecio.getText().trim());
 					categoria = listaCategorias();
 					imagenes = listaImagenes();
+					List<String> rutasActualizadas = guardarImagenesEnCarpeta(imagenes);
 					// titulo,  numReferencia,  descrip,  especificaciones,  precio, List<Categoria> categorias, List<String> imagenes
-					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, imagenes);
+					sistema.registrarProducto(nombre, numReferencia, descrip, especificacion, precio, categoria, rutasActualizadas);
 					mostrarInformacion();
 					limpiarCampos();
 				} catch(Exception exc) {
@@ -498,6 +504,35 @@ public class RegistrarProducto extends JInternalFrame {
 		getContentPane().add(BotonRegistrar);
 			
 	}
+	
+    public List<String> guardarImagenesEnCarpeta(List<String> nuevasImagenes) {
+    	
+    	List<String> nuevasRutas = new ArrayList<>();
+    	
+    	if (nuevasImagenes != null && !nuevasImagenes.isEmpty()) {
+    		for (String imagen : nuevasImagenes) {
+	            File fileToUpload = new File(imagen);
+	            String destinationPath = "src/images/" + fileToUpload.getName();  
+	            File destinationFile = new File(destinationPath);
+	
+	            // Crear la carpeta si no existe
+	            destinationFile.getParentFile().mkdirs();
+	
+	            try {
+	                // Copiar el archivo a la carpeta de destino
+	                Files.copy(fileToUpload.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	                imagen = destinationFile.getAbsolutePath();
+	                nuevasRutas.add(imagen);
+	            } catch (IOException ioException) {
+	                JOptionPane.showMessageDialog(null, "Error al guardar la imagen: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	           
+	            }
+	    	}
+    		return nuevasRutas;
+        }
+    	return null;
+    	
+    }
 
 	
 }
