@@ -768,7 +768,7 @@ public class Sistema extends ISistema {
         Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1);
         
         Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com");
-        Proveedor pr2 = new Proveedor("Maria_02", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACross.com");
+        Proveedor pr2 = new Proveedor("Amy_w", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACross.com");
         Proveedor pr3 = new Proveedor("Zo3", "Zoe", "Gatusso", "zoe.gatu@example.com", fecha2, imagen6, "Flamin-Go", "http://FlaminGo.com");
         
         Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c2,  pr3);
