@@ -104,7 +104,7 @@ public abstract class ISistema{
 	
 	public abstract DTProveedorDetallado verInformacionProveedor();
 	
-	public abstract void agregarOrden(List<Cantidad> cantidad);
+	public abstract OrdenDeCompra agregarOrden(List<Cantidad> cantidad);
 	
 	public abstract void setTodoNull();
 }

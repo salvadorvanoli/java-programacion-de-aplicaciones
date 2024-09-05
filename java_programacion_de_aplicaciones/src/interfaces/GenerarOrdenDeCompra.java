@@ -1,12 +1,13 @@
 package interfaces;
 import java.awt.EventQueue;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import clases.OrdenDeCompra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -405,17 +406,31 @@ public class GenerarOrdenDeCompra extends JInternalFrame {
 			        if (listaCantidades == null || listaCantidades.isEmpty()) {
 			            throw new Exception("No ha ingresado nada aún"); // Lanza excepción si la lista está vacía
 			        } else {
-			            // Agrega uno a uno a la orden
-			            sistema.agregarOrden(listaCantidades);
+			        	OrdenDeCompra nueva = sistema.agregarOrden(listaCantidades);
 
-			            // Mostrar el mensaje de éxito
-			            JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			        	// Construir el mensaje con los detalles de la orden
+			        	StringBuilder mensaje = new StringBuilder();
+			        	mensaje.append("Cliente: ").append(nueva.getCliente().getNickname()).append("\n");
+			        	mensaje.append("Fecha: ").append(nueva.getFecha()).append("\n");
+			        	mensaje.append("Número de Orden: ").append(nueva.getNumero()).append("\n");
+			        	mensaje.append("Detalles de la Orden:\n");
+
+			        	float total = 0;
+
+			        	for (Cantidad c : nueva.getCantidad()) {
+			        	    mensaje.append("- Producto: ").append(c.getProducto().getNombre())
+			        	           .append(", Cantidad: ").append(c.getCantidad()).append("\n");
+			        	    total += c.getProducto().getPrecio() * c.getCantidad();
+			        	}
+
+			        	// Agregar el total al mensaje
+			        	mensaje.append("Total: $").append(String.format("%.2f", total)).append("\n");
+
+			        	// Mostrar el mensaje de éxito con los detalles
+			        	JOptionPane.showMessageDialog(null, mensaje.toString(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
 			            // Cerrar el JInternalFrame
 			            JInternalFrame internalFrame = (JInternalFrame) SwingUtilities.getAncestorOfClass(JInternalFrame.class, (Component) e.getSource());
-			            if (internalFrame != null) {
-			                internalFrame.dispose();
-			            }
 			        }
 			    } catch (Exception ex) {
 			        // Mostrar solo el mensaje de error
