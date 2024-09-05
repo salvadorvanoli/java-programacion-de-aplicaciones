@@ -223,10 +223,11 @@ public class VerInformacionCliente extends JInternalFrame {
 		btnVerFoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if ( imagen != null && (! imagen.isBlank()) && ! (imagen.isEmpty())) {
+				if ( imagen != null && !(imagen.isBlank()) && !(imagen.isEmpty())) {
 
 			        // Cargar y agregar la imagen al panel
 		            File archivoImagen = new File(imagen);
+					
 		            if (archivoImagen.exists()) {
 		            	
 		            	// Crear el JInternalFrame
