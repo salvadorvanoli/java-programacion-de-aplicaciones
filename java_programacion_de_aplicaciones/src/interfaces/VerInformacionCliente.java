@@ -149,7 +149,7 @@ public class VerInformacionCliente extends JInternalFrame {
 					menu.getMenuPrincipal().revalidate();
 					menu.getMenuPrincipal().repaint();
 				} else {
-					
+					JOptionPane.showMessageDialog(null, "El usuario no tiene órdenes de compra asociadas", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
