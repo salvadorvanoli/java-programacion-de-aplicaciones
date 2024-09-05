@@ -472,23 +472,51 @@ public class Sistema extends ISistema {
 	
 	// Funciones que no estaban
 	@Override
-	public void agregarProductoACategorias(List<Categoria> listaCat) {
+	public void agregarProductoACategorias(List<Categoria> categorias) throws CategoriaNoPuedeTenerProductosException {
 		if (this.productoActual == null) {
 			throw new NullPointerException("No se ha elegido un producto previamente.");
 		}
-		if (listaCat != null && ! (listaCat.isEmpty())) {
-			for (Categoria cat : listaCat) {
+		
+		String categoriasSinProductos = "";
+		for(Categoria cat : categorias) {
+			if(!cat.isTieneProductos()) {
+				if(categoriasSinProductos != "") {
+					categoriasSinProductos += ", ";
+				}
+				categoriasSinProductos += cat.getNombreCat();
+			}
+		}
+		
+		if (categoriasSinProductos != "") {
+	        throw new CategoriaNoPuedeTenerProductosException("Las categorías " + categoriasSinProductos + " no puede contener productos.");
+	    }
+		
+		if (categorias != null && ! (categorias.isEmpty())) {
+			for (Categoria cat : categorias) {
 				cat.agregarProducto(this.productoActual);
 			}
 		}
 	}
 	
-	public void agregarCategoriasAProducto(List<Categoria> listaCat) {
+	public void agregarCategoriasAProducto(List<Categoria> categorias) throws CategoriaNoPuedeTenerProductosException {
 		if (this.productoActual == null) {
 			throw new NullPointerException("No se ha elegido un producto previamente.");
 		}
-		if (listaCat != null && ! (listaCat.isEmpty())) {
-			this.productoActual.setCategorias(listaCat);
+		String categoriasSinProductos = "";
+		for(Categoria cat : categorias) {
+			if(!cat.isTieneProductos()) {
+				if(categoriasSinProductos != "") {
+					categoriasSinProductos += ", ";
+				}
+				categoriasSinProductos += cat.getNombreCat();
+			}
+		}
+		
+		if (categoriasSinProductos != "") {
+	        throw new CategoriaNoPuedeTenerProductosException("Las categorías " + categoriasSinProductos + " no puede contener productos.");
+	    }
+		if (categorias != null && ! (categorias.isEmpty())) {
+			this.productoActual.setCategorias(categorias);
 		}
 	}
 	

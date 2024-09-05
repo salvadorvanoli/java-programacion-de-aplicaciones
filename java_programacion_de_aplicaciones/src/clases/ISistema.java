@@ -86,9 +86,9 @@ public abstract class ISistema{
 
 	public abstract void quitarProductoDeCategorias(boolean seAgreganCategorias);
 	
-	public abstract void agregarProductoACategorias(List<Categoria> listaCat);
+	public abstract void agregarProductoACategorias(List<Categoria> listaCat) throws CategoriaNoPuedeTenerProductosException;
 	
-	public abstract void agregarCategoriasAProducto(List<Categoria> listaCat);
+	public abstract void agregarCategoriasAProducto(List<Categoria> listaCat) throws CategoriaNoPuedeTenerProductosException;
 	
 	public abstract void existeProducto(String nombreProd, int numReferencia, boolean caso) throws ProductoRepetidoException;
 
