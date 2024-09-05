@@ -61,6 +61,8 @@ public class VerInformacionCliente extends JInternalFrame {
 		this.textFieldApellido.setText("");
 		this.textFieldFechaNac.setText("");
 		this.imagen = "";
+		this.btnVerFoto.setEnabled(false);
+		this.btnVerInfoOrdenes.setEnabled(false);
 	}
 
 	/**
@@ -106,6 +108,8 @@ public class VerInformacionCliente extends JInternalFrame {
                         textFieldApellido.setText(informacionDetalladaCliente.getApellido());
                         textFieldFechaNac.setText(informacionDetalladaCliente.getFechaNac().toString());
                         imagen = informacionDetalladaCliente.getFoto();
+                        btnVerFoto.setEnabled(true);
+                		btnVerInfoOrdenes.setEnabled(true);
                         if (menu.getInfoOrdenInternalFrame() != null && menu.getInfoOrdenInternalFrame().isVisible()) {
                         	menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
                         }
@@ -113,6 +117,8 @@ public class VerInformacionCliente extends JInternalFrame {
                         // CREAR UNA VENTANA DE ERROR
                     }
                 } else {
+                	limpiarCampos();
+                	
                     // CREAR UNA VENTANA DE ERROR
                 }
 			}
@@ -155,6 +161,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblNickname);
 		
 		JTextField textFieldNickname = new JTextField();
+		textFieldNickname.setEditable(false);
 		textFieldNickname.setBounds(106, 139, 129, 20);
 		getContentPane().add(textFieldNickname);
 		textFieldNickname.setColumns(10);
@@ -166,6 +173,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblEmail);
 		
 		JTextField textFieldEmail = new JTextField();
+		textFieldEmail.setEditable(false);
 		textFieldEmail.setColumns(10);
 		textFieldEmail.setBounds(106, 180, 129, 20);
 		getContentPane().add(textFieldEmail);
@@ -177,6 +185,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblNombre);
 		
 		JTextField textFieldNombre = new JTextField();
+		textFieldNombre.setEditable(false);
 		textFieldNombre.setColumns(10);
 		textFieldNombre.setBounds(359, 139, 129, 20);
 		getContentPane().add(textFieldNombre);
@@ -188,6 +197,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblApellido);
 		
 		JTextField textFieldApellido = new JTextField();
+		textFieldApellido.setEditable(false);
 		textFieldApellido.setColumns(10);
 		textFieldApellido.setBounds(359, 180, 129, 20);
 		getContentPane().add(textFieldApellido);
@@ -199,6 +209,7 @@ public class VerInformacionCliente extends JInternalFrame {
 		getContentPane().add(lblFechaNac);
 		
 		JTextField textFieldFechaNac = new JTextField();
+		textFieldFechaNac.setEditable(false);
 		textFieldFechaNac.setColumns(10);
 		textFieldFechaNac.setBounds(106, 222, 129, 20);
 		getContentPane().add(textFieldFechaNac);
@@ -284,6 +295,8 @@ public class VerInformacionCliente extends JInternalFrame {
 		for (DTCliente cli : lista) {
 			this.seleccionCliente.addItem(cli);
 		}
+		
+		seleccionCliente.setSelectedIndex(-1);
 		
 	}
 }
