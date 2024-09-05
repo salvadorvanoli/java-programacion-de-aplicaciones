@@ -121,6 +121,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 		//this.textAreaImagenes.setText("");
 		this.nuevasCategorias = new ArrayList<>();
 		this.nuevasImagenes = new ArrayList<>();
+		this.imagenesActuales = new ArrayList<>();
 	}
 	
 	public void limpiarListaProductos() {
@@ -464,8 +465,9 @@ public class ModificarDatosProducto extends JInternalFrame {
 					sistema.quitarProductoDeCategorias(sePuedenModificarCategorias);
 					sistema.agregarCategoriasAProducto(nuevasCategorias);
 					sistema.agregarProductoACategorias(nuevasCategorias);
-			        JOptionPane.showMessageDialog(null, "Orden realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			        JOptionPane.showMessageDialog(null, "Producto modificado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 			        cargarProductos();
+			        limpiarCampos();
 				} catch (Exception exc) {
 		            JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -616,7 +618,7 @@ public class ModificarDatosProducto extends JInternalFrame {
     
     public List<String> guardarImagenesEnCarpeta(List<String> imagenesAnteriores, List<String> nuevasImagenes) {
     	
-    	if (imagenesAnteriores != null && !imagenesAnteriores.isEmpty() && nuevasImagenes != null && !nuevasImagenes.isEmpty()) {
+    	if (imagenesAnteriores != null && !imagenesAnteriores.isEmpty() && nuevasImagenes != null && !nuevasImagenes.isEmpty() && !imagenesAnteriores.equals(nuevasImagenes)) {
     		for (String rutaImagen : imagenesAnteriores) {
     			Path path = Paths.get(rutaImagen);
                 try {
