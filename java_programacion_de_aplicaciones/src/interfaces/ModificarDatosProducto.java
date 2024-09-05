@@ -219,6 +219,7 @@ public class ModificarDatosProducto extends JInternalFrame {
 			                try {
 			                	sistema.elegirCategoria(selectedNode.toString());
 			                	cargarProductos();
+			                	seleccionProducto.setSelectedIndex(-1);
 			                } catch (CategoriaNoExisteException exc) {
 			                	JOptionPane.showMessageDialog(null, exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			                }
