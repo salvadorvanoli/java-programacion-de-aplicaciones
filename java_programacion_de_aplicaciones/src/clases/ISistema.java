@@ -13,6 +13,7 @@ import excepciones.ProductoNoExisteException;
 import excepciones.ProductoRepetidoException;
 // import excepciones.ProductoRepetidoException;
 import excepciones.UsuarioNoExisteException;
+import excepciones.ContraseniaIncorrectaException;
 
 public abstract class ISistema{
 	
@@ -44,7 +45,7 @@ public abstract class ISistema{
 	
 	public abstract boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException;
 	
-	public abstract boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen, String contrasenia1, String contrasenia2) throws UsuarioRepetidoException;
+	public abstract boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen, String contrasenia1, String contrasenia2) throws UsuarioRepetidoException, ContraseniaIncorrectaException;
 
 	public abstract boolean registrarProducto(String titulo, int numReferencia, String descrip, String especificaciones, float precio, List<Categoria> categorias, List<String> imagenes) throws ProductoRepetidoException, CategoriaNoPuedeTenerProductosException;
 	

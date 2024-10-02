@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import clases.DTFecha;
 import clases.ISistema;
 import excepciones.UsuarioRepetidoException;
+import excepciones.ContraseniaIncorrectaException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -205,6 +206,9 @@ public class RegistrarProveedor extends JInternalFrame {
 				}
 				catch(UsuarioRepetidoException e1){
 					JOptionPane.showMessageDialog(RegistrarProveedor.this, e1.getMessage(), "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
+				} catch (ContraseniaIncorrectaException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(RegistrarProveedor.this, e1.getMessage(), "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -254,6 +258,8 @@ public class RegistrarProveedor extends JInternalFrame {
 		textLink.setText("");
 		DateFecha.setDate(null);
 		rutaImagen = "";
+		contrasenia1input.setText("");
+		contrasenia2input.setText("");
 	}
 	private boolean chequearFormulario() {
 		String nickname = textNick.getText();
@@ -271,7 +277,12 @@ public class RegistrarProveedor extends JInternalFrame {
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		if (contrasenia1 != contrasenia2) {
+		if (contrasenia1.length() < 8) {
+			JOptionPane.showMessageDialog(this, "La contraseña debe ser de 8 caracteres o más", "Registrar ",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (!contrasenia1.equals(contrasenia2)) {
 			JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Registrar ",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
