@@ -19,7 +19,7 @@ import excepciones.ProductoNoExisteException;
 import excepciones.ProductoRepetidoException;
 import excepciones.OrdenDeCompraNoExisteException;
 import excepciones.OrdenDeCompraRepetidaException;
-
+import excepciones.ContraseniaIncorrectaException;
 
 public class Sistema extends ISistema {
 	
@@ -113,7 +113,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override // NO ES NECESARIO QUE SEA BOOL
-	public boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen) throws UsuarioRepetidoException {
+	public boolean altaUsuarioProveedor(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String nomCompania, String linkWeb, String imagen, String contrasenia1, String contrasenia2) throws UsuarioRepetidoException, ContraseniaIncorrectaException {
 		for (Usuario user : this.usuarios) {
 			if (user.getEmail().equalsIgnoreCase(email)) {
 				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el email " + '"' + email + '"' + '.');
@@ -122,7 +122,12 @@ public class Sistema extends ISistema {
 				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname " + '"' + nickname + '"' + '.');
 			}
 		}
-		Proveedor nuevo = new Proveedor(nickname, nombre, apellido, email, fechaNac, imagen, nomCompania, linkWeb);
+		
+		if (!contrasenia1.equals(contrasenia2)) {
+			throw new ContraseniaIncorrectaException("Las contraseñas no coinciden");
+		}
+		
+		Proveedor nuevo = new Proveedor(nickname, nombre, apellido, email, fechaNac, imagen, nomCompania, linkWeb, contrasenia1);
 		this.usuarios.add(nuevo);
 		return true;
 	}
