@@ -42,6 +42,8 @@ public class RegistrarProveedor extends JInternalFrame {
 	private JTextField textLink;
 	private JDateChooser DateFecha;
 	private String rutaImagen = "";
+	private JTextField contrasenia1input;
+	private JTextField contrasenia2input;
 
 
 	/**
@@ -62,7 +64,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		setTitle("Registrar Proveedor");
 		setClosable(true);
-		setBounds(100, 100, 416, 522);
+		setBounds(100, 100, 417, 620);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelRegProv = new JLabel("Registrar Proveedor");
@@ -147,7 +149,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		    }
 		});
 
-		ButtonImg.setBounds(38, 386, 168, 20);
+		ButtonImg.setBounds(38, 495, 168, 20);
 		getContentPane().add(ButtonImg);
 		
 		JButton ButtonReg = new JButton("Registrar");
@@ -161,7 +163,9 @@ public class RegistrarProveedor extends JInternalFrame {
 						String apellido = textApe.getText();
 						String comp = textCompan.getText();
 						String link = textLink.getText();
-						Date fechaN = DateFecha.getDate();	
+						Date fechaN = DateFecha.getDate();
+						String contrasenia1 = contrasenia1input.getText();
+						String contrasenia2 = contrasenia2input.getText();
 						Calendar calendar = Calendar.getInstance();
 				        calendar.setTime(fechaN);
 				        int dia = calendar.get(Calendar.DAY_OF_MONTH);
@@ -193,7 +197,7 @@ public class RegistrarProveedor extends JInternalFrame {
 		                   
 		                    }
 		                }
-						sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen);
+						sistema.altaUsuarioProveedor(nickname, correo, nombre, apellido, dtFecha, comp, link, rutaImagen, contrasenia1, contrasenia2);
 						JOptionPane.showMessageDialog(RegistrarProveedor.this, "El Proveedor se ha creado.", "Registrar Proveedor",
 								JOptionPane.INFORMATION_MESSAGE);
 						limpiarFormulario();
@@ -205,7 +209,7 @@ public class RegistrarProveedor extends JInternalFrame {
 				
 			}
 		});
-		ButtonReg.setBounds(256, 433, 114, 23);
+		ButtonReg.setBounds(256, 538, 114, 23);
 		getContentPane().add(ButtonReg);
 		
 		DateFecha = new JDateChooser();
@@ -218,8 +222,26 @@ public class RegistrarProveedor extends JInternalFrame {
 				limpiarFormulario();
 			}
 		});
-		ButtonCancel.setBounds(38, 433, 105, 23);
+		ButtonCancel.setBounds(38, 538, 105, 23);
 		getContentPane().add(ButtonCancel);
+		
+		contrasenia1input = new JTextField();
+		contrasenia1input.setColumns(10);
+		contrasenia1input.setBounds(148, 384, 222, 20);
+		getContentPane().add(contrasenia1input);
+		
+		JLabel Contrasenia1 = new JLabel("Contraseña");
+		Contrasenia1.setBounds(38, 387, 67, 14);
+		getContentPane().add(Contrasenia1);
+		
+		contrasenia2input = new JTextField();
+		contrasenia2input.setColumns(10);
+		contrasenia2input.setBounds(148, 433, 222, 20);
+		getContentPane().add(contrasenia2input);
+		
+		JLabel Contrasenia2 = new JLabel("Repita contraseña");
+		Contrasenia2.setBounds(38, 436, 105, 14);
+		getContentPane().add(Contrasenia2);
 
 	}
 	
@@ -241,9 +263,16 @@ public class RegistrarProveedor extends JInternalFrame {
 		//Date fechaN = DateFecha.getDate();
 		String comp = textCompan.getText();
 		String link = textLink.getText();
+		String contrasenia1 = contrasenia1input.getText();
+		String contrasenia2 = contrasenia2input.getText();
 		
-		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null || comp.isEmpty() || link.isEmpty()) {
+		if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null || comp.isEmpty() || link.isEmpty() || contrasenia1.isEmpty() || contrasenia2.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar ",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (contrasenia1 != contrasenia2) {
+			JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Registrar ",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

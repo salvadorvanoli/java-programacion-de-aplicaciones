@@ -9,14 +9,16 @@ public class Usuario{
     private String email;
     private DTFecha fechaNac;
     private String foto;
+    private String contrasenia;
 
-    public Usuario(String nickname, String nombre, String apellido, String email, DTFecha fechaNac, String foto){
+    public Usuario(String nickname, String nombre, String apellido, String email, DTFecha fechaNac, String foto, String contrasenia){
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.fechaNac = fechaNac;
         this.foto = foto;
+        this.contrasenia = contrasenia;
     }
 
 	public String getNickname() {
@@ -65,5 +67,13 @@ public class Usuario{
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 }
