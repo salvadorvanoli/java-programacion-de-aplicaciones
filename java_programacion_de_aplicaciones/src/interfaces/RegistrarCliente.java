@@ -41,6 +41,8 @@ public class RegistrarCliente extends JInternalFrame {
 	private JTextField textApe;
 	private JDateChooser DateFecha;
 	private String rutaImagen = "";
+	private JTextField textCon;
+	private JTextField textConfirmarCon;
 
 	/**
 	 * Launch the application.
@@ -58,7 +60,7 @@ public class RegistrarCliente extends JInternalFrame {
 		setFrameIcon(new ImageIcon(img));
 		setTitle("Registrar Cliente");
 		setClosable(true);
-		setBounds(100, 100, 416, 436);
+		setBounds(100, 100, 416, 519);
 		getContentPane().setLayout(null);
 		
 		JLabel LabelRegCli = new JLabel("Registrar Cliente");
@@ -104,11 +106,11 @@ public class RegistrarCliente extends JInternalFrame {
 		getContentPane().add(textApe);
 		
 		JLabel LabelFecha = new JLabel("Fecha de Nacimiento");
-		LabelFecha.setBounds(38, 233, 132, 14);
+		LabelFecha.setBounds(38, 334, 132, 14);
 		getContentPane().add(LabelFecha);
 		
 		JButton ButtonImg = new JButton("Asignar una imagen");
-		ButtonImg.setBounds(38, 309, 169, 20);
+		ButtonImg.setBounds(38, 410, 169, 20);
 		getContentPane().add(ButtonImg);
 		
 		ButtonImg.addActionListener(new ActionListener() {
@@ -129,8 +131,26 @@ public class RegistrarCliente extends JInternalFrame {
 		});
 
 		DateFecha = new JDateChooser();
-		DateFecha.setBounds(38, 258, 144, 20);
+		DateFecha.setBounds(38, 359, 144, 20);
 		getContentPane().add(DateFecha);
+		
+		JLabel LabelContrasenia = new JLabel("Contraseña");
+		LabelContrasenia.setBounds(38, 234, 77, 14);
+		getContentPane().add(LabelContrasenia);
+		
+		JLabel lblConfirmarContrasenia = new JLabel("Confirmar contraseña");
+		lblConfirmarContrasenia.setBounds(38, 279, 115, 14);
+		getContentPane().add(lblConfirmarContrasenia);
+		
+		textCon = new JTextField();
+		textCon.setColumns(10);
+		textCon.setBounds(141, 231, 232, 20);
+		getContentPane().add(textCon);
+		
+		textConfirmarCon = new JTextField();
+		textConfirmarCon.setColumns(10);
+		textConfirmarCon.setBounds(193, 276, 180, 20);
+		getContentPane().add(textConfirmarCon);
 		
 		JButton ButtonReg = new JButton("Registrar");
 		ButtonReg.addActionListener(new ActionListener() {
@@ -141,6 +161,8 @@ public class RegistrarCliente extends JInternalFrame {
 						String correo = textMail.getText();
 						String nombre = textNom.getText();
 						String apellido = textApe.getText();
+						String contrasenia = textCon.getText();
+						String confirmarContrasenia = textConfirmarCon.getText();
 						Date fechaN = DateFecha.getDate();
 						Calendar calendar = Calendar.getInstance();
 				        calendar.setTime(fechaN);
@@ -181,12 +203,12 @@ public class RegistrarCliente extends JInternalFrame {
 					}
 				}
 				catch(UsuarioRepetidoException e){
-					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Registrar Cliente", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
-		ButtonReg.setBounds(268, 354, 105, 23);
+		ButtonReg.setBounds(268, 455, 105, 23);
 		getContentPane().add(ButtonReg);
 		
 		JButton ButtonCancel = new JButton("Cancelar");
@@ -195,8 +217,9 @@ public class RegistrarCliente extends JInternalFrame {
 				limpiarFormulario();
 			}
 		});
-		ButtonCancel.setBounds(38, 354, 105, 23);
+		ButtonCancel.setBounds(38, 455, 105, 23);
 		getContentPane().add(ButtonCancel);
+		
 	}
 	
 	//metodos
@@ -206,6 +229,8 @@ public class RegistrarCliente extends JInternalFrame {
 		textNom.setText("");
 		textApe.setText("");
 		textMail.setText("");
+		textCon.setText("");
+		textConfirmarCon.setText("");
 		DateFecha.setDate(null);
 		rutaImagen = "";
 	}
@@ -215,16 +240,28 @@ public class RegistrarCliente extends JInternalFrame {
 			String correo = textMail.getText();
 			String nombre = textNom.getText();
 			String apellido = textApe.getText();
+			String contrasenia = textCon.getText();
+			String confirmarContrasenia = textConfirmarCon.getText();
 			//Date fechaN = DateFecha.getDate();
-			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null) {
-				JOptionPane.showMessageDialog(RegistrarCliente.this, "No puede haber campos vacíos", "Registrar ",
+			if (nickname.isEmpty() || correo.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || DateFecha.getDate() == null || contrasenia.isEmpty() || confirmarContrasenia.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", "Error",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			if (!SinNumeros(nombre) || !SinNumeros(apellido)) {
-		        JOptionPane.showMessageDialog(this, "El nombre y apellido no pueden contener números.", "Registrar Proveedor", JOptionPane.ERROR_MESSAGE);
+		        JOptionPane.showMessageDialog(this, "El nombre y apellido no pueden contener números.", "Error", JOptionPane.ERROR_MESSAGE);
 		        return false;
 		    }
+			if (contrasenia.length() < 8) {
+				JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 8 caracteres.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			if (!contrasenia.equals(confirmarContrasenia)) {
+				JOptionPane.showMessageDialog(this, "'Contraseña' y 'Confirmar contraseña' deben coincidir.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
 			return true;
 	}
 			
@@ -232,6 +269,5 @@ public class RegistrarCliente extends JInternalFrame {
 	    // Expresión regular que permite solo letras (mayúsculas y minúsculas) y espacios
 	    return nombre.matches("[a-zA-Z ]+");
 	}	
-	
 }
 
