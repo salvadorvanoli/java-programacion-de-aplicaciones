@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import clases.DTCliente;
 import clases.DTClienteDetallado;
+import clases.DTFecha;
 import clases.ISistema;
 import excepciones.OrdenDeCompraNoExisteException;
 import excepciones.UsuarioNoExisteException;
@@ -131,18 +132,24 @@ public class VerInformacionCliente extends JInternalFrame {
 		JButton btnVerInfoOrdenes = new JButton("Ver Ordenes de Compra");
 		btnVerInfoOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (sistema.listarOrdenesDeCompra() != null && ! (sistema.listarOrdenesDeCompra().isEmpty())) {
-					// infoClienteInternalFrame.toBack();
-					menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
-					menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
-					// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
-					menu.getInfoOrdenInternalFrame().setVisible(true);
-					menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
-					menu.getMenuPrincipal().revalidate();
-					menu.getMenuPrincipal().repaint();
+				
+				if(!menu.getInfoOrdenInternalFrame().isVisible()) {
+					if (sistema.listarOrdenesDeCompra() != null && ! (sistema.listarOrdenesDeCompra().isEmpty())) {
+						// infoClienteInternalFrame.toBack();
+						menu.getInfoOrdenInternalFrame().cargarOrdenesDeCompra();
+						menu.getMenuPrincipal().getContentPane().add(menu.getInfoOrdenInternalFrame());
+						// infoOrdenInternalFrame.toFront(); // Traigo el internal frame al frente
+						menu.getInfoOrdenInternalFrame().setVisible(true);
+						menu.getInfoOrdenInternalFrame().setLocation(0, 0);  // Ajustar la posición del InternalFrame
+						menu.getMenuPrincipal().revalidate();
+						menu.getMenuPrincipal().repaint();
+					} else {
+						JOptionPane.showMessageDialog(null, "El usuario no tiene órdenes de compra asociadas", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
-					JOptionPane.showMessageDialog(null, "El usuario no tiene órdenes de compra asociadas", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ya está la ventana abierta", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 		btnVerInfoOrdenes.setBounds(166, 283, 177, 23);
