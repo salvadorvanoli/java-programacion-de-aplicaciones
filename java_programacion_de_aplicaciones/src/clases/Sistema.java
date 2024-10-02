@@ -98,7 +98,7 @@ public class Sistema extends ISistema {
 	}
 	
 	@Override // NO ES NECESARIO QUE SEA BOOL
-	public boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen) throws UsuarioRepetidoException {
+	public boolean altaUsuarioCliente(String nickname, String email, String nombre, String apellido, DTFecha fechaNac, String imagen,  String contrasenia1, String contrasenia2) throws UsuarioRepetidoException, ContraseniaIncorrectaException {
 		for (Usuario user : this.usuarios) {
 			if (user.getEmail().equalsIgnoreCase(email)) {
 				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el email " + '"' + email + '"' + '.');
@@ -107,7 +107,12 @@ public class Sistema extends ISistema {
 				throw new UsuarioRepetidoException("Ya existe un usuario registrado con el nickname"  + '"' + nickname + '"' + '.');
 			}
 		}
-		Cliente nuevo = new Cliente(nickname, nombre, apellido, email, fechaNac, imagen); // ESTO HAY QUE CAMBIARLO
+		
+		if (!contrasenia1.equals(contrasenia2)) {
+			throw new ContraseniaIncorrectaException("Las contraseñas no coinciden.");
+		}
+		
+		Cliente nuevo = new Cliente(nickname, nombre, apellido, email, fechaNac, imagen, contrasenia1); // ESTO HAY QUE CAMBIARLO
 		this.usuarios.add(nuevo);
 		return true;
 	}
@@ -124,7 +129,7 @@ public class Sistema extends ISistema {
 		}
 		
 		if (!contrasenia1.equals(contrasenia2)) {
-			throw new ContraseniaIncorrectaException("Las contraseñas no coinciden");
+			throw new ContraseniaIncorrectaException("Las contraseñas no coinciden.");
 		}
 		
 		Proveedor nuevo = new Proveedor(nickname, nombre, apellido, email, fechaNac, imagen, nomCompania, linkWeb, contrasenia1);
@@ -668,13 +673,13 @@ public class Sistema extends ISistema {
         String imagen5 = "/Images/Chica2.png";
         String imagen6 = "/Images/Chica3.png";
         
-        Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, imagen2);
-        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Panconqueso1012@example.com", fecha2, imagen5);
-        Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1);
+        Cliente cl1 = new Cliente("Salva", "Salvador", "Santurio", "Salva.Santu@example.com", fecha1, imagen2, "contrasenia");
+        Cliente cl2 = new Cliente("Otto", "Nadia", "Gorría", "Panconqueso1012@example.com", fecha2, imagen5, "supersonic");
+        Cliente cl3 = new Cliente("Protowarro", "Samuel", "Veintmilla", "Protowarro22@example.com", fecha2, imagen1, "aguanteoasis");
         
-        Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com");
-        Proveedor pr2 = new Proveedor("Amy_w", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACross.com");
-        Proveedor pr3 = new Proveedor("Zo3", "Zoe", "Gatusso", "zoe.gatu@example.com", fecha2, imagen6, "Flamin-Go", "http://FlaminGo.com");
+        Proveedor pr1 = new Proveedor("elIsma", "Isma", "Belardo", "lalala@example.com", fecha1, imagen3, "Sugar Cane Bank", "http://SugarCaneBank.com", "WonderWall");
+        Proveedor pr2 = new Proveedor("Amy_w", "Amy", "Casadevino", "amy.casadevino@example.com", fecha2, imagen4, "Mary on a cross Enterprise", "http://MaryOnACross.com", "breakingBAld");
+        Proveedor pr3 = new Proveedor("Zo3", "Zoe", "Gatusso", "zoe.gatu@example.com", fecha2, imagen6, "Flamin-Go", "http://FlaminGo.com", "Ghost-LOVER");
         
         Producto producto1 = new Producto("Agua Fresca", "Muy refrescante.", "Mineralizada", 999, 72.5f, null, c2,  pr3);
         Producto producto2 = new Producto("Guitarra", "Guitarra electrica de ebano.", "Hambucker Doble", 998, 16500.0f, null, c1,  pr2);

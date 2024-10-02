@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import clases.DTFecha;
 import clases.ISistema;
+import excepciones.ContraseniaIncorrectaException;
 import excepciones.UsuarioRepetidoException;
 
 import javax.swing.JTextField;
@@ -195,7 +196,7 @@ public class RegistrarCliente extends JInternalFrame {
 		                   
 		                    }
 		                }
-						sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen);
+						sistema.altaUsuarioCliente(nickname, correo, nombre, apellido, dtFecha, rutaImagen, contrasenia, confirmarContrasenia);
 						
 						JOptionPane.showMessageDialog(RegistrarCliente.this, "El Cliente se ha creado.", "Registrar Cliente",
 								JOptionPane.INFORMATION_MESSAGE);
@@ -203,6 +204,9 @@ public class RegistrarCliente extends JInternalFrame {
 					}
 				}
 				catch(UsuarioRepetidoException e){
+					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (ContraseniaIncorrectaException e) {
+					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(RegistrarCliente.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				

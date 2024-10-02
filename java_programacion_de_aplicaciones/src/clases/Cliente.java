@@ -7,8 +7,8 @@ public class Cliente extends Usuario{
 		private List <OrdenDeCompra> OrdenesDeCompras;
 		private List <Comentario> Comentarios;
 		
-		public Cliente(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto){
-			super(nickName, nombre, apellido, email, fecha, foto);
+		public Cliente(String nickName, String nombre, String apellido, String email, DTFecha fecha, String foto, String contrasenia){
+			super(nickName, nombre, apellido, email, fecha, foto, contrasenia);
 			this.OrdenesDeCompras = new ArrayList<>();
 			this.Comentarios = new ArrayList<>();
 		}
